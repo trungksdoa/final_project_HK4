@@ -452,7 +452,7 @@
                             <c:forEach items="${phieu}" var="x">
                                 <tr>
                                 <th scope="row">0</th>
-                                <td>${x.ma}</td>
+                                <td>${x.getMa()}</td>
                                 </tr>
                             </c:forEach> 
                             </tbody>
