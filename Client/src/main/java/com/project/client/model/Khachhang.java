@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author trung
+ * @author PC
  */
 @Entity
 @Table(name = "khachhang", catalog = "final_project", schema = "dbo")

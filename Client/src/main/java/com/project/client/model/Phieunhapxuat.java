@@ -25,7 +25,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author trung
+ * @author PC
  */
 @Entity
 @Table(name = "phieunhapxuat", catalog = "final_project", schema = "dbo")
@@ -268,28 +268,7 @@ public class Phieunhapxuat implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Phieunhapxuat{ma=").append(ma);
-        sb.append(", ngay=").append(ngay);
-        sb.append(", nhacungcap=").append(nhacungcap);
-        sb.append(", khachhang=").append(khachhang);
-        sb.append(", diachi=").append(diachi);
-        sb.append(", kieuNhapHayXuat=").append(kieuNhapHayXuat);
-        sb.append(", nguoinhap=").append(nguoinhap);
-        sb.append(", kieuthanhtoan=").append(kieuthanhtoan);
-        sb.append(", kho=").append(kho);
-        sb.append(", owed=").append(owed);
-        sb.append(", dathanhtoanbaonhieutien=").append(dathanhtoanbaonhieutien);
-        sb.append(", nguoigiao=").append(nguoigiao);
-        sb.append(", tinhtrangphieu=").append(tinhtrangphieu);
-        sb.append(", chugiai=").append(chugiai);
-        sb.append(", makhachhang=").append(makhachhang);
-        sb.append(", manhacungcap=").append(manhacungcap);
-        sb.append(", noidungNhapxuatCollection=").append(noidungNhapxuatCollection);
-        sb.append('}');
-        return sb.toString();
+        return "com.project.client.model.Phieunhapxuat[ ma=" + ma + " ]";
     }
-
-  
     
 }

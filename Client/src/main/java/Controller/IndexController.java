@@ -29,7 +29,7 @@ public class IndexController extends HttpServlet {
             SticketDAO dao = new SticketDAO();
             List<Phieunhapxuat> list = dao.GetAll();
             request.setAttribute("phieu", list);
-            request.getRequestDispatcher("thongke.jsp").forward(request, response);
+            request.getRequestDispatcher("layouts.jsp").forward(request, response);
         }
     }
 

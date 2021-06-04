@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author trung
+ * @author PC
  */
 @Entity
 @Table(name = "phieunhapxuat", catalog = "final_project", schema = "dbo")
