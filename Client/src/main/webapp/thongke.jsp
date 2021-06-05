@@ -11,507 +11,415 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AdminLTE 3 | Dashboard</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <!-- Font Awesome -->
-        <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
-        <!-- Ionicons -->
-        <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
-        <!-- Tempusdominus Bootstrap 4 -->
-        <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-        <!-- iCheck -->
-        <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-        <!-- JQVMap -->
-        <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
-        <!-- Theme style -->
-        <link rel="stylesheet" href="dist/css/adminlte.min.css">
-        <!-- overlayScrollbars -->
-        <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-        <!-- Daterange picker -->
-        <!-- <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
-        <!-- summernote -->
-        <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+        <script src="https://kit.fontawesome.com/cca0c56933.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+        <Style>
+            .my-custom-scrollbar {
+                height: 200px;
+                overflow: auto;
+            }
+
+            .table-wrapper-scroll-y {
+                display: block;
+            }
+        </Style>
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed">
-        <div class="wrapper">
-
-            <!-- Preloader -->
-            <div class="preloader flex-column justify-content-center align-items-center">
-                <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-            </div>
-
-            <!-- Navbar -->
-            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-                <!-- Left navbar links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                    </li>
-                </ul>
-
-                <!-- Right navbar links -->
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                            <i class="fas fa-expand-arrows-alt"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                            <i class="fas fa-th-large"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- /.navbar -->
-
-            <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <!-- Brand Logo -->
-                <a href="index3.html" class="brand-link">
-                    <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light">Quản Lý Kho Hàng</span>
-                </a>
-
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar user panel (optional) -->
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                        <div class="image">
-                            <img src="dist/img/4.jpg" class="img-circle elevation-2" alt="User Image">
+    <body>
+        <div class="container-fluid">
+            <div class="row" style="margin-top: 4%;">
+                <div class="col-lg-9">
+                    <form action="#">
+                        <div style="text-align: right;">
+                            <a href="#" type="button" class="btn btn-success">Lưu trữ</a>
                         </div>
-                        <div class="info">
-                            <a href="#" class="d-block">Admin</a>
-                        </div>
-                    </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="txtCodeShipper" class="form-label">Mã người giao</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="txtCodeShipper">
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <label for="inputPassword4" class="form-label">Tên người giao</label>
+                                <input type="text" readonly class="form-control" id="txtShiperName" name="txtShiperName" placeholder="">
+                            </div> -->
+                            <div class="col-md-6">
+                                <label for="txtNhaCungCap" class="form-label">Nhà cung cấp</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="txtNhaCungCap" name="txtExpain" placeholder="Nhà cung cấp">
 
-                    <!-- SidebarSearch Form -->
-                    <div class="form-inline">
-                        <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-sidebar">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </button>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" id="btnNCC" type="button"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="txtExplain" class="form-label">Diễn giải</label>
+                                <input type="text" class="form-control" id="txtExplain" name="txtExplain" placeholder="Diễn giải">
+                            </div>
+                            <div class="col-12">
+                                <label for="thamchieu" class="form-label">Tham chiếu:</label>
+                                <small><a href="#?id=DDH0000001">DDH0000001</a></small>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <!-- Add icons to the links using the .nav-icon class
-                   with font-awesome or any other icon font library -->
-                            <li class="nav-item menu-open">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Tổng Quan
-
-                                    </p>
-                                </a>
-
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="baogia.html" class="nav-link">
-                                    <i class="nav-icon fas fa-comment"></i>
-                                    <p>
-                                        Báo giá
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cart-arrow-down"></i>
-                                    <p>
-                                        Đặt hàng
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Đặt hàng mua</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Đặt hàng bán</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-procedures"></i>
-                                    <p>
-                                        QL Hàng hoá
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Nhập hàng</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Xuất bán</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                Kho hàng
-                                                <i class="fas fa-angle-left right"></i>
-                                            </p>
-                                        </a>
-                                        <ul style="margin-left: 30px;" class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <p>Thẻ kho</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <p>Phiếu quy đổi ĐVT</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <p>BC-Nhập-Xuất-Tồn</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Sổ chi tiết</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Sổ tổng hợp</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-dollar-sign"></i>
-                                    <p>
-                                        Thu chi
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="pages/forms/general.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Phiếu thu</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/forms/advanced.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Phiếu chi</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/forms/editors.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Sổ quỷ tiền mặt</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-user"></i>
-                                    <p>
-                                        Công nợ
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="pages/tables/simple.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Phiếu thu nợ KH</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Phiếu chi trả nợ NCU</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Công nợ phải trả</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Công nợ phải thu</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-pie"></i>
-                                    <p>
-                                        Báo cáo - Thống kê
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Lịch sử giao dịch</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>thống kê chi phí</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Báo cáo doanh số</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Báo cáo lợi nhuận</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-list-alt"></i>
-                                    <p>
-                                        Danh mục
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Hàng hoá</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Nhà cung ứng</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Khách hàng</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Nghiệp vụ</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cog"></i>
-                                    <p>
-                                        Cài đặt
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-assistive-listening-systems"></i>
-                                    <p>
-                                        Hệ thống
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                Khai báo số dư đầu kỳ
-                                                <i class="fas fa-angle-left right"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Đầu kỳ hàng hoá</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Đầu kì nợ phải thu</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Đầu kì nợ phải trả</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="data.html" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Đầu kì điểm tích luỹ</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                TK sử dụng phần mềm
-                                                <i class="fas fa-angle-left right"></i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- /.sidebar-menu -->
+                    </form>
                 </div>
-                <!-- /.sidebar -->
-            </aside>
-
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0">Tổng quan</h1>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                                    <li class="breadcrumb-item active"><a href="#">kho Hàng</a></li>
-                                    <li class="breadcrumb-item active"><a href="#">Nhập kho</a></li>
-                                </ol>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.container-fluid -->
+                <div class="col-lg-3">
+                    <form>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <h4>Thông tin chứng từ</h4>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Ngày</th>
+                                    <td><input type="datetime-local" id="txtDate" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Mã</th>
+                                    <td><input type="text" id="txtCode" placeholder="NKxxxxxxxx" /> </tr>
+                                </td>
+                                <tr>
+                                    <th scope="row">Kho</th>
+                                    <td class="form-inline">
+                                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </td>
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <table class="table">
+                <div class="col-lg-12">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">STT</th>
-                                    <th scope="col">Mã</th>
+                                    <th scope="col">Hàng hóa xuất bán</th>
+                                    <th scope="col">Đơn vị tính</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Đơn giá xuất</th>
+                                    <th scope="col">Chiết khấu(%)</th>
+                                    <th scope="col">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${phieu}" var="x">
                                 <tr>
-                                <th scope="row">0</th>
-                                <td>${x.getMa()}</td>
+                                    <td scope="row">1</td>
+                                    <td>
+                                        <input type="text" class="form-control" value="giay adidas">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="Hộp">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="5">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="300.000">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="0">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="1.500.000">
+                                    </td>
                                 </tr>
-                            </c:forEach> 
+                                <tr>
+                                    <td scope="row">1</td>
+                                    <td>
+                                        <input type="text" class="form-control" value="giay adidas">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="Hộp">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="5">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="300.000">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="0">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="1.500.000">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">1</td>
+                                    <td>
+                                        <input type="text" class="form-control" value="giay adidas">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="Hộp">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="5">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="300.000">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="0">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="1.500.000">
+                                    </td>
+                                </tr>
                             </tbody>
-                        </table>
+                        </table>                 
                     </div>
-                    <!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-                <div class="float-right d-none d-sm-inline-block">
-                    <b>Version</b> 3.1.0
+                    <table class="table table-bordered ">   
+                        <tr>
+                            <td scope="row"></td>
+                            <td colspan="2" style="text-align: center;">TỔNG CỘNG</td>
+                            <td>
+                                <input type="text" class="form-control" value="15">
+                            </td>
+
+                            <td colspan="2" style="text-align: center;color: royalblue  ;">
+                                TIỀN HÀNG
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" value="4.500.000">
+                            </td>
+                        </tr>
+                        <tr style="text-align: right; color: orangered;">
+                            <td colspan="5">
+                                <b>GIẢM GIÁ TỔNG</b>
+                            </td>
+                            <td>
+                                <input class="form-control">
+                            </td>
+                            <td>
+                                <input class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                HÌNH THỨC THANH TOÁN
+                            </th>
+                            <td>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" value="">tiền mặt
+                                        <input type="radio" class="form-check-input" value="">Visa Card ATM
+                                    </label>
+                                </div>
+                            </td>
+                            <th colspan="3" style="text-align: right;color: royalblue  ;">Tổng Cộng</th>
+                            <td>
+                                <input id="total" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="6" style="text-align: right; color: royalblue  ;">Đã thanh toán</th>
+                            <td>
+                                <input onkeyup="owed()" id="hasPayment" class="form-control">
+                                <div style="display: none;" id="message" class="alert alert-warning alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Giá trị không hợp lệ
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="6" style="text-align: right; color: red;">CÒN NỢ</th>
+                            <td>
+                                <input id="owed" class="form-control">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-            </footer>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
+            </div>
         </div>
-        <!-- ./wrapper -->
+        <div class="modal fade" id="addNCC" role="dialog">
+            <div class="modal-dialog ">
 
-        <!-- jQuery -->
-        <script src="plugins/jquery/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm mới nhà cung cấp</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="txtmodalCode" class="col-sm-4 col-form-label">Mã nhà cung cấp:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="txtmodalCode" placeholder="Ví dụ:VHTrung">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtmodalName" class="col-sm-4 col-form-label">Tên nhà cung cấp:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="txtmodalName" placeholder="Ví dụ:Võ Hoàng Trung">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtmodalPhone" class="col-sm-4 col-form-label">Số điện thoại:</label>
+                                <div class="col-sm-10 ">
+                                    <input type="number" class="form-control" id="txtmodalPhone" placeholder="ví dụ:0335857133">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
-            $.widget.bridge('uibutton', $.ui.button)
-        </script>
-        <!-- Bootstrap 4 -->
-        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- ChartJS -->
-        <script src="plugins/chart.js/Chart.min.js"></script>
-        <!-- Sparkline -->
-        <script src="plugins/sparklines/sparkline.js"></script>
-        <!-- JQVMap -->
-        <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-        <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-        <!-- daterangepicker -->
-        <script src="plugins/moment/moment.min.js"></script>
-        <script src="plugins/daterangepicker/daterangepicker.js"></script>
-        <!-- Tempusdominus Bootstrap 4 -->
-        <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-        <!-- Summernote -->
-        <script src="plugins/summernote/summernote-bs4.min.js"></script>
-        <!-- overlayScrollbars -->
-        <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="dist/js/adminlte.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="dist/js/demo.js"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="dist/js/pages/dashboard.js"></script>
 
+            function owed() {
+                var total = document.getElementById("total").value;
+                var hasPayment = document.getElementById("hasPayment").value;
+                var message = document.getElementById("message");
+                var owed = document.getElementById("owed");
+                if (total - hasPayment >= 0) {
+                    message.style.display = "none";
+                    console.log(owed.value = total - hasPayment);
+                    console.log(owed.value);
+                } else {
+                    message.style.display = "block";
+                    owed.value = 0;
+                }
+            }
+
+
+            function autocomplete(inp, arr) {
+                /*the autocomplete function takes two arguments,
+                 the text field element and an array of possible autocompleted values:*/
+                var currentFocus;
+                /*execute a function when someone writes in the text field:*/
+                inp.addEventListener("input", function (e) {
+                    var a, b, i, val = this.value;
+                    /*close any already open lists of autocompleted values*/
+                    closeAllLists();
+                    if (!val) {
+                        return false;
+                    }
+                    currentFocus = -1;
+                    /*create a DIV element that will contain the items (values):*/
+                    a = document.createElement("DIV");
+                    a.setAttribute("id", this.id + "autocomplete-list");
+                    a.setAttribute("class", "autocomplete-items");
+                    /*append the DIV element as a child of the autocomplete container:*/
+                    this.parentNode.appendChild(a);
+                    /*for each item in the array...*/
+                    for (i = 0; i < arr.length; i++) {
+                        /*check if the item starts with the same letters as the text field value:*/
+                        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                            /*create a DIV element for each matching element:*/
+                            b = document.createElement("DIV");
+                            /*make the matching letters bold:*/
+                            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                            b.innerHTML += arr[i].substr(val.length);
+                            /*insert a input field that will hold the current array item's value:*/
+                            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>" + " " + "<label>Trung</label";
+                            /*execute a function when someone clicks on the item value (DIV element):*/
+                            b.addEventListener("click", function (e) {
+                                /*insert the value for the autocomplete text field:*/
+                                inp.value = this.getElementsByTagName("input")[0].value;
+                                /*close the list of autocompleted values,
+                                 (or any other open lists of autocompleted values:*/
+                                closeAllLists();
+                            });
+                            a.appendChild(b);
+                        }
+                    }
+                });
+                /*execute a function presses a key on the keyboard:*/
+                inp.addEventListener("keydown", function (e) {
+                    var x = document.getElementById(this.id + "autocomplete-list");
+                    if (x)
+                        x = x.getElementsByTagName("div");
+                    if (e.keyCode == 40) {
+                        /*If the arrow DOWN key is pressed,
+                         increase the currentFocus variable:*/
+                        currentFocus++;
+                        /*and and make the current item more visible:*/
+                        addActive(x);
+                    } else if (e.keyCode == 38) { //up
+                        /*If the arrow UP key is pressed,
+                         decrease the currentFocus variable:*/
+                        currentFocus--;
+                        /*and and make the current item more visible:*/
+                        addActive(x);
+                    } else if (e.keyCode == 13) {
+                        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                        e.preventDefault();
+                        if (currentFocus > -1) {
+                            /*and simulate a click on the "active" item:*/
+                            if (x)
+                                x[currentFocus].click();
+                        }
+                    }
+                });
+                function addActive(x) {
+                    /*a function to classify an item as "active":*/
+                    if (!x)
+                        return false;
+                    /*start by removing the "active" class on all items:*/
+                    removeActive(x);
+                    if (currentFocus >= x.length)
+                        currentFocus = 0;
+                    if (currentFocus < 0)
+                        currentFocus = (x.length - 1);
+                    /*add class "autocomplete-active":*/
+                    x[currentFocus].classList.add("autocomplete-active");
+                }
+                function removeActive(x) {
+                    /*a function to remove the "active" class from all autocomplete items:*/
+                    for (var i = 0; i < x.length; i++) {
+                        x[i].classList.remove("autocomplete-active");
+                    }
+                }
+                function closeAllLists(elmnt) {
+                    /*close all autocomplete lists in the document,
+                     except the one passed as an argument:*/
+                    var x = document.getElementsByClassName("autocomplete-items");
+                    for (var i = 0; i < x.length; i++) {
+                        if (elmnt != x[i] && elmnt != inp) {
+                            x[i].parentNode.removeChild(x[i]);
+                        }
+                    }
+                }
+                /*execute a function when someone clicks in the document:*/
+                document.addEventListener("click", function (e) {
+                    closeAllLists(e.target);
+                });
+            }
+
+
+            $(document).ready(function () {
+                $.getJSON('http://localhost:9999/phieu', function (data) {
+                    $.each(data, function (index) {
+                        alert(data[index].ma);
+                    });
+                });
+            });
+        </script>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js " integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1 " crossorigin="anonymous "></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js " integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM " crossorigin="anonymous "></script>
     </body>
 </html>

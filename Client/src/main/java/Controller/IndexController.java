@@ -26,10 +26,8 @@ public class IndexController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            SticketDAO dao = new SticketDAO();
-            List<Phieunhapxuat> list = dao.GetAll();
-            request.setAttribute("phieu", list);
-            request.getRequestDispatcher("thongke.jsp").forward(request, response);
+//       
+        response.sendRedirect("thongke.jsp");
         }
     }
 
