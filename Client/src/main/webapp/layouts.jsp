@@ -10,9 +10,9 @@
     <jsp:include page="include/layout/link.jsp"/>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
-                <jsp:include page="include/layout/navbar.jsp"/>
-               <jsp:include page="include/layout/sidebar.jsp" />
-               
+            <jsp:include page="include/layout/navbar.jsp"/>
+            <jsp:include page="include/layout/sidebar.jsp" />
+
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
@@ -51,8 +51,8 @@
                             <tbody>
                             <c:forEach items="${phieu}" var="x">
                                 <tr>
-                                <th scope="row">0</th>
-                                <td>${x.ma}</td>
+                                    <th scope="row">0</th>
+                                    <td>${x.ma}</td>
                                 </tr>
                             </c:forEach> 
                             </tbody>
@@ -63,7 +63,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-                <jsp:include page="include/layout/footer.jsp" />
+            <jsp:include page="include/layout/footer.jsp" />
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Control sidebar content goes here -->
@@ -71,6 +71,6 @@
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-         <jsp:include page="include/layout/js.jsp" />
+        <jsp:include page="include/layout/js.jsp" />
     </body>
 </html>
