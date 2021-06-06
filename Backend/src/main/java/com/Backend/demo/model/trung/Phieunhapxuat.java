@@ -281,38 +281,38 @@ public class Phieunhapxuat implements Serializable {
         return "com.Backend.demo.model.trung.Phieunhapxuat[ ma=" + ma + " ]";
     }
 
-    @Autowired
-    thuvienPhieu phieus;
-
-    public Phieunhapxuat tim1() {
-        Optional<Phieunhapxuat> optional = phieus.findById(id);
-        //Convert optional to Object
-        Phieunhapxuat converToObject = optional.get();
-        return converToObject;
-    }
-
-    public List<Phieunhapxuat> laytatca() {
-
-        //
-        List<Phieunhapxuat> findAll = phieus.findAll();
-
-        //return list
-        return findAll;
-    }
-
-    public Phieunhapxuat taophieu() {
-        return phieus.save(phieu);
-    }
-
-    public void capnhap() {
-        phieus.save(phieu);
-    }
-
-    public void Delete() {
-        phieus.deleteById(id);
-    }
-
-    public boolean kiemtraidtontai() {
-        return phieus.existsById(id);
-    }
+//    @Autowired
+//    thuvienPhieu phieus;
+//
+//    public Phieunhapxuat tim1() {
+//        Optional<Phieunhapxuat> optional = phieus.findById(id);
+//        //Convert optional to Object
+//        Phieunhapxuat converToObject = optional.get();
+//        return converToObject;
+//    }
+//
+//    public List<Phieunhapxuat> laytatca() {
+//
+//        //
+//        List<Phieunhapxuat> findAll = phieus.findAll();
+//
+//        //return list
+//        return findAll;
+//    }
+//
+//    public Phieunhapxuat taophieu() {
+//        return phieus.save(phieu);
+//    }
+//
+//    public void capnhap() {
+//        phieus.save(phieu);
+//    }
+//
+//    public void Delete() {
+//        phieus.deleteById(id);
+//    }
+//
+//    public boolean kiemtraidtontai() {
+//        return phieus.existsById(id);
+//    }
 }
