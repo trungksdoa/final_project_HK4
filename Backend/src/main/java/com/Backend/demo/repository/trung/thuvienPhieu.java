@@ -1,4 +1,4 @@
-package com.Backend.demo.repository;
+package com.Backend.demo.repository.trung;
 
 import org.springframework.data.repository.CrudRepository;
 

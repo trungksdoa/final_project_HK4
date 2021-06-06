@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ControllDAO;
+package ControllDAO.trung;
 
 import com.project.client.model.Phieunhapxuat;
 import com.project.client.service.GetJsonToList;

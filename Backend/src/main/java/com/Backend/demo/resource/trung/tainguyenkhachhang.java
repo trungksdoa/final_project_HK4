@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.Backend.demo.resource;
+package com.Backend.demo.resource.trung;
 
 import com.Backend.demo.model.ConvertToArraylist_Khachhang;
 import com.Backend.demo.model.trung.Khachhang;
 import com.Backend.demo.model.trung.Phieunhapxuat;
-import com.Backend.demo.service.Dichvukhachhang;
+import com.Backend.demo.service.trung.Dichvukhachhang;
 import java.util.ArrayList;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

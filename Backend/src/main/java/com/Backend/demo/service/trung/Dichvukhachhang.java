@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.Backend.demo.service;
+package com.Backend.demo.service.trung;
 
 import com.Backend.demo.model.trung.Khachhang;
 import java.util.List;

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Controller.trung;
 
-import ControllDAO.SticketDAO;
-import com.project.client.model.Phieunhapxuat;
+import ControllDAO.trung.NhacungcapDAO;
+import com.google.gson.Gson;
+import com.project.client.model.Nhacungcap;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.util.Collections.list;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,15 +21,31 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author trung
  */
-public class IndexController extends HttpServlet {
+public class FindBylNhacungcap extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-//       
-        response.sendRedirect("thongke.jsp");
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet FindBylNhacungcap</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet FindBylNhacungcap at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -43,9 +61,13 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        NhacungcapDAO dao = new NhacungcapDAO();
+        List<Nhacungcap> findall = dao.GetAll();
+        String json = new Gson().toJson(findall);
 
-//        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 
     /**

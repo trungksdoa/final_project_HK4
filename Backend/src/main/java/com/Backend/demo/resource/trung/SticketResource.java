@@ -1,4 +1,4 @@
-package com.Backend.demo.resource;
+package com.Backend.demo.resource.trung;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.Backend.demo.model.trung.Phieunhapxuat;
 import com.Backend.demo.model.ConvertToArraylist_phieunhapxuat;
-import com.Backend.demo.service.DichvuPhieunhapxuat;
+import com.Backend.demo.service.trung.DichvuPhieunhapxuat;
 
 
 @XmlAccessorType(XmlAccessType.NONE)

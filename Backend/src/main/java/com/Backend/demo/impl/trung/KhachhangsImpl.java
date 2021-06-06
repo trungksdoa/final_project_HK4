@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.Backend.demo.impl;
+package com.Backend.demo.impl.trung;
 
 import com.Backend.demo.model.trung.Khachhang;
-import com.Backend.demo.repository.thuvienkhachang;
-import com.Backend.demo.service.Dichvukhachhang;
+import com.Backend.demo.repository.trung.thuvienkhachang;
+import com.Backend.demo.service.trung.Dichvukhachhang;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

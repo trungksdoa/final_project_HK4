@@ -1,4 +1,4 @@
-package com.Backend.demo.impl;
+package com.Backend.demo.impl.trung;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Backend.demo.model.trung.Phieunhapxuat;
-import com.Backend.demo.repository.thuvienPhieu;
-import com.Backend.demo.service.DichvuPhieunhapxuat;
+import com.Backend.demo.repository.trung.thuvienPhieu;
+import com.Backend.demo.service.trung.DichvuPhieunhapxuat;
 
 @Service
 public class phieunhapxuatImpl implements DichvuPhieunhapxuat {
