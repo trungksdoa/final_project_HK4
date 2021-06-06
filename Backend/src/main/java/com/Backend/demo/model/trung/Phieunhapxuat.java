@@ -281,9 +281,9 @@ public class Phieunhapxuat implements Serializable {
         return "com.Backend.demo.model.trung.Phieunhapxuat[ ma=" + ma + " ]";
     }
 
-//    @Autowired
-//    thuvienPhieu phieus;
-//
+    @Autowired
+    thuvienPhieu phieus;
+
 //    public Phieunhapxuat tim1() {
 //        Optional<Phieunhapxuat> optional = phieus.findById(id);
 //        //Convert optional to Object
