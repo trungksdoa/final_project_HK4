@@ -1,6 +1,5 @@
 package com.Backend.demo.resource.trung;
 
-import com.Backend.demo.impl.trung.PhieuImplNoParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;

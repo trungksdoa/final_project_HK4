@@ -50,9 +50,6 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Phieunhapxuat.findByTinhtrangphieu", query = "SELECT p FROM Phieunhapxuat p WHERE p.tinhtrangphieu = :tinhtrangphieu"),
     @NamedQuery(name = "Phieunhapxuat.findByChugiai", query = "SELECT p FROM Phieunhapxuat p WHERE p.chugiai = :chugiai")})
 public class Phieunhapxuat implements Serializable {
-//    @Autowired
-
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
