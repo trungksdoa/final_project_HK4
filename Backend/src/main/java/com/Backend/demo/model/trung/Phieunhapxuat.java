@@ -5,8 +5,11 @@
  */
 package com.Backend.demo.model.trung;
 
+import com.Backend.demo.repository.trung.thuvienPhieu;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -277,8 +281,38 @@ public class Phieunhapxuat implements Serializable {
         return "com.Backend.demo.model.trung.Phieunhapxuat[ ma=" + ma + " ]";
     }
 
-    public void findone() {
+    @Autowired
+    thuvienPhieu phieus;
 
+    public Phieunhapxuat tim1() {
+        Optional<Phieunhapxuat> optional = phieus.findById(id);
+        //Convert optional to Object
+        Phieunhapxuat converToObject = optional.get();
+        return converToObject;
     }
 
+    public List<Phieunhapxuat> laytatca() {
+
+        //
+        List<Phieunhapxuat> findAll = phieus.findAll();
+
+        //return list
+        return findAll;
+    }
+
+    public Phieunhapxuat taophieu() {
+        return phieus.save(phieu);
+    }
+
+    public void capnhap() {
+        phieus.save(phieu);
+    }
+
+    public void Delete() {
+        phieus.deleteById(id);
+    }
+
+    public boolean kiemtraidtontai() {
+        return phieus.existsById(id);
+    }
 }
