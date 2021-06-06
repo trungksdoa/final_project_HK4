@@ -5,7 +5,7 @@ import java.util.List;
 import com.Backend.demo.model.trung.Phieunhapxuat;
 
 public interface DichvuPhieunhapxuat {
-
+        
     public abstract Phieunhapxuat taoPhieuNhapXuat(Phieunhapxuat phieunhapxuat);
 
     public abstract void CapnhatPhieuNhapxuat(Phieunhapxuat phieunhapxuat);
@@ -18,7 +18,5 @@ public interface DichvuPhieunhapxuat {
    
 
     public abstract boolean kiemtratontai(String id);
-    
-    
     
 }
