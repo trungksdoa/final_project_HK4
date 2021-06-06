@@ -7,11 +7,14 @@ package com.Backend.demo.service.trung;
 
 import com.Backend.demo.model.trung.Nhacungcap;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author trung
  */
+
+
 public interface Dichvunhacungcap {
     
     public abstract Nhacungcap taonhacungcap(Nhacungcap nhacungcap);

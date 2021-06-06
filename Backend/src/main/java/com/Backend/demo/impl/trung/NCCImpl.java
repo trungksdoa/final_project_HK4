@@ -56,9 +56,14 @@ public class NCCImpl implements Dichvunhacungcap{
       return service.existsById(id);
     }
 
+//    @Override
+//    public List<Nhacungcap> timnhacungcaptheoma(String name) {
+//        return service.findAllByName(name);
+//    }
+
     @Override
     public List<Nhacungcap> timnhacungcaptheoma(String name) {
-        return service.findAllByName(name);
+        return service.findallbyname(name);
     }
     
 }

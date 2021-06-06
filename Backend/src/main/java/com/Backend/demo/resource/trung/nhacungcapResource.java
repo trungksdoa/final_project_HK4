@@ -24,6 +24,7 @@ import com.Backend.demo.model.trung.Nhacungcap;
 import com.Backend.demo.model.ConvertToArraylist_Nhacungcaps;
 import com.Backend.demo.model.trung.Khachhang;
 import com.Backend.demo.service.trung.Dichvunhacungcap;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = "nhacungcap")
@@ -68,6 +69,13 @@ public class nhacungcapResource {
         }
 
     }
+
+//    @GET
+//    @Path("/search/{ma}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<Nhacungcap> getListName(@PathParam("ma") String ma) throws URISyntaxException {
+//       return service.timnhacungcaptheoma(ma);
+//    }
 
     @GET
     @Path("/{id}")
