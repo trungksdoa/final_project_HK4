@@ -32,15 +32,26 @@ public class SticketResource {
 
     @Autowired
     private DichvuPhieunhapxuat phieu;
-
+    
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public ConvertToArraylist_phieunhapxuat getAll() {
+//        ConvertToArraylist_phieunhapxuat convert = new ConvertToArraylist_phieunhapxuat();
+//        ArrayList<Phieunhapxuat> employeeList = (ArrayList<Phieunhapxuat>) phieu.laynhieuphieunhapxuat();
+//        convert.datphieunhapxuat(employeeList);
+//        return convert;
+//    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ConvertToArraylist_phieunhapxuat getAll() {
-        ConvertToArraylist_phieunhapxuat convert = new ConvertToArraylist_phieunhapxuat();
-        ArrayList<Phieunhapxuat> employeeList = (ArrayList<Phieunhapxuat>) phieu.laynhieuphieunhapxuat();
-        convert.datphieunhapxuat(employeeList);
-        return convert;
+    public ArrayList<Phieunhapxuat> getAll() {
+       Phieunhapxuat phieudb = new Phieunhapxuat();
+       ArrayList<Phieunhapxuat> convert = (ArrayList<Phieunhapxuat>) phieudb.laytatca();
+       return convert;
     }
+    
+    
+    
     @POST
     @Consumes("application/json")
     public Response create(Phieunhapxuat phieunhapxuat) throws URISyntaxException {
