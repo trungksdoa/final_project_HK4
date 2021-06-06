@@ -47,6 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Phieunhapxuat.findByChugiai", query = "SELECT p FROM Phieunhapxuat p WHERE p.chugiai = :chugiai")})
 public class Phieunhapxuat implements Serializable {
 
+    Phieunhapxuat phieu;
+    String id;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -101,6 +104,11 @@ public class Phieunhapxuat implements Serializable {
     private Collection<NoidungNhapxuat> noidungNhapxuatCollection;
 
     public Phieunhapxuat() {
+    }
+
+    public Phieunhapxuat(String id, Phieunhapxuat phieunhapxuat) {
+        this.phieu = phieunhapxuat;
+        this.id = id;
     }
 
     public Phieunhapxuat(String ma) {
@@ -268,5 +276,9 @@ public class Phieunhapxuat implements Serializable {
     public String toString() {
         return "com.Backend.demo.model.trung.Phieunhapxuat[ ma=" + ma + " ]";
     }
-    
+
+    public void findone() {
+
+    }
+
 }
