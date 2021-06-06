@@ -50,6 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Phieunhapxuat.findByTinhtrangphieu", query = "SELECT p FROM Phieunhapxuat p WHERE p.tinhtrangphieu = :tinhtrangphieu"),
     @NamedQuery(name = "Phieunhapxuat.findByChugiai", query = "SELECT p FROM Phieunhapxuat p WHERE p.chugiai = :chugiai")})
 public class Phieunhapxuat implements Serializable {
+    @Autowired
 
     Phieunhapxuat phieu;
     String id;
@@ -280,8 +281,6 @@ public class Phieunhapxuat implements Serializable {
     public String toString() {
         return "com.Backend.demo.model.trung.Phieunhapxuat[ ma=" + ma + " ]";
     }
-
-    @Autowired
     thuvienPhieu phieus;
 
 //    public Phieunhapxuat tim1() {
