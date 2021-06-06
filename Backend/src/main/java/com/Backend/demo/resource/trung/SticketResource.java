@@ -1,5 +1,6 @@
 package com.Backend.demo.resource.trung;
 
+import com.Backend.demo.impl.trung.PhieuImplNoParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import com.Backend.demo.model.trung.Phieunhapxuat;
 import com.Backend.demo.model.ConvertToArraylist_phieunhapxuat;
 import com.Backend.demo.service.trung.DichvuPhieunhapxuat;
 
-
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = "phieu")
 @Path("/phieu")
@@ -32,7 +32,8 @@ public class SticketResource {
 
     @Autowired
     private DichvuPhieunhapxuat phieu;
-    
+
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public ConvertToArraylist_phieunhapxuat getAll() {
@@ -41,17 +42,8 @@ public class SticketResource {
         convert.datphieunhapxuat(employeeList);
         return convert;
     }
-    
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public ArrayList<Phieunhapxuat> getAll() {
-//       Phieunhapxuat phieudb = new Phieunhapxuat();
-//       ArrayList<Phieunhapxuat> convert = (ArrayList<Phieunhapxuat>) phieudb.laytatca();
-//       return convert;
-//    }
-//    
-    
-    
+
+
     @POST
     @Consumes("application/json")
     public Response create(Phieunhapxuat phieunhapxuat) throws URISyntaxException {
