@@ -55,5 +55,10 @@ public class NCCImpl implements Dichvunhacungcap{
     public boolean kiemtratontai(String id) {
       return service.existsById(id);
     }
+
+    @Override
+    public List<Nhacungcap> timnhacungcaptheoma(String name) {
+        return service.findAllByName(name);
+    }
     
 }

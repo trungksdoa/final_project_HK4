@@ -19,7 +19,9 @@ public interface Dichvunhacungcap {
     public abstract void Capnhatnhacungcap(Nhacungcap nhacungcap);
 
     public abstract Nhacungcap lay1nhacungcap(String id);
-
+    
+    public abstract List<Nhacungcap> timnhacungcaptheoma(String name);
+    
     public abstract List<Nhacungcap> laynhieunhacungcap();
 
     public abstract void xoanhacungcap(String id);

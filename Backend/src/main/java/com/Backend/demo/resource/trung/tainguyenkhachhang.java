@@ -12,6 +12,7 @@ import com.Backend.demo.service.trung.Dichvukhachhang;
 import java.util.ArrayList;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -39,4 +40,5 @@ public class tainguyenkhachhang {
         convert.datnhieukhach(arrayList);
         return convert;
     }
+
 }

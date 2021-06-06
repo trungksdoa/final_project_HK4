@@ -18,7 +18,7 @@ public class GetJsonAsObject {
 
     Client client = Client.create();
 
-    WebResource webResource = client.resource("http://localhost:9999/phieu/phieuA");
+    WebResource webResource = client.resource("http://localhost:9999/nhacungcap/phieuA");
 
     ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
 

@@ -22,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.Backend.demo.model.trung.Nhacungcap;
 import com.Backend.demo.model.ConvertToArraylist_Nhacungcaps;
+import com.Backend.demo.model.trung.Khachhang;
 import com.Backend.demo.service.trung.Dichvunhacungcap;
-
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = "nhacungcap")
@@ -41,6 +41,7 @@ public class nhacungcapResource {
         convert.nhacungcaparray(nhacungcaps);
         return convert;
     }
+
     @POST
     @Consumes("application/json")
     public Response create(Nhacungcap nhacungcap) throws URISyntaxException {
