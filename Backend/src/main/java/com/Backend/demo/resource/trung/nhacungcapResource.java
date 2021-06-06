@@ -70,12 +70,15 @@ public class nhacungcapResource {
 
     }
 
-//    @GET
-//    @Path("/search/{ma}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<Nhacungcap> getListName(@PathParam("ma") String ma) throws URISyntaxException {
-//       return service.timnhacungcaptheoma(ma);
-//    }
+    @GET
+    @Path("/findbyName/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ConvertToArraylist_Nhacungcaps searchByName(@PathParam("id") String id) {
+        ConvertToArraylist_Nhacungcaps convert = new ConvertToArraylist_Nhacungcaps();
+        ArrayList<Nhacungcap> nhacungcaps = (ArrayList<Nhacungcap>) service.timnhacungcaptheoma(id);
+        convert.nhacungcaparray(nhacungcaps);
+        return convert;
+    }
 
     @GET
     @Path("/{id}")

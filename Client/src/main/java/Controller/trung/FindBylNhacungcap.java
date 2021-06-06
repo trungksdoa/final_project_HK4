@@ -37,7 +37,8 @@ public class FindBylNhacungcap extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             NhacungcapDAO dao = new NhacungcapDAO();
-            List<Nhacungcap> findall = dao.GetAll();
+            String id = request.getParameter("id");
+            List<Nhacungcap> findall = dao.SearchByName(id);
             String json = new Gson().toJson(findall);
 
             response.setContentType("application/json");

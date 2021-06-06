@@ -33,7 +33,7 @@ public class NhacungcapDAO {
             .header("content-type", MediaType.APPLICATION_JSON);
 
     ClientResponse response = builder.get(ClientResponse.class);
-    
+
     public List<Nhacungcap> GetAll() {
         if (response.getStatus() != 200) {
             System.out.println("Failed with HTTP Error code: " + response.getStatus());
@@ -45,7 +45,34 @@ public class NhacungcapDAO {
         };
         List<Nhacungcap> list = response.getEntity(generic);
 
-        
+        List<Nhacungcap> finalist = new ArrayList<>();
+        for (Nhacungcap emp : list) {
+            finalist.add(emp);
+        }
+        System.out.println("Output from Server .... \n");
+
+        return finalist;
+    }
+
+    public List<Nhacungcap> SearchByName(String id) {
+
+        WebResource webResource1 = client.resource("http://localhost:9999/nhacungcap/findbyName/" + id);
+
+        WebResource.Builder builder1 = webResource.accept(MediaType.APPLICATION_JSON) //
+                .header("content-type", MediaType.APPLICATION_JSON);
+
+        ClientResponse response1 = builder.get(ClientResponse.class);
+
+        if (response1.getStatus() != 200) {
+            System.out.println("Failed with HTTP Error code: " + response1.getStatus());
+            String error = response1.getEntity(String.class);
+            System.out.println("Error: " + error);
+        }
+        GenericType<List<Nhacungcap>> generic = new GenericType<List<Nhacungcap>>() {
+            // No thing
+        };
+        List<Nhacungcap> list = response1.getEntity(generic);
+
         List<Nhacungcap> finalist = new ArrayList<>();
         for (Nhacungcap emp : list) {
             finalist.add(emp);
@@ -55,9 +82,10 @@ public class NhacungcapDAO {
         return finalist;
     }
 //
+
     public static void main(String[] args) {
         NhacungcapDAO db = new NhacungcapDAO();
-        List<Nhacungcap> listss = db.GetAll();
+        List<Nhacungcap> listss = db.SearchByName("N");
 
         for (Nhacungcap emp : listss) {
             System.out.println(" --- ");

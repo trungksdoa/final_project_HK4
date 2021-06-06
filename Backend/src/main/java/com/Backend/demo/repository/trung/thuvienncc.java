@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 public interface thuvienncc extends JpaRepository<Nhacungcap, String> {
 
-    @Query("SELECT n FROM Nhacungcap n WHERE n.ma LIKE %:ma%")
-    public List<Nhacungcap> findallbyname(String name);
+    @Query("SELECT n FROM Nhacungcap n WHERE n.ma LIKE %?1%")
+    public List<Nhacungcap> findallbyname(String keyword);
 //    @Query("SELECT n FROM Nhacungcap n WHERE n.ma LIKE %:ma%")
 //    public List<Nhacungcap> findAllByName(@PathVariable("ma") String name);
 }
