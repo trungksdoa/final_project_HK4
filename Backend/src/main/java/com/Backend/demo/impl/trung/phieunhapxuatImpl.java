@@ -27,10 +27,10 @@ public class phieunhapxuatImpl implements DichvuPhieunhapxuat {
     }
 
     @Override
-    public Phieunhapxuat lay1phieunhapxuat(String id) {
+    public Optional<Phieunhapxuat> lay1phieunhapxuat(String id) {
         Optional<Phieunhapxuat> optional = phieu.findById(id);
-        Phieunhapxuat phieunhapxuat = optional.get();
-        return phieunhapxuat;
+//        Phieunhapxuat phieunhapxuat = optional.get();
+        return optional;
     }
 
     @Override
