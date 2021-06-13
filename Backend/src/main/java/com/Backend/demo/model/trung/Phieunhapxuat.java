@@ -5,8 +5,12 @@
  */
 package com.Backend.demo.model.trung;
 
+import com.Backend.demo.repository.trung.thuvienPhieu;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,10 +25,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author PC
+ * @author trung
  */
 @Entity
 @Table(name = "phieunhapxuat", catalog = "final_project", schema = "dbo")
@@ -46,7 +51,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Phieunhapxuat.findByTinhtrangphieu", query = "SELECT p FROM Phieunhapxuat p WHERE p.tinhtrangphieu = :tinhtrangphieu"),
     @NamedQuery(name = "Phieunhapxuat.findByChugiai", query = "SELECT p FROM Phieunhapxuat p WHERE p.chugiai = :chugiai")})
 public class Phieunhapxuat implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -93,15 +97,18 @@ public class Phieunhapxuat implements Serializable {
     private String chugiai;
     @JoinColumn(name = "makhachhang", referencedColumnName = "ma")
     @ManyToOne
+    @JsonIgnore
     private Khachhang makhachhang;
     @JoinColumn(name = "manhacungcap", referencedColumnName = "ma")
     @ManyToOne
+    @JsonIgnore
     private Nhacungcap manhacungcap;
     @OneToMany(mappedBy = "maphieunhapxuat")
     private Collection<NoidungNhapxuat> noidungNhapxuatCollection;
 
     public Phieunhapxuat() {
     }
+
 
     public Phieunhapxuat(String ma) {
         this.ma = ma;
@@ -268,5 +275,5 @@ public class Phieunhapxuat implements Serializable {
     public String toString() {
         return "com.Backend.demo.model.trung.Phieunhapxuat[ ma=" + ma + " ]";
     }
-    
+
 }

@@ -1,4 +1,4 @@
-package com.Backend.demo.impl;
+package com.Backend.demo.impl.trung;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Backend.demo.model.trung.Phieunhapxuat;
-import com.Backend.demo.repository.thuvienPhieu;
-import com.Backend.demo.service.DichvuPhieunhapxuat;
+import com.Backend.demo.repository.trung.thuvienPhieu;
+import com.Backend.demo.service.trung.DichvuPhieunhapxuat;
 
 @Service
 public class phieunhapxuatImpl implements DichvuPhieunhapxuat {
@@ -27,10 +27,10 @@ public class phieunhapxuatImpl implements DichvuPhieunhapxuat {
     }
 
     @Override
-    public Phieunhapxuat lay1phieunhapxuat(String id) {
+    public Optional<Phieunhapxuat> lay1phieunhapxuat(String id) {
         Optional<Phieunhapxuat> optional = phieu.findById(id);
-        Phieunhapxuat phieunhapxuat = optional.get();
-        return phieunhapxuat;
+//        Phieunhapxuat phieunhapxuat = optional.get();
+        return optional;
     }
 
     @Override
