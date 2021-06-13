@@ -5,6 +5,7 @@
  */
 package com.Backend.demo.model.trung;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -93,9 +94,11 @@ public class Phieunhapxuat implements Serializable {
     private String chugiai;
     @JoinColumn(name = "makhachhang", referencedColumnName = "ma")
     @ManyToOne
+    @JsonIgnore
     private Khachhang makhachhang;
     @JoinColumn(name = "manhacungcap", referencedColumnName = "ma")
     @ManyToOne
+    @JsonIgnore
     private Nhacungcap manhacungcap;
     @OneToMany(mappedBy = "maphieunhapxuat")
     private Collection<NoidungNhapxuat> noidungNhapxuatCollection;
