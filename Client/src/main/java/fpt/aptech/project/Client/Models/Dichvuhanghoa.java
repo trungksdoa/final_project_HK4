@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dichvuhanghoa.findByMa", query = "SELECT d FROM Dichvuhanghoa d WHERE d.ma = :ma"),
     @NamedQuery(name = "Dichvuhanghoa.findByTen", query = "SELECT d FROM Dichvuhanghoa d WHERE d.ten = :ten"),
     @NamedQuery(name = "Dichvuhanghoa.findByPhanloai", query = "SELECT d FROM Dichvuhanghoa d WHERE d.phanloai = :phanloai"),
-    @NamedQuery(name = "Dichvuhanghoa.findByBarcode", query = "SELECT d FROM Dichvuhanghoa d WHERE d.barcode = :barcode"),
     @NamedQuery(name = "Dichvuhanghoa.findByDonvitinh", query = "SELECT d FROM Dichvuhanghoa d WHERE d.donvitinh = :donvitinh"),
     @NamedQuery(name = "Dichvuhanghoa.findByGiasi", query = "SELECT d FROM Dichvuhanghoa d WHERE d.giasi = :giasi"),
     @NamedQuery(name = "Dichvuhanghoa.findByGiale", query = "SELECT d FROM Dichvuhanghoa d WHERE d.giale = :giale"),
@@ -46,8 +45,6 @@ public class Dichvuhanghoa implements Serializable {
     private String ten;
     @Column(name = "phanloai", length = 50)
     private String phanloai;
-    @Column(name = "barcode", length = 100)
-    private String barcode;
     @Column(name = "donvitinh", length = 50)
     private String donvitinh;
     @Column(name = "giasi")
@@ -92,14 +89,6 @@ public class Dichvuhanghoa implements Serializable {
 
     public void setPhanloai(String phanloai) {
         this.phanloai = phanloai;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
     }
 
     public String getDonvitinh() {

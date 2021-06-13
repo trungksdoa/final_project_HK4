@@ -27,6 +27,7 @@
     <class>fpt.aptech.project.Client.Models.Congno</class>
     <class>fpt.aptech.project.Client.Models.Chi</class>
     <class>fpt.aptech.project.Client.Models.Thu</class>
+    <class>fpt.aptech.project.Client.Models.Barcode</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=final_project"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

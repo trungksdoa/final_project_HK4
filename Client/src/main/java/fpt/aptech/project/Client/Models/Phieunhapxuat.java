@@ -31,8 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Phieunhapxuat.findAll", query = "SELECT p FROM Phieunhapxuat p"),
     @NamedQuery(name = "Phieunhapxuat.findByMa", query = "SELECT p FROM Phieunhapxuat p WHERE p.ma = :ma"),
     @NamedQuery(name = "Phieunhapxuat.findByNgay", query = "SELECT p FROM Phieunhapxuat p WHERE p.ngay = :ngay"),
-    @NamedQuery(name = "Phieunhapxuat.findByNhacungcap", query = "SELECT p FROM Phieunhapxuat p WHERE p.nhacungcap = :nhacungcap"),
-    @NamedQuery(name = "Phieunhapxuat.findByKhachhang", query = "SELECT p FROM Phieunhapxuat p WHERE p.khachhang = :khachhang"),
     @NamedQuery(name = "Phieunhapxuat.findByDiachi", query = "SELECT p FROM Phieunhapxuat p WHERE p.diachi = :diachi"),
     @NamedQuery(name = "Phieunhapxuat.findByKieuNhapHayXuat", query = "SELECT p FROM Phieunhapxuat p WHERE p.kieuNhapHayXuat = :kieuNhapHayXuat"),
     @NamedQuery(name = "Phieunhapxuat.findByNguoinhap", query = "SELECT p FROM Phieunhapxuat p WHERE p.nguoinhap = :nguoinhap"),
@@ -52,10 +50,6 @@ public class Phieunhapxuat implements Serializable {
     private String ma;
     @Column(name = "ngay", length = 50)
     private String ngay;
-    @Column(name = "nhacungcap", length = 50)
-    private String nhacungcap;
-    @Column(name = "khachhang", length = 50)
-    private String khachhang;
     @Column(name = "diachi", length = 50)
     private String diachi;
     @Column(name = "kieu_nhap_hay_xuat", length = 50)
@@ -106,22 +100,6 @@ public class Phieunhapxuat implements Serializable {
 
     public void setNgay(String ngay) {
         this.ngay = ngay;
-    }
-
-    public String getNhacungcap() {
-        return nhacungcap;
-    }
-
-    public void setNhacungcap(String nhacungcap) {
-        this.nhacungcap = nhacungcap;
-    }
-
-    public String getKhachhang() {
-        return khachhang;
-    }
-
-    public void setKhachhang(String khachhang) {
-        this.khachhang = khachhang;
     }
 
     public String getDiachi() {
@@ -251,28 +229,7 @@ public class Phieunhapxuat implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Phieunhapxuat{ma=").append(ma);
-        sb.append(", ngay=").append(ngay);
-        sb.append(", nhacungcap=").append(nhacungcap);
-        sb.append(", khachhang=").append(khachhang);
-        sb.append(", diachi=").append(diachi);
-        sb.append(", kieuNhapHayXuat=").append(kieuNhapHayXuat);
-        sb.append(", nguoinhap=").append(nguoinhap);
-        sb.append(", kieuthanhtoan=").append(kieuthanhtoan);
-        sb.append(", kho=").append(kho);
-        sb.append(", owed=").append(owed);
-        sb.append(", dathanhtoanbaonhieutien=").append(dathanhtoanbaonhieutien);
-        sb.append(", nguoigiao=").append(nguoigiao);
-        sb.append(", tinhtrangphieu=").append(tinhtrangphieu);
-        sb.append(", chugiai=").append(chugiai);
-        sb.append(", makhachhang=").append(makhachhang);
-        sb.append(", manhacungcap=").append(manhacungcap);
-        sb.append(", noidungNhapxuatCollection=").append(noidungNhapxuatCollection);
-        sb.append('}');
-        return sb.toString();
+        return "fpt.aptech.project.Client.Models.Phieunhapxuat[ ma=" + ma + " ]";
     }
-
- 
     
 }

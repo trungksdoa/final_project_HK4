@@ -5,7 +5,6 @@
  */
 package com.Backend.demo.model.trung;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -34,8 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Phieunhapxuat.findAll", query = "SELECT p FROM Phieunhapxuat p"),
     @NamedQuery(name = "Phieunhapxuat.findByMa", query = "SELECT p FROM Phieunhapxuat p WHERE p.ma = :ma"),
     @NamedQuery(name = "Phieunhapxuat.findByNgay", query = "SELECT p FROM Phieunhapxuat p WHERE p.ngay = :ngay"),
-    @NamedQuery(name = "Phieunhapxuat.findByNhacungcap", query = "SELECT p FROM Phieunhapxuat p WHERE p.nhacungcap = :nhacungcap"),
-    @NamedQuery(name = "Phieunhapxuat.findByKhachhang", query = "SELECT p FROM Phieunhapxuat p WHERE p.khachhang = :khachhang"),
     @NamedQuery(name = "Phieunhapxuat.findByDiachi", query = "SELECT p FROM Phieunhapxuat p WHERE p.diachi = :diachi"),
     @NamedQuery(name = "Phieunhapxuat.findByKieuNhapHayXuat", query = "SELECT p FROM Phieunhapxuat p WHERE p.kieuNhapHayXuat = :kieuNhapHayXuat"),
     @NamedQuery(name = "Phieunhapxuat.findByNguoinhap", query = "SELECT p FROM Phieunhapxuat p WHERE p.nguoinhap = :nguoinhap"),
@@ -58,12 +55,6 @@ public class Phieunhapxuat implements Serializable {
     @Size(max = 50)
     @Column(name = "ngay", length = 50)
     private String ngay;
-    @Size(max = 50)
-    @Column(name = "nhacungcap", length = 50)
-    private String nhacungcap;
-    @Size(max = 50)
-    @Column(name = "khachhang", length = 50)
-    private String khachhang;
     @Size(max = 50)
     @Column(name = "diachi", length = 50)
     private String diachi;
@@ -94,11 +85,9 @@ public class Phieunhapxuat implements Serializable {
     private String chugiai;
     @JoinColumn(name = "makhachhang", referencedColumnName = "ma")
     @ManyToOne
-    @JsonIgnore
     private Khachhang makhachhang;
     @JoinColumn(name = "manhacungcap", referencedColumnName = "ma")
     @ManyToOne
-    @JsonIgnore
     private Nhacungcap manhacungcap;
     @OneToMany(mappedBy = "maphieunhapxuat")
     private Collection<NoidungNhapxuat> noidungNhapxuatCollection;
@@ -124,22 +113,6 @@ public class Phieunhapxuat implements Serializable {
 
     public void setNgay(String ngay) {
         this.ngay = ngay;
-    }
-
-    public String getNhacungcap() {
-        return nhacungcap;
-    }
-
-    public void setNhacungcap(String nhacungcap) {
-        this.nhacungcap = nhacungcap;
-    }
-
-    public String getKhachhang() {
-        return khachhang;
-    }
-
-    public void setKhachhang(String khachhang) {
-        this.khachhang = khachhang;
     }
 
     public String getDiachi() {
