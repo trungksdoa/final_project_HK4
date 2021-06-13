@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dichvuhanghoa.findByMa", query = "SELECT d FROM Dichvuhanghoa d WHERE d.ma = :ma"),
     @NamedQuery(name = "Dichvuhanghoa.findByTen", query = "SELECT d FROM Dichvuhanghoa d WHERE d.ten = :ten"),
     @NamedQuery(name = "Dichvuhanghoa.findByPhanloai", query = "SELECT d FROM Dichvuhanghoa d WHERE d.phanloai = :phanloai"),
-    @NamedQuery(name = "Dichvuhanghoa.findByBarcode", query = "SELECT d FROM Dichvuhanghoa d WHERE d.barcode = :barcode"),
     @NamedQuery(name = "Dichvuhanghoa.findByDonvitinh", query = "SELECT d FROM Dichvuhanghoa d WHERE d.donvitinh = :donvitinh"),
     @NamedQuery(name = "Dichvuhanghoa.findByGiasi", query = "SELECT d FROM Dichvuhanghoa d WHERE d.giasi = :giasi"),
     @NamedQuery(name = "Dichvuhanghoa.findByGiale", query = "SELECT d FROM Dichvuhanghoa d WHERE d.giale = :giale"),
@@ -52,9 +51,6 @@ public class Dichvuhanghoa implements Serializable {
     @Size(max = 50)
     @Column(name = "phanloai", length = 50)
     private String phanloai;
-    @Size(max = 100)
-    @Column(name = "barcode", length = 100)
-    private String barcode;
     @Size(max = 50)
     @Column(name = "donvitinh", length = 50)
     private String donvitinh;
@@ -66,6 +62,10 @@ public class Dichvuhanghoa implements Serializable {
     private Integer trongluong;
     @OneToMany(mappedBy = "mahanghoa")
     private Collection<NoidungNhapxuat> noidungNhapxuatCollection;
+    @OneToMany(mappedBy = "mahanghoa")
+    private Collection<TainguyenChohanghoa> tainguyenChohanghoaCollection;
+    @OneToMany(mappedBy = "mahanghoa")
+    private Collection<NoidungNhomhang> noidungNhomhangCollection;
 
     public Dichvuhanghoa() {
     }
@@ -96,14 +96,6 @@ public class Dichvuhanghoa implements Serializable {
 
     public void setPhanloai(String phanloai) {
         this.phanloai = phanloai;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
     }
 
     public String getDonvitinh() {
@@ -145,6 +137,24 @@ public class Dichvuhanghoa implements Serializable {
 
     public void setNoidungNhapxuatCollection(Collection<NoidungNhapxuat> noidungNhapxuatCollection) {
         this.noidungNhapxuatCollection = noidungNhapxuatCollection;
+    }
+
+    @XmlTransient
+    public Collection<TainguyenChohanghoa> getTainguyenChohanghoaCollection() {
+        return tainguyenChohanghoaCollection;
+    }
+
+    public void setTainguyenChohanghoaCollection(Collection<TainguyenChohanghoa> tainguyenChohanghoaCollection) {
+        this.tainguyenChohanghoaCollection = tainguyenChohanghoaCollection;
+    }
+
+    @XmlTransient
+    public Collection<NoidungNhomhang> getNoidungNhomhangCollection() {
+        return noidungNhomhangCollection;
+    }
+
+    public void setNoidungNhomhangCollection(Collection<NoidungNhomhang> noidungNhomhangCollection) {
+        this.noidungNhomhangCollection = noidungNhomhangCollection;
     }
 
     @Override

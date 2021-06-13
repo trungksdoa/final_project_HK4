@@ -7,6 +7,25 @@
     <class>com.Backend.demo.model.trung.Nhacungcap</class>
     <class>com.Backend.demo.model.trung.Dichvuhanghoa</class>
     <class>com.Backend.demo.model.trung.Khachhang</class>
+    <class>com.Backend.demo.model.trung.Thekho</class>
+    <class>com.Backend.demo.model.trung.TainguyenTheolenhsx</class>
+    <class>com.Backend.demo.model.trung.Lenhsanxuat</class>
+    <class>com.Backend.demo.model.trung.Chi</class>
+    <class>com.Backend.demo.model.trung.Barcode</class>
+    <class>com.Backend.demo.model.trung.Sodu</class>
+    <class>com.Backend.demo.model.trung.Congno</class>
+    <class>com.Backend.demo.model.trung.NoidungNhomhang</class>
+    <class>com.Backend.demo.model.trung.Chuyenkho</class>
+    <class>com.Backend.demo.model.trung.Nhomhanghoa</class>
+    <class>com.Backend.demo.model.trung.NoidungThanhphamLenhsx</class>
+    <class>com.Backend.demo.model.trung.Phieudathang</class>
+    <class>com.Backend.demo.model.trung.Lichsu</class>
+    <class>com.Backend.demo.model.trung.NoidungPhieudatBaogia</class>
+    <class>com.Backend.demo.model.trung.Thongtinkho</class>
+    <class>com.Backend.demo.model.trung.TainguyenChohanghoa</class>
+    <class>com.Backend.demo.model.trung.Phieubaogia</class>
+    <class>com.Backend.demo.model.trung.Thu</class>
+    <class>com.Backend.demo.model.trung.NoidungChuyenhang</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=final_project"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

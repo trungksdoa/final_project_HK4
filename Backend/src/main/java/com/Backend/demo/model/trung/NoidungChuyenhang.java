@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,47 +24,45 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "noidung_nhapxuat", catalog = "final_project", schema = "dbo")
+@Table(name = "noidung_chuyenhang", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "NoidungNhapxuat.findAll", query = "SELECT n FROM NoidungNhapxuat n"),
-    @NamedQuery(name = "NoidungNhapxuat.findByMa", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ma = :ma"),
-    @NamedQuery(name = "NoidungNhapxuat.findByTen", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ten = :ten"),
-    @NamedQuery(name = "NoidungNhapxuat.findByDonvitinh", query = "SELECT n FROM NoidungNhapxuat n WHERE n.donvitinh = :donvitinh"),
-    @NamedQuery(name = "NoidungNhapxuat.findBySoluong", query = "SELECT n FROM NoidungNhapxuat n WHERE n.soluong = :soluong"),
-    @NamedQuery(name = "NoidungNhapxuat.findByGia", query = "SELECT n FROM NoidungNhapxuat n WHERE n.gia = :gia"),
-    @NamedQuery(name = "NoidungNhapxuat.findByChietkhau", query = "SELECT n FROM NoidungNhapxuat n WHERE n.chietkhau = :chietkhau"),
-    @NamedQuery(name = "NoidungNhapxuat.findByThanhgia", query = "SELECT n FROM NoidungNhapxuat n WHERE n.thanhgia = :thanhgia")})
-public class NoidungNhapxuat implements Serializable {
+    @NamedQuery(name = "NoidungChuyenhang.findAll", query = "SELECT n FROM NoidungChuyenhang n"),
+    @NamedQuery(name = "NoidungChuyenhang.findByMa", query = "SELECT n FROM NoidungChuyenhang n WHERE n.ma = :ma"),
+    @NamedQuery(name = "NoidungChuyenhang.findByTen", query = "SELECT n FROM NoidungChuyenhang n WHERE n.ten = :ten"),
+    @NamedQuery(name = "NoidungChuyenhang.findByDonvitinh", query = "SELECT n FROM NoidungChuyenhang n WHERE n.donvitinh = :donvitinh"),
+    @NamedQuery(name = "NoidungChuyenhang.findBySoluong", query = "SELECT n FROM NoidungChuyenhang n WHERE n.soluong = :soluong"),
+    @NamedQuery(name = "NoidungChuyenhang.findByGia", query = "SELECT n FROM NoidungChuyenhang n WHERE n.gia = :gia"),
+    @NamedQuery(name = "NoidungChuyenhang.findByThanhgia", query = "SELECT n FROM NoidungChuyenhang n WHERE n.thanhgia = :thanhgia")})
+public class NoidungChuyenhang implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "ten", length = 50)
     private String ten;
+    @Size(max = 50)
     @Column(name = "donvitinh", length = 50)
     private String donvitinh;
     @Column(name = "soluong")
     private Integer soluong;
     @Column(name = "gia")
     private Integer gia;
-    @Column(name = "chietkhau")
-    private Integer chietkhau;
     @Column(name = "thanhgia")
     private Integer thanhgia;
-    @JoinColumn(name = "mahanghoa", referencedColumnName = "ma")
+    @JoinColumn(name = "machuyenhang", referencedColumnName = "ma")
     @ManyToOne
-    private Dichvuhanghoa mahanghoa;
-    @JoinColumn(name = "maphieunhapxuat", referencedColumnName = "ma")
-    @ManyToOne
-    private Phieunhapxuat maphieunhapxuat;
+    private Chuyenkho machuyenhang;
 
-    public NoidungNhapxuat() {
+    public NoidungChuyenhang() {
     }
 
-    public NoidungNhapxuat(String ma) {
+    public NoidungChuyenhang(String ma) {
         this.ma = ma;
     }
 
@@ -106,14 +106,6 @@ public class NoidungNhapxuat implements Serializable {
         this.gia = gia;
     }
 
-    public Integer getChietkhau() {
-        return chietkhau;
-    }
-
-    public void setChietkhau(Integer chietkhau) {
-        this.chietkhau = chietkhau;
-    }
-
     public Integer getThanhgia() {
         return thanhgia;
     }
@@ -122,20 +114,12 @@ public class NoidungNhapxuat implements Serializable {
         this.thanhgia = thanhgia;
     }
 
-    public Dichvuhanghoa getMahanghoa() {
-        return mahanghoa;
+    public Chuyenkho getMachuyenhang() {
+        return machuyenhang;
     }
 
-    public void setMahanghoa(Dichvuhanghoa mahanghoa) {
-        this.mahanghoa = mahanghoa;
-    }
-
-    public Phieunhapxuat getMaphieunhapxuat() {
-        return maphieunhapxuat;
-    }
-
-    public void setMaphieunhapxuat(Phieunhapxuat maphieunhapxuat) {
-        this.maphieunhapxuat = maphieunhapxuat;
+    public void setMachuyenhang(Chuyenkho machuyenhang) {
+        this.machuyenhang = machuyenhang;
     }
 
     @Override
@@ -148,10 +132,10 @@ public class NoidungNhapxuat implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof NoidungNhapxuat)) {
+        if (!(object instanceof NoidungChuyenhang)) {
             return false;
         }
-        NoidungNhapxuat other = (NoidungNhapxuat) object;
+        NoidungChuyenhang other = (NoidungChuyenhang) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -160,7 +144,7 @@ public class NoidungNhapxuat implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.NoidungNhapxuat[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.NoidungChuyenhang[ ma=" + ma + " ]";
     }
     
 }

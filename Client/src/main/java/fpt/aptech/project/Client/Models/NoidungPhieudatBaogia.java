@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author PC
+ * @author trung
  */
 @Entity
 @Table(name = "noidung_phieudat_baogia", catalog = "final_project", schema = "dbo")

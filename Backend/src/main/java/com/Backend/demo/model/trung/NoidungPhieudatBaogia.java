@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,26 +24,30 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "noidung_nhapxuat", catalog = "final_project", schema = "dbo")
+@Table(name = "noidung_phieudat_baogia", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "NoidungNhapxuat.findAll", query = "SELECT n FROM NoidungNhapxuat n"),
-    @NamedQuery(name = "NoidungNhapxuat.findByMa", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ma = :ma"),
-    @NamedQuery(name = "NoidungNhapxuat.findByTen", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ten = :ten"),
-    @NamedQuery(name = "NoidungNhapxuat.findByDonvitinh", query = "SELECT n FROM NoidungNhapxuat n WHERE n.donvitinh = :donvitinh"),
-    @NamedQuery(name = "NoidungNhapxuat.findBySoluong", query = "SELECT n FROM NoidungNhapxuat n WHERE n.soluong = :soluong"),
-    @NamedQuery(name = "NoidungNhapxuat.findByGia", query = "SELECT n FROM NoidungNhapxuat n WHERE n.gia = :gia"),
-    @NamedQuery(name = "NoidungNhapxuat.findByChietkhau", query = "SELECT n FROM NoidungNhapxuat n WHERE n.chietkhau = :chietkhau"),
-    @NamedQuery(name = "NoidungNhapxuat.findByThanhgia", query = "SELECT n FROM NoidungNhapxuat n WHERE n.thanhgia = :thanhgia")})
-public class NoidungNhapxuat implements Serializable {
+    @NamedQuery(name = "NoidungPhieudatBaogia.findAll", query = "SELECT n FROM NoidungPhieudatBaogia n"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findByMa", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.ma = :ma"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findByTen", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.ten = :ten"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findByDonvitinh", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.donvitinh = :donvitinh"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findBySoluong", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.soluong = :soluong"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findByGia", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.gia = :gia"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findByChietkhau", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.chietkhau = :chietkhau"),
+    @NamedQuery(name = "NoidungPhieudatBaogia.findByThanhgia", query = "SELECT n FROM NoidungPhieudatBaogia n WHERE n.thanhgia = :thanhgia")})
+public class NoidungPhieudatBaogia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "ten", length = 50)
     private String ten;
+    @Size(max = 50)
     @Column(name = "donvitinh", length = 50)
     private String donvitinh;
     @Column(name = "soluong")
@@ -52,17 +58,17 @@ public class NoidungNhapxuat implements Serializable {
     private Integer chietkhau;
     @Column(name = "thanhgia")
     private Integer thanhgia;
-    @JoinColumn(name = "mahanghoa", referencedColumnName = "ma")
+    @JoinColumn(name = "maphieubaogia", referencedColumnName = "ma")
     @ManyToOne
-    private Dichvuhanghoa mahanghoa;
-    @JoinColumn(name = "maphieunhapxuat", referencedColumnName = "ma")
+    private Phieubaogia maphieubaogia;
+    @JoinColumn(name = "maphieudathang", referencedColumnName = "ma")
     @ManyToOne
-    private Phieunhapxuat maphieunhapxuat;
+    private Phieudathang maphieudathang;
 
-    public NoidungNhapxuat() {
+    public NoidungPhieudatBaogia() {
     }
 
-    public NoidungNhapxuat(String ma) {
+    public NoidungPhieudatBaogia(String ma) {
         this.ma = ma;
     }
 
@@ -122,20 +128,20 @@ public class NoidungNhapxuat implements Serializable {
         this.thanhgia = thanhgia;
     }
 
-    public Dichvuhanghoa getMahanghoa() {
-        return mahanghoa;
+    public Phieubaogia getMaphieubaogia() {
+        return maphieubaogia;
     }
 
-    public void setMahanghoa(Dichvuhanghoa mahanghoa) {
-        this.mahanghoa = mahanghoa;
+    public void setMaphieubaogia(Phieubaogia maphieubaogia) {
+        this.maphieubaogia = maphieubaogia;
     }
 
-    public Phieunhapxuat getMaphieunhapxuat() {
-        return maphieunhapxuat;
+    public Phieudathang getMaphieudathang() {
+        return maphieudathang;
     }
 
-    public void setMaphieunhapxuat(Phieunhapxuat maphieunhapxuat) {
-        this.maphieunhapxuat = maphieunhapxuat;
+    public void setMaphieudathang(Phieudathang maphieudathang) {
+        this.maphieudathang = maphieudathang;
     }
 
     @Override
@@ -148,10 +154,10 @@ public class NoidungNhapxuat implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof NoidungNhapxuat)) {
+        if (!(object instanceof NoidungPhieudatBaogia)) {
             return false;
         }
-        NoidungNhapxuat other = (NoidungNhapxuat) object;
+        NoidungPhieudatBaogia other = (NoidungPhieudatBaogia) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -160,7 +166,7 @@ public class NoidungNhapxuat implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.NoidungNhapxuat[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.NoidungPhieudatBaogia[ ma=" + ma + " ]";
     }
     
 }

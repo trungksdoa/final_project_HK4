@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -23,28 +25,31 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "nhomhanghoa", catalog = "final_project", schema = "dbo")
+@Table(name = "thongtinkho", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Nhomhanghoa.findAll", query = "SELECT n FROM Nhomhanghoa n"),
-    @NamedQuery(name = "Nhomhanghoa.findByMa", query = "SELECT n FROM Nhomhanghoa n WHERE n.ma = :ma"),
-    @NamedQuery(name = "Nhomhanghoa.findByTen", query = "SELECT n FROM Nhomhanghoa n WHERE n.ten = :ten")})
-public class Nhomhanghoa implements Serializable {
+    @NamedQuery(name = "Thongtinkho.findAll", query = "SELECT t FROM Thongtinkho t"),
+    @NamedQuery(name = "Thongtinkho.findByMa", query = "SELECT t FROM Thongtinkho t WHERE t.ma = :ma"),
+    @NamedQuery(name = "Thongtinkho.findByDiachi", query = "SELECT t FROM Thongtinkho t WHERE t.diachi = :diachi")})
+public class Thongtinkho implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
-    @Column(name = "ten", length = 50)
-    private String ten;
-    @OneToMany(mappedBy = "manhomhang")
-    private Collection<NoidungNhomhang> noidungNhomhangCollection;
+    @Size(max = 50)
+    @Column(name = "diachi", length = 50)
+    private String diachi;
+    @OneToMany(mappedBy = "makho")
+    private Collection<Thekho> thekhoCollection;
 
-    public Nhomhanghoa() {
+    public Thongtinkho() {
     }
 
-    public Nhomhanghoa(String ma) {
+    public Thongtinkho(String ma) {
         this.ma = ma;
     }
 
@@ -56,21 +61,21 @@ public class Nhomhanghoa implements Serializable {
         this.ma = ma;
     }
 
-    public String getTen() {
-        return ten;
+    public String getDiachi() {
+        return diachi;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setDiachi(String diachi) {
+        this.diachi = diachi;
     }
 
     @XmlTransient
-    public Collection<NoidungNhomhang> getNoidungNhomhangCollection() {
-        return noidungNhomhangCollection;
+    public Collection<Thekho> getThekhoCollection() {
+        return thekhoCollection;
     }
 
-    public void setNoidungNhomhangCollection(Collection<NoidungNhomhang> noidungNhomhangCollection) {
-        this.noidungNhomhangCollection = noidungNhomhangCollection;
+    public void setThekhoCollection(Collection<Thekho> thekhoCollection) {
+        this.thekhoCollection = thekhoCollection;
     }
 
     @Override
@@ -83,10 +88,10 @@ public class Nhomhanghoa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Nhomhanghoa)) {
+        if (!(object instanceof Thongtinkho)) {
             return false;
         }
-        Nhomhanghoa other = (Nhomhanghoa) object;
+        Thongtinkho other = (Thongtinkho) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -95,7 +100,7 @@ public class Nhomhanghoa implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.Nhomhanghoa[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.Thongtinkho[ ma=" + ma + " ]";
     }
     
 }

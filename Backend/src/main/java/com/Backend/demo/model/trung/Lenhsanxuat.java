@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -23,37 +25,39 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "chuyenkho", catalog = "final_project", schema = "dbo")
+@Table(name = "lenhsanxuat", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Chuyenkho.findAll", query = "SELECT c FROM Chuyenkho c"),
-    @NamedQuery(name = "Chuyenkho.findByMa", query = "SELECT c FROM Chuyenkho c WHERE c.ma = :ma"),
-    @NamedQuery(name = "Chuyenkho.findByNgay", query = "SELECT c FROM Chuyenkho c WHERE c.ngay = :ngay"),
-    @NamedQuery(name = "Chuyenkho.findByTukho", query = "SELECT c FROM Chuyenkho c WHERE c.tukho = :tukho"),
-    @NamedQuery(name = "Chuyenkho.findByToikho", query = "SELECT c FROM Chuyenkho c WHERE c.toikho = :toikho"),
-    @NamedQuery(name = "Chuyenkho.findByChugiai", query = "SELECT c FROM Chuyenkho c WHERE c.chugiai = :chugiai")})
-public class Chuyenkho implements Serializable {
+    @NamedQuery(name = "Lenhsanxuat.findAll", query = "SELECT l FROM Lenhsanxuat l"),
+    @NamedQuery(name = "Lenhsanxuat.findByMa", query = "SELECT l FROM Lenhsanxuat l WHERE l.ma = :ma"),
+    @NamedQuery(name = "Lenhsanxuat.findByNgay", query = "SELECT l FROM Lenhsanxuat l WHERE l.ngay = :ngay"),
+    @NamedQuery(name = "Lenhsanxuat.findByChugiai", query = "SELECT l FROM Lenhsanxuat l WHERE l.chugiai = :chugiai"),
+    @NamedQuery(name = "Lenhsanxuat.findByTinhtrang", query = "SELECT l FROM Lenhsanxuat l WHERE l.tinhtrang = :tinhtrang")})
+public class Lenhsanxuat implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "ngay", length = 50)
     private String ngay;
-    @Column(name = "tukho", length = 50)
-    private String tukho;
-    @Column(name = "toikho", length = 50)
-    private String toikho;
+    @Size(max = 50)
     @Column(name = "chugiai", length = 50)
     private String chugiai;
-    @OneToMany(mappedBy = "machuyenhang")
-    private Collection<NoidungChuyenhang> noidungChuyenhangCollection;
+    @Size(max = 50)
+    @Column(name = "tinhtrang", length = 50)
+    private String tinhtrang;
+    @OneToMany(mappedBy = "malenhsanxuat")
+    private Collection<NoidungThanhphamLenhsx> noidungThanhphamLenhsxCollection;
 
-    public Chuyenkho() {
+    public Lenhsanxuat() {
     }
 
-    public Chuyenkho(String ma) {
+    public Lenhsanxuat(String ma) {
         this.ma = ma;
     }
 
@@ -73,22 +77,6 @@ public class Chuyenkho implements Serializable {
         this.ngay = ngay;
     }
 
-    public String getTukho() {
-        return tukho;
-    }
-
-    public void setTukho(String tukho) {
-        this.tukho = tukho;
-    }
-
-    public String getToikho() {
-        return toikho;
-    }
-
-    public void setToikho(String toikho) {
-        this.toikho = toikho;
-    }
-
     public String getChugiai() {
         return chugiai;
     }
@@ -97,13 +85,21 @@ public class Chuyenkho implements Serializable {
         this.chugiai = chugiai;
     }
 
-    @XmlTransient
-    public Collection<NoidungChuyenhang> getNoidungChuyenhangCollection() {
-        return noidungChuyenhangCollection;
+    public String getTinhtrang() {
+        return tinhtrang;
     }
 
-    public void setNoidungChuyenhangCollection(Collection<NoidungChuyenhang> noidungChuyenhangCollection) {
-        this.noidungChuyenhangCollection = noidungChuyenhangCollection;
+    public void setTinhtrang(String tinhtrang) {
+        this.tinhtrang = tinhtrang;
+    }
+
+    @XmlTransient
+    public Collection<NoidungThanhphamLenhsx> getNoidungThanhphamLenhsxCollection() {
+        return noidungThanhphamLenhsxCollection;
+    }
+
+    public void setNoidungThanhphamLenhsxCollection(Collection<NoidungThanhphamLenhsx> noidungThanhphamLenhsxCollection) {
+        this.noidungThanhphamLenhsxCollection = noidungThanhphamLenhsxCollection;
     }
 
     @Override
@@ -116,10 +112,10 @@ public class Chuyenkho implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Chuyenkho)) {
+        if (!(object instanceof Lenhsanxuat)) {
             return false;
         }
-        Chuyenkho other = (Chuyenkho) object;
+        Lenhsanxuat other = (Lenhsanxuat) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -128,7 +124,7 @@ public class Chuyenkho implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.Chuyenkho[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.Lenhsanxuat[ ma=" + ma + " ]";
     }
     
 }

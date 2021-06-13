@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -41,16 +42,22 @@ public class Lichsu implements Serializable {
     @Basic(optional = false)
     @Column(name = "ma", nullable = false)
     private Integer ma;
+    @Size(max = 50)
     @Column(name = "thoigian", length = 50)
     private String thoigian;
+    @Size(max = 50)
     @Column(name = "phieu", length = 50)
     private String phieu;
+    @Size(max = 50)
     @Column(name = "nghiepvu", length = 50)
     private String nghiepvu;
+    @Size(max = 50)
     @Column(name = "diengiai", length = 50)
     private String diengiai;
+    @Size(max = 50)
     @Column(name = "gia", length = 50)
     private String gia;
+    @Size(max = 50)
     @Column(name = "tentaikhoan_admin", length = 50)
     private String tentaikhoanAdmin;
 
@@ -139,7 +146,7 @@ public class Lichsu implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.Lichsu[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.Lichsu[ ma=" + ma + " ]";
     }
     
 }

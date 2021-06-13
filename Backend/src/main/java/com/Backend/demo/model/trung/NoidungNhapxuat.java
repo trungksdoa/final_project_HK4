@@ -5,7 +5,6 @@
  */
 package com.Backend.demo.model.trung;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "noidung_nhapxuat", catalog = "final_project", schema = "dbo")
-@XmlRootElement()
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "NoidungNhapxuat.findAll", query = "SELECT n FROM NoidungNhapxuat n"),
     @NamedQuery(name = "NoidungNhapxuat.findByMa", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ma = :ma"),
@@ -64,7 +63,6 @@ public class NoidungNhapxuat implements Serializable {
     private Dichvuhanghoa mahanghoa;
     @JoinColumn(name = "maphieunhapxuat", referencedColumnName = "ma")
     @ManyToOne
-    @JsonIgnore
     private Phieunhapxuat maphieunhapxuat;
 
     public NoidungNhapxuat() {
@@ -170,5 +168,5 @@ public class NoidungNhapxuat implements Serializable {
     public String toString() {
         return "com.Backend.demo.model.trung.NoidungNhapxuat[ ma=" + ma + " ]";
     }
-
+    
 }

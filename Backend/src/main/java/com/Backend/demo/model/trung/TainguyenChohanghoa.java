@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,47 +24,41 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "noidung_nhapxuat", catalog = "final_project", schema = "dbo")
+@Table(name = "tainguyen_chohanghoa", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "NoidungNhapxuat.findAll", query = "SELECT n FROM NoidungNhapxuat n"),
-    @NamedQuery(name = "NoidungNhapxuat.findByMa", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ma = :ma"),
-    @NamedQuery(name = "NoidungNhapxuat.findByTen", query = "SELECT n FROM NoidungNhapxuat n WHERE n.ten = :ten"),
-    @NamedQuery(name = "NoidungNhapxuat.findByDonvitinh", query = "SELECT n FROM NoidungNhapxuat n WHERE n.donvitinh = :donvitinh"),
-    @NamedQuery(name = "NoidungNhapxuat.findBySoluong", query = "SELECT n FROM NoidungNhapxuat n WHERE n.soluong = :soluong"),
-    @NamedQuery(name = "NoidungNhapxuat.findByGia", query = "SELECT n FROM NoidungNhapxuat n WHERE n.gia = :gia"),
-    @NamedQuery(name = "NoidungNhapxuat.findByChietkhau", query = "SELECT n FROM NoidungNhapxuat n WHERE n.chietkhau = :chietkhau"),
-    @NamedQuery(name = "NoidungNhapxuat.findByThanhgia", query = "SELECT n FROM NoidungNhapxuat n WHERE n.thanhgia = :thanhgia")})
-public class NoidungNhapxuat implements Serializable {
+    @NamedQuery(name = "TainguyenChohanghoa.findAll", query = "SELECT t FROM TainguyenChohanghoa t"),
+    @NamedQuery(name = "TainguyenChohanghoa.findByMa", query = "SELECT t FROM TainguyenChohanghoa t WHERE t.ma = :ma"),
+    @NamedQuery(name = "TainguyenChohanghoa.findByTen", query = "SELECT t FROM TainguyenChohanghoa t WHERE t.ten = :ten"),
+    @NamedQuery(name = "TainguyenChohanghoa.findByGia", query = "SELECT t FROM TainguyenChohanghoa t WHERE t.gia = :gia"),
+    @NamedQuery(name = "TainguyenChohanghoa.findBySoluong", query = "SELECT t FROM TainguyenChohanghoa t WHERE t.soluong = :soluong"),
+    @NamedQuery(name = "TainguyenChohanghoa.findByThanhgia", query = "SELECT t FROM TainguyenChohanghoa t WHERE t.thanhgia = :thanhgia")})
+public class TainguyenChohanghoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "ten", length = 50)
     private String ten;
-    @Column(name = "donvitinh", length = 50)
-    private String donvitinh;
-    @Column(name = "soluong")
-    private Integer soluong;
     @Column(name = "gia")
     private Integer gia;
-    @Column(name = "chietkhau")
-    private Integer chietkhau;
+    @Column(name = "soluong")
+    private Integer soluong;
     @Column(name = "thanhgia")
     private Integer thanhgia;
     @JoinColumn(name = "mahanghoa", referencedColumnName = "ma")
     @ManyToOne
     private Dichvuhanghoa mahanghoa;
-    @JoinColumn(name = "maphieunhapxuat", referencedColumnName = "ma")
-    @ManyToOne
-    private Phieunhapxuat maphieunhapxuat;
 
-    public NoidungNhapxuat() {
+    public TainguyenChohanghoa() {
     }
 
-    public NoidungNhapxuat(String ma) {
+    public TainguyenChohanghoa(String ma) {
         this.ma = ma;
     }
 
@@ -82,22 +78,6 @@ public class NoidungNhapxuat implements Serializable {
         this.ten = ten;
     }
 
-    public String getDonvitinh() {
-        return donvitinh;
-    }
-
-    public void setDonvitinh(String donvitinh) {
-        this.donvitinh = donvitinh;
-    }
-
-    public Integer getSoluong() {
-        return soluong;
-    }
-
-    public void setSoluong(Integer soluong) {
-        this.soluong = soluong;
-    }
-
     public Integer getGia() {
         return gia;
     }
@@ -106,12 +86,12 @@ public class NoidungNhapxuat implements Serializable {
         this.gia = gia;
     }
 
-    public Integer getChietkhau() {
-        return chietkhau;
+    public Integer getSoluong() {
+        return soluong;
     }
 
-    public void setChietkhau(Integer chietkhau) {
-        this.chietkhau = chietkhau;
+    public void setSoluong(Integer soluong) {
+        this.soluong = soluong;
     }
 
     public Integer getThanhgia() {
@@ -130,14 +110,6 @@ public class NoidungNhapxuat implements Serializable {
         this.mahanghoa = mahanghoa;
     }
 
-    public Phieunhapxuat getMaphieunhapxuat() {
-        return maphieunhapxuat;
-    }
-
-    public void setMaphieunhapxuat(Phieunhapxuat maphieunhapxuat) {
-        this.maphieunhapxuat = maphieunhapxuat;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -148,10 +120,10 @@ public class NoidungNhapxuat implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof NoidungNhapxuat)) {
+        if (!(object instanceof TainguyenChohanghoa)) {
             return false;
         }
-        NoidungNhapxuat other = (NoidungNhapxuat) object;
+        TainguyenChohanghoa other = (TainguyenChohanghoa) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -160,7 +132,7 @@ public class NoidungNhapxuat implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.NoidungNhapxuat[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.TainguyenChohanghoa[ ma=" + ma + " ]";
     }
     
 }

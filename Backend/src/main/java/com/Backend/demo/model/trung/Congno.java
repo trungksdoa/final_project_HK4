@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -13,57 +13,69 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author PC
+ * @author trung
  */
 @Entity
-@Table(name = "thunokh_chitranhacungcap", catalog = "final_project", schema = "dbo")
+@Table(name = "Congno", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ThunokhChitranhacungcap.findAll", query = "SELECT t FROM ThunokhChitranhacungcap t"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByMa", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.ma = :ma"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByKhachhangNhacungcap", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.khachhangNhacungcap = :khachhangNhacungcap"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByNguoitraKhachhang", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.nguoitraKhachhang = :nguoitraKhachhang"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByChugiai", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.chugiai = :chugiai"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByGia", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.gia = :gia"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByNghiepvu", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.nghiepvu = :nghiepvu"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByNguoithuNguoichi", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.nguoithuNguoichi = :nguoithuNguoichi"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByKieuthanhtoan", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.kieuthanhtoan = :kieuthanhtoan"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByNgay", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.ngay = :ngay"),
-    @NamedQuery(name = "ThunokhChitranhacungcap.findByDiachi", query = "SELECT t FROM ThunokhChitranhacungcap t WHERE t.diachi = :diachi")})
-public class ThunokhChitranhacungcap implements Serializable {
+    @NamedQuery(name = "Congno.findAll", query = "SELECT c FROM Congno c"),
+    @NamedQuery(name = "Congno.findByMa", query = "SELECT c FROM Congno c WHERE c.ma = :ma"),
+    @NamedQuery(name = "Congno.findByKhachhangNhacungcap", query = "SELECT c FROM Congno c WHERE c.khachhangNhacungcap = :khachhangNhacungcap"),
+    @NamedQuery(name = "Congno.findByNguoitraKhachhang", query = "SELECT c FROM Congno c WHERE c.nguoitraKhachhang = :nguoitraKhachhang"),
+    @NamedQuery(name = "Congno.findByChugiai", query = "SELECT c FROM Congno c WHERE c.chugiai = :chugiai"),
+    @NamedQuery(name = "Congno.findByGia", query = "SELECT c FROM Congno c WHERE c.gia = :gia"),
+    @NamedQuery(name = "Congno.findByNghiepvu", query = "SELECT c FROM Congno c WHERE c.nghiepvu = :nghiepvu"),
+    @NamedQuery(name = "Congno.findByNguoithuNguoichi", query = "SELECT c FROM Congno c WHERE c.nguoithuNguoichi = :nguoithuNguoichi"),
+    @NamedQuery(name = "Congno.findByKieuthanhtoan", query = "SELECT c FROM Congno c WHERE c.kieuthanhtoan = :kieuthanhtoan"),
+    @NamedQuery(name = "Congno.findByNgay", query = "SELECT c FROM Congno c WHERE c.ngay = :ngay"),
+    @NamedQuery(name = "Congno.findByDiachi", query = "SELECT c FROM Congno c WHERE c.diachi = :diachi")})
+public class Congno implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "khachhang_nhacungcap", length = 50)
     private String khachhangNhacungcap;
+    @Size(max = 50)
     @Column(name = "nguoitra_khachhang", length = 50)
     private String nguoitraKhachhang;
+    @Size(max = 50)
     @Column(name = "chugiai", length = 50)
     private String chugiai;
     @Column(name = "gia")
     private Integer gia;
+    @Size(max = 50)
     @Column(name = "nghiepvu", length = 50)
     private String nghiepvu;
+    @Size(max = 50)
     @Column(name = "nguoithu_nguoichi", length = 50)
     private String nguoithuNguoichi;
+    @Size(max = 50)
     @Column(name = "kieuthanhtoan", length = 50)
     private String kieuthanhtoan;
+    @Size(max = 50)
     @Column(name = "ngay", length = 50)
     private String ngay;
+    @Size(max = 50)
     @Column(name = "diachi", length = 50)
     private String diachi;
 
-    public ThunokhChitranhacungcap() {
+    public Congno() {
     }
 
-    public ThunokhChitranhacungcap(String ma) {
+    public Congno(String ma) {
         this.ma = ma;
     }
 
@@ -157,10 +169,10 @@ public class ThunokhChitranhacungcap implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ThunokhChitranhacungcap)) {
+        if (!(object instanceof Congno)) {
             return false;
         }
-        ThunokhChitranhacungcap other = (ThunokhChitranhacungcap) object;
+        Congno other = (Congno) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -169,7 +181,7 @@ public class ThunokhChitranhacungcap implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.ThunokhChitranhacungcap[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.Congno[ ma=" + ma + " ]";
     }
     
 }

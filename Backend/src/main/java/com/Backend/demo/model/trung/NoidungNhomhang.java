@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,26 +24,30 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "sodu", catalog = "final_project", schema = "dbo")
+@Table(name = "noidung_nhomhang", catalog = "final_project", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sodu.findAll", query = "SELECT s FROM Sodu s"),
-    @NamedQuery(name = "Sodu.findByMa", query = "SELECT s FROM Sodu s WHERE s.ma = :ma"),
-    @NamedQuery(name = "Sodu.findBySodu", query = "SELECT s FROM Sodu s WHERE s.sodu = :sodu")})
-public class Sodu implements Serializable {
+    @NamedQuery(name = "NoidungNhomhang.findAll", query = "SELECT n FROM NoidungNhomhang n"),
+    @NamedQuery(name = "NoidungNhomhang.findByMa", query = "SELECT n FROM NoidungNhomhang n WHERE n.ma = :ma")})
+public class NoidungNhomhang implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ma", nullable = false)
     private Integer ma;
-    @Column(name = "sodu")
-    private Integer sodu;
+    @JoinColumn(name = "mahanghoa", referencedColumnName = "ma")
+    @ManyToOne
+    private Dichvuhanghoa mahanghoa;
+    @JoinColumn(name = "manhomhang", referencedColumnName = "ma")
+    @ManyToOne
+    private Nhomhanghoa manhomhang;
 
-    public Sodu() {
+    public NoidungNhomhang() {
     }
 
-    public Sodu(Integer ma) {
+    public NoidungNhomhang(Integer ma) {
         this.ma = ma;
     }
 
@@ -51,12 +59,20 @@ public class Sodu implements Serializable {
         this.ma = ma;
     }
 
-    public Integer getSodu() {
-        return sodu;
+    public Dichvuhanghoa getMahanghoa() {
+        return mahanghoa;
     }
 
-    public void setSodu(Integer sodu) {
-        this.sodu = sodu;
+    public void setMahanghoa(Dichvuhanghoa mahanghoa) {
+        this.mahanghoa = mahanghoa;
+    }
+
+    public Nhomhanghoa getManhomhang() {
+        return manhomhang;
+    }
+
+    public void setManhomhang(Nhomhanghoa manhomhang) {
+        this.manhomhang = manhomhang;
     }
 
     @Override
@@ -69,10 +85,10 @@ public class Sodu implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sodu)) {
+        if (!(object instanceof NoidungNhomhang)) {
             return false;
         }
-        Sodu other = (Sodu) object;
+        NoidungNhomhang other = (NoidungNhomhang) object;
         if ((this.ma == null && other.ma != null) || (this.ma != null && !this.ma.equals(other.ma))) {
             return false;
         }
@@ -81,7 +97,7 @@ public class Sodu implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.Sodu[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.NoidungNhomhang[ ma=" + ma + " ]";
     }
     
 }

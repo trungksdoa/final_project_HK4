@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,6 +32,7 @@ public class Sodu implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ma", nullable = false)
     private Integer ma;
     @Column(name = "sodu")
@@ -81,7 +83,7 @@ public class Sodu implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.Sodu[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.Sodu[ ma=" + ma + " ]";
     }
     
 }

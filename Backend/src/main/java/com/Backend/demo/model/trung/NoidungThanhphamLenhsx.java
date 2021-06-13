@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -17,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -39,14 +41,18 @@ public class NoidungThanhphamLenhsx implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "ten", length = 50)
     private String ten;
     @Column(name = "soluong")
     private Integer soluong;
     @Column(name = "gia")
     private Integer gia;
+    @Size(max = 50)
     @Column(name = "donvitinh", length = 50)
     private String donvitinh;
     @JoinColumn(name = "malenhsanxuat", referencedColumnName = "ma")
@@ -141,7 +147,7 @@ public class NoidungThanhphamLenhsx implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.NoidungThanhphamLenhsx[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.NoidungThanhphamLenhsx[ ma=" + ma + " ]";
     }
     
 }

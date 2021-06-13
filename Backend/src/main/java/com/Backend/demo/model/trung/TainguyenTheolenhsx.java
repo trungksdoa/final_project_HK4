@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fpt.aptech.project.Client.Models;
+package com.Backend.demo.model.trung;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,10 +39,14 @@ public class TainguyenTheolenhsx implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ma", nullable = false, length = 50)
     private String ma;
+    @Size(max = 50)
     @Column(name = "ten", length = 50)
     private String ten;
+    @Size(max = 50)
     @Column(name = "donvitinh", length = 50)
     private String donvitinh;
     @Column(name = "soluong_tren1tp")
@@ -138,7 +144,7 @@ public class TainguyenTheolenhsx implements Serializable {
 
     @Override
     public String toString() {
-        return "fpt.aptech.project.Client.Models.TainguyenTheolenhsx[ ma=" + ma + " ]";
+        return "com.Backend.demo.model.trung.TainguyenTheolenhsx[ ma=" + ma + " ]";
     }
     
 }
