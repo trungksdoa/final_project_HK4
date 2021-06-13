@@ -78,44 +78,85 @@ public class Test {
         System.out.println(result);
 
         //--------------
+        //Post Object
+        //@Param
+        //@Param
+        //---------------
+        Phieunhapxuat phieunhapxuat = new Phieunhapxuat();
+        phieunhapxuat.setNgay("2012/01/05");
+        phieunhapxuat.setMa("PhieuSDC");
+        phieunhapxuat.setDiachi("CauTieu");
+        phieunhapxuat.setKieuNhapHayXuat("Nhập");
+        phieunhapxuat.setNguoinhap("Admin");
+        phieunhapxuat.setKieuthanhtoan("Bán");
+        phieunhapxuat.setKho("Kho ABC");
+        phieunhapxuat.setOwed(999999);
+        phieunhapxuat.setDathanhtoanbaonhieutien(0);
+        phieunhapxuat.setNguoigiao("TrungDepTrai");
+        phieunhapxuat.setTinhtrangphieu("ABC");
+        phieunhapxuat.setChugiai("OK C????");
+
+        Nhacungcap ncc = new Nhacungcap();
+        ncc.setMa("ABC");
+        phieunhapxuat.setManhacungcap(ncc);
+
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // Dữ liệu đính kèm theo yêu cầu.
+        HttpEntity<Phieunhapxuat> requestBody = new HttpEntity<>(phieunhapxuat, headers);
+
+        // Gửi yêu cầu với phương thức POST.
+        Phieunhapxuat e = restTemplate.postForObject(URL, requestBody, Phieunhapxuat.class);
+
+        if (e != null && e.getMa() != null) {
+
+            System.out.println("Phieu created: " + e.getMa());
+        } else {
+            System.out.println("Something error!");
+        }
+        //--------------
         //Put Object
         //@Param
         //@Param
         //---------------
-//        Phieunhapxuat phieunhapxuat = new Phieunhapxuat();
-//        phieunhapxuat.setMa("PhieuABC");
-//        phieunhapxuat.setNgay("2012/01/05");
-//        phieunhapxuat.setMa("PhieuABC");
-//        phieunhapxuat.setDiachi("CauTieu");
-//        phieunhapxuat.setKieuNhapHayXuat("Nhập");
-//        phieunhapxuat.setNguoinhap("Admin");
-//        phieunhapxuat.setKieuthanhtoan("Bán");
-//        phieunhapxuat.setKho("Kho ABC");
-//        phieunhapxuat.setOwed(999999);
-//        phieunhapxuat.setDathanhtoanbaonhieutien(0);
-//        phieunhapxuat.setNguoigiao("TrungDepTrai");
-//        phieunhapxuat.setTinhtrangphieu("ABC");
-//        phieunhapxuat.setChugiai("OK C????");
-//
-//        Nhacungcap ncc = new Nhacungcap();
-//        ncc.setMa("ABC");
-//        phieunhapxuat.setManhacungcap(ncc);
-//
-//
-//        // Dữ liệu đính kèm theo yêu cầu.
-//        HttpEntity<Phieunhapxuat> requestBody = new HttpEntity<>(phieunhapxuat);
-//
-//        // Gửi yêu cầu với phương thức POST.
-//        ResponseEntity<Phieunhapxuat> sut
-//                = restTemplate.postForEntity(URL, requestBody, Phieunhapxuat.class);
-//
-//        System.out.println("Status code:" + sut.getStatusCode());
-//
-//        // Code = 200.
-//        if (sut.getStatusCode() == HttpStatus.OK) {
-//            Phieunhapxuat e = sut.getBody();
-//            System.out.println("(Client Side) Employee Created: " + e.getMa());
-//        }
+        Phieunhapxuat phieunhapxuast = new Phieunhapxuat();
+        phieunhapxuast.setKho("Kho BCD");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        // Dữ liệu đính kèm theo yêu cầu.
+        HttpEntity<Phieunhapxuat> requestBodys = new HttpEntity<>(phieunhapxuast, headers);
+
+        // Gửi yêu cầu với phương thức PUT.
+        restTemplate.put(URL + "/PhieuABC", requestBodys, new Object[]{});
+
+        String resourceUrl = URL + "/PhieuABC";
+
+        Phieunhapxuat es = restTemplate.getForObject(resourceUrl, Phieunhapxuat.class);
+
+        if (e != null) {
+            System.out.println("(Client side) Phieu after update: ");
+            System.out.println("Phieu: " + es.getMa() + " - " + e.getKho());
+        }
+         //--------------
+        //Delete Object
+        //@Param
+        //@Param
+        //---------------
+        String resourceUrls = URL + "/PhieuSDC";
+
+        // Gửi yêu cầu với phương thức DELETE.
+        restTemplate.delete(resourceUrl);
+
+        // Get 
+        Phieunhapxuat e232 = restTemplate.getForObject(resourceUrl, Phieunhapxuat.class);
+
+        if (e != null) {
+            System.out.println("(Client side) Phieu after delete: ");
+            System.out.println("Phieu: " + e.getMa() + " - " + e.getKho());
+        } else {
+            System.out.println("Phieu not found!");
+        }
     }
 
 }
