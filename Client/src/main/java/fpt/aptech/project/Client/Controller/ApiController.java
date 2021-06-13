@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,13 +27,14 @@ import org.springframework.web.client.RestTemplate;
  * @author PC
  */
 @RestController
+@RequestMapping("/trung")
 public class ApiController {
 
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String URL = "http://localhost:8888/trung";
-    private static final String URL_ONE = "http://localhost:8888/trung/phieuA";
+    private static final String URL = "http://localhost:9999/trung";
+    private static final String URL_ONE = "http://localhost:9999/trung/phieuA";
     // get All
     @GetMapping()
     public List<Object> getPhieunhapxuat() {
