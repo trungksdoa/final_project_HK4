@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.Backend.demo.Controller;
+package com.Backend.Controller;
 
 import com.Backend.demo.model.trung.Phieunhapxuat;
 import com.Backend.demo.service.trung.DichvuPhieunhapxuat;
