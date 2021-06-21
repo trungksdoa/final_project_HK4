@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "sales_coupon")
+@Table(name = "sales_coupon", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SalesCoupon.findAll", query = "SELECT s FROM SalesCoupon s"),
@@ -40,17 +40,17 @@ public class SalesCoupon implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "date")
+    @Column(name = "date", length = 20)
     private String date;
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
     @Column(name = "phone")
     private Integer phone;
-    @Column(name = "expain")
+    @Column(name = "expain", length = 50)
     private String expain;
-    @Column(name = "seller")
+    @Column(name = "seller", length = 50)
     private String seller;
     @OneToMany(mappedBy = "salesCouponId")
     private Collection<SalesCouponContent> salesCouponContentCollection;

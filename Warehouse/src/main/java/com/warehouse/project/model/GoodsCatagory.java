@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "goods_catagory")
+@Table(name = "goods_catagory", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GoodsCatagory.findAll", query = "SELECT g FROM GoodsCatagory g"),
@@ -38,11 +38,11 @@ public class GoodsCatagory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "goods_name")
+    @Column(name = "goods_name", length = 50)
     private String goodsName;
-    @Column(name = "unit")
+    @Column(name = "unit", length = 10)
     private String unit;
     @Column(name = "weight")
     private Integer weight;

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Production_order")
+@Table(name = "Production_order", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productionorder.findAll", query = "SELECT p FROM Productionorder p"),
@@ -36,13 +36,13 @@ public class Productionorder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "date")
+    @Column(name = "date", length = 50)
     private String date;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 100)
     private String explain;
-    @Column(name = "status")
+    @Column(name = "status", length = 20)
     private String status;
     @OneToMany(mappedBy = "productionorderid")
     private Collection<Productionordercontent> productionordercontentCollection;

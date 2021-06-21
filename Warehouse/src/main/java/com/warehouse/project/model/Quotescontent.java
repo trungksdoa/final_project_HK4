@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Quotes_content")
+@Table(name = "Quotes_content", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Quotescontent.findAll", query = "SELECT q FROM Quotescontent q"),
@@ -42,17 +42,17 @@ public class Quotescontent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "goods_name")
+    @Column(name = "goods_name", length = 100)
     private String goodsName;
-    @Column(name = "unit")
+    @Column(name = "unit", length = 10)
     private String unit;
     @Column(name = "quantity")
     private Integer quantity;
     @Column(name = "goods_price")
     private Integer goodsPrice;
-    @Column(name = "afterpirce")
+    @Column(name = "afterpirce", length = 10)
     private String afterpirce;
     @Column(name = "discount")
     private Integer discount;

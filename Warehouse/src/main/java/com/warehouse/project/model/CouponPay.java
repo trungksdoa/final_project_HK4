@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -23,13 +25,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "coupon_pay")
+@Table(name = "coupon_pay", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CouponPay.findAll", query = "SELECT c FROM CouponPay c"),
     @NamedQuery(name = "CouponPay.findById", query = "SELECT c FROM CouponPay c WHERE c.id = :id"),
     @NamedQuery(name = "CouponPay.findByDate", query = "SELECT c FROM CouponPay c WHERE c.date = :date"),
-    @NamedQuery(name = "CouponPay.findByObject", query = "SELECT c FROM CouponPay c WHERE c.object = :object"),
     @NamedQuery(name = "CouponPay.findByPrice", query = "SELECT c FROM CouponPay c WHERE c.price = :price"),
     @NamedQuery(name = "CouponPay.findByMajor", query = "SELECT c FROM CouponPay c WHERE c.major = :major"),
     @NamedQuery(name = "CouponPay.findByAddress", query = "SELECT c FROM CouponPay c WHERE c.address = :address"),
@@ -40,25 +41,26 @@ public class CouponPay implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "date")
+    @Column(name = "date", length = 50)
     private String date;
-    @Column(name = "object")
-    private String object;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "price")
+    @Column(name = "price", precision = 53)
     private Double price;
-    @Column(name = "major")
+    @Column(name = "major", length = 10)
     private String major;
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 50)
     private String explain;
-    @Column(name = "payer")
+    @Column(name = "payer", length = 50)
     private String payer;
     @OneToMany(mappedBy = "couponPayId")
     private Collection<CouponPayReference> couponPayReferenceCollection;
+    @JoinColumn(name = "object", referencedColumnName = "id")
+    @ManyToOne
+    private Supplier object1;
 
     public CouponPay() {
     }
@@ -81,14 +83,6 @@ public class CouponPay implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
     }
 
     public Double getPrice() {
@@ -138,6 +132,14 @@ public class CouponPay implements Serializable {
 
     public void setCouponPayReferenceCollection(Collection<CouponPayReference> couponPayReferenceCollection) {
         this.couponPayReferenceCollection = couponPayReferenceCollection;
+    }
+
+    public Supplier getObject1() {
+        return object1;
+    }
+
+    public void setObject1(Supplier object1) {
+        this.object1 = object1;
     }
 
     @Override

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Production_order_content")
+@Table(name = "Production_order_content", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productionordercontent.findAll", query = "SELECT p FROM Productionordercontent p"),
@@ -41,11 +41,11 @@ public class Productionordercontent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "goods_name")
+    @Column(name = "goods_name", length = 50)
     private String goodsName;
-    @Column(name = "unit")
+    @Column(name = "unit", length = 10)
     private String unit;
     @Column(name = "quantity")
     private Integer quantity;

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Barcode")
+@Table(name = "Barcode", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Barcode.findAll", query = "SELECT b FROM Barcode b"),
@@ -34,11 +34,11 @@ public class Barcode implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "barcode")
+    @Column(name = "barcode", length = 100)
     private String barcode;
-    @Column(name = "date")
+    @Column(name = "date", length = 50)
     private String date;
     @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
     @ManyToOne

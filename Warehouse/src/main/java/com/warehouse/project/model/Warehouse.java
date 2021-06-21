@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Warehouse")
+@Table(name = "Warehouse", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w"),
@@ -43,24 +43,24 @@ public class Warehouse implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "goods_id")
+    @Column(name = "goods_id", nullable = false, length = 50)
     private String goodsId;
-    @Column(name = "goods_name")
+    @Column(name = "goods_name", length = 50)
     private String goodsName;
-    @Column(name = "unit")
+    @Column(name = "unit", length = 20)
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity_in_stock")
+    @Column(name = "quantity_in_stock", precision = 53)
     private Double quantityInStock;
-    @Column(name = "import_price")
+    @Column(name = "import_price", length = 10)
     private String importPrice;
-    @Column(name = "price_in_stock")
+    @Column(name = "price_in_stock", precision = 53)
     private Double priceInStock;
-    @Column(name = "sell_price")
+    @Column(name = "sell_price", precision = 53)
     private Double sellPrice;
-    @Column(name = "group_goods")
+    @Column(name = "group_goods", length = 10)
     private String groupGoods;
-    @Column(name = "weight")
+    @Column(name = "weight", precision = 53)
     private Double weight;
     @JoinColumn(name = "stock_card", referencedColumnName = "id")
     @ManyToOne
@@ -70,15 +70,13 @@ public class Warehouse implements Serializable {
     @OneToMany(mappedBy = "warehouseId")
     private Collection<TranferWarehouseConent> tranferWarehouseConentCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<Order> order1Collection;
-    @OneToMany(mappedBy = "goodsId")
     private Collection<Quotescontent> quotescontentCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<SalesCouponContent> salesCouponContentCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<Barcode> barcodeCollection;
+    private Collection<VoucherContent> voucherContentCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<CouponContent> couponContentCollection;
+    private Collection<Barcode> barcodeCollection;
 
     public Warehouse() {
     }
@@ -186,15 +184,6 @@ public class Warehouse implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Order> getOrder1Collection() {
-        return order1Collection;
-    }
-
-    public void setOrder1Collection(Collection<Order> order1Collection) {
-        this.order1Collection = order1Collection;
-    }
-
-    @XmlTransient
     public Collection<Quotescontent> getQuotescontentCollection() {
         return quotescontentCollection;
     }
@@ -213,21 +202,21 @@ public class Warehouse implements Serializable {
     }
 
     @XmlTransient
+    public Collection<VoucherContent> getVoucherContentCollection() {
+        return voucherContentCollection;
+    }
+
+    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
+        this.voucherContentCollection = voucherContentCollection;
+    }
+
+    @XmlTransient
     public Collection<Barcode> getBarcodeCollection() {
         return barcodeCollection;
     }
 
     public void setBarcodeCollection(Collection<Barcode> barcodeCollection) {
         this.barcodeCollection = barcodeCollection;
-    }
-
-    @XmlTransient
-    public Collection<CouponContent> getCouponContentCollection() {
-        return couponContentCollection;
-    }
-
-    public void setCouponContentCollection(Collection<CouponContent> couponContentCollection) {
-        this.couponContentCollection = couponContentCollection;
     }
 
     @Override

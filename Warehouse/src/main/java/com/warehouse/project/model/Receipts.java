@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -23,13 +25,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "receipts")
+@Table(name = "receipts", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Receipts.findAll", query = "SELECT r FROM Receipts r"),
     @NamedQuery(name = "Receipts.findById", query = "SELECT r FROM Receipts r WHERE r.id = :id"),
     @NamedQuery(name = "Receipts.findByDate", query = "SELECT r FROM Receipts r WHERE r.date = :date"),
-    @NamedQuery(name = "Receipts.findByObject", query = "SELECT r FROM Receipts r WHERE r.object = :object"),
     @NamedQuery(name = "Receipts.findByPrice", query = "SELECT r FROM Receipts r WHERE r.price = :price"),
     @NamedQuery(name = "Receipts.findByMajor", query = "SELECT r FROM Receipts r WHERE r.major = :major"),
     @NamedQuery(name = "Receipts.findByAddress", query = "SELECT r FROM Receipts r WHERE r.address = :address"),
@@ -40,25 +41,26 @@ public class Receipts implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "date")
+    @Column(name = "date", length = 50)
     private String date;
-    @Column(name = "object")
-    private String object;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "price")
+    @Column(name = "price", precision = 53)
     private Double price;
-    @Column(name = "major")
+    @Column(name = "major", length = 10)
     private String major;
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 50)
     private String explain;
-    @Column(name = "collector")
+    @Column(name = "collector", length = 50)
     private String collector;
     @OneToMany(mappedBy = "receiptsId")
     private Collection<ReceiptsReference> receiptsReferenceCollection;
+    @JoinColumn(name = "object", referencedColumnName = "id")
+    @ManyToOne
+    private Customer object1;
 
     public Receipts() {
     }
@@ -81,14 +83,6 @@ public class Receipts implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
     }
 
     public Double getPrice() {
@@ -138,6 +132,14 @@ public class Receipts implements Serializable {
 
     public void setReceiptsReferenceCollection(Collection<ReceiptsReference> receiptsReferenceCollection) {
         this.receiptsReferenceCollection = receiptsReferenceCollection;
+    }
+
+    public Customer getObject1() {
+        return object1;
+    }
+
+    public void setObject1(Customer object1) {
+        this.object1 = object1;
     }
 
     @Override

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "supplier")
+@Table(name = "supplier", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Supplier.findAll", query = "SELECT s FROM Supplier s"),
@@ -42,28 +42,30 @@ public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "name")
+    @Column(name = "name", length = 50)
     private String name;
     @Column(name = "phone")
     private Integer phone;
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
-    @Column(name = "email")
+    @Column(name = "email", length = 50)
     private String email;
     @Column(name = "tax_number")
     private Integer taxNumber;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 50)
     private String explain;
-    @Column(name = "birthdate")
+    @Column(name = "birthdate", length = 20)
     private String birthdate;
     @Column(name = "sex")
     private Boolean sex;
     @Column(name = "customer_point")
     private Integer customerPoint;
     @OneToMany(mappedBy = "supplierId")
-    private Collection<Coupon> couponCollection;
+    private Collection<Voucher> voucherCollection;
+    @OneToMany(mappedBy = "object1")
+    private Collection<CouponPay> couponPayCollection;
     @OneToMany(mappedBy = "supplierId")
     private Collection<Input> inputCollection;
 
@@ -155,12 +157,21 @@ public class Supplier implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Coupon> getCouponCollection() {
-        return couponCollection;
+    public Collection<Voucher> getVoucherCollection() {
+        return voucherCollection;
     }
 
-    public void setCouponCollection(Collection<Coupon> couponCollection) {
-        this.couponCollection = couponCollection;
+    public void setVoucherCollection(Collection<Voucher> voucherCollection) {
+        this.voucherCollection = voucherCollection;
+    }
+
+    @XmlTransient
+    public Collection<CouponPay> getCouponPayCollection() {
+        return couponPayCollection;
+    }
+
+    public void setCouponPayCollection(Collection<CouponPay> couponPayCollection) {
+        this.couponPayCollection = couponPayCollection;
     }
 
     @XmlTransient

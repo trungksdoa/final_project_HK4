@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Customer")
+@Table(name = "Customer", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
@@ -42,21 +42,21 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "name")
+    @Column(name = "name", length = 50)
     private String name;
     @Column(name = "phone")
     private Integer phone;
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
-    @Column(name = "email")
+    @Column(name = "email", length = 50)
     private String email;
     @Column(name = "tax_number")
     private Integer taxNumber;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 50)
     private String explain;
-    @Column(name = "birthdate")
+    @Column(name = "birthdate", length = 20)
     private String birthdate;
     @Column(name = "sex")
     private Boolean sex;
@@ -66,10 +66,10 @@ public class Customer implements Serializable {
     private Collection<Quotes> quotesCollection;
     @OneToMany(mappedBy = "customerId")
     private Collection<Output> outputCollection;
+    @OneToMany(mappedBy = "object1")
+    private Collection<Receipts> receiptsCollection;
     @OneToMany(mappedBy = "customerId")
     private Collection<SalesCoupon> salesCouponCollection;
-    @OneToMany(mappedBy = "customerid")
-    private Collection<Orderdetail> orderdetailCollection;
 
     public Customer() {
     }
@@ -177,21 +177,21 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Receipts> getReceiptsCollection() {
+        return receiptsCollection;
+    }
+
+    public void setReceiptsCollection(Collection<Receipts> receiptsCollection) {
+        this.receiptsCollection = receiptsCollection;
+    }
+
+    @XmlTransient
     public Collection<SalesCoupon> getSalesCouponCollection() {
         return salesCouponCollection;
     }
 
     public void setSalesCouponCollection(Collection<SalesCoupon> salesCouponCollection) {
         this.salesCouponCollection = salesCouponCollection;
-    }
-
-    @XmlTransient
-    public Collection<Orderdetail> getOrderdetailCollection() {
-        return orderdetailCollection;
-    }
-
-    public void setOrderdetailCollection(Collection<Orderdetail> orderdetailCollection) {
-        this.orderdetailCollection = orderdetailCollection;
     }
 
     @Override

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "output_content")
+@Table(name = "output_content", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OutputContent.findAll", query = "SELECT o FROM OutputContent o"),
@@ -39,22 +39,22 @@ public class OutputContent implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "goods_name")
+    @Column(name = "goods_name", length = 50)
     private String goodsName;
-    @Column(name = "unit")
+    @Column(name = "unit", length = 10)
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity")
+    @Column(name = "quantity", precision = 53)
     private Double quantity;
-    @Column(name = "exports_prices")
+    @Column(name = "exports_prices", precision = 53)
     private Double exportsPrices;
     @Column(name = "discounts")
     private Integer discounts;
-    @Column(name = "after_price")
+    @Column(name = "after_price", precision = 53)
     private Double afterPrice;
-    @Column(name = "weight")
+    @Column(name = "weight", precision = 53)
     private Double weight;
     @JoinColumn(name = "output_id", referencedColumnName = "id")
     @ManyToOne

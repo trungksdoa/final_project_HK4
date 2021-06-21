@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "output")
+@Table(name = "output", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Output.findAll", query = "SELECT o FROM Output o"),
@@ -44,25 +44,25 @@ public class Output implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "date")
+    @Column(name = "date", length = 20)
     private String date;
-    @Column(name = "address")
+    @Column(name = "address", length = 100)
     private String address;
-    @Column(name = "seller")
+    @Column(name = "seller", length = 50)
     private String seller;
-    @Column(name = "warehouse")
+    @Column(name = "warehouse", length = 10)
     private String warehouse;
-    @Column(name = "shipper")
+    @Column(name = "shipper", length = 50)
     private String shipper;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 50)
     private String explain;
     @Column(name = "owed")
     private Integer owed;
     @Column(name = "pay")
     private Integer pay;
-    @Column(name = "status")
+    @Column(name = "status", length = 20)
     private String status;
     @OneToMany(mappedBy = "outputId")
     private Collection<OutputContent> outputContentCollection;

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Production_order_material")
+@Table(name = "Production_order_material", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productionordermaterial.findAll", query = "SELECT p FROM Productionordermaterial p"),
@@ -37,11 +37,11 @@ public class Productionordermaterial implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "goods_name")
+    @Column(name = "goods_name", length = 50)
     private String goodsName;
-    @Column(name = "unit")
+    @Column(name = "unit", length = 10)
     private String unit;
     @Column(name = "quantityon1")
     private Integer quantityon1;

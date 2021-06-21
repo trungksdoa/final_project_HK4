@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,13 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "coupon_pay_reference", catalog = "Databases_", schema = "dbo")
+@Table(name = "output_reference", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CouponPayReference.findAll", query = "SELECT c FROM CouponPayReference c"),
-    @NamedQuery(name = "CouponPayReference.findById", query = "SELECT c FROM CouponPayReference c WHERE c.id = :id"),
-    @NamedQuery(name = "CouponPayReference.findByReference", query = "SELECT c FROM CouponPayReference c WHERE c.reference = :reference")})
-public class CouponPayReference implements Serializable {
+    @NamedQuery(name = "OutputReference.findAll", query = "SELECT o FROM OutputReference o"),
+    @NamedQuery(name = "OutputReference.findById", query = "SELECT o FROM OutputReference o WHERE o.id = :id"),
+    @NamedQuery(name = "OutputReference.findByCodeId", query = "SELECT o FROM OutputReference o WHERE o.codeId = :codeId"),
+    @NamedQuery(name = "OutputReference.findByDate", query = "SELECT o FROM OutputReference o WHERE o.date = :date")})
+public class OutputReference implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,16 +37,15 @@ public class CouponPayReference implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "reference", length = 50)
-    private String reference;
-    @JoinColumn(name = "coupon_pay_id", referencedColumnName = "id")
-    @ManyToOne
-    private CouponPay couponPayId;
+    @Column(name = "code_id", length = 50)
+    private String codeId;
+    @Column(name = "date", length = 50)
+    private String date;
 
-    public CouponPayReference() {
+    public OutputReference() {
     }
 
-    public CouponPayReference(Integer id) {
+    public OutputReference(Integer id) {
         this.id = id;
     }
 
@@ -59,20 +57,20 @@ public class CouponPayReference implements Serializable {
         this.id = id;
     }
 
-    public String getReference() {
-        return reference;
+    public String getCodeId() {
+        return codeId;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setCodeId(String codeId) {
+        this.codeId = codeId;
     }
 
-    public CouponPay getCouponPayId() {
-        return couponPayId;
+    public String getDate() {
+        return date;
     }
 
-    public void setCouponPayId(CouponPay couponPayId) {
-        this.couponPayId = couponPayId;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
@@ -85,10 +83,10 @@ public class CouponPayReference implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CouponPayReference)) {
+        if (!(object instanceof OutputReference)) {
             return false;
         }
-        CouponPayReference other = (CouponPayReference) object;
+        OutputReference other = (OutputReference) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -97,7 +95,7 @@ public class CouponPayReference implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.CouponPayReference[ id=" + id + " ]";
+        return "com.warehouse.project.model.OutputReference[ id=" + id + " ]";
     }
     
 }

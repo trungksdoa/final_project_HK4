@@ -25,46 +25,43 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Quotes", catalog = "Databases_", schema = "dbo")
+@Table(name = "voucher", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Quotes.findAll", query = "SELECT q FROM Quotes q"),
-    @NamedQuery(name = "Quotes.findById", query = "SELECT q FROM Quotes q WHERE q.id = :id"),
-    @NamedQuery(name = "Quotes.findByDate", query = "SELECT q FROM Quotes q WHERE q.date = :date"),
-    @NamedQuery(name = "Quotes.findByAddress", query = "SELECT q FROM Quotes q WHERE q.address = :address"),
-    @NamedQuery(name = "Quotes.findByPhone", query = "SELECT q FROM Quotes q WHERE q.phone = :phone"),
-    @NamedQuery(name = "Quotes.findByReceiver", query = "SELECT q FROM Quotes q WHERE q.receiver = :receiver"),
-    @NamedQuery(name = "Quotes.findByExplain", query = "SELECT q FROM Quotes q WHERE q.explain = :explain"),
-    @NamedQuery(name = "Quotes.findByCreator", query = "SELECT q FROM Quotes q WHERE q.creator = :creator")})
-public class Quotes implements Serializable {
+    @NamedQuery(name = "Voucher.findAll", query = "SELECT v FROM Voucher v"),
+    @NamedQuery(name = "Voucher.findById", query = "SELECT v FROM Voucher v WHERE v.id = :id"),
+    @NamedQuery(name = "Voucher.findByDate", query = "SELECT v FROM Voucher v WHERE v.date = :date"),
+    @NamedQuery(name = "Voucher.findByAddress", query = "SELECT v FROM Voucher v WHERE v.address = :address"),
+    @NamedQuery(name = "Voucher.findByPhone", query = "SELECT v FROM Voucher v WHERE v.phone = :phone"),
+    @NamedQuery(name = "Voucher.findByExpain", query = "SELECT v FROM Voucher v WHERE v.expain = :expain"),
+    @NamedQuery(name = "Voucher.findByCreator", query = "SELECT v FROM Voucher v WHERE v.creator = :creator")})
+public class Voucher implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "date", length = 50)
+    @Column(name = "date", length = 20)
     private String date;
     @Column(name = "address", length = 50)
     private String address;
-    @Column(name = "phone", length = 20)
-    private String phone;
-    @Column(name = "receiver", length = 50)
-    private String receiver;
-    @Column(name = "explain", length = 100)
-    private String explain;
+    @Column(name = "phone")
+    private Integer phone;
+    @Column(name = "expain", length = 100)
+    private String expain;
     @Column(name = "creator", length = 50)
     private String creator;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne
-    private Customer customerId;
-    @OneToMany(mappedBy = "quotesid")
-    private Collection<Quotescontent> quotescontentCollection;
+    private Supplier supplierId;
+    @OneToMany(mappedBy = "couponId")
+    private Collection<VoucherContent> voucherContentCollection;
 
-    public Quotes() {
+    public Voucher() {
     }
 
-    public Quotes(String id) {
+    public Voucher(String id) {
         this.id = id;
     }
 
@@ -92,28 +89,20 @@ public class Quotes implements Serializable {
         this.address = address;
     }
 
-    public String getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getExpain() {
+        return expain;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getExplain() {
-        return explain;
-    }
-
-    public void setExplain(String explain) {
-        this.explain = explain;
+    public void setExpain(String expain) {
+        this.expain = expain;
     }
 
     public String getCreator() {
@@ -124,21 +113,21 @@ public class Quotes implements Serializable {
         this.creator = creator;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Supplier getSupplierId() {
+        return supplierId;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setSupplierId(Supplier supplierId) {
+        this.supplierId = supplierId;
     }
 
     @XmlTransient
-    public Collection<Quotescontent> getQuotescontentCollection() {
-        return quotescontentCollection;
+    public Collection<VoucherContent> getVoucherContentCollection() {
+        return voucherContentCollection;
     }
 
-    public void setQuotescontentCollection(Collection<Quotescontent> quotescontentCollection) {
-        this.quotescontentCollection = quotescontentCollection;
+    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
+        this.voucherContentCollection = voucherContentCollection;
     }
 
     @Override
@@ -151,10 +140,10 @@ public class Quotes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Quotes)) {
+        if (!(object instanceof Voucher)) {
             return false;
         }
-        Quotes other = (Quotes) object;
+        Voucher other = (Voucher) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -163,7 +152,7 @@ public class Quotes implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Quotes[ id=" + id + " ]";
+        return "com.warehouse.project.model.Voucher[ id=" + id + " ]";
     }
     
 }

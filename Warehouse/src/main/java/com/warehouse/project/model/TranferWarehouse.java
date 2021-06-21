@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "tranfer_warehouse")
+@Table(name = "tranfer_warehouse", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TranferWarehouse.findAll", query = "SELECT t FROM TranferWarehouse t"),
@@ -37,15 +37,15 @@ public class TranferWarehouse implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
-    @Column(name = "fromss")
+    @Column(name = "fromss", length = 50)
     private String fromss;
-    @Column(name = "toss")
+    @Column(name = "toss", length = 50)
     private String toss;
-    @Column(name = "date")
+    @Column(name = "date", length = 50)
     private String date;
-    @Column(name = "explain")
+    @Column(name = "explain", length = 50)
     private String explain;
     @OneToMany(mappedBy = "traferId")
     private Collection<TranferWarehouseConent> tranferWarehouseConentCollection;
