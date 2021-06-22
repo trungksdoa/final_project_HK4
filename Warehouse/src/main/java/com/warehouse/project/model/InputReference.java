@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -41,6 +43,9 @@ public class InputReference implements Serializable {
     private String codeId;
     @Column(name = "date", length = 50)
     private String date;
+    @JoinColumn(name = "input_id", referencedColumnName = "id")
+    @ManyToOne
+    private Input inputId;
 
     public InputReference() {
     }
@@ -71,6 +76,14 @@ public class InputReference implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Input getInputId() {
+        return inputId;
+    }
+
+    public void setInputId(Input inputId) {
+        this.inputId = inputId;
     }
 
     @Override

@@ -32,6 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GoodsCatagory.findById", query = "SELECT g FROM GoodsCatagory g WHERE g.id = :id"),
     @NamedQuery(name = "GoodsCatagory.findByGoodsName", query = "SELECT g FROM GoodsCatagory g WHERE g.goodsName = :goodsName"),
     @NamedQuery(name = "GoodsCatagory.findByUnit", query = "SELECT g FROM GoodsCatagory g WHERE g.unit = :unit"),
+    @NamedQuery(name = "GoodsCatagory.findByFixedPurchasePrice", query = "SELECT g FROM GoodsCatagory g WHERE g.fixedPurchasePrice = :fixedPurchasePrice"),
+    @NamedQuery(name = "GoodsCatagory.findByLastedPurchasePrice", query = "SELECT g FROM GoodsCatagory g WHERE g.lastedPurchasePrice = :lastedPurchasePrice"),
+    @NamedQuery(name = "GoodsCatagory.findByUnitPrice", query = "SELECT g FROM GoodsCatagory g WHERE g.unitPrice = :unitPrice"),
     @NamedQuery(name = "GoodsCatagory.findByWeight", query = "SELECT g FROM GoodsCatagory g WHERE g.weight = :weight")})
 public class GoodsCatagory implements Serializable {
 
@@ -44,6 +47,13 @@ public class GoodsCatagory implements Serializable {
     private String goodsName;
     @Column(name = "unit", length = 10)
     private String unit;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "fixed_purchase_price", precision = 53)
+    private Double fixedPurchasePrice;
+    @Column(name = "lasted_purchase_price", precision = 53)
+    private Double lastedPurchasePrice;
+    @Column(name = "unit_price", precision = 53)
+    private Double unitPrice;
     @Column(name = "weight")
     private Integer weight;
     @JoinColumn(name = "group_goods", referencedColumnName = "id")
@@ -53,6 +63,8 @@ public class GoodsCatagory implements Serializable {
     private Collection<Materialgoods> materialgoodsCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<Productionordercontent> productionordercontentCollection;
+    @OneToMany(mappedBy = "goodsId")
+    private Collection<VoucherContent> voucherContentCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<InputContent> inputContentCollection;
 
@@ -87,6 +99,30 @@ public class GoodsCatagory implements Serializable {
         this.unit = unit;
     }
 
+    public Double getFixedPurchasePrice() {
+        return fixedPurchasePrice;
+    }
+
+    public void setFixedPurchasePrice(Double fixedPurchasePrice) {
+        this.fixedPurchasePrice = fixedPurchasePrice;
+    }
+
+    public Double getLastedPurchasePrice() {
+        return lastedPurchasePrice;
+    }
+
+    public void setLastedPurchasePrice(Double lastedPurchasePrice) {
+        this.lastedPurchasePrice = lastedPurchasePrice;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public Integer getWeight() {
         return weight;
     }
@@ -119,6 +155,15 @@ public class GoodsCatagory implements Serializable {
 
     public void setProductionordercontentCollection(Collection<Productionordercontent> productionordercontentCollection) {
         this.productionordercontentCollection = productionordercontentCollection;
+    }
+
+    @XmlTransient
+    public Collection<VoucherContent> getVoucherContentCollection() {
+        return voucherContentCollection;
+    }
+
+    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
+        this.voucherContentCollection = voucherContentCollection;
     }
 
     @XmlTransient

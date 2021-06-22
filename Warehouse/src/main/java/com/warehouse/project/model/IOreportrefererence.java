@@ -24,14 +24,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "output_reference", catalog = "Databases_", schema = "dbo")
+@Table(name = "IO_report_refererence", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OutputReference.findAll", query = "SELECT o FROM OutputReference o"),
-    @NamedQuery(name = "OutputReference.findById", query = "SELECT o FROM OutputReference o WHERE o.id = :id"),
-    @NamedQuery(name = "OutputReference.findByCodeId", query = "SELECT o FROM OutputReference o WHERE o.codeId = :codeId"),
-    @NamedQuery(name = "OutputReference.findByDate", query = "SELECT o FROM OutputReference o WHERE o.date = :date")})
-public class OutputReference implements Serializable {
+    @NamedQuery(name = "IOreportrefererence.findAll", query = "SELECT i FROM IOreportrefererence i"),
+    @NamedQuery(name = "IOreportrefererence.findById", query = "SELECT i FROM IOreportrefererence i WHERE i.id = :id"),
+    @NamedQuery(name = "IOreportrefererence.findByCodeId", query = "SELECT i FROM IOreportrefererence i WHERE i.codeId = :codeId"),
+    @NamedQuery(name = "IOreportrefererence.findByExplain", query = "SELECT i FROM IOreportrefererence i WHERE i.explain = :explain")})
+public class IOreportrefererence implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,16 +41,16 @@ public class OutputReference implements Serializable {
     private Integer id;
     @Column(name = "code_id", length = 50)
     private String codeId;
-    @Column(name = "date", length = 50)
-    private String date;
-    @JoinColumn(name = "output_id", referencedColumnName = "id")
+    @Column(name = "explain", length = 10)
+    private String explain;
+    @JoinColumn(name = "IO_report_id", referencedColumnName = "id")
     @ManyToOne
-    private Output outputId;
+    private IOreport iOreportid;
 
-    public OutputReference() {
+    public IOreportrefererence() {
     }
 
-    public OutputReference(Integer id) {
+    public IOreportrefererence(Integer id) {
         this.id = id;
     }
 
@@ -70,20 +70,20 @@ public class OutputReference implements Serializable {
         this.codeId = codeId;
     }
 
-    public String getDate() {
-        return date;
+    public String getExplain() {
+        return explain;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setExplain(String explain) {
+        this.explain = explain;
     }
 
-    public Output getOutputId() {
-        return outputId;
+    public IOreport getIOreportid() {
+        return iOreportid;
     }
 
-    public void setOutputId(Output outputId) {
-        this.outputId = outputId;
+    public void setIOreportid(IOreport iOreportid) {
+        this.iOreportid = iOreportid;
     }
 
     @Override
@@ -96,10 +96,10 @@ public class OutputReference implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OutputReference)) {
+        if (!(object instanceof IOreportrefererence)) {
             return false;
         }
-        OutputReference other = (OutputReference) object;
+        IOreportrefererence other = (IOreportrefererence) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -108,7 +108,7 @@ public class OutputReference implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.OutputReference[ id=" + id + " ]";
+        return "com.warehouse.project.model.IOreportrefererence[ id=" + id + " ]";
     }
     
 }

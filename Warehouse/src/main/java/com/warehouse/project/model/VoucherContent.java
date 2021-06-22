@@ -52,12 +52,12 @@ public class VoucherContent implements Serializable {
     private Integer goodsPrice;
     @Column(name = "afteprice")
     private Integer afteprice;
+    @JoinColumn(name = "goods_id", referencedColumnName = "id")
+    @ManyToOne
+    private GoodsCatagory goodsId;
     @JoinColumn(name = "coupon_id", referencedColumnName = "id")
     @ManyToOne
     private Voucher couponId;
-    @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
-    @ManyToOne
-    private Warehouse goodsId;
 
     public VoucherContent() {
     }
@@ -114,20 +114,20 @@ public class VoucherContent implements Serializable {
         this.afteprice = afteprice;
     }
 
+    public GoodsCatagory getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(GoodsCatagory goodsId) {
+        this.goodsId = goodsId;
+    }
+
     public Voucher getCouponId() {
         return couponId;
     }
 
     public void setCouponId(Voucher couponId) {
         this.couponId = couponId;
-    }
-
-    public Warehouse getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Warehouse goodsId) {
-        this.goodsId = goodsId;
     }
 
     @Override

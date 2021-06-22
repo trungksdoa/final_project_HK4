@@ -52,13 +52,13 @@ public class Warehouse implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity_in_stock", precision = 53)
     private Double quantityInStock;
-    @Column(name = "import_price", length = 10)
-    private String importPrice;
+    @Column(name = "import_price", precision = 53)
+    private Double importPrice;
     @Column(name = "price_in_stock", precision = 53)
     private Double priceInStock;
     @Column(name = "sell_price", precision = 53)
     private Double sellPrice;
-    @Column(name = "group_goods", length = 10)
+    @Column(name = "group_goods", length = 5)
     private String groupGoods;
     @Column(name = "weight", precision = 53)
     private Double weight;
@@ -67,16 +67,14 @@ public class Warehouse implements Serializable {
     private StockCard stockCard;
     @OneToMany(mappedBy = "goodsId")
     private Collection<OutputContent> outputContentCollection;
-    @OneToMany(mappedBy = "warehouseId")
-    private Collection<TranferWarehouseConent> tranferWarehouseConentCollection;
+    @OneToMany(mappedBy = "goodsId")
+    private Collection<QrCode> qrCodeCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<Quotescontent> quotescontentCollection;
+    @OneToMany(mappedBy = "warehouseId")
+    private Collection<TranferConent> tranferConentCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<SalesCouponContent> salesCouponContentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<VoucherContent> voucherContentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<Barcode> barcodeCollection;
 
     public Warehouse() {
     }
@@ -117,11 +115,11 @@ public class Warehouse implements Serializable {
         this.quantityInStock = quantityInStock;
     }
 
-    public String getImportPrice() {
+    public Double getImportPrice() {
         return importPrice;
     }
 
-    public void setImportPrice(String importPrice) {
+    public void setImportPrice(Double importPrice) {
         this.importPrice = importPrice;
     }
 
@@ -175,12 +173,12 @@ public class Warehouse implements Serializable {
     }
 
     @XmlTransient
-    public Collection<TranferWarehouseConent> getTranferWarehouseConentCollection() {
-        return tranferWarehouseConentCollection;
+    public Collection<QrCode> getQrCodeCollection() {
+        return qrCodeCollection;
     }
 
-    public void setTranferWarehouseConentCollection(Collection<TranferWarehouseConent> tranferWarehouseConentCollection) {
-        this.tranferWarehouseConentCollection = tranferWarehouseConentCollection;
+    public void setQrCodeCollection(Collection<QrCode> qrCodeCollection) {
+        this.qrCodeCollection = qrCodeCollection;
     }
 
     @XmlTransient
@@ -193,30 +191,21 @@ public class Warehouse implements Serializable {
     }
 
     @XmlTransient
+    public Collection<TranferConent> getTranferConentCollection() {
+        return tranferConentCollection;
+    }
+
+    public void setTranferConentCollection(Collection<TranferConent> tranferConentCollection) {
+        this.tranferConentCollection = tranferConentCollection;
+    }
+
+    @XmlTransient
     public Collection<SalesCouponContent> getSalesCouponContentCollection() {
         return salesCouponContentCollection;
     }
 
     public void setSalesCouponContentCollection(Collection<SalesCouponContent> salesCouponContentCollection) {
         this.salesCouponContentCollection = salesCouponContentCollection;
-    }
-
-    @XmlTransient
-    public Collection<VoucherContent> getVoucherContentCollection() {
-        return voucherContentCollection;
-    }
-
-    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
-        this.voucherContentCollection = voucherContentCollection;
-    }
-
-    @XmlTransient
-    public Collection<Barcode> getBarcodeCollection() {
-        return barcodeCollection;
-    }
-
-    public void setBarcodeCollection(Collection<Barcode> barcodeCollection) {
-        this.barcodeCollection = barcodeCollection;
     }
 
     @Override

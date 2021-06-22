@@ -58,14 +58,17 @@ public class Output implements Serializable {
     private String shipper;
     @Column(name = "explain", length = 50)
     private String explain;
-    @Column(name = "owed")
-    private Integer owed;
-    @Column(name = "pay")
-    private Integer pay;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "owed", precision = 53)
+    private Double owed;
+    @Column(name = "pay", precision = 53)
+    private Double pay;
     @Column(name = "status", length = 20)
     private String status;
     @OneToMany(mappedBy = "outputId")
     private Collection<OutputContent> outputContentCollection;
+    @OneToMany(mappedBy = "outputId")
+    private Collection<OutputReference> outputReferenceCollection;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne
     private Customer customerId;
@@ -133,19 +136,19 @@ public class Output implements Serializable {
         this.explain = explain;
     }
 
-    public Integer getOwed() {
+    public Double getOwed() {
         return owed;
     }
 
-    public void setOwed(Integer owed) {
+    public void setOwed(Double owed) {
         this.owed = owed;
     }
 
-    public Integer getPay() {
+    public Double getPay() {
         return pay;
     }
 
-    public void setPay(Integer pay) {
+    public void setPay(Double pay) {
         this.pay = pay;
     }
 
@@ -164,6 +167,15 @@ public class Output implements Serializable {
 
     public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
         this.outputContentCollection = outputContentCollection;
+    }
+
+    @XmlTransient
+    public Collection<OutputReference> getOutputReferenceCollection() {
+        return outputReferenceCollection;
+    }
+
+    public void setOutputReferenceCollection(Collection<OutputReference> outputReferenceCollection) {
+        this.outputReferenceCollection = outputReferenceCollection;
     }
 
     public Customer getCustomerId() {

@@ -48,7 +48,7 @@ public class TranferWarehouse implements Serializable {
     @Column(name = "explain", length = 50)
     private String explain;
     @OneToMany(mappedBy = "traferId")
-    private Collection<TranferWarehouseConent> tranferWarehouseConentCollection;
+    private Collection<TranferConent> tranferConentCollection;
 
     public TranferWarehouse() {
     }
@@ -98,12 +98,12 @@ public class TranferWarehouse implements Serializable {
     }
 
     @XmlTransient
-    public Collection<TranferWarehouseConent> getTranferWarehouseConentCollection() {
-        return tranferWarehouseConentCollection;
+    public Collection<TranferConent> getTranferConentCollection() {
+        return tranferConentCollection;
     }
 
-    public void setTranferWarehouseConentCollection(Collection<TranferWarehouseConent> tranferWarehouseConentCollection) {
-        this.tranferWarehouseConentCollection = tranferWarehouseConentCollection;
+    public void setTranferConentCollection(Collection<TranferConent> tranferConentCollection) {
+        this.tranferConentCollection = tranferConentCollection;
     }
 
     @Override

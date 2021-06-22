@@ -24,16 +24,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "tranfer_warehouse_conent", catalog = "Databases_", schema = "dbo")
+@Table(name = "tranfer_conent", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TranferWarehouseConent.findAll", query = "SELECT t FROM TranferWarehouseConent t"),
-    @NamedQuery(name = "TranferWarehouseConent.findById", query = "SELECT t FROM TranferWarehouseConent t WHERE t.id = :id"),
-    @NamedQuery(name = "TranferWarehouseConent.findByGoodsName", query = "SELECT t FROM TranferWarehouseConent t WHERE t.goodsName = :goodsName"),
-    @NamedQuery(name = "TranferWarehouseConent.findByUnit", query = "SELECT t FROM TranferWarehouseConent t WHERE t.unit = :unit"),
-    @NamedQuery(name = "TranferWarehouseConent.findByQuantity", query = "SELECT t FROM TranferWarehouseConent t WHERE t.quantity = :quantity"),
-    @NamedQuery(name = "TranferWarehouseConent.findByPrice", query = "SELECT t FROM TranferWarehouseConent t WHERE t.price = :price")})
-public class TranferWarehouseConent implements Serializable {
+    @NamedQuery(name = "TranferConent.findAll", query = "SELECT t FROM TranferConent t"),
+    @NamedQuery(name = "TranferConent.findById", query = "SELECT t FROM TranferConent t WHERE t.id = :id"),
+    @NamedQuery(name = "TranferConent.findByGoodsName", query = "SELECT t FROM TranferConent t WHERE t.goodsName = :goodsName"),
+    @NamedQuery(name = "TranferConent.findByUnit", query = "SELECT t FROM TranferConent t WHERE t.unit = :unit"),
+    @NamedQuery(name = "TranferConent.findByQuantity", query = "SELECT t FROM TranferConent t WHERE t.quantity = :quantity"),
+    @NamedQuery(name = "TranferConent.findByPrice", query = "SELECT t FROM TranferConent t WHERE t.price = :price")})
+public class TranferConent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,10 +57,10 @@ public class TranferWarehouseConent implements Serializable {
     @ManyToOne
     private Warehouse warehouseId;
 
-    public TranferWarehouseConent() {
+    public TranferConent() {
     }
 
-    public TranferWarehouseConent(Integer id) {
+    public TranferConent(Integer id) {
         this.id = id;
     }
 
@@ -130,10 +130,10 @@ public class TranferWarehouseConent implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TranferWarehouseConent)) {
+        if (!(object instanceof TranferConent)) {
             return false;
         }
-        TranferWarehouseConent other = (TranferWarehouseConent) object;
+        TranferConent other = (TranferConent) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -142,7 +142,7 @@ public class TranferWarehouseConent implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.TranferWarehouseConent[ id=" + id + " ]";
+        return "com.warehouse.project.model.TranferConent[ id=" + id + " ]";
     }
     
 }

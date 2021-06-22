@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,17 +24,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Barcode", catalog = "Databases_", schema = "dbo")
+@Table(name = "qr_code", catalog = "Databases_", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Barcode.findAll", query = "SELECT b FROM Barcode b"),
-    @NamedQuery(name = "Barcode.findById", query = "SELECT b FROM Barcode b WHERE b.id = :id"),
-    @NamedQuery(name = "Barcode.findByBarcode", query = "SELECT b FROM Barcode b WHERE b.barcode = :barcode"),
-    @NamedQuery(name = "Barcode.findByDate", query = "SELECT b FROM Barcode b WHERE b.date = :date")})
-public class Barcode implements Serializable {
+    @NamedQuery(name = "QrCode.findAll", query = "SELECT q FROM QrCode q"),
+    @NamedQuery(name = "QrCode.findById", query = "SELECT q FROM QrCode q WHERE q.id = :id"),
+    @NamedQuery(name = "QrCode.findByBarcode", query = "SELECT q FROM QrCode q WHERE q.barcode = :barcode"),
+    @NamedQuery(name = "QrCode.findByDate", query = "SELECT q FROM QrCode q WHERE q.date = :date"),
+    @NamedQuery(name = "QrCode.findByTexthere", query = "SELECT q FROM QrCode q WHERE q.texthere = :texthere")})
+public class QrCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -40,14 +44,16 @@ public class Barcode implements Serializable {
     private String barcode;
     @Column(name = "date", length = 50)
     private String date;
+    @Column(name = "texthere", length = 100)
+    private String texthere;
     @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
     @ManyToOne
     private Warehouse goodsId;
 
-    public Barcode() {
+    public QrCode() {
     }
 
-    public Barcode(Integer id) {
+    public QrCode(Integer id) {
         this.id = id;
     }
 
@@ -75,6 +81,14 @@ public class Barcode implements Serializable {
         this.date = date;
     }
 
+    public String getTexthere() {
+        return texthere;
+    }
+
+    public void setTexthere(String texthere) {
+        this.texthere = texthere;
+    }
+
     public Warehouse getGoodsId() {
         return goodsId;
     }
@@ -93,10 +107,10 @@ public class Barcode implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Barcode)) {
+        if (!(object instanceof QrCode)) {
             return false;
         }
-        Barcode other = (Barcode) object;
+        QrCode other = (QrCode) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,7 +119,7 @@ public class Barcode implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Barcode[ id=" + id + " ]";
+        return "com.warehouse.project.model.QrCode[ id=" + id + " ]";
     }
     
 }

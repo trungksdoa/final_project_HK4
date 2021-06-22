@@ -47,8 +47,9 @@ public class Productionordermaterial implements Serializable {
     private Integer quantityon1;
     @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "price")
-    private Integer price;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "price", precision = 53)
+    private Double price;
     @JoinColumn(name = "Production_order_content_id", referencedColumnName = "id")
     @ManyToOne
     private Productionordercontent productionordercontentid;
@@ -100,11 +101,11 @@ public class Productionordermaterial implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

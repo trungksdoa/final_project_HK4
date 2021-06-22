@@ -37,6 +37,12 @@
     <class>com.warehouse.project.model.HistoryInput</class>
     <class>com.warehouse.project.model.InputReference</class>
     <class>com.warehouse.project.model.Sysdiagrams</class>
+    <class>com.warehouse.project.model.Voucherreportrefere</class>
+    <class>com.warehouse.project.model.QrCode</class>
+    <class>com.warehouse.project.model.Voucherreport</class>
+    <class>com.warehouse.project.model.TranferConent</class>
+    <class>com.warehouse.project.model.IOreport</class>
+    <class>com.warehouse.project.model.IOreportrefererence</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -65,6 +65,8 @@ public class Input implements Serializable {
     private Integer pay;
     @Column(name = "status", length = 20)
     private String status;
+    @OneToMany(mappedBy = "inputId")
+    private Collection<InputReference> inputReferenceCollection;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplierId;
@@ -156,6 +158,15 @@ public class Input implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @XmlTransient
+    public Collection<InputReference> getInputReferenceCollection() {
+        return inputReferenceCollection;
+    }
+
+    public void setInputReferenceCollection(Collection<InputReference> inputReferenceCollection) {
+        this.inputReferenceCollection = inputReferenceCollection;
     }
 
     public Supplier getSupplierId() {

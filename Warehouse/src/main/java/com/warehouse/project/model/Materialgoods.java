@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Materialgoods.findById", query = "SELECT m FROM Materialgoods m WHERE m.id = :id"),
     @NamedQuery(name = "Materialgoods.findByUnit", query = "SELECT m FROM Materialgoods m WHERE m.unit = :unit"),
     @NamedQuery(name = "Materialgoods.findByQuantity", query = "SELECT m FROM Materialgoods m WHERE m.quantity = :quantity"),
-    @NamedQuery(name = "Materialgoods.findByWeight", query = "SELECT m FROM Materialgoods m WHERE m.weight = :weight")})
+    @NamedQuery(name = "Materialgoods.findByWeight", query = "SELECT m FROM Materialgoods m WHERE m.weight = :weight"),
+    @NamedQuery(name = "Materialgoods.findByPrice", query = "SELECT m FROM Materialgoods m WHERE m.price = :price")})
 public class Materialgoods implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +44,9 @@ public class Materialgoods implements Serializable {
     private Integer quantity;
     @Column(name = "weight")
     private Integer weight;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "price", precision = 53)
+    private Double price;
     @JoinColumn(name = "goods_catagory_id", referencedColumnName = "id")
     @ManyToOne
     private GoodsCatagory goodsCatagoryId;
@@ -84,6 +88,14 @@ public class Materialgoods implements Serializable {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public GoodsCatagory getGoodsCatagoryId() {
