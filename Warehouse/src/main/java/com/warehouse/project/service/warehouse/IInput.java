@@ -5,10 +5,16 @@
  */
 package com.warehouse.project.service.warehouse;
 
+import com.warehouse.project.model.Input;
+import java.util.List;
+
 /**
  *
  * @author trung
  */
 public interface IInput {
-    
+
+    public abstract boolean Save(Input input);
+
+    public abstract List<Input> Save();
 }

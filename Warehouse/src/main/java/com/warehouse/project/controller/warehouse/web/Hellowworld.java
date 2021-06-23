@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class Hellowworld {
-    
+
     @RequestMapping("/page")
     public String page(Model model) {
+        model.addAttribute("list", service.findAll());
         return "warehouse/index";
     }
-    
+
 }
