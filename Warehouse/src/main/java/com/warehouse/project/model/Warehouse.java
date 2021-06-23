@@ -65,8 +65,6 @@ public class Warehouse implements Serializable {
     @JoinColumn(name = "stock_card", referencedColumnName = "id")
     @ManyToOne
     private StockCard stockCard;
-    @OneToMany(mappedBy = "warehouseId")
-    private Collection<TranferConent> tranferConentCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<OutputContent> outputContentCollection;
 
@@ -155,15 +153,6 @@ public class Warehouse implements Serializable {
 
     public void setStockCard(StockCard stockCard) {
         this.stockCard = stockCard;
-    }
-
-    @XmlTransient
-    public Collection<TranferConent> getTranferConentCollection() {
-        return tranferConentCollection;
-    }
-
-    public void setTranferConentCollection(Collection<TranferConent> tranferConentCollection) {
-        this.tranferConentCollection = tranferConentCollection;
     }
 
     @XmlTransient

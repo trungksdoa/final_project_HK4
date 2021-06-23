@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Input.findById", query = "SELECT i FROM Input i WHERE i.id = :id"),
     @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
     @NamedQuery(name = "Input.findByObject", query = "SELECT i FROM Input i WHERE i.object = :object"),
-    @NamedQuery(name = "Input.findByImporter", query = "SELECT i FROM Input i WHERE i.importer = :importer"),
     @NamedQuery(name = "Input.findByWarehouse", query = "SELECT i FROM Input i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "Input.findByShipper", query = "SELECT i FROM Input i WHERE i.shipper = :shipper"),
     @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
@@ -47,8 +46,6 @@ public class Input implements Serializable {
     private String date;
     @Column(name = "object")
     private String object;
-    @Column(name = "importer")
-    private String importer;
     @Column(name = "warehouse")
     private String warehouse;
     @Column(name = "shipper")
@@ -91,14 +88,6 @@ public class Input implements Serializable {
 
     public void setObject(String object) {
         this.object = object;
-    }
-
-    public String getImporter() {
-        return importer;
-    }
-
-    public void setImporter(String importer) {
-        this.importer = importer;
     }
 
     public String getWarehouse() {

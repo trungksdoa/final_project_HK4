@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.warehouse.project.service.warehouse;
+package com.warehouse.project.responsitory.warehouse;
 
 import com.warehouse.project.model.Input;
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author trung
  */
-public interface IInput {
-
-    public abstract boolean Save(Input input);
-
-    public abstract List<Input> findall();
+public interface Warehouse extends CrudRepository<Input, String> {
+    
 }

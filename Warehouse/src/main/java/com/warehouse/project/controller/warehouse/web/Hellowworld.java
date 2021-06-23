@@ -5,6 +5,8 @@
  */
 package com.warehouse.project.controller.warehouse.web;
 
+import com.warehouse.project.imp.warehouse.InputImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Hellowworld {
 
+    @Autowired
+    InputImpl lab;
     @RequestMapping("/page")
     public String page(Model model) {
-//        model.addAttribute("list", service.findAll());
+        model.addAttribute("list", lab.findall());
         return "warehouse/index";
     }
 
