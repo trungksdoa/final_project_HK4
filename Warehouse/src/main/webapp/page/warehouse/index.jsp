@@ -4,12 +4,10 @@
     Author     : trung
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html> 
-
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
 
     <head>
         <!-- Required meta tags -->
@@ -24,7 +22,6 @@
 
 
     </head>
-
     <body>
 
         <div class="container">
@@ -53,6 +50,22 @@
                                     <input type="text" class="form-control" name="explain" id="explain" placeholder="explain">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="explain" class="col-lg-2 col-form-label">Warehouse</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group mb-3">
+                                        <select class="custom-select" id="inputGroupSelect02">
+                                            <option selected>Choose...</option>
+                                            <option value="1">Warehouse A</option>
+                                            <option value="2">Warehouse B</option>
+                                            <option value="3">Warehouse C</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="btnkho" type="button"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="row">
@@ -71,24 +84,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <h5>Warehouse</h5>
-                                    <div class="form-group row">
-                                        <div class="col-lg-10">
-                                            <div class="input-group mb-3">
-                                                <select class="custom-select" id="inputGroupSelect02">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">Warehouse A</option>
-                                                    <option value="2">Warehouse B</option>
-                                                    <option value="3">Warehouse C</option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-secondary" id="btnkho" type="button"><i class="fas fa-plus"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,6 +96,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                               out.println("Your IP address is ");
+                            %>
                             <c:forEach items="${list}" var="x">
                                 <tr>
                                     <td>
@@ -113,6 +111,7 @@
                                         </td>
                                     </tr>
                             </c:forEach>
+
                         </tbody>
                     </table>
                 </form>
@@ -156,6 +155,12 @@
 
         <script>
             $(document).ready(function () {
+                $('#mySelectBox option').each(function () {
+                    var item = $( "#myselect" ).val();
+                    if ($(this).is(':selected')) {
+
+                    }
+                });
                 $("#btnkho").click(function () {
                     $("#modalkho").modal('show');
                 });

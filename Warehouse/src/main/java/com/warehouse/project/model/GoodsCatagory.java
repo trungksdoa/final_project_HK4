@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GoodsCatagory.findByWeight", query = "SELECT g FROM GoodsCatagory g WHERE g.weight = :weight")})
 public class GoodsCatagory implements Serializable {
 
+    @OneToMany(mappedBy = "goodsId")
+    private Collection<VoucherContent> voucherContentCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -165,6 +168,15 @@ public class GoodsCatagory implements Serializable {
     @Override
     public String toString() {
         return "com.warehouse.project.model.GoodsCatagory[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<VoucherContent> getVoucherContentCollection() {
+        return voucherContentCollection;
+    }
+
+    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
+        this.voucherContentCollection = voucherContentCollection;
     }
     
 }

@@ -5,10 +5,13 @@
  */
 package com.warehouse.project.service.order;
 
+import com.warehouse.project.model.VoucherContent;
+import java.util.List;
+
 /**
  *
  * @author trung
  */
 public interface ICouponContent {
-    
+    public abstract List<VoucherContent> findALl(String keyword);
 }
