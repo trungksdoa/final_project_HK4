@@ -12,8 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,50 +24,41 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "input", catalog = "Databases_", schema = "dbo")
+@Table(name = "input")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Input.findAll", query = "SELECT i FROM Input i"),
     @NamedQuery(name = "Input.findById", query = "SELECT i FROM Input i WHERE i.id = :id"),
     @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
-    @NamedQuery(name = "Input.findByAddress", query = "SELECT i FROM Input i WHERE i.address = :address"),
+    @NamedQuery(name = "Input.findByObject", query = "SELECT i FROM Input i WHERE i.object = :object"),
     @NamedQuery(name = "Input.findByImporter", query = "SELECT i FROM Input i WHERE i.importer = :importer"),
     @NamedQuery(name = "Input.findByWarehouse", query = "SELECT i FROM Input i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "Input.findByShipper", query = "SELECT i FROM Input i WHERE i.shipper = :shipper"),
     @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
-    @NamedQuery(name = "Input.findByOwed", query = "SELECT i FROM Input i WHERE i.owed = :owed"),
-    @NamedQuery(name = "Input.findByPay", query = "SELECT i FROM Input i WHERE i.pay = :pay"),
     @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status")})
 public class Input implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "date", length = 20)
+    @Column(name = "date")
     private String date;
-    @Column(name = "address", length = 100)
-    private String address;
-    @Column(name = "importer", length = 50)
+    @Column(name = "object")
+    private String object;
+    @Column(name = "importer")
     private String importer;
-    @Column(name = "warehouse", length = 10)
+    @Column(name = "warehouse")
     private String warehouse;
-    @Column(name = "shipper", length = 50)
+    @Column(name = "shipper")
     private String shipper;
-    @Column(name = "explain", length = 50)
+    @Column(name = "explain")
     private String explain;
-    @Column(name = "owed")
-    private Integer owed;
-    @Column(name = "pay")
-    private Integer pay;
-    @Column(name = "status", length = 20)
+    @Column(name = "status")
     private String status;
     @OneToMany(mappedBy = "inputId")
     private Collection<InputReference> inputReferenceCollection;
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne
-    private Supplier supplierId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
     private Collection<InputContent> inputContentCollection;
 
@@ -96,12 +85,12 @@ public class Input implements Serializable {
         this.date = date;
     }
 
-    public String getAddress() {
-        return address;
+    public String getObject() {
+        return object;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setObject(String object) {
+        this.object = object;
     }
 
     public String getImporter() {
@@ -136,22 +125,6 @@ public class Input implements Serializable {
         this.explain = explain;
     }
 
-    public Integer getOwed() {
-        return owed;
-    }
-
-    public void setOwed(Integer owed) {
-        this.owed = owed;
-    }
-
-    public Integer getPay() {
-        return pay;
-    }
-
-    public void setPay(Integer pay) {
-        this.pay = pay;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -167,14 +140,6 @@ public class Input implements Serializable {
 
     public void setInputReferenceCollection(Collection<InputReference> inputReferenceCollection) {
         this.inputReferenceCollection = inputReferenceCollection;
-    }
-
-    public Supplier getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Supplier supplierId) {
-        this.supplierId = supplierId;
     }
 
     @XmlTransient

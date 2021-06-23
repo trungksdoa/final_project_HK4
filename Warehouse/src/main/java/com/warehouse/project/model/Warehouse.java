@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Warehouse", catalog = "Databases_", schema = "dbo")
+@Table(name = "Warehouse")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w"),
@@ -43,38 +43,32 @@ public class Warehouse implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "goods_id", nullable = false, length = 50)
+    @Column(name = "goods_id")
     private String goodsId;
-    @Column(name = "goods_name", length = 50)
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 20)
+    @Column(name = "unit")
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity_in_stock", precision = 53)
+    @Column(name = "quantity_in_stock")
     private Double quantityInStock;
-    @Column(name = "import_price", precision = 53)
+    @Column(name = "import_price")
     private Double importPrice;
-    @Column(name = "price_in_stock", precision = 53)
+    @Column(name = "price_in_stock")
     private Double priceInStock;
-    @Column(name = "sell_price", precision = 53)
+    @Column(name = "sell_price")
     private Double sellPrice;
-    @Column(name = "group_goods", length = 5)
+    @Column(name = "group_goods")
     private String groupGoods;
-    @Column(name = "weight", precision = 53)
+    @Column(name = "weight")
     private Double weight;
     @JoinColumn(name = "stock_card", referencedColumnName = "id")
     @ManyToOne
     private StockCard stockCard;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<OutputContent> outputContentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<QrCode> qrCodeCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<Quotescontent> quotescontentCollection;
     @OneToMany(mappedBy = "warehouseId")
     private Collection<TranferConent> tranferConentCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<SalesCouponContent> salesCouponContentCollection;
+    private Collection<OutputContent> outputContentCollection;
 
     public Warehouse() {
     }
@@ -164,33 +158,6 @@ public class Warehouse implements Serializable {
     }
 
     @XmlTransient
-    public Collection<OutputContent> getOutputContentCollection() {
-        return outputContentCollection;
-    }
-
-    public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
-        this.outputContentCollection = outputContentCollection;
-    }
-
-    @XmlTransient
-    public Collection<QrCode> getQrCodeCollection() {
-        return qrCodeCollection;
-    }
-
-    public void setQrCodeCollection(Collection<QrCode> qrCodeCollection) {
-        this.qrCodeCollection = qrCodeCollection;
-    }
-
-    @XmlTransient
-    public Collection<Quotescontent> getQuotescontentCollection() {
-        return quotescontentCollection;
-    }
-
-    public void setQuotescontentCollection(Collection<Quotescontent> quotescontentCollection) {
-        this.quotescontentCollection = quotescontentCollection;
-    }
-
-    @XmlTransient
     public Collection<TranferConent> getTranferConentCollection() {
         return tranferConentCollection;
     }
@@ -200,12 +167,12 @@ public class Warehouse implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SalesCouponContent> getSalesCouponContentCollection() {
-        return salesCouponContentCollection;
+    public Collection<OutputContent> getOutputContentCollection() {
+        return outputContentCollection;
     }
 
-    public void setSalesCouponContentCollection(Collection<SalesCouponContent> salesCouponContentCollection) {
-        this.salesCouponContentCollection = salesCouponContentCollection;
+    public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
+        this.outputContentCollection = outputContentCollection;
     }
 
     @Override

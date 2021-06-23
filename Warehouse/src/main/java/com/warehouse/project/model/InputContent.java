@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "input_content", catalog = "Databases_", schema = "dbo")
+@Table(name = "input_content")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InputContent.findAll", query = "SELECT i FROM InputContent i"),
@@ -42,27 +42,27 @@ public class InputContent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "goods_name", length = 50)
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity", precision = 53)
+    @Column(name = "quantity")
     private Double quantity;
-    @Column(name = "imports_prices", precision = 53)
+    @Column(name = "imports_prices")
     private Double importsPrices;
-    @Column(name = "after_price", precision = 53)
+    @Column(name = "after_price")
     private Double afterPrice;
-    @Column(name = "group_goods", length = 10)
+    @Column(name = "group_goods")
     private String groupGoods;
-    @Column(name = "weight", precision = 53)
+    @Column(name = "weight")
     private Double weight;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     @ManyToOne
     private GoodsCatagory goodsId;
-    @JoinColumn(name = "input_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "input_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Input inputId;
 

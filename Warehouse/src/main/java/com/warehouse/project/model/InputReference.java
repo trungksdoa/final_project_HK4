@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "input_reference", catalog = "Databases_", schema = "dbo")
+@Table(name = "input_reference")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InputReference.findAll", query = "SELECT i FROM InputReference i"),
@@ -37,11 +37,11 @@ public class InputReference implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "code_id", length = 50)
+    @Column(name = "code_id")
     private String codeId;
-    @Column(name = "date", length = 50)
+    @Column(name = "date")
     private String date;
     @JoinColumn(name = "input_id", referencedColumnName = "id")
     @ManyToOne

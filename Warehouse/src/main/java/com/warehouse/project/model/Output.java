@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,53 +23,40 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "output", catalog = "Databases_", schema = "dbo")
+@Table(name = "output")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Output.findAll", query = "SELECT o FROM Output o"),
     @NamedQuery(name = "Output.findById", query = "SELECT o FROM Output o WHERE o.id = :id"),
     @NamedQuery(name = "Output.findByDate", query = "SELECT o FROM Output o WHERE o.date = :date"),
-    @NamedQuery(name = "Output.findByAddress", query = "SELECT o FROM Output o WHERE o.address = :address"),
-    @NamedQuery(name = "Output.findBySeller", query = "SELECT o FROM Output o WHERE o.seller = :seller"),
+    @NamedQuery(name = "Output.findByObject", query = "SELECT o FROM Output o WHERE o.object = :object"),
     @NamedQuery(name = "Output.findByWarehouse", query = "SELECT o FROM Output o WHERE o.warehouse = :warehouse"),
     @NamedQuery(name = "Output.findByShipper", query = "SELECT o FROM Output o WHERE o.shipper = :shipper"),
     @NamedQuery(name = "Output.findByExplain", query = "SELECT o FROM Output o WHERE o.explain = :explain"),
-    @NamedQuery(name = "Output.findByOwed", query = "SELECT o FROM Output o WHERE o.owed = :owed"),
-    @NamedQuery(name = "Output.findByPay", query = "SELECT o FROM Output o WHERE o.pay = :pay"),
     @NamedQuery(name = "Output.findByStatus", query = "SELECT o FROM Output o WHERE o.status = :status")})
 public class Output implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "date", length = 20)
+    @Column(name = "date")
     private String date;
-    @Column(name = "address", length = 100)
-    private String address;
-    @Column(name = "seller", length = 50)
-    private String seller;
-    @Column(name = "warehouse", length = 10)
+    @Column(name = "object")
+    private String object;
+    @Column(name = "warehouse")
     private String warehouse;
-    @Column(name = "shipper", length = 50)
+    @Column(name = "shipper")
     private String shipper;
-    @Column(name = "explain", length = 50)
+    @Column(name = "explain")
     private String explain;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "owed", precision = 53)
-    private Double owed;
-    @Column(name = "pay", precision = 53)
-    private Double pay;
-    @Column(name = "status", length = 20)
+    @Column(name = "status")
     private String status;
     @OneToMany(mappedBy = "outputId")
     private Collection<OutputContent> outputContentCollection;
     @OneToMany(mappedBy = "outputId")
     private Collection<OutputReference> outputReferenceCollection;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne
-    private Customer customerId;
 
     public Output() {
     }
@@ -96,20 +81,12 @@ public class Output implements Serializable {
         this.date = date;
     }
 
-    public String getAddress() {
-        return address;
+    public String getObject() {
+        return object;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getSeller() {
-        return seller;
-    }
-
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setObject(String object) {
+        this.object = object;
     }
 
     public String getWarehouse() {
@@ -136,22 +113,6 @@ public class Output implements Serializable {
         this.explain = explain;
     }
 
-    public Double getOwed() {
-        return owed;
-    }
-
-    public void setOwed(Double owed) {
-        this.owed = owed;
-    }
-
-    public Double getPay() {
-        return pay;
-    }
-
-    public void setPay(Double pay) {
-        this.pay = pay;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -176,14 +137,6 @@ public class Output implements Serializable {
 
     public void setOutputReferenceCollection(Collection<OutputReference> outputReferenceCollection) {
         this.outputReferenceCollection = outputReferenceCollection;
-    }
-
-    public Customer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
     }
 
     @Override

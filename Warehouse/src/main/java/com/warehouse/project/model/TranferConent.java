@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "tranfer_conent", catalog = "Databases_", schema = "dbo")
+@Table(name = "tranfer_conent")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TranferConent.findAll", query = "SELECT t FROM TranferConent t"),
@@ -39,16 +39,16 @@ public class TranferConent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "goods_name", length = 50)
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity", precision = 53)
+    @Column(name = "quantity")
     private Double quantity;
-    @Column(name = "price", precision = 53)
+    @Column(name = "price")
     private Double price;
     @JoinColumn(name = "trafer_id", referencedColumnName = "id")
     @ManyToOne

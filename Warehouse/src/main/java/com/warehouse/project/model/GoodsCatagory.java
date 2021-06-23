@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "goods_catagory", catalog = "Databases_", schema = "dbo")
+@Table(name = "goods_catagory")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GoodsCatagory.findAll", query = "SELECT g FROM GoodsCatagory g"),
@@ -41,30 +41,24 @@ public class GoodsCatagory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "goods_name", length = 50)
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "fixed_purchase_price", precision = 53)
+    @Column(name = "fixed_purchase_price")
     private Double fixedPurchasePrice;
-    @Column(name = "lasted_purchase_price", precision = 53)
+    @Column(name = "lasted_purchase_price")
     private Double lastedPurchasePrice;
-    @Column(name = "unit_price", precision = 53)
+    @Column(name = "unit_price")
     private Double unitPrice;
     @Column(name = "weight")
     private Integer weight;
     @JoinColumn(name = "group_goods", referencedColumnName = "id")
     @ManyToOne
     private Groupsgoods groupGoods;
-    @OneToMany(mappedBy = "goodsCatagoryId")
-    private Collection<Materialgoods> materialgoodsCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<Productionordercontent> productionordercontentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<VoucherContent> voucherContentCollection;
     @OneToMany(mappedBy = "goodsId")
     private Collection<InputContent> inputContentCollection;
 
@@ -137,33 +131,6 @@ public class GoodsCatagory implements Serializable {
 
     public void setGroupGoods(Groupsgoods groupGoods) {
         this.groupGoods = groupGoods;
-    }
-
-    @XmlTransient
-    public Collection<Materialgoods> getMaterialgoodsCollection() {
-        return materialgoodsCollection;
-    }
-
-    public void setMaterialgoodsCollection(Collection<Materialgoods> materialgoodsCollection) {
-        this.materialgoodsCollection = materialgoodsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Productionordercontent> getProductionordercontentCollection() {
-        return productionordercontentCollection;
-    }
-
-    public void setProductionordercontentCollection(Collection<Productionordercontent> productionordercontentCollection) {
-        this.productionordercontentCollection = productionordercontentCollection;
-    }
-
-    @XmlTransient
-    public Collection<VoucherContent> getVoucherContentCollection() {
-        return voucherContentCollection;
-    }
-
-    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
-        this.voucherContentCollection = voucherContentCollection;
     }
 
     @XmlTransient
