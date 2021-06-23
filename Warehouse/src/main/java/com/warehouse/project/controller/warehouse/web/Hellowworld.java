@@ -18,7 +18,7 @@ public class Hellowworld {
     
     @RequestMapping("/page")
     public String page(Model model) {
-        return "index";
+        return "warehouse/index";
     }
     
 }
