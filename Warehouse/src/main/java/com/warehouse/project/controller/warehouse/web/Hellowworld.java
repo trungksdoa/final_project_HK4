@@ -18,7 +18,7 @@ public class Hellowworld {
 
     @RequestMapping("/page")
     public String page(Model model) {
-        model.addAttribute("list", service.findAll());
+//        model.addAttribute("list", service.findAll());
         return "warehouse/index";
     }
 
