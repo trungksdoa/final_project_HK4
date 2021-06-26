@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Voucher.findByAddress", query = "SELECT v FROM Voucher v WHERE v.address = :address"),
     @NamedQuery(name = "Voucher.findByPhone", query = "SELECT v FROM Voucher v WHERE v.phone = :phone"),
     @NamedQuery(name = "Voucher.findByExpain", query = "SELECT v FROM Voucher v WHERE v.expain = :expain"),
-    @NamedQuery(name = "Voucher.findByCreator", query = "SELECT v FROM Voucher v WHERE v.creator = :creator")})
+    @NamedQuery(name = "Voucher.findByCreator", query = "SELECT v FROM Voucher v WHERE v.creator = :creator"),
+    @NamedQuery(name = "Voucher.findByStatus", query = "SELECT v FROM Voucher v WHERE v.status = :status")})
 public class Voucher implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,6 +53,8 @@ public class Voucher implements Serializable {
     private String expain;
     @Column(name = "creator")
     private String creator;
+    @Column(name = "status")
+    private Boolean status;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplierId;
@@ -111,6 +114,14 @@ public class Voucher implements Serializable {
 
     public void setCreator(String creator) {
         this.creator = creator;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Supplier getSupplierId() {

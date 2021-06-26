@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -54,9 +55,11 @@ public class VoucherContent implements Serializable {
     private Integer afteprice;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private GoodsCatagory goodsId;
     @JoinColumn(name = "coupon_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Voucher couponId;
 
     public VoucherContent() {

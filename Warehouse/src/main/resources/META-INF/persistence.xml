@@ -43,6 +43,7 @@
     <class>com.warehouse.project.model.TranferConent</class>
     <class>com.warehouse.project.model.IOreport</class>
     <class>com.warehouse.project.model.IOreportrefererence</class>
+    <class>com.warehouse.project.model.Catagoryvoucher</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
