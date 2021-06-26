@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import com.werehouse.project.model.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author PC
- 
+ */
 @Service
 public class CustomerUserDetailService implements UserDetailsService{
      private EntityManager entityManager;
@@ -48,4 +50,3 @@ public class CustomerUserDetailService implements UserDetailsService{
     }
     
 }
-*/

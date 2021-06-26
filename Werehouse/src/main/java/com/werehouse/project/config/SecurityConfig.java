@@ -5,6 +5,8 @@
  */
 package com.werehouse.project.config;
 
+import com.werehouse.project.service.account.CustomerUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +23,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+    @Autowired
+    CustomerUserDetailService customerUserDetailService;
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -41,6 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(customerUserDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(customerUserDetailService).passwordEncoder(passwordEncoder());
     }
 }
