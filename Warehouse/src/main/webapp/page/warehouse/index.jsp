@@ -97,16 +97,8 @@
                                 <label class="col-lg-2 col-form-label">Action</label>
                                 <div class="col-lg-10">
                                     <button style="" type="submit" id="savaDataAll"  class="btn btn-primary" >Save</button>   
+                                    <button onclick="window.print()">Print this page</button>
                                 </div>
-
-                                <!--                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                
-                                                                    </div>
-                                                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -221,99 +213,31 @@
         <!-- End modal -->
 
         <script>
+            var stt = 0;
+            $(document).ready(function () {
 
+                $.ajaxSetup({
+                    cache: false
+                });
+                addRow();
+                $("#btnkho").click(function () {
+                    $("#modalkho").modal('show');
+                });
+
+            });
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
-            var stt = 0;
-            function addRow() {
-
-                var lenght = 0;
-                var countsda = 0;
-
-                if (lenght == 0)
-                {
-                    lenght = 3;
-                    for (var i = 0; i < lenght; i++) {
-                        var rowsds = $('<tr onclick="dasdsadsa(this)">');
-                        rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='voucherid" + stt + "' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
-                        rowsds.append('</tr>');
-                        $('#tableInput').append(rowsds);
-                        countsda++;
-                        stt++;
-                    }
-                    if (countsda == 3)
-                    {
-                        var tablerow = 1;
-                        console.log(stt);
-                        $("#addDataTable").click(function () {
-                            for (var i = 0; i < tablerow; i++) {
-                                var rowsds = $('<tr onclick="dasdsadsa(this)">');
-                                rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' id='voucherid" + stt + "' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
-                                rowsds.append('</tr>');
-                                $('#tableInput').append(rowsds);
-                            }
-                            stt += 1;
-//                            Autocomplete();
-                        });
-                    }
-                }
-
-            }
-            //Remove row Table
-            function deleteRow(rowid)
-            {
-                document.getElementById("tableInput").removeChild(document.getElementById(rowid));
-            }
-            //end
-            //
-            //Function Clear data
-            function emptyData() {
-                var result = confirm("Want to reset?");
-                if (result) {
-                    $("#tableInput").empty();
-                    stt = 0;
-                    for (var i = 0; i < 3; i++) {
-                        var rowsds = $('<tr onclick="dasdsadsa(this)">');
-                        rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='voucherid" + stt + "' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
-                        rowsds.append('</tr>');
-                        $('#tableInput').append(rowsds);
-                        stt++;
-                    }
-//                    Autocomplete();
-                }
-            }
-
             function SaveMaindata()
             {
-
+                $("#maiForm").on("submit", function (event) {
+                    event.preventDefault();
+                     var data = $('#maiForm').serialize();
+                    console.log(data);
+                })
+               
             }
-
-
+            
             //OnClick To AutoComplete
             function dasdsadsa(x) {
 //                alert("Row index is: " + x.rowIndex);
@@ -324,176 +248,33 @@
                 Autocomplete(index);
 //                return x.rowIndex;
             }
-
-
-
-
-
-            //Function SaveGetData
-            //
-            //End
-            //Start
-            function getValue() {
-                stt = 0;
-                var checks = document.getElementsByClassName('checks');
-                var strs = [];
-                var str = "";
-                for (i = 0; i < checks.length; i++) {
-                    if (checks[i].checked === true) {
-                        str = [checks[i].value];
-                        strs.push(str);
-                    }
-                }
-                var url = "/warehouse/findGoods/";
-                $.ajax({
-                    url: '/warehouse/findGoods/',
-                    method: 'POST',
-                    traditional: true,
-                    data: {
-                        id: strs
-                    },
-                    success: function (data) {
-                        $("#tableInput").empty();
-                        if (data != null) {
-                            for (var i = 0; i < data.length; i++) {
-                                var checkid = data[i].id;
-                                var row = $('<tr>');
-                                row.append('<td>' + "<input id='search" + stt + "' type='text' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='unit" + stt + "' name='unit' value='" + data[i].unit + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value='" + data[i].quantity + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='importprice" + stt + "'  name='importprice' value='" + data[i].goodsPrice + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value='" + data[i].goodsPrice * data[i].quantity + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='voucherid" + stt + "'  value='" + data[i].voucherId + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
-                                row.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
-                                row.append('</tr>');
-                                $('#tableInput').append(row);
-                                stt++;
-                            }
-//                            Autocomplete();
-                        }
-                    },
-                    error: function (request, status, error) {
-                        alert("The request failed: " + request.responseText);
-                    }
-                });
-            }
-            //ModalService submit
-//            $("#btnServiceModalSave").click(function () {
-//                $.post(url, {arrayData: arrayData}, function (data, status) {
-//                    //do something
-//                });
-//            });
-
-
-
-
-
-            //Function for web
-            $(document).ready(function () {
-                $.ajaxSetup({
-                    cache: false
-                });
-
-                addRow();
-//                Autocomplete();
-                $('#service').change(function () {
-                    var selectedOption = $('#service option:selected');
-                    var valuesitem = selectedOption.val();
-                    var arraylist = [];
-                    if (valuesitem == "voucher") {
-                        $("#modalSerchform").modal('show');
-                        var row = $('<tr>');
-                        row.append('<td>' + "No Data" + '</td>');
-                        $('#myTable').append(row);
-                    }
-                });
-                //Submit remove modal and empty table
-                $("#btnServiceModalSave").click(function () {
-                    //set default selected
-                    $('#service').prop('selectedIndex', 0);
-                    //Hide modal
-                    $("#modalSerchform").modal('hide');
-                    //Empty table
-                    $("#myTable").empty();
-                });
-                $("#btnServiceModalClose").click(function () {
-                    //set default selected
-                    $('#service').prop('selectedIndex', 0);
-                    //Hide modal
-                    $("#modalSerchform").modal('hide');
-                    //Empty table
-                    $("#myTable").empty();
-                });
-                //Submit for data
-                $("#saerchFrom").on("submit", function (event) {
-                    event.preventDefault();
-                    $("#myTable").empty();
-                    var data = $('#saerchFrom').serialize();
-                    var url = "warehouse/voucher/" + data;
-                    $.get("/warehouse/voucher/" + data)
-                            .done(function (response) {
-                                var table = document.getElementById("myTable");
-                                var row = null;
-                                var lengt = response;
-                                if (lengt != null)
-                                {
-                                    for (var i = 0; i < response.length; i++) {
-                                        if (response[i].status == true)
-                                        {
-                                            var checkid = response[i].id;
-                                            var row = $('<tr>');
-                                            row.append("<td >" + '<input type="checkbox" class="checks" value="' + response[i].id + '"/>' + "</td>");
-                                            row.append('<td>' + response[i].id + '</td>');
-                                            row.append('<td>' + response[i].address + '</td>');
-                                            row.append('<td>' + response[i].expain + '</td>');
-                                            $('#myTable').append(row);
-                                        } else
-                                        {
-                                            var row = $('<tr>');
-                                            row.append('<td>' + "No Data Found" + '</td>');
-                                            $('#myTable').append(row);
-                                        }
-                                    }
-                                } else
-                                {
-                                    var row = $('<tr>');
-                                    row.append('<td>' + "No Data" + '</td>');
-                                    $('#myTable').append(row);
-                                }
-                            });
-                });
-                //ModalKho
-                // author Trung
-                //End
-                $("#btnkho").click(function () {
-                    $("#modalkho").modal('show');
-                });
-
-            });
-            //Date
-            //
-            //Date
             var today = new Date();
-            var months = null;
-            var date = null;
+            var months = "";
+            var date = "";
             if ((months = today.getMonth() + 1) > 10) {
                 months = months = today.getMonth() + 1;
                 date = today.getFullYear() + '-' + months + '-' + today.getDate();
+//                document.getElementById("Date").value = date;
             } else {
                 months = "0" + (months = today.getMonth() + 1);
                 date = today.getFullYear() + '-' + months + '-' + today.getDate();
+           
             }
-            document.getElementById("Date").value = date;
+                 document.getElementById("DateLicene").value = date;
+//            $("#Date").val(date);
+            
         </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-                <script src="<c:url value="/resources/Autocomplete.js" />"></script>
+        <script src="<c:url value="/resources/js/Addrow.js" />"></script>
+        <script src="<c:url value="/resources/js/Autocomplete.js" />"></script>
+        <script src="<c:url value="/resources/js/EmptyData.js" />"></script>
+        <script src="<c:url value="/resources/js/getValue.js" />"></script>
+        <script src="<c:url value="/resources/js/onChangeService.js" />"></script>
 
-                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-                </body>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
 
-                </html>
+</html>
