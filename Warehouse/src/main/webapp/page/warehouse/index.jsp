@@ -112,7 +112,6 @@
                                     <th>Quantity</th>
                                     <th>Input Price</th>
                                     <th>Price</th>
-                                    <th>VoucherID</th>
                                     <th>Group</th>
                                     <th>Weight</th>
 
@@ -249,8 +248,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button onclick="getValue();return false;"  id="btnServiceModalSave" type="submit" class="btn btn-primary">Save changes</button>
-                        <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="getValue2();return false;"  id="btnServiceModalSave1" type="submit" class="btn btn-primary">Save changes</button>
+                        <button  id="btnServiceModalClose1"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -261,7 +260,25 @@
         <script>
             var stt = 0;
 
+            $("#btnServiceModalSave1").click(function () {
+                //set default selected
+//    $('#service').prop('selectedIndex', 0);
+                //Hide modal
+                $("#modalSerchform2").modal('hide');
 
+                //Empty table
+                $("#myTable2").empty();
+
+
+            });
+            $("#btnServiceModalClose1").click(function () {
+                //set default selected
+//    $('#service').prop('selectedIndex', 0);
+                //Hide modal
+                $("#modalSerchform2").modal('hide');
+                //Empty table
+                $("#myTable2").empty();
+            });
 
 
 
@@ -275,7 +292,7 @@
                     $("#modalkho").modal('show');
                 });
 
-             
+
 
             });
             $("#checkAll").click(function () {

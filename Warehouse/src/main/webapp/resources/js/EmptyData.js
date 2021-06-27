@@ -14,7 +14,6 @@ function emptyData() {
             rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input type='text' id='voucherid" + stt + "' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
             rowsds.append('</tr>');

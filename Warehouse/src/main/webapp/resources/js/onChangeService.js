@@ -21,11 +21,9 @@ $("#btnServiceModalSave").click(function () {
 //    $('#service').prop('selectedIndex', 0);
     //Hide modal
     $("#modalSerchform").modal('hide');
-    $("#modalSerchform2").modal('hide');
 
     //Empty table
     $("#myTable").empty();
-    $("#myTable2").empty();
 
 
 });
@@ -34,11 +32,12 @@ $("#btnServiceModalClose").click(function () {
 //    $('#service').prop('selectedIndex', 0);
     //Hide modal
     $("#modalSerchform").modal('hide');
-    $("#modalSerchform2").modal('hide');
     //Empty table
     $("#myTable").empty();
-    $("#myTable2").empty();
 });
+//Submit for data
+//Submit remove modal and empty table
+
 //Submit for data
 
 //Service1

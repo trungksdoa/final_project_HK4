@@ -80,7 +80,7 @@ public class InputControllerApi {
     @ResponseBody
     @RequestMapping(value = "/findProduction/")
 
-    public void findMaterial(@RequestParam(value = "id") String[] keyword) {
+    public ResponseEntity<List<Productiongoods>> findMaterial(@RequestParam(value = "id") String[] keyword) {
 
         List<Productiongoods> arralists1 = new ArrayList<>();
 //        Catagoryvoucher addArrray = new Catagoryvoucher();
@@ -91,13 +91,16 @@ public class InputControllerApi {
             arralists1.addAll(clist);
 //            GoodsCatagory codese; 
         }
-        System.out.println(arralists1);
-//        if (!arralists1.isEmpty()) {
-//            return new ResponseEntity<>(arralists1, HttpStatus.OK);
-//
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        for (Productiongoods  productiongoods: arralists1) {
+//              System.out.println(productiongoods.getGoodsName());
 //        }
+      
+        if (!arralists1.isEmpty()) {
+            return new ResponseEntity<>(arralists1, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
 //    @ResponseBody
