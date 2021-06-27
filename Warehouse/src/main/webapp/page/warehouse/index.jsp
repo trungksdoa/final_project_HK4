@@ -87,7 +87,7 @@
                                         <select class="custom-select" id="service">
                                             <option value="0" selected>Choose</option>
                                             <option value="voucher">Nhập theo chứng từ mua hàng</option>
-                                            <option value="2">Nhập theo sản xuất</option>
+                                            <option value="production">Nhập theo sản xuất</option>
                                             <option value="3">Nhập khác</option>
                                         </select>
                                     </div>
@@ -209,11 +209,62 @@
                 </div>
             </div>
         </div>
+        <div id="modalSerchform2" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Searching....</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="saerchFrom2">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="date" class="form-control" name="from" placeholder="">
+                                </div>
+                                <div class="col">
+                                    <input type="date" class="form-control" name="to" placeholder="">
+                                </div>
+                                <div class="col">
+                                    <input type="submit" class="form-control" value="Filter">
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th style="width:-40%;"><input type="checkbox" id="checkAll"/></th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Expain</th>
+                                </tr>
+                            </thead>
+                            <tbody class="myTable2" id="myTable2"> 
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="getValue();return false;"  id="btnServiceModalSave" type="submit" class="btn btn-primary">Save changes</button>
+                        <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- End modal -->
 
         <script>
             var stt = 0;
+
+
+
+
+
             $(document).ready(function () {
 
                 $.ajaxSetup({
@@ -224,6 +275,8 @@
                     $("#modalkho").modal('show');
                 });
 
+             
+
             });
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);
@@ -232,12 +285,12 @@
             {
                 $("#maiForm").on("submit", function (event) {
                     event.preventDefault();
-                     var data = $('#maiForm').serialize();
+                    var data = $('#maiForm').serialize();
                     console.log(data);
                 })
-               
+
             }
-            
+
             //OnClick To AutoComplete
             function dasdsadsa(x) {
 //                alert("Row index is: " + x.rowIndex);
@@ -258,11 +311,11 @@
             } else {
                 months = "0" + (months = today.getMonth() + 1);
                 date = today.getFullYear() + '-' + months + '-' + today.getDate();
-           
+
             }
-                 document.getElementById("DateLicene").value = date;
+            document.getElementById("DateLicene").value = date;
 //            $("#Date").val(date);
-            
+
         </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
