@@ -5,9 +5,9 @@
  */
 package com.warehouse.project.imp.warehouse;
 
-import com.warehouse.project.model.Input;
-import com.warehouse.project.responsitory.warehouse.Warehouse;
-import com.warehouse.project.service.warehouse.IInput;
+import com.warehouse.project.model.StockCard;
+import com.warehouse.project.responsitory.warehouse.Stockresponsitory;
+import com.warehouse.project.service.warehouse.IStock_card;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +17,13 @@ import org.springframework.stereotype.Service;
  * @author trung
  */
 @Service
-public class InputImpl implements IInput {
+public class StockImpl implements IStock_card{
 
     @Autowired
-    Warehouse house;
+    Stockresponsitory lab;
     @Override
-    public Input Save(Input input) {
-      return house.save(input);
+    public List<StockCard> findAll() {
+       return lab.findAll();
     }
-
-    @Override
-    public List<Input> findall() {
-       return  house.findAll();
-    }
-
+    
 }

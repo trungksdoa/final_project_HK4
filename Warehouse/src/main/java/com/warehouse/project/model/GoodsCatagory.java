@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -38,9 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GoodsCatagory.findByWeight", query = "SELECT g FROM GoodsCatagory g WHERE g.weight = :weight")})
 public class GoodsCatagory implements Serializable {
 
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<VoucherContent> voucherContentCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,6 +59,7 @@ public class GoodsCatagory implements Serializable {
     private Integer weight;
     @JoinColumn(name = "group_goods", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Groupsgoods groupGoods;
     @OneToMany(mappedBy = "goodsId")
     private Collection<InputContent> inputContentCollection;
@@ -169,14 +168,4 @@ public class GoodsCatagory implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.GoodsCatagory[ id=" + id + " ]";
     }
-
-    @XmlTransient
-    public Collection<VoucherContent> getVoucherContentCollection() {
-        return voucherContentCollection;
-    }
-
-    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
-        this.voucherContentCollection = voucherContentCollection;
-    }
-    
 }

@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InputContent.findByGoodsName", query = "SELECT i FROM InputContent i WHERE i.goodsName = :goodsName"),
     @NamedQuery(name = "InputContent.findByUnit", query = "SELECT i FROM InputContent i WHERE i.unit = :unit"),
     @NamedQuery(name = "InputContent.findByQuantity", query = "SELECT i FROM InputContent i WHERE i.quantity = :quantity"),
+    @NamedQuery(name = "InputContent.findByWarehouse", query = "SELECT i FROM InputContent i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "InputContent.findByImportsPrices", query = "SELECT i FROM InputContent i WHERE i.importsPrices = :importsPrices"),
     @NamedQuery(name = "InputContent.findByAfterPrice", query = "SELECT i FROM InputContent i WHERE i.afterPrice = :afterPrice"),
     @NamedQuery(name = "InputContent.findByGroupGoods", query = "SELECT i FROM InputContent i WHERE i.groupGoods = :groupGoods"),
@@ -51,6 +52,8 @@ public class InputContent implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity")
     private Double quantity;
+    @Column(name = "warehouse")
+    private String warehouse;
     @Column(name = "imports_prices")
     private Double importsPrices;
     @Column(name = "after_price")
@@ -103,6 +106,14 @@ public class InputContent implements Serializable {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
     }
 
     public Double getImportsPrices() {

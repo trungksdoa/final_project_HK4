@@ -5,9 +5,9 @@
  */
 package com.warehouse.project.imp.warehouse;
 
-import com.warehouse.project.model.Input;
-import com.warehouse.project.responsitory.warehouse.Warehouse;
-import com.warehouse.project.service.warehouse.IInput;
+import com.warehouse.project.model.Groupcatagory;
+import com.warehouse.project.responsitory.warehouse.goodsResponisotry;
+import com.warehouse.project.service.warehouse.Igoodscatagory;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +17,16 @@ import org.springframework.stereotype.Service;
  * @author trung
  */
 @Service
-public class InputImpl implements IInput {
+public class GodscatagoryImpl implements Igoodscatagory {
 
     @Autowired
-    Warehouse house;
-    @Override
-    public Input Save(Input input) {
-      return house.save(input);
-    }
+    goodsResponisotry lag;
 
     @Override
-    public List<Input> findall() {
-       return  house.findAll();
+    public List<Groupcatagory> findALl() {
+        return lag.findAll();
     }
+
+ 
 
 }

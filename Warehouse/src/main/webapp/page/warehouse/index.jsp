@@ -23,18 +23,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
+        <title>Input Page</title>
         <style>
-            /*                tbody {
-                                display:block;
-                                max-height:500px;
-                                overflow-y:auto;
-                            }
-                            thead, tbody tr {
-                                display:table;
-                                width: var(--table-width);
-                                table-layout:fixed;
-                            }*/
+
         </style>
     </head>
     <body>
@@ -42,7 +33,8 @@
         <div class="container">
             <div class="main" style="margin-top: 8rem;">
                 <!--<input id="hidCidade" type="text" /><br>-->
-                <form>
+                <form id='maiForm' method="POST">
+
                     <div class="row">
                         <div class="col-lg-8 col-md-8" >
                             <div class="form-group row">
@@ -62,67 +54,59 @@
                             <div class="form-group row">
                                 <label for="explain" class="col-lg-2 col-form-label">Explain</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="explain" id="explain" placeholder="explain">
+                                    <input type="text"  class="form-control" name="explain" id="explain" placeholder="explain">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="explain" class="col-lg-2 col-form-label">Warehouse</label>
+                                <label class="col-lg-2 col-form-label">Action</label>
                                 <div class="col-lg-10">
-                                    <div class="input-group mb-3">
-                                        <select class="custom-select" id="inputGroupSelect02">
-                                            <option selected>Choose...</option>
-                                            <option value="1">Warehouse A</option>
-                                            <option value="2">Warehouse B</option>
-                                            <option value="3">Warehouse C</option>
-                                        </select>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" id="btnkho" type="button"><i class="fas fa-plus"></i></button>
-                                        </div>
-                                    </div>
+                                    <button style="margin-right:20px;" type="button" id="addDataTable"  class="btn btn-secondary" >Add row</button>
+                                    <button onclick="emptyData();return false;" class="btn btn-warning" onclick="">Reset</button>
+                                    <p>Hint: Click on field at Goods name to start finding your goods easy</p>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group row">
-                                        <label for="id" class="col-lg-2 col-form-label">License</label>
-                                        <div class="col-lg-10">
-                                            <input type="text" class="form-control" name="id" id="id" placeholder="System will generation License">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Date" class="col-lg-2 col-form-label">Date</label>
-                                        <div class="col-lg-10">
-                                            <input type="date" class="form-control" name="Date" id="Date" placeholder="Date">
-                                        </div>
+                            <div class="form-group row">
+                                <label for="id" class="col-lg-2 col-form-label">License</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" name="id" id="id_liecene" placeholder="System will generation License">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Date" class="col-lg-2 col-form-label">Date</label>
+                                <div class="col-lg-10">
+                                    <input type="date" class="form-control" name="Date" id="DateLicene" placeholder="Date">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Date" class="col-lg-2 col-form-label">Service</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group mb-3">
+                                        <select class="custom-select" id="service">
+                                            <option value="0" selected>Choose</option>
+                                            <option value="voucher">Nhập theo chứng từ mua hàng</option>
+                                            <option value="2">Nhập theo sản xuất</option>
+                                            <option value="3">Nhập khác</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group row">
-                                        <label for="Date" class="col-lg-2 col-form-label">Service</label>
-                                        <div class="col-lg-10">
-                                            <div class="input-group mb-3">
-                                                <select class="custom-select" id="service">
-                                                    <option value="0" selected>Choose</option>
-                                                    <option value="voucher">Nhập theo chứng từ mua hàng</option>
-                                                    <option value="2">Nhập theo sản xuất</option>
-                                                    <option value="3">Nhập khác</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="form-group row" style='margin-top:-20px;'>
+                                <label class="col-lg-2 col-form-label">Action</label>
+                                <div class="col-lg-10">
+                                    <button style="" type="submit" id="savaDataAll"  class="btn btn-primary" >Save</button>   
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Action</label>
-                                        <div class="col-lg-10">
-                                            <button style="margin-right:20px;" type="button" id="addDataTable"  class="btn btn-primary" >Add row</button>
-                                            <button onclick="emptyData();return false;" class="btn btn-warning" onclick="">Reset</button>
-                                        </div>
+
+<!--                                <div class="row">
+                                    <div class="col-lg-12">
 
                                     </div>
-                                </div>
+                                    <div class="col-lg-12">
+
+                                    </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -132,6 +116,7 @@
                                 <tr>
                                     <th>Goods name</th>
                                     <th>Unit</th>
+                                    <th>Warehouse</th>
                                     <th>Quantity</th>
                                     <th>Input Price</th>
                                     <th>Price</th>
@@ -141,7 +126,7 @@
 
                                 </tr>
                             </thead>
-                            <tbody id="tableInput" contenteditable="true">
+                            <tbody id="tableInput">
 
                             </tbody>
                         </table>
@@ -240,35 +225,6 @@
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
-            var ID = 0;
-// Refernce the parent of all of the target nodes
-            var parent = document.getElementById('tableInput');
-// Register the click event to #parent
-            parent.addEventListener('click', idNode);
-
-// This is the callback that is invoked on each click
-            function idNode(e) {
-                /* If the node clicked (e.target) is not the 
-                 || the registered event listener 
-                 || (e.currentTarget = #parent)
-                 */
-                if (e.target !== e.currentTarget) {
-                    // Get the #id of clicked node
-                    ID = e.target.id;
-                    // Reference e.target by its #id
-                    var child = document.getElementById(ID);
-
-                }
-                // Log the #id of each e.target at every click
-                console.log('The caret is located at ' + ID);
-
-                // Return the e.target as a DOM node when needed
-                return child;
-
-            }
-
-
-
             var stt = 0;
             function addRow() {
 
@@ -279,15 +235,16 @@
                 {
                     lenght = 3;
                     for (var i = 0; i < lenght; i++) {
-                        var rowsds = $('<tr>');
-                        rowsds.append('<td>' + "<input id='search" + stt + "' type='text' name='name' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' name='unit' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' name='quantity' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' name='importprice' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' name='afterprice' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' name='group' value=''/>" + '</td>');
-                        rowsds.append('<td>' + "<input type='text' name='weight' value=''/>" + '</td>');
+                        var rowsds = $('<tr onclick="dasdsadsa(this)">');
+                        rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text' id='voucherid" + stt + "' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
                         rowsds.append('</tr>');
                         $('#tableInput').append(rowsds);
                         countsda++;
@@ -299,20 +256,21 @@
                         console.log(stt);
                         $("#addDataTable").click(function () {
                             for (var i = 0; i < tablerow; i++) {
-                                var rowsds = $('<tr>');
-                                rowsds.append('<td>' + "<input id='search" + stt + "' type='text' name='name' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' name='unit' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' name='quantity' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' name='importprice' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' name='afterprice' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' name='group' value=''/>" + '</td>');
-                                rowsds.append('<td>' + "<input type='text' name='weight' value=''/>" + '</td>');
+                                var rowsds = $('<tr onclick="dasdsadsa(this)">');
+                                rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='voucherid" + stt + "' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
                                 rowsds.append('</tr>');
                                 $('#tableInput').append(rowsds);
                             }
                             stt += 1;
-                            Autocomplete();
+//                            Autocomplete();
                         });
                     }
                 }
@@ -332,9 +290,10 @@
                     $("#tableInput").empty();
                     stt = 0;
                     for (var i = 0; i < 3; i++) {
-                        var rowsds = $('<tr>');
+                        var rowsds = $('<tr onclick="dasdsadsa(this)">');
                         rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
                         rowsds.append('<td>' + "<input type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
+                        rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
                         rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value=''/>" + '</td>');
                         rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
                         rowsds.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value=''/>" + '</td>');
@@ -345,58 +304,29 @@
                         $('#tableInput').append(rowsds);
                         stt++;
                     }
-                    Autocomplete();
+//                    Autocomplete();
                 }
             }
 
-            function Autocomplete()
+            function SaveMaindata()
             {
-                for (var i = 0; i < stt; i++) {
-                    console.log(i);
-                    $("#search" + i).autocomplete({
-                        source: function (request, response) {
-
-                            var friendsArray = [];
-                            friendsArray = [{
-                                    "id": 1,
-                                    "name": "hulk",
-                                    "value": "hulk"
-                                }, {
-                                    "id": 2,
-                                    "name": "ironman",
-                                    "value": "ironman"
-                                }, {
-                                    "id": 3,
-                                    "name": "Foobar",
-                                    "value": "Foobar"
-                                }];
-
-                            response(friendsArray);
-                            return;
-
-
-                        },
-
-                        select: function (e, ui) {
-                            console.log(ID);
-                            var lastChar = ID[ID.length - 1];
-                            console.log(lastChar);
-                            $("#unit" + lastChar).val(ui.item.name);
-                        },
-
-                        change: function (e, ui) {
-
-//                            alert("changed!");
-                        }
-                    });
-                }
-
+              
             }
 
-            function getCurrentId()
-            {
-                alert(this.id);
+
+            //OnClick To AutoComplete
+            function dasdsadsa(x) {
+//                alert("Row index is: " + x.rowIndex);
+                var index = 0;
+                index += x.rowIndex;
+                index--;
+                console.log(index);
+                Autocomplete(index);
+//                return x.rowIndex;
             }
+
+          
+
 
 
             //Function SaveGetData
@@ -429,18 +359,19 @@
                                 var checkid = data[i].id;
                                 var row = $('<tr>');
                                 row.append('<td>' + "<input id='search" + stt + "' type='text' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' name='unit' value='" + data[i].unit + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' name='quantity' value='" + data[i].quantity + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' name='importprice' value='" + data[i].goodsPrice + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' name='afterprice' value='" + data[i].goodsPrice * data[i].quantity + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' value='" + data[i].voucherId + "'/>" + '</td>');
-                                row.append('<td>' + "<input type='text' name='group' value=''/>" + '</td>');
-                                row.append('<td>' + "<input type='text' name='weight' value=''/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='unit" + stt + "' name='unit' value='" + data[i].unit + "'/>" + '</td>');
+                                row.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value='" + data[i].quantity + "'/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='importprice" + stt + "'  name='importprice' value='" + data[i].goodsPrice + "'/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value='" + data[i].goodsPrice * data[i].quantity + "'/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='voucherid" + stt + "'  value='" + data[i].voucherId + "'/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+                                row.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
                                 row.append('</tr>');
                                 $('#tableInput').append(row);
                                 stt++;
                             }
-                            Autocomplete();
+//                            Autocomplete();
                         }
                     },
                     error: function (request, status, error) {
@@ -466,7 +397,7 @@
                 });
 
                 addRow();
-                Autocomplete();
+//                Autocomplete();
                 $('#service').change(function () {
                     var selectedOption = $('#service option:selected');
                     var valuesitem = selectedOption.val();
@@ -559,6 +490,7 @@
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
+        <script src='/warehouse/js/Autocomplete.js'></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </body>

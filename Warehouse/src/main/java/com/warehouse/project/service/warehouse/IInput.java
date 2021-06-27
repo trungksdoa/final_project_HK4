@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IInput {
 
-    public abstract boolean Save(Input input);
+    public abstract Input Save(Input input);
 
     public abstract List<Input> findall();
 }

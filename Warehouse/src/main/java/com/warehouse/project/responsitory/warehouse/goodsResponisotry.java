@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package com.warehouse.project.responsitory.warehouse;
-
-import com.warehouse.project.model.Input;
+import com.warehouse.project.model.GoodsCatagory;
+import com.warehouse.project.model.Groupcatagory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +13,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author trung
  */
-public interface Warehouse extends JpaRepository<Input, String> {
+public interface goodsResponisotry extends JpaRepository<Groupcatagory, String> {
     
 }

@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Input;
+import com.warehouse.project.model.StockCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +13,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author trung
  */
-public interface Warehouse extends JpaRepository<Input, String> {
+public interface Stockresponsitory extends JpaRepository<StockCard, String> {
     
 }

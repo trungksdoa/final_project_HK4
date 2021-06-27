@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Input.findById", query = "SELECT i FROM Input i WHERE i.id = :id"),
     @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
     @NamedQuery(name = "Input.findByObject", query = "SELECT i FROM Input i WHERE i.object = :object"),
-    @NamedQuery(name = "Input.findByWarehouse", query = "SELECT i FROM Input i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "Input.findByShipper", query = "SELECT i FROM Input i WHERE i.shipper = :shipper"),
     @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
     @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status")})
@@ -46,16 +45,12 @@ public class Input implements Serializable {
     private String date;
     @Column(name = "object")
     private String object;
-    @Column(name = "warehouse")
-    private String warehouse;
     @Column(name = "shipper")
     private String shipper;
     @Column(name = "explain")
     private String explain;
     @Column(name = "status")
     private String status;
-    @OneToMany(mappedBy = "inputId")
-    private Collection<InputReference> inputReferenceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
     private Collection<InputContent> inputContentCollection;
 
@@ -90,14 +85,6 @@ public class Input implements Serializable {
         this.object = object;
     }
 
-    public String getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(String warehouse) {
-        this.warehouse = warehouse;
-    }
-
     public String getShipper() {
         return shipper;
     }
@@ -120,15 +107,6 @@ public class Input implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @XmlTransient
-    public Collection<InputReference> getInputReferenceCollection() {
-        return inputReferenceCollection;
-    }
-
-    public void setInputReferenceCollection(Collection<InputReference> inputReferenceCollection) {
-        this.inputReferenceCollection = inputReferenceCollection;
     }
 
     @XmlTransient

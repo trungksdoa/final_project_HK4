@@ -5,13 +5,13 @@
  */
 package com.warehouse.project.service.warehouse;
 
-import com.warehouse.project.model.StockCard;
+import com.warehouse.project.model.Groupcatagory;
 import java.util.List;
 
 /**
  *
  * @author trung
  */
-public interface IStock_card {
-    public abstract  List<StockCard> findAll();
+public interface Igoodscatagory {
+    public abstract List<Groupcatagory>findALl();
 }
