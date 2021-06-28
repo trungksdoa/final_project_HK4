@@ -178,10 +178,10 @@
                                     <input type="text" class="form-control" name="ncc" placeholder="Supplier">
                                 </div>
                                 <div class="col">
-                                    <input type="date" class="form-control" name="from" placeholder="">
+                                    <input type="date" class="form-control" required="" name="from" placeholder="">
                                 </div>
                                 <div class="col">
-                                    <input type="date" class="form-control" name="to" placeholder="">
+                                    <input type="date" class="form-control" required name="to" placeholder="">
                                 </div>
                                 <div class="col">
                                     <input type="submit" class="form-control" value="Filter">

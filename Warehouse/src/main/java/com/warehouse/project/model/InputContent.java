@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InputContent.findByQuantity", query = "SELECT i FROM InputContent i WHERE i.quantity = :quantity"),
     @NamedQuery(name = "InputContent.findByWarehouse", query = "SELECT i FROM InputContent i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "InputContent.findByImportsPrices", query = "SELECT i FROM InputContent i WHERE i.importsPrices = :importsPrices"),
-    @NamedQuery(name = "InputContent.findByAfterPrice", query = "SELECT i FROM InputContent i WHERE i.afterPrice = :afterPrice"),
     @NamedQuery(name = "InputContent.findByGroupGoods", query = "SELECT i FROM InputContent i WHERE i.groupGoods = :groupGoods"),
     @NamedQuery(name = "InputContent.findByWeight", query = "SELECT i FROM InputContent i WHERE i.weight = :weight")})
 public class InputContent implements Serializable {
@@ -56,8 +55,6 @@ public class InputContent implements Serializable {
     private String warehouse;
     @Column(name = "imports_prices")
     private Double importsPrices;
-    @Column(name = "after_price")
-    private Double afterPrice;
     @Column(name = "group_goods")
     private String groupGoods;
     @Column(name = "weight")
@@ -122,14 +119,6 @@ public class InputContent implements Serializable {
 
     public void setImportsPrices(Double importsPrices) {
         this.importsPrices = importsPrices;
-    }
-
-    public Double getAfterPrice() {
-        return afterPrice;
-    }
-
-    public void setAfterPrice(Double afterPrice) {
-        this.afterPrice = afterPrice;
     }
 
     public String getGroupGoods() {

@@ -45,6 +45,10 @@ $("#saerchFrom").on("submit", function (event) {
     event.preventDefault();
     $("#myTable").empty();
     var data = $('#saerchFrom').serialize();
+//    var serializedData = $('form').serialize();
+// serializedData = 'name=&age=99&blah=';
+    data = data.replace(/&?[^=]+=&|&[^=]+=$/g, '');
+    console.log(data)
     var url = "warehouse/voucher/" + data;
     $.get("/warehouse/voucher/" + data)
             .done(function (response) {
