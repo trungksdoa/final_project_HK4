@@ -31,7 +31,20 @@ public class TestController {
 //    String thymeleafPage(Model model) {
 //        return "thymeleaf/sample";
 //    }
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "thymeleaf/login";
+    }
 
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "thymeleaf/Home";
+    }
+
+    @GetMapping("/dashbord")
+    public String dashbord(Model model) {
+        return "thymeleaf/sample";
+    }
 
     @GetMapping("/thymeleaf")
     public String add(Model model) {

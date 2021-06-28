@@ -25,7 +25,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
- 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -124,11 +127,16 @@
             <artifactId>javax.persistence</artifactId>
             <version>2.1.0</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
             <version>2.5.2</version>
             <scope>provided</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
