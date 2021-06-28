@@ -7,6 +7,7 @@ package com.warehouse.project.controller.warehouse.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -15,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class Hellowworld {
-    
+
     @RequestMapping("/page")
     public String page(Model model) {
         return "RootLayout";
     }
-      @RequestMapping("/login")
+
+    @GetMapping("/login")
     public String login(Model model) {
-        return "login";
+        return "thymeleaf/login";
     }
+
 }
