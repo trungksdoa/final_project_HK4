@@ -5,12 +5,16 @@
  */
 package com.werehouse.project.service.account;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.werehouse.project.model.Account;
+import com.werehouse.project.model.AccountDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,28 +29,32 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CustomerUserDetailService implements UserDetailsService{
-     private EntityManager entityManager;
+    EntityManager entityManager;
+    @Autowired
+    private AccountDAO accountDAO;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account;
-        String sql ="SELECT a FROM Account a WHERE a.email = :email";
-        Query query = entityManager.createQuery(sql,String.class);
-        query.setParameter("email",username);
-        List<Account> list = new ArrayList<Account>();
-        list = query.getResultList();
-        if (list.size()>0){
-            account = list.get(0);
+        Account account = this.accountDAO.findUserAccount(username);
+        if (account !=null){
+        List<String> roleNames = new ArrayList<>();
+        roleNames.add(account.getRole());
 
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+            List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+            if (roleNames != null) {
+                for (String role : roleNames) {
+                    // ROLE_USER, ROLE_ADMIN,..
+                    GrantedAuthority authority = new SimpleGrantedAuthority(role);
+                    grantList.add(authority);
+                }
+            }
+          /*List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
             GrantedAuthority authority = new SimpleGrantedAuthority("ADMIN");
-            grantedAuthorities.add(authority);
+            grantedAuthorities.add(authority);*/
 
-            UserDetails userDetails = new User(username,account.getPassword(),grantedAuthorities);
+            UserDetails userDetails = new User(account.getEmail(),account.getPassword(),grantList);
             return userDetails;
         } else {
-            new UsernameNotFoundException("Login Fail");
+            return null;
         }
-        return null;
     }
-    
 }

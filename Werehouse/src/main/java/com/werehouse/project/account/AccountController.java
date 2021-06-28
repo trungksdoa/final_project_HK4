@@ -21,9 +21,12 @@ public class AccountController {
     public String login(Model model) {
         return "login";
     }
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(Model model) {
         return "Home";
     }
-    
+    @GetMapping("/dashbord")
+    public String dashbord(Model model){
+        return "Dashbord";
+    }
 }

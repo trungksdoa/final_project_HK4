@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/home").permitAll()
+                .antMatchers("/dashbord").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -46,5 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customerUserDetailService).passwordEncoder(passwordEncoder());
+       // auth.inMemoryAuthentication()
+         //       .withUser("Quangnkts1908037@fpt.edu.vn").password(passwordEncoder()
+           //     .encode("123"))
+          //      .authorities("ROLE_ADMIN");
     }
 }
