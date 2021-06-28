@@ -1,5 +1,5 @@
 <!-- jQuery -->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--<%@page contentType="text/html" pageEncoding="UTF-8"%>--%>
 <script src="<c:url value='/resources/plugins/jquery/jquery.min.js'/>"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<c:url value='/resources/plugins/jquery-ui/jquery-ui.min.js'/>"></script>
