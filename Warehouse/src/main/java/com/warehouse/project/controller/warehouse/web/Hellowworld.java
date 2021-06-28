@@ -20,5 +20,8 @@ public class Hellowworld {
     public String page(Model model) {
         return "RootLayout";
     }
-    
+      @RequestMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
 }

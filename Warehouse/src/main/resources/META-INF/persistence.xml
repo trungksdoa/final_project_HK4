@@ -21,7 +21,6 @@
     <class>com.warehouse.project.model.Materialgoods</class>
     <class>com.warehouse.project.model.Receipts</class>
     <class>com.warehouse.project.model.Input</class>
-    <class>com.warehouse.project.model.InputContent</class>
     <class>com.warehouse.project.model.CouponPay</class>
     <class>com.warehouse.project.model.Quotescontent</class>
     <class>com.warehouse.project.model.Productionordercontent</class>
@@ -43,6 +42,13 @@
     <class>com.warehouse.project.model.TranferConent</class>
     <class>com.warehouse.project.model.IOreport</class>
     <class>com.warehouse.project.model.IOreportrefererence</class>
+    <class>com.warehouse.project.model.Catagoryvoucher</class>
+    <class>com.warehouse.project.model.StockCard_1</class>
+    <class>com.warehouse.project.model.Groupcatagory</class>
+    <class>com.warehouse.project.model.Productiongoods</class>
+    <class>com.warehouse.project.model.InputContent</class>
+    <class>com.warehouse.project.model.Groupsgoods_1</class>
+    <class>com.warehouse.project.model.Account</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
