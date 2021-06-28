@@ -19,7 +19,7 @@ public class Hellowworld {
 
     @RequestMapping("/page")
     public String page(Model model) {
-        return "RootLayout";
+        return "layout/RootLayout";
     }
 
     @GetMapping("/login")
