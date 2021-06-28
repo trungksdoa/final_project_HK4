@@ -175,6 +175,9 @@
                         <form id="saerchFrom">
                             <div class="row">
                                 <div class="col">
+                                    <input type="text" class="form-control" name="ncc" placeholder="Supplier">
+                                </div>
+                                <div class="col">
                                     <input type="date" class="form-control" name="from" placeholder="">
                                 </div>
                                 <div class="col">

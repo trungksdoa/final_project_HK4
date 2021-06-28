@@ -20,6 +20,6 @@ public interface VoucherResponisotry extends JpaRepository<Voucher, String> {
     @Query("Select u from Voucher u WHERE u.id = :id")
     List<Voucher> findByList(@Param("id") String keyword);
 
-    @Query("Select u from Voucher u WHERE u.date BETWEEN :from AND :to")
+    @Query("Select u from Voucher u WHERE u.date BETWEEN :from AND :to" )
     List<Voucher> findByVoucher(@Param("from") String from,@Param("to") String to);
 }

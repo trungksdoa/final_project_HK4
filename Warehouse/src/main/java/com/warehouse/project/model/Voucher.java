@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -57,6 +58,7 @@ public class Voucher implements Serializable {
     private Boolean status;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Supplier supplierId;
     @OneToMany(mappedBy = "couponId")
     private Collection<VoucherContent> voucherContentCollection;
