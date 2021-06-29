@@ -16,5 +16,6 @@ public interface IInput {
 
     public abstract Input Save(Input input);
 
+    public abstract Input findAllId();
     public abstract List<Input> findall();
 }

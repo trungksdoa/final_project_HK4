@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Voucher.findByAddress", query = "SELECT v FROM Voucher v WHERE v.address = :address"),
     @NamedQuery(name = "Voucher.findByPhone", query = "SELECT v FROM Voucher v WHERE v.phone = :phone"),
     @NamedQuery(name = "Voucher.findByExpain", query = "SELECT v FROM Voucher v WHERE v.expain = :expain"),
+    @NamedQuery(name = "Voucher.findByOwed", query = "SELECT v FROM Voucher v WHERE v.owed = :owed"),
+    @NamedQuery(name = "Voucher.findByPay", query = "SELECT v FROM Voucher v WHERE v.pay = :pay"),
     @NamedQuery(name = "Voucher.findByCreator", query = "SELECT v FROM Voucher v WHERE v.creator = :creator"),
     @NamedQuery(name = "Voucher.findByStatus", query = "SELECT v FROM Voucher v WHERE v.status = :status")})
 public class Voucher implements Serializable {
@@ -52,6 +54,11 @@ public class Voucher implements Serializable {
     private Integer phone;
     @Column(name = "expain")
     private String expain;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "owed")
+    private Double owed;
+    @Column(name = "pay")
+    private Double pay;
     @Column(name = "creator")
     private String creator;
     @Column(name = "status")
@@ -108,6 +115,22 @@ public class Voucher implements Serializable {
 
     public void setExpain(String expain) {
         this.expain = expain;
+    }
+
+    public Double getOwed() {
+        return owed;
+    }
+
+    public void setOwed(Double owed) {
+        this.owed = owed;
+    }
+
+    public Double getPay() {
+        return pay;
+    }
+
+    public void setPay(Double pay) {
+        this.pay = pay;
     }
 
     public String getCreator() {

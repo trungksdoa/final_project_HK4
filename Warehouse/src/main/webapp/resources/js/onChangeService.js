@@ -14,6 +14,10 @@ $('#service').change(function () {
         row.append('<td>' + "No Data" + '</td>');
         $('#myTable2').append(row);
     }
+    else
+    {
+        //
+    }
 });
 //Submit remove modal and empty table
 $("#btnServiceModalSave").click(function () {
@@ -29,7 +33,7 @@ $("#btnServiceModalSave").click(function () {
 });
 $("#btnServiceModalClose").click(function () {
     //set default selected
-//    $('#service').prop('selectedIndex', 0);
+    $('#service').prop('selectedIndex', 0);
     //Hide modal
     $("#modalSerchform").modal('hide');
     //Empty table
@@ -69,9 +73,9 @@ $("#saerchFrom").on("submit", function (event) {
                             $('#myTable').append(row);
                         } else
                         {
-                            var row = $('<tr>');
-                            row.append('<td>' + "No Data Found" + '</td>');
-                            $('#myTable').append(row);
+//                            var row = $('<tr>');
+//                            row.append('<td>' + "No Data Found" + '</td>');
+//                            $('#myTable').append(row);
                         }
                     }
                 } else

@@ -30,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Catagoryvoucher.findByGoodsName", query = "SELECT c FROM Catagoryvoucher c WHERE c.goodsName = :goodsName"),
     @NamedQuery(name = "Catagoryvoucher.findByUnit", query = "SELECT c FROM Catagoryvoucher c WHERE c.unit = :unit"),
     @NamedQuery(name = "Catagoryvoucher.findByQuantity", query = "SELECT c FROM Catagoryvoucher c WHERE c.quantity = :quantity"),
-    @NamedQuery(name = "Catagoryvoucher.findByGoodsPrice", query = "SELECT c FROM Catagoryvoucher c WHERE c.goodsPrice = :goodsPrice"),
-    @NamedQuery(name = "Catagoryvoucher.findByAfteprice", query = "SELECT c FROM Catagoryvoucher c WHERE c.afteprice = :afteprice")})
+    @NamedQuery(name = "Catagoryvoucher.findByGroupGoods", query = "SELECT c FROM Catagoryvoucher c WHERE c.groupGoods = :groupGoods")})
 public class Catagoryvoucher implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,10 +49,8 @@ public class Catagoryvoucher implements Serializable {
     private String unit;
     @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "goods_price")
-    private Integer goodsPrice;
-    @Column(name = "afteprice")
-    private Integer afteprice;
+    @Column(name = "group_goods")
+    private String groupGoods;
 
     public Catagoryvoucher() {
     }
@@ -106,20 +103,12 @@ public class Catagoryvoucher implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getGoodsPrice() {
-        return goodsPrice;
+    public String getGroupGoods() {
+        return groupGoods;
     }
 
-    public void setGoodsPrice(Integer goodsPrice) {
-        this.goodsPrice = goodsPrice;
-    }
-
-    public Integer getAfteprice() {
-        return afteprice;
-    }
-
-    public void setAfteprice(Integer afteprice) {
-        this.afteprice = afteprice;
+    public void setGroupGoods(String groupGoods) {
+        this.groupGoods = groupGoods;
     }
     
 }

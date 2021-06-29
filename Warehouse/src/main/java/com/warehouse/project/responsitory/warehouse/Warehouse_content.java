@@ -5,18 +5,19 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Productionorder;
+import com.warehouse.project.model.Input;
+import com.warehouse.project.model.Input;
+import com.warehouse.project.model.InputContent;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author trung
  */
-public interface ProductionRstr extends JpaRepository<Productionorder, String> {
+public interface Warehouse_content extends JpaRepository<InputContent, String> {
 
-    @Query("Select u from Productionorder u WHERE u.date BETWEEN :from AND :to")
-    List<Productionorder> findProduct(@Param("from") String from, @Param("to") String to);
 }

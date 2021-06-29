@@ -15,7 +15,7 @@ function Autocomplete(index)
             tempArray["group"] = data[i].groupid;
             goodsArray.push(tempArray);
         }
-        console.log(goodsArray);
+//        console.log(goodsArray);
     });
     $.get("/warehouse/groupWarehouse/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
@@ -25,7 +25,7 @@ function Autocomplete(index)
             tempArray["value"] = data[i].name;
             stockcard.push(tempArray);
         }
-        console.log(stockcard);
+//        console.log(stockcard);
     });
     for (var i = 0; i < stt; i++) {
         $("#search" + i).autocomplete({
@@ -33,7 +33,8 @@ function Autocomplete(index)
             select: function (e, ui) {
                 var e = ui.item;
 //                            console.log(lastChar);
-//                            console.log(e.unit);
+                            console.log(e.id);
+                $("#id" + index).val(e.id);
                 $("#unit" + index).val(e.unit);
                 $('#importprice' + index).val(e.unitPrice);
                 $('#weight' + index).val(e.weight);

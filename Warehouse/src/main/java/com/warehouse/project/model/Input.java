@@ -30,9 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Input.findAll", query = "SELECT i FROM Input i"),
     @NamedQuery(name = "Input.findById", query = "SELECT i FROM Input i WHERE i.id = :id"),
     @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
-    @NamedQuery(name = "Input.findByObject", query = "SELECT i FROM Input i WHERE i.object = :object"),
-    @NamedQuery(name = "Input.findByShipper", query = "SELECT i FROM Input i WHERE i.shipper = :shipper"),
     @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
+    @NamedQuery(name = "Input.findByService", query = "SELECT i FROM Input i WHERE i.service = :service"),
     @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status")})
 public class Input implements Serializable {
 
@@ -43,12 +42,10 @@ public class Input implements Serializable {
     private String id;
     @Column(name = "date")
     private String date;
-    @Column(name = "object")
-    private String object;
-    @Column(name = "shipper")
-    private String shipper;
     @Column(name = "explain")
     private String explain;
+    @Column(name = "service")
+    private String service;
     @Column(name = "status")
     private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
@@ -77,28 +74,20 @@ public class Input implements Serializable {
         this.date = date;
     }
 
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
-
-    public String getShipper() {
-        return shipper;
-    }
-
-    public void setShipper(String shipper) {
-        this.shipper = shipper;
-    }
-
     public String getExplain() {
         return explain;
     }
 
     public void setExplain(String explain) {
         this.explain = explain;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getStatus() {

@@ -5,10 +5,12 @@
  */
 package com.warehouse.project.service.warehouse;
 
+import com.warehouse.project.model.Warehouse;
+
 /**
  *
  * @author trung
  */
 public interface IWarehouse {
-    
+         public abstract Warehouse Save(Warehouse input);
 }

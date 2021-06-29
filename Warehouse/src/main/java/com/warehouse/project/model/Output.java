@@ -29,9 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Output.findAll", query = "SELECT o FROM Output o"),
     @NamedQuery(name = "Output.findById", query = "SELECT o FROM Output o WHERE o.id = :id"),
     @NamedQuery(name = "Output.findByDate", query = "SELECT o FROM Output o WHERE o.date = :date"),
-    @NamedQuery(name = "Output.findByObject", query = "SELECT o FROM Output o WHERE o.object = :object"),
-    @NamedQuery(name = "Output.findByWarehouse", query = "SELECT o FROM Output o WHERE o.warehouse = :warehouse"),
-    @NamedQuery(name = "Output.findByShipper", query = "SELECT o FROM Output o WHERE o.shipper = :shipper"),
+    @NamedQuery(name = "Output.findBySerivce", query = "SELECT o FROM Output o WHERE o.serivce = :serivce"),
     @NamedQuery(name = "Output.findByExplain", query = "SELECT o FROM Output o WHERE o.explain = :explain"),
     @NamedQuery(name = "Output.findByStatus", query = "SELECT o FROM Output o WHERE o.status = :status")})
 public class Output implements Serializable {
@@ -43,20 +41,14 @@ public class Output implements Serializable {
     private String id;
     @Column(name = "date")
     private String date;
-    @Column(name = "object")
-    private String object;
-    @Column(name = "warehouse")
-    private String warehouse;
-    @Column(name = "shipper")
-    private String shipper;
+    @Column(name = "serivce")
+    private String serivce;
     @Column(name = "explain")
     private String explain;
     @Column(name = "status")
     private String status;
     @OneToMany(mappedBy = "outputId")
     private Collection<OutputContent> outputContentCollection;
-    @OneToMany(mappedBy = "outputId")
-    private Collection<OutputReference> outputReferenceCollection;
 
     public Output() {
     }
@@ -81,28 +73,12 @@ public class Output implements Serializable {
         this.date = date;
     }
 
-    public String getObject() {
-        return object;
+    public String getSerivce() {
+        return serivce;
     }
 
-    public void setObject(String object) {
-        this.object = object;
-    }
-
-    public String getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(String warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getShipper() {
-        return shipper;
-    }
-
-    public void setShipper(String shipper) {
-        this.shipper = shipper;
+    public void setSerivce(String serivce) {
+        this.serivce = serivce;
     }
 
     public String getExplain() {
@@ -128,15 +104,6 @@ public class Output implements Serializable {
 
     public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
         this.outputContentCollection = outputContentCollection;
-    }
-
-    @XmlTransient
-    public Collection<OutputReference> getOutputReferenceCollection() {
-        return outputReferenceCollection;
-    }
-
-    public void setOutputReferenceCollection(Collection<OutputReference> outputReferenceCollection) {
-        this.outputReferenceCollection = outputReferenceCollection;
     }
 
     @Override

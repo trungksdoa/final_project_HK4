@@ -5,7 +5,6 @@
  */
 package com.warehouse.project.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -57,9 +56,10 @@ public class GoodsCatagory implements Serializable {
     private Double unitPrice;
     @Column(name = "weight")
     private Integer weight;
+    @OneToMany(mappedBy = "goodsId")
+    private Collection<VoucherContent> voucherContentCollection;
     @JoinColumn(name = "group_goods", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private Groupsgoods groupGoods;
     @OneToMany(mappedBy = "goodsId")
     private Collection<InputContent> inputContentCollection;
@@ -127,6 +127,15 @@ public class GoodsCatagory implements Serializable {
         this.weight = weight;
     }
 
+    @XmlTransient
+    public Collection<VoucherContent> getVoucherContentCollection() {
+        return voucherContentCollection;
+    }
+
+    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
+        this.voucherContentCollection = voucherContentCollection;
+    }
+
     public Groupsgoods getGroupGoods() {
         return groupGoods;
     }
@@ -168,4 +177,5 @@ public class GoodsCatagory implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.GoodsCatagory[ id=" + id + " ]";
     }
+    
 }

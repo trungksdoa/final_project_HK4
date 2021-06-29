@@ -7,8 +7,7 @@ package com.warehouse.project.controller.warehouse.api;
 
 import com.warehouse.project.model.Catagoryvoucher;
 import com.warehouse.project.model.Groupcatagory;
-import com.warehouse.project.model.Productiongoods;
-import com.warehouse.project.model.Productionorder;
+import com.warehouse.project.model.Input;
 import com.warehouse.project.service.warehouse.ICoupoContentViewnContent1;
 import com.warehouse.project.service.warehouse.ICoupon;
 import com.warehouse.project.service.warehouse.IStock_card;
@@ -24,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.warehouse.project.model.StockCard;
 import com.warehouse.project.model.Voucher;
-import com.warehouse.project.service.warehouse.IProductiongmaterial;
-import com.warehouse.project.service.warehouse.IProducttion;
+import com.warehouse.project.service.warehouse.IInput;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,6 +34,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/warehouse")
 public class InputControllerApi {
+
+    @Autowired
+    IInput lab;
 
     @Autowired
     ICoupon lab2;
@@ -49,12 +50,6 @@ public class InputControllerApi {
     @Autowired
     IStock_card lab5;
 
-    @Autowired
-    IProducttion lab6;
-
-    @Autowired
-    IProductiongmaterial lab7;
-    
     @ResponseBody
     @RequestMapping(value = "/findGoods/")
 
@@ -77,46 +72,24 @@ public class InputControllerApi {
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/findProduction/")
-
-    public ResponseEntity<List<Productiongoods>> findMaterial(@RequestParam(value = "id") String[] keyword) {
-
-        List<Productiongoods> arralists1 = new ArrayList<>();
-//        Catagoryvoucher addArrray = new Catagoryvoucher();
-
-        for (String data : keyword) {
-            List<Productiongoods> clist = lab7.findALlById(data);
-
-            arralists1.addAll(clist);
-//            GoodsCatagory codese; 
-        }
-//        for (Productiongoods  productiongoods: arralists1) {
-//              System.out.println(productiongoods.getGoodsName());
-//        }
-      
-        if (!arralists1.isEmpty()) {
-            return new ResponseEntity<>(arralists1, HttpStatus.OK);
-
-        } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-    }
-
 //    @ResponseBody
-//    @RequestMapping(value = "/findProductiongoods/")
+//    @RequestMapping(value = "/findProduction/")
 //
-//    public ResponseEntity<List<Productiongoods>> productiongoods(@RequestParam(value = "id") String[] keyword) {
+//    public ResponseEntity<List<Productiongoods>> findMaterial(@RequestParam(value = "id") String[] keyword) {
 //
 //        List<Productiongoods> arralists1 = new ArrayList<>();
 ////        Catagoryvoucher addArrray = new Catagoryvoucher();
 //
 //        for (String data : keyword) {
-//            List<Productiongoods> clist = lab6.findALlById(data);
+//            List<Productiongoods> clist = lab7.findALlById(data);
 //
 //            arralists1.addAll(clist);
 ////            GoodsCatagory codese; 
 //        }
+////        for (Productiongoods  productiongoods: arralists1) {
+////              System.out.println(productiongoods.getGoodsName());
+////        }
+//
 //        if (!arralists1.isEmpty()) {
 //            return new ResponseEntity<>(arralists1, HttpStatus.OK);
 //
@@ -136,6 +109,14 @@ public class InputControllerApi {
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getID/")
+    public Input listID() {
+        Input ids = lab.findAllId();
+        //        Catagoryvoucher addArrray = new Catagoryvoucher();
+        return ids;
     }
 
     @ResponseBody
@@ -162,18 +143,18 @@ public class InputControllerApi {
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+//        System.out.println(ssss);
     }
 
-    @RequestMapping(value = "/production/from={from}&to={to}", //
-            method = RequestMethod.GET)
-    public ResponseEntity<List<Productionorder>> productionorder(@PathVariable("from") String from, @PathVariable("to") String to) {
-        List<Productionorder> ssss = lab6.FindAllByList(from, to);
-        if (!ssss.isEmpty()) {
-            return new ResponseEntity<>(ssss, HttpStatus.OK);
-
-        } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-    }
-
+//    @RequestMapping(value = "/production/from={from}&to={to}", //
+//            method = RequestMethod.GET)
+//    public ResponseEntity<List<Productionorder>> productionorder(@PathVariable("from") String from, @PathVariable("to") String to) {
+//        List<Productionorder> ssss = lab6.FindAllByList(from, to);
+//        if (!ssss.isEmpty()) {
+//            return new ResponseEntity<>(ssss, HttpStatus.OK);
+//
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//    }
 }

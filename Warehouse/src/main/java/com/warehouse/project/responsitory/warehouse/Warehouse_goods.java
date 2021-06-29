@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Productiongoods;
+import com.warehouse.project.model.Warehouse;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,8 +16,6 @@ import org.springframework.data.repository.query.Param;
  *
  * @author trung
  */
-public interface ProductMaterialRes extends JpaRepository<Productiongoods, Integer> {
+public interface Warehouse_goods extends JpaRepository<Warehouse, String> {
 
-    @Query("SELECT p FROM Productiongoods p WHERE p.orderRequirement = :orderRequirement")
-    List<Productiongoods> findByList(@Param("orderRequirement") String keyword);
 }

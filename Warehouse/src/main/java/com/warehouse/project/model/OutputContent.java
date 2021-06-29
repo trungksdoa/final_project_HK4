@@ -31,10 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OutputContent.findById", query = "SELECT o FROM OutputContent o WHERE o.id = :id"),
     @NamedQuery(name = "OutputContent.findByGoodsName", query = "SELECT o FROM OutputContent o WHERE o.goodsName = :goodsName"),
     @NamedQuery(name = "OutputContent.findByUnit", query = "SELECT o FROM OutputContent o WHERE o.unit = :unit"),
+    @NamedQuery(name = "OutputContent.findByWarehouse", query = "SELECT o FROM OutputContent o WHERE o.warehouse = :warehouse"),
     @NamedQuery(name = "OutputContent.findByQuantity", query = "SELECT o FROM OutputContent o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "OutputContent.findByExportsPrices", query = "SELECT o FROM OutputContent o WHERE o.exportsPrices = :exportsPrices"),
     @NamedQuery(name = "OutputContent.findByDiscounts", query = "SELECT o FROM OutputContent o WHERE o.discounts = :discounts"),
-    @NamedQuery(name = "OutputContent.findByAfterPrice", query = "SELECT o FROM OutputContent o WHERE o.afterPrice = :afterPrice"),
     @NamedQuery(name = "OutputContent.findByWeight", query = "SELECT o FROM OutputContent o WHERE o.weight = :weight")})
 public class OutputContent implements Serializable {
 
@@ -48,6 +48,8 @@ public class OutputContent implements Serializable {
     private String goodsName;
     @Column(name = "unit")
     private String unit;
+    @Column(name = "warehouse")
+    private String warehouse;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity")
     private Double quantity;
@@ -55,8 +57,6 @@ public class OutputContent implements Serializable {
     private Double exportsPrices;
     @Column(name = "discounts")
     private Integer discounts;
-    @Column(name = "after_price")
-    private Double afterPrice;
     @Column(name = "weight")
     private Double weight;
     @JoinColumn(name = "output_id", referencedColumnName = "id")
@@ -97,6 +97,14 @@ public class OutputContent implements Serializable {
         this.unit = unit;
     }
 
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
+    }
+
     public Double getQuantity() {
         return quantity;
     }
@@ -119,14 +127,6 @@ public class OutputContent implements Serializable {
 
     public void setDiscounts(Integer discounts) {
         this.discounts = discounts;
-    }
-
-    public Double getAfterPrice() {
-        return afterPrice;
-    }
-
-    public void setAfterPrice(Double afterPrice) {
-        this.afterPrice = afterPrice;
     }
 
     public Double getWeight() {

@@ -5,10 +5,12 @@
  */
 package com.warehouse.project.service.warehouse;
 
+import com.warehouse.project.model.InputContent;
+
 /**
  *
  * @author trung
  */
 public interface IInputContent {
-    
+     public abstract InputContent Save(InputContent input);
 }

@@ -48,11 +48,11 @@ public class InputContent implements Serializable {
     private String goodsName;
     @Column(name = "unit")
     private String unit;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity")
-    private Double quantity;
+    private Integer quantity;
     @Column(name = "warehouse")
     private String warehouse;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "imports_prices")
     private Double importsPrices;
     @Column(name = "group_goods")
@@ -97,11 +97,11 @@ public class InputContent implements Serializable {
         this.unit = unit;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

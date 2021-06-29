@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Groupsgoods.findByName", query = "SELECT g FROM Groupsgoods g WHERE g.name = :name")})
 public class Groupsgoods implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -98,5 +97,5 @@ public class Groupsgoods implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.Groupsgoods[ id=" + id + " ]";
     }
-
+    
 }

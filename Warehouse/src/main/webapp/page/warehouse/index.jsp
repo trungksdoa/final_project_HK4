@@ -33,85 +33,78 @@
         <div class="container">
             <div class="main" style="margin-top: 8rem;">
                 <!--<input id="hidCidade" type="text" /><br>-->
-                <form id='maiForm' method="POST">
+                <form id='maiForm' method="POST" action="/web/warehouse/page">
 
                     <div class="row">
                         <div class="col-lg-8 col-md-8" >
                             <div class="form-group row">
-                                <label for="object" class="col-lg-2 col-form-label">Object</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="object" id="object" placeholder="object">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="shipper" class="col-lg-2 col-form-label">Shipper</label>
-                                <div class="col-lg-10">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="shipper" id="shipper" placeholder="Shipper">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="explain" class="col-lg-2 col-form-label">Explain</label>
-                                <div class="col-lg-10">
-                                    <input type="text"  class="form-control" name="explain" id="explain" placeholder="explain">
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-lg-2 col-form-label">Action</label>
                                 <div class="col-lg-10">
-                                    <button style="margin-right:20px;" type="button" id="addDataTable"  class="btn btn-secondary" >Add row</button>
-                                    <button onclick="emptyData();return false;" class="btn btn-warning" onclick="">Reset</button>
-                                    <p>Hint: Click on field at Goods name to start finding your goods easy</p>
+                                    <button  style="" type="submit" id="savaDataAll"  class="btn btn-primary" >Save</button>   
+                                    <!--<button onclick="window.print()">Print this page</button>-->
+                                    <div class="form-group row"  style="float:right;margin-right: 5px;">
+                                        <button style="margin-right: 28px;" type="button" id="addDataTable"  class="btn btn-secondary" >Add row</button>
+                                        <button onclick="emptyData();return false;"  class="btn btn-warning" onclick="">Reset row</button>
+                                    </div>
                                 </div>
 
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
                             <div class="form-group row">
                                 <label for="id" class="col-lg-2 col-form-label">License</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="id" id="id_liecene" placeholder="System will generation License">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" required="" name="id" id="id_liecene" value="" placeholder="System will generation License">
+                                        <div class="input-group-prepend">
+                                            <button onclick="CreateID()" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="Date" class="col-lg-2 col-form-label">Date</label>
                                 <div class="col-lg-10">
-                                    <input type="date" class="form-control" name="Date" id="DateLicene" placeholder="Date">
+                                    <input type="date" required="" class="form-control" name="Date" id="DateLicene" placeholder="Date">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="Date" class="col-lg-2 col-form-label">Service</label>
                                 <div class="col-lg-10">
                                     <div class="input-group mb-3">
-                                        <select class="custom-select" id="service">
+                                        <select name="service" required="" class="custom-select" id="service">
                                             <option value="0" selected>Choose</option>
                                             <option value="voucher">Nhập theo chứng từ mua hàng</option>
                                             <option value="production">Nhập theo sản xuất</option>
-                                            <option value="3">Nhập khác</option>
+                                            <option value="other">Nhập khác</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row" style='margin-top:-20px;'>
-                                <label class="col-lg-2 col-form-label">Action</label>
+                            <div class="form-group row">
+                                <label for="explain" class="col-lg-2 col-form-label">Explain</label>
                                 <div class="col-lg-10">
-                                    <button style="" type="submit" id="savaDataAll"  class="btn btn-primary" >Save</button>   
-                                    <button onclick="window.print()">Print this page</button>
+                                    <input type="text"   class="form-control" name="explain" id="explain" placeholder="explain">
+                                </div>
+                                <div class="col-lg-10">
+                                    <p>Hint: Click on field at Goods name to start finding your goods easy</p>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4">  
+                            <img src="<c:url value="/resources/img/warehouse.jpg" />" alt="Girl in a jacket" width="350" height="300">
                         </div>
                     </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered" style="z-index: 1000">
                             <thead>
                                 <tr>
+                                    <th>STT</th>
                                     <th>Goods name</th>
                                     <th>Unit</th>
                                     <th>Warehouse</th>
                                     <th>Quantity</th>
                                     <th>Input Price</th>
-                                    <th>Price</th>
                                     <th>Group</th>
                                     <th>Weight</th>
 
@@ -122,6 +115,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <!--                </form>-->
                 </form>
             </div>
         </div>
@@ -174,9 +168,9 @@
                     <div class="modal-body">
                         <form id="saerchFrom">
                             <div class="row">
-                                <div class="col">
-                                    <input type="text" class="form-control" name="ncc" placeholder="Supplier">
-                                </div>
+                                <!--                                <div class="col">
+                                                                    <input type="text" class="form-control" name="ncc" placeholder="Supplier">
+                                                                </div>-->
                                 <div class="col">
                                     <input type="date" class="form-control" required="" name="from" placeholder="">
                                 </div>
@@ -262,7 +256,7 @@
 
         <script>
             var stt = 0;
-
+         
             $("#btnServiceModalSave1").click(function () {
                 //set default selected
 //    $('#service').prop('selectedIndex', 0);
@@ -276,13 +270,32 @@
             });
             $("#btnServiceModalClose1").click(function () {
                 //set default selected
-//    $('#service').prop('selectedIndex', 0);
+                $('#service').prop('selectedIndex', 0);
                 //Hide modal
                 $("#modalSerchform2").modal('hide');
                 //Empty table
                 $("#myTable2").empty();
             });
 
+            function CreateID()
+            {
+
+                $.get("/warehouse/getID/", function (data, status) {
+                    let idgener = data.id;
+                    console.log(data.id);
+
+                    idgener = idgener.substring(2);
+                    var id = parseInt(idgener);
+                    id++;
+                    var str = "" + id
+                    var pad = "NK0000"
+                    var ans = pad.substring(0, pad.length - str.length) + str
+//                console.log(ans)
+                    $('#id_liecene').val(ans);
+                });
+
+
+            }
 
 
             $(document).ready(function () {
@@ -317,7 +330,7 @@
                 var index = 0;
                 index += x.rowIndex;
                 index--;
-                console.log(index);
+//                console.log(index);
                 Autocomplete(index);
 //                return x.rowIndex;
             }

@@ -31,4 +31,11 @@ public class InputImpl implements IInput {
        return  house.findAll();
     }
 
+    @Override
+    public Input findAllId() {
+        return  house.findByList();
+    }
+
+ 
+
 }

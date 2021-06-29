@@ -6,6 +6,7 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -62,6 +65,10 @@ public class Warehouse implements Serializable {
     @JoinColumn(name = "stock_card", referencedColumnName = "id")
     @ManyToOne
     private StockCard stockCard;
+    @OneToMany(mappedBy = "warehouseId")
+    private Collection<TranferConent> tranferConentCollection;
+    @OneToMany(mappedBy = "goodsId")
+    private Collection<OutputContent> outputContentCollection;
 
     public Warehouse() {
     }
@@ -148,6 +155,24 @@ public class Warehouse implements Serializable {
 
     public void setStockCard(StockCard stockCard) {
         this.stockCard = stockCard;
+    }
+
+    @XmlTransient
+    public Collection<TranferConent> getTranferConentCollection() {
+        return tranferConentCollection;
+    }
+
+    public void setTranferConentCollection(Collection<TranferConent> tranferConentCollection) {
+        this.tranferConentCollection = tranferConentCollection;
+    }
+
+    @XmlTransient
+    public Collection<OutputContent> getOutputContentCollection() {
+        return outputContentCollection;
+    }
+
+    public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
+        this.outputContentCollection = outputContentCollection;
     }
 
     @Override

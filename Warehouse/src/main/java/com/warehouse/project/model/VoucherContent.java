@@ -157,5 +157,5 @@ public class VoucherContent implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.VoucherContent[ id=" + id + " ]";
     }
-    
+
 }
