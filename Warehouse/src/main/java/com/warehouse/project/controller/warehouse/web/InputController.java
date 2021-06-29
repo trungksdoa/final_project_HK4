@@ -31,7 +31,7 @@ public class InputController {
 
     @RequestMapping( value = "/page",method = RequestMethod.POST)
     public String SaveData(Model model,final HttpServletRequest request) {
-        return "warehouse/index";
+        return "warehouse/welcome";
     }
 
 }
