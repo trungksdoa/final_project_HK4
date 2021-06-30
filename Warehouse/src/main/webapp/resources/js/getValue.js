@@ -27,7 +27,8 @@ function getValue() {
 
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i].id)
-                    var checkid = data[i].id;
+                    var checkid = data[i].id;                   
+                    
                     var row = $('<tr>');
                     row.append('<td>' + stt + '</td>');
                     row.append('<td>' + "<input id='search" + stt + "' type='text' name='name[]' value='" + data[i].goodsName + "'/>" + '</td>');

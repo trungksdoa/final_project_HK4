@@ -17,6 +17,6 @@
 <!-- Daterange picker -->
 <link rel="stylesheet" href="<c:url value='/resources/plugins/daterangepicker/daterangepicker.css'/>"/>
 <!-- summernote -->
-<link rel="stylesheet" href="<c:url value='/resources/plugins/summernote/summernote-bs4.min.css' />"/>
+<link rel="stylesheet" href="<c:url value='/resources/plugins/summernote/summernote-bs4.min.css' />  
 
 <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />"/>

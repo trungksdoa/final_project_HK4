@@ -7,9 +7,8 @@ package com.warehouse.project.controller.warehouse.web;
 
 import com.warehouse.project.model.GoodsCatagory;
 import com.warehouse.project.model.Input;
-import com.warehouse.project.model.StockCard;
-
 import com.warehouse.project.model.InputContent;
+import com.warehouse.project.model.StockCard;
 import com.warehouse.project.model.Warehouse;
 import com.warehouse.project.service.warehouse.IInput;
 import com.warehouse.project.service.warehouse.IInputContent;
@@ -41,15 +40,60 @@ public class InputController {
     @Autowired
     IWarehouse lab3;
 
-    @RequestMapping("/page")
+    @RequestMapping("/")
+    public String page(Model model) {
+        model.addAttribute("listdata",lab.findall());
+        return "warehouse/showinput";
+    }
+
+    @RequestMapping("/input")
     public String index(Model model) {
-        return "warehouse/index";
+        return "warehouse/InputPage";
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public String SaveData(@ModelAttribute("Input") Input input, Model model, HttpServletRequest request) {
-        input.setStatus("Chưa Xác Nhận");
-        Input addss = lab.Save(input);
+        String getID = request.getParameter("id");
+        String getDate = request.getParameter("Date");
+        String getservice = request.getParameter("service");
+        String getexplain = request.getParameter("explain");
+        Input addss = null;
+
+        if (getID == "") {
+            Input idobject = lab.findAllId();
+            if (idobject != null) {
+                String idgen = idobject.toString();
+                idgen = idgen.substring(2);
+                int idstt = Integer.valueOf(idgen);
+                idstt = idstt + 1;
+                String str = "" + idstt;
+                String pad = "NK0000";
+                String ans = pad.substring(0, pad.length() - str.length()) + str;
+                input.setId(ans);
+            } else {
+                String idgen = "NK0000";
+                idgen = idgen.substring(2);
+                int idstt = Integer.valueOf(idgen);
+                idstt = idstt + 1;
+                String str = "" + idstt;
+                String pad = "NK0000";
+                String ans = pad.substring(0, pad.length() - str.length()) + str;
+                input.setId(ans);
+            }
+            input.setDate(getDate);
+            input.setService(getservice);
+            input.setExplain(getexplain);
+            input.setStatus("Chưa Xác Nhận");
+            addss = lab.Save(input);
+
+        } else {
+            input.setId(getID);
+            input.setDate(getDate);
+            input.setService(getservice);
+            input.setExplain(getexplain);
+            input.setStatus("Chưa Xác Nhận");
+            addss = lab.Save(input);
+        }
         String[] name = request.getParameterValues("name");
         String[] codeid = request.getParameterValues("codeid");
         String[] unit = request.getParameterValues("unit");
@@ -111,26 +155,12 @@ public class InputController {
             adds.setImportPrice(inputContent.getImportsPrices());
             adds.setGroupGoods(inputContent.getGroupGoods());
             adds.setWeight(inputContent.getWeight());
-            
+
             adds.setSellPrice(inputContent.getImportsPrices());
             adds.setGroupGoods(inputContent.getGroupGoods());
             respones = lab3.Save(adds);
         }
-        if (respone != null) {
-            System.out.println(respone);
-        }
-//        if (respones != null) {
-//            System.out.println(respones);
-//        }
-//        for (InputContent inputContent : arrraylist) {
-//              System.out.println(loop8);
-//        }
-//        for (int i = 0; i < test.length; i++) {
-//               System.out.println(test[i]);
-//        }
-//     
-
-        return "warehouse/RootLayout";
+        return "warehouse/InputPage";
     }
 
 }

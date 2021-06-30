@@ -129,7 +129,7 @@ public class Input implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Input[ id=" + id + " ]";
+        return id;
     }
     
 }
