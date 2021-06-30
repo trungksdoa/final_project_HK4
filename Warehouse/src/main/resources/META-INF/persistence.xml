@@ -40,7 +40,6 @@
     <class>com.warehouse.project.model.IOreport</class>
     <class>com.warehouse.project.model.IOreportrefererence</class>
     <class>com.warehouse.project.model.StockCard_1</class>
-    <class>com.warehouse.project.model.Groupcatagory</class>
     <class>com.warehouse.project.model.Productiongoods</class>
     <class>com.warehouse.project.model.InputContent</class>
     <class>com.warehouse.project.model.Groupsgoods_1</class>
@@ -54,6 +53,7 @@
     <class>com.warehouse.project.model.VoucherContent</class>
     <class>com.warehouse.project.model.Findmaterialbygoods</class>
     <class>com.warehouse.project.model.Catagoryvoucher</class>
+    <class>com.warehouse.project.model.CatagoryGroupSupplier</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

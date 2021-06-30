@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 import com.warehouse.project.model.GoodsCatagory;
-import com.warehouse.project.model.Groupcatagory;
+import com.warehouse.project.model.CatagoryGroupSupplier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +13,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author trung
  */
-public interface goodsResponisotry extends JpaRepository<Groupcatagory, String> {
+public interface goodsResponisotry extends JpaRepository<CatagoryGroupSupplier, String> {
     
 }

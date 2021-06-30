@@ -33,6 +33,7 @@
         <div class="container">
             <div class="main" style="margin-top: 8rem;">
                 <!--<input id="hidCidade" type="text" /><br>-->
+                <!---->
                 <form id='maiForm' method="POST" action="/web/warehouse/page">
 
                     <div class="row">
@@ -102,6 +103,7 @@
                                     <th>STT</th>
                                     <th>Goods name</th>
                                     <th>Unit</th>
+                                    <th>Supplier</th>
                                     <th>Warehouse</th>
                                     <th>Quantity</th>
                                     <th>Input Price</th>
@@ -256,7 +258,9 @@
 
         <script>
             var stt = 0;
-         
+
+
+
             $("#btnServiceModalSave1").click(function () {
                 //set default selected
 //    $('#service').prop('selectedIndex', 0);
@@ -307,6 +311,25 @@
                 $("#btnkho").click(function () {
                     $("#modalkho").modal('show');
                 });
+
+
+//                $("#maiForm").on("submit", function (event) {
+//                    event.preventDefault();
+//                    var data = $('#maiForm').serialize();
+////    var serializedData = $('form').serialize();
+//// serializedData = 'name=&age=99&blah=';
+////                    data = data.replace(/&?[^=]+=&|&[^=]+=$/g, '');
+//                    $.ajax({
+//                        url: '',
+//                        method: 'POST',
+//                        traditional: true,
+//                        data: {
+//                            id: strs
+//                        },
+//                        success: function (res) {}
+//                        console.log(res)
+//                    });
+//                })
 
 
 

@@ -13,6 +13,7 @@ function Autocomplete(index)
             tempArray["unit"] = data[i].unit;
             tempArray["unitPrice"] = data[i].unitPrice;
             tempArray["group"] = data[i].groupid;
+            tempArray["suplier"] = data[i].suplier;
             goodsArray.push(tempArray);
         }
 //        console.log(goodsArray);
@@ -33,8 +34,9 @@ function Autocomplete(index)
             select: function (e, ui) {
                 var e = ui.item;
 //                            console.log(lastChar);
-                            console.log(e.id);
-                $("#id" + index).val(e.id);
+                console.log(e.suplier);
+                $("#suplier" + index).val(e.suplier);
+                $("#codeid" + index).val(e.id);
                 $("#unit" + index).val(e.unit);
                 $('#importprice' + index).val(e.unitPrice);
                 $('#weight' + index).val(e.weight);

@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.service.warehouse;
 
-import com.warehouse.project.model.Groupcatagory;
+import com.warehouse.project.model.CatagoryGroupSupplier;
 import java.util.List;
 
 /**
@@ -13,5 +13,5 @@ import java.util.List;
  * @author trung
  */
 public interface Igoodscatagory {
-    public abstract List<Groupcatagory>findALl();
+    public abstract List<CatagoryGroupSupplier>findALl();
 }

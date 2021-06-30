@@ -6,7 +6,7 @@
 package com.warehouse.project.controller.warehouse.api;
 
 import com.warehouse.project.model.Catagoryvoucher;
-import com.warehouse.project.model.Groupcatagory;
+import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.model.Input;
 import com.warehouse.project.service.warehouse.ICoupoContentViewnContent1;
 import com.warehouse.project.service.warehouse.ICoupon;
@@ -99,9 +99,9 @@ public class InputControllerApi {
 //    }
     @ResponseBody
     @RequestMapping(value = "/goodsCatagory/")
-    public ResponseEntity<List<Groupcatagory>> listGoods() {
+    public ResponseEntity<List<CatagoryGroupSupplier>> listGoods() {
 
-        List<Groupcatagory> arralists1 = lab4.findALl();
+        List<CatagoryGroupSupplier> arralists1 = lab4.findALl();
         //        Catagoryvoucher addArrray = new Catagoryvoucher();
         if (!arralists1.isEmpty()) {
             return new ResponseEntity<>(arralists1, HttpStatus.OK);

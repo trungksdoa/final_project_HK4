@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.imp.warehouse;
 
-import com.warehouse.project.model.Groupcatagory;
+import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.responsitory.warehouse.goodsResponisotry;
 import com.warehouse.project.service.warehouse.Igoodscatagory;
 import java.util.List;
@@ -23,7 +23,7 @@ public class GodscatagoryImpl implements Igoodscatagory {
     goodsResponisotry lag;
 
     @Override
-    public List<Groupcatagory> findALl() {
+    public List<CatagoryGroupSupplier> findALl() {
         return lag.findAll();
     }
 
