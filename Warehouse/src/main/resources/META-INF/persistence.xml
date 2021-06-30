@@ -54,6 +54,9 @@
     <class>com.warehouse.project.model.Findmaterialbygoods</class>
     <class>com.warehouse.project.model.Catagoryvoucher</class>
     <class>com.warehouse.project.model.CatagoryGroupSupplier</class>
+    <class>com.warehouse.project.model.Input_1</class>
+    <class>com.warehouse.project.model.Output_1</class>
+    <class>com.warehouse.project.model.Warehouse_1</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

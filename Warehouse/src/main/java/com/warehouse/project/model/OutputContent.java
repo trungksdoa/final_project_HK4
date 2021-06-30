@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OutputContent.findByQuantity", query = "SELECT o FROM OutputContent o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "OutputContent.findByExportsPrices", query = "SELECT o FROM OutputContent o WHERE o.exportsPrices = :exportsPrices"),
     @NamedQuery(name = "OutputContent.findByDiscounts", query = "SELECT o FROM OutputContent o WHERE o.discounts = :discounts"),
-    @NamedQuery(name = "OutputContent.findByWeight", query = "SELECT o FROM OutputContent o WHERE o.weight = :weight")})
+    @NamedQuery(name = "OutputContent.findByWeight", query = "SELECT o FROM OutputContent o WHERE o.weight = :weight"),
+    @NamedQuery(name = "OutputContent.findBySupplier", query = "SELECT o FROM OutputContent o WHERE o.supplier = :supplier")})
 public class OutputContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,12 +60,14 @@ public class OutputContent implements Serializable {
     private Integer discounts;
     @Column(name = "weight")
     private Double weight;
+    @Column(name = "supplier")
+    private String supplier;
     @JoinColumn(name = "output_id", referencedColumnName = "id")
     @ManyToOne
     private Output outputId;
     @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
     @ManyToOne
-    private Warehouse goodsId;
+    private Warehouse_1 goodsId;
 
     public OutputContent() {
     }
@@ -137,6 +140,14 @@ public class OutputContent implements Serializable {
         this.weight = weight;
     }
 
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
     public Output getOutputId() {
         return outputId;
     }
@@ -145,11 +156,11 @@ public class OutputContent implements Serializable {
         this.outputId = outputId;
     }
 
-    public Warehouse getGoodsId() {
+    public Warehouse_1 getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Warehouse goodsId) {
+    public void setGoodsId(Warehouse_1 goodsId) {
         this.goodsId = goodsId;
     }
 

@@ -97,5 +97,6 @@ public class StockCard implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.StockCard[ id=" + id + " ]";
     }
+
     
 }

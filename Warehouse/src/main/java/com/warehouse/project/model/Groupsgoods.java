@@ -97,5 +97,6 @@ public class Groupsgoods implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.Groupsgoods[ id=" + id + " ]";
     }
-    
+
+
 }

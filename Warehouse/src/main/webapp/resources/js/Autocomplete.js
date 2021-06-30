@@ -33,7 +33,6 @@ function Autocomplete(index)
             source: goodsArray,
             select: function (e, ui) {
                 var e = ui.item;
-//                            console.log(lastChar);
                 console.log(e.suplier);
                 $("#suplier" + index).val(e.suplier);
                 $("#codeid" + index).val(e.id);

@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InputContent.findByWarehouse", query = "SELECT i FROM InputContent i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "InputContent.findByImportsPrices", query = "SELECT i FROM InputContent i WHERE i.importsPrices = :importsPrices"),
     @NamedQuery(name = "InputContent.findByGroupGoods", query = "SELECT i FROM InputContent i WHERE i.groupGoods = :groupGoods"),
-    @NamedQuery(name = "InputContent.findByWeight", query = "SELECT i FROM InputContent i WHERE i.weight = :weight")})
+    @NamedQuery(name = "InputContent.findByWeight", query = "SELECT i FROM InputContent i WHERE i.weight = :weight"),
+    @NamedQuery(name = "InputContent.findBySupplier", query = "SELECT i FROM InputContent i WHERE i.supplier = :supplier")})
 public class InputContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,6 +60,8 @@ public class InputContent implements Serializable {
     private String groupGoods;
     @Column(name = "weight")
     private Double weight;
+    @Column(name = "supplier")
+    private String supplier;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     @ManyToOne
     private GoodsCatagory goodsId;
@@ -135,6 +138,14 @@ public class InputContent implements Serializable {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 
     public GoodsCatagory getGoodsId() {

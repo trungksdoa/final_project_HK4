@@ -185,5 +185,5 @@ public class Supplier implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.Supplier[ id=" + id + " ]";
     }
-    
+
 }

@@ -109,6 +109,7 @@
                                     <th>Input Price</th>
                                     <th>Group</th>
                                     <th>Weight</th>
+                                    <th>Goods ID</th>
 
                                 </tr>
                             </thead>
