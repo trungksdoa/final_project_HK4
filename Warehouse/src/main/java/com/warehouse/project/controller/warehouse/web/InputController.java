@@ -130,7 +130,7 @@ public class InputController {
 //        }
 //     
 
-        return "warehouse/welcome";
+        return "warehouse/RootLayout";
     }
 
 }
