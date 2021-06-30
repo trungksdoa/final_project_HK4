@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -64,9 +65,11 @@ public class InputContent implements Serializable {
     private String supplier;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private GoodsCatagory goodsId;
     @JoinColumn(name = "input_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Input inputId;
 
     public InputContent() {
@@ -188,5 +191,5 @@ public class InputContent implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.InputContent[ id=" + id + " ]";
     }
-    
+
 }

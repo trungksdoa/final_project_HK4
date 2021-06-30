@@ -23,7 +23,7 @@ function Autocomplete(index)
             var tempArray = new Array();
             tempArray["id"] = data[i].id;
             tempArray["name"] = data[i].id;
-            tempArray["value"] = data[i].name;
+            tempArray["value"] = data[i].id;
             stockcard.push(tempArray);
         }
 //        console.log(stockcard);

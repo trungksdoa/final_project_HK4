@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.service.warehouse;
 
+import com.warehouse.project.model.GoodsCatagory;
 import com.warehouse.project.model.InputContent;
 
 /**
@@ -12,5 +13,7 @@ import com.warehouse.project.model.InputContent;
  * @author trung
  */
 public interface IInputContent {
-     public abstract InputContent Save(InputContent input);
+
+    public abstract InputContent Save(InputContent input);
+
 }

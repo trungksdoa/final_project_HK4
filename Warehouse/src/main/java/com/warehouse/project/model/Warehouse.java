@@ -5,8 +5,8 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Warehouse.findByUnit", query = "SELECT w FROM Warehouse w WHERE w.unit = :unit"),
     @NamedQuery(name = "Warehouse.findByQuantityInStock", query = "SELECT w FROM Warehouse w WHERE w.quantityInStock = :quantityInStock"),
     @NamedQuery(name = "Warehouse.findByImportPrice", query = "SELECT w FROM Warehouse w WHERE w.importPrice = :importPrice"),
+    @NamedQuery(name = "Warehouse.findBySupplier", query = "SELECT w FROM Warehouse w WHERE w.supplier = :supplier"),
     @NamedQuery(name = "Warehouse.findByPriceInStock", query = "SELECT w FROM Warehouse w WHERE w.priceInStock = :priceInStock"),
     @NamedQuery(name = "Warehouse.findBySellPrice", query = "SELECT w FROM Warehouse w WHERE w.sellPrice = :sellPrice"),
     @NamedQuery(name = "Warehouse.findByGroupGoods", query = "SELECT w FROM Warehouse w WHERE w.groupGoods = :groupGoods"),
@@ -54,6 +53,8 @@ public class Warehouse implements Serializable {
     private Double quantityInStock;
     @Column(name = "import_price")
     private Double importPrice;
+    @Column(name = "supplier")
+    private String supplier;
     @Column(name = "price_in_stock")
     private Double priceInStock;
     @Column(name = "sell_price")
@@ -64,11 +65,8 @@ public class Warehouse implements Serializable {
     private Double weight;
     @JoinColumn(name = "stock_card", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private StockCard stockCard;
-    @OneToMany(mappedBy = "warehouseId")
-    private Collection<TranferConent> tranferConentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<OutputContent> outputContentCollection;
 
     public Warehouse() {
     }
@@ -117,6 +115,14 @@ public class Warehouse implements Serializable {
         this.importPrice = importPrice;
     }
 
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
     public Double getPriceInStock() {
         return priceInStock;
     }
@@ -155,24 +161,6 @@ public class Warehouse implements Serializable {
 
     public void setStockCard(StockCard stockCard) {
         this.stockCard = stockCard;
-    }
-
-    @XmlTransient
-    public Collection<TranferConent> getTranferConentCollection() {
-        return tranferConentCollection;
-    }
-
-    public void setTranferConentCollection(Collection<TranferConent> tranferConentCollection) {
-        this.tranferConentCollection = tranferConentCollection;
-    }
-
-    @XmlTransient
-    public Collection<OutputContent> getOutputContentCollection() {
-        return outputContentCollection;
-    }
-
-    public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
-        this.outputContentCollection = outputContentCollection;
     }
 
     @Override

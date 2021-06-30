@@ -56,7 +56,7 @@
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" required="" name="id" id="id_liecene" value="" placeholder="System will generation License">
                                         <div class="input-group-prepend">
-                                            <button onclick="CreateID()" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
+                                            <button onclick="CreateID();return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
                                         </div>
                                     </div>
                                 </div>

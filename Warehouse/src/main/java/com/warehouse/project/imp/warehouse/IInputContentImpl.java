@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.imp.warehouse;
 
+import com.warehouse.project.model.GoodsCatagory;
 import com.warehouse.project.model.InputContent;
 import com.warehouse.project.responsitory.warehouse.Warehouse_content;
 import com.warehouse.project.service.warehouse.IInputContent;
@@ -25,5 +26,7 @@ public class IInputContentImpl implements IInputContent {
     public InputContent Save(InputContent input) {
         return lab.save(input);
     }
+
+
 
 }

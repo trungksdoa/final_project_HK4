@@ -17,14 +17,14 @@ import org.springframework.stereotype.Service;
  * @author trung
  */
 @Service
-public class WarehouseImpl implements IWarehouse{
-@Autowired
-Warehouse_goods lab;
+public class WarehouseImpl implements IWarehouse {
+
+    @Autowired
+    Warehouse_goods lab;
 
     @Override
     public Warehouse Save(Warehouse input) {
         return lab.save(input);
     }
-   
-    
+
 }

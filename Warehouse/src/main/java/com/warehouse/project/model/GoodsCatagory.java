@@ -175,7 +175,7 @@ public class GoodsCatagory implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.GoodsCatagory[ id=" + id + " ]";
+        return id;
     }
     
 }

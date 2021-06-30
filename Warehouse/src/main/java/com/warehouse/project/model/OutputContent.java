@@ -67,7 +67,7 @@ public class OutputContent implements Serializable {
     private Output outputId;
     @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
     @ManyToOne
-    private Warehouse_1 goodsId;
+    private Warehouse goodsId;
 
     public OutputContent() {
     }
@@ -156,11 +156,11 @@ public class OutputContent implements Serializable {
         this.outputId = outputId;
     }
 
-    public Warehouse_1 getGoodsId() {
+    public Warehouse getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Warehouse_1 goodsId) {
+    public void setGoodsId(Warehouse goodsId) {
         this.goodsId = goodsId;
     }
 

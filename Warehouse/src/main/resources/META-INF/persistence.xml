@@ -2,7 +2,6 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.warehouse_project_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.warehouse.project.model.Warehouse</class>
     <class>com.warehouse.project.model.Groupsgoods</class>
     <class>com.warehouse.project.model.CouponContent</class>
     <class>com.warehouse.project.model.CouponPayReference</class>
@@ -39,7 +38,6 @@
     <class>com.warehouse.project.model.TranferConent</class>
     <class>com.warehouse.project.model.IOreport</class>
     <class>com.warehouse.project.model.IOreportrefererence</class>
-    <class>com.warehouse.project.model.StockCard_1</class>
     <class>com.warehouse.project.model.Productiongoods</class>
     <class>com.warehouse.project.model.InputContent</class>
     <class>com.warehouse.project.model.Groupsgoods_1</class>
@@ -56,7 +54,7 @@
     <class>com.warehouse.project.model.CatagoryGroupSupplier</class>
     <class>com.warehouse.project.model.Input_1</class>
     <class>com.warehouse.project.model.Output_1</class>
-    <class>com.warehouse.project.model.Warehouse_1</class>
+    <class>com.warehouse.project.model.Warehouse</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
