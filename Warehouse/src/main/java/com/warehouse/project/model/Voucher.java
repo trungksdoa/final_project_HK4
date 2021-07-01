@@ -63,10 +63,10 @@ public class Voucher implements Serializable {
     private String creator;
     @Column(name = "status")
     private Boolean status;
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
+    @JoinColumn(name = "supplierid", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
-    private Supplier supplierId;
+    private Supplier supplierid;
     @OneToMany(mappedBy = "couponId")
     private Collection<VoucherContent> voucherContentCollection;
 
@@ -149,12 +149,12 @@ public class Voucher implements Serializable {
         this.status = status;
     }
 
-    public Supplier getSupplierId() {
-        return supplierId;
+    public Supplier getSupplierid() {
+        return supplierid;
     }
 
-    public void setSupplierId(Supplier supplierId) {
-        this.supplierId = supplierId;
+    public void setSupplierid(Supplier supplierid) {
+        this.supplierid = supplierid;
     }
 
     @XmlTransient

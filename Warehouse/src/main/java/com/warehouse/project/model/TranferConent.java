@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -49,12 +50,14 @@ public class TranferConent implements Serializable {
     @Column(name = "quantity")
     private Double quantity;
     @Column(name = "price")
-    private Double price;
+    private Integer price;
     @JoinColumn(name = "trafer_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private TranferWarehouse traferId;
-    @JoinColumn(name = "warehouse_id", referencedColumnName = "goods_id")
+    @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Warehouse warehouseId;
 
     public TranferConent() {
@@ -96,11 +99,11 @@ public class TranferConent implements Serializable {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -144,5 +147,5 @@ public class TranferConent implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.TranferConent[ id=" + id + " ]";
     }
-    
+
 }

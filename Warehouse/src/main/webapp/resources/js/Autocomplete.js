@@ -1,8 +1,7 @@
 function Autocomplete(index)
 {
     var goodsArray = [];
-    var stockcard = [];
-    $.get("/warehouse/goodsCatagory/", function (data, status) {
+    $.get("/api/input/goodsCatagory/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
             tempArray["id"] = data[i].id;
@@ -13,20 +12,9 @@ function Autocomplete(index)
             tempArray["unit"] = data[i].unit;
             tempArray["unitPrice"] = data[i].unitPrice;
             tempArray["group"] = data[i].groupid;
-            tempArray["suplier"] = data[i].suplier;
             goodsArray.push(tempArray);
         }
 //        console.log(goodsArray);
-    });
-    $.get("/warehouse/groupWarehouse/", function (data, status) {
-        for (var i = 0; i < data.length; i++) {
-            var tempArray = new Array();
-            tempArray["id"] = data[i].id;
-            tempArray["name"] = data[i].id;
-            tempArray["value"] = data[i].id;
-            stockcard.push(tempArray);
-        }
-//        console.log(stockcard);
     });
     for (var i = 0; i < stt; i++) {
         $("#search" + i).autocomplete({
@@ -34,7 +22,6 @@ function Autocomplete(index)
             select: function (e, ui) {
                 var e = ui.item;
                 console.log(e.suplier);
-                $("#suplier" + index).val(e.suplier);
                 $("#codeid" + index).val(e.id);
                 $("#unit" + index).val(e.unit);
                 $('#importprice' + index).val(e.unitPrice);
@@ -46,7 +33,43 @@ function Autocomplete(index)
             change: function (e, ui) {
             }
         });
+    }
 
+    var stockcard = [];
+    $.get("/api/input/groupWarehouse/", function (data, status) {
+        for (var i = 0; i < data.length; i++) {
+            var tempArray = new Array();
+            tempArray["id"] = data[i].id;
+            tempArray["name"] = data[i].id;
+            tempArray["value"] = data[i].id;
+            stockcard.push(tempArray);
+        }
+//        console.log(stockcard);
+    });
+
+    var SupplierIDS = [];
+    $.get("/api/input/supplierList/", function (data, status) {
+        for (var i = 0; i < data.length; i++) {
+            var tempArray = new Array();
+            tempArray["id"] = data[i].id;
+            tempArray["label"] = data[i].name;
+            tempArray["value"] = data[i].id;
+            SupplierIDS.push(tempArray);
+        }
+//                    console.log(SupplierIDS);
+    });
+    var groupList = [];
+    $.get("/api/input/GroupsgoodsList/", function (data, status) {
+        for (var i = 0; i < data.length; i++) {
+            var tempArray = new Array();
+            tempArray["id"] = data[i].id;
+            tempArray["label"] = data[i].name;
+            tempArray["value"] = data[i].id;
+            groupList.push(tempArray);
+        }
+//                    console.log(SupplierIDS);
+    });
+    for (var i = 0; i < stt; i++) {
         $("#warehouse" + i).autocomplete({
             source: stockcard,
             select: function (e, ui) {
@@ -56,6 +79,25 @@ function Autocomplete(index)
             change: function (e, ui) {
             }
         });
-    }
+        $("#suplier" + i).autocomplete({
+            source: SupplierIDS,
+            select: function (e, ui) {
 
+            },
+
+            change: function (e, ui) {
+            }
+        });
+        $("#group" + i).autocomplete({
+            source: groupList,
+            select: function (e, ui) {
+
+            },
+
+            change: function (e, ui) {
+            }
+        });
+    }
 }
+
+

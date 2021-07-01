@@ -25,17 +25,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "voucher_content")
+@Table(name = "sales_coupon_content")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "VoucherContent.findAll", query = "SELECT v FROM VoucherContent v"),
-    @NamedQuery(name = "VoucherContent.findById", query = "SELECT v FROM VoucherContent v WHERE v.id = :id"),
-    @NamedQuery(name = "VoucherContent.findByGoodsName", query = "SELECT v FROM VoucherContent v WHERE v.goodsName = :goodsName"),
-    @NamedQuery(name = "VoucherContent.findByUnit", query = "SELECT v FROM VoucherContent v WHERE v.unit = :unit"),
-    @NamedQuery(name = "VoucherContent.findByQuantity", query = "SELECT v FROM VoucherContent v WHERE v.quantity = :quantity"),
-    @NamedQuery(name = "VoucherContent.findByGoodsPrice", query = "SELECT v FROM VoucherContent v WHERE v.goodsPrice = :goodsPrice"),
-    @NamedQuery(name = "VoucherContent.findByAfteprice", query = "SELECT v FROM VoucherContent v WHERE v.afteprice = :afteprice")})
-public class VoucherContent implements Serializable {
+    @NamedQuery(name = "SalesCouponContent.findAll", query = "SELECT s FROM SalesCouponContent s"),
+    @NamedQuery(name = "SalesCouponContent.findById", query = "SELECT s FROM SalesCouponContent s WHERE s.id = :id"),
+    @NamedQuery(name = "SalesCouponContent.findByGoodsName", query = "SELECT s FROM SalesCouponContent s WHERE s.goodsName = :goodsName"),
+    @NamedQuery(name = "SalesCouponContent.findByUnit", query = "SELECT s FROM SalesCouponContent s WHERE s.unit = :unit"),
+    @NamedQuery(name = "SalesCouponContent.findByQuantity", query = "SELECT s FROM SalesCouponContent s WHERE s.quantity = :quantity"),
+    @NamedQuery(name = "SalesCouponContent.findByGoodsPrice", query = "SELECT s FROM SalesCouponContent s WHERE s.goodsPrice = :goodsPrice"),
+    @NamedQuery(name = "SalesCouponContent.findByDiscount", query = "SELECT s FROM SalesCouponContent s WHERE s.discount = :discount"),
+    @NamedQuery(name = "SalesCouponContent.findByAfterpirce", query = "SELECT s FROM SalesCouponContent s WHERE s.afterpirce = :afterpirce")})
+public class SalesCouponContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,21 +52,23 @@ public class VoucherContent implements Serializable {
     private Integer quantity;
     @Column(name = "goods_price")
     private Integer goodsPrice;
-    @Column(name = "afteprice")
-    private Integer afteprice;
+    @Column(name = "discount")
+    private Integer discount;
+    @Column(name = "afterpirce")
+    private String afterpirce;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
     private GoodsCatagory goodsId;
-    @JoinColumn(name = "coupon_id", referencedColumnName = "id")
+    @JoinColumn(name = "sales_coupon_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
-    private Voucher couponId;
+    private SalesCoupon salesCouponId;
 
-    public VoucherContent() {
+    public SalesCouponContent() {
     }
 
-    public VoucherContent(Integer id) {
+    public SalesCouponContent(Integer id) {
         this.id = id;
     }
 
@@ -109,12 +112,20 @@ public class VoucherContent implements Serializable {
         this.goodsPrice = goodsPrice;
     }
 
-    public Integer getAfteprice() {
-        return afteprice;
+    public Integer getDiscount() {
+        return discount;
     }
 
-    public void setAfteprice(Integer afteprice) {
-        this.afteprice = afteprice;
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public String getAfterpirce() {
+        return afterpirce;
+    }
+
+    public void setAfterpirce(String afterpirce) {
+        this.afterpirce = afterpirce;
     }
 
     public GoodsCatagory getGoodsId() {
@@ -125,12 +136,12 @@ public class VoucherContent implements Serializable {
         this.goodsId = goodsId;
     }
 
-    public Voucher getCouponId() {
-        return couponId;
+    public SalesCoupon getSalesCouponId() {
+        return salesCouponId;
     }
 
-    public void setCouponId(Voucher couponId) {
-        this.couponId = couponId;
+    public void setSalesCouponId(SalesCoupon salesCouponId) {
+        this.salesCouponId = salesCouponId;
     }
 
     @Override
@@ -143,10 +154,10 @@ public class VoucherContent implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof VoucherContent)) {
+        if (!(object instanceof SalesCouponContent)) {
             return false;
         }
-        VoucherContent other = (VoucherContent) object;
+        SalesCouponContent other = (SalesCouponContent) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -155,7 +166,7 @@ public class VoucherContent implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.VoucherContent[ id=" + id + " ]";
+        return "com.warehouse.project.model.SalesCouponContent[ id=" + id + " ]";
     }
     
 }

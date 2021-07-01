@@ -15,18 +15,11 @@
     <!--bootrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!-- Jquery -->
-    <script src="<c:url value='/resources/plugins/jquery/jquery.min.js'/>"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="<c:url value='/resources/plugins/jquery-ui/jquery-ui.min.js'/>"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- Fontanswome -->
     <link rel="stylesheet" href="<c:url value='/resources/plugins/fontawesome-free/css/all.min.css'/>">
-    <!-- JQVMap -->
-<!--    <link rel="stylesheet" href="<c:url value='/resources/plugins/jqvmap/jqvmap.min.css'/>"/>-->
     <!-- Theme style -->
     <link rel="stylesheet" href="<c:url value='/resources/dist/css/adminlte.min.css'/>"/>
     <!-- overlayScrollbars -->
@@ -84,13 +77,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tổng quan</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Warehouse</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Output</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Input</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -142,9 +134,9 @@
                                             <div class="input-group mb-3">
                                                 <select name="service" required class="custom-select required" id="service">
                                                     <option selected="" value="" selected>Choose</option>
-                                                    <option value="voucher">Export according to sales slip</option>
-                                                    <option value="production">Export to work order</option>
-                                                    <option value="other">Other export</option>
+                                                    <option value="voucher">Enter according to the proof of purchase</option>
+                                                    <option value="production">Import by work order</option>
+                                                    <option value="other">Enter another</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -173,15 +165,16 @@
                                     <thead>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Goods name (Searhing...)</th>
+                                            <th>Goods (Searhing...)</th>
                                             <th>Unit</th>
-                                            <th>Supplier</th>
-                                            <th>Warehouse</th>
+                                            <th>Supplier (Searhing...)</th>
+                                            <th>Warehouse (Searhing...)</th>
                                             <th>Quantity</th>
-                                            <th>Exports Price</th>
-                                            <th>Group</th>
+                                            <th>Export Price</th>
+                                            <th>Group (Searhing...)</th>
                                             <th>Weight</th>
                                             <th>Goods ID</th>
+
                                         </tr>
                                     </thead>
                                     <tbody id="tableInput">
@@ -230,12 +223,16 @@
                             </div>
                         </div>
                     </form>
-
+                    <!--s-->
+                    <!--s-->
+                    <!--search voucher-->
+                    <!--s-->
+                    <!--s-->
                     <div id="modalSerchform" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Searching....</h5>
+                                    <h5 class="modal-title">Searching.... voucher</h5>
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -244,9 +241,6 @@
                                 <div class="modal-body">
                                     <form id="saerchFrom">
                                         <div class="row">
-                                            <!--                                <div class="col">
-                                                                                <input type="text" class="form-control" name="ncc" placeholder="Supplier">
-                                                                            </div>-->
                                             <div class="col">
                                                 <input type="date" class="form-control" required="" name="from" placeholder="">
                                             </div>
@@ -275,17 +269,22 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button onclick="getValue();return false;"  id="btnServiceModalSave" type="submit" class="btn btn-primary">Save changes</button>
+                                    <button onclick="getValue();return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
                                     <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--s-->
+                    <!--s-->
+                    <!--Search production-->
+                    <!--s-->
+                    <!--s-->
                     <div id="modalSerchform2" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Searching....</h5>
+                                    <h5 class="modal-title">Searching....  production order</h5>
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -294,6 +293,9 @@
                                 <div class="modal-body">
                                     <form id="saerchFrom2">
                                         <div class="row">
+                                            <div class="col">
+                                                <input type="text"class="form-control" id="productionsds" name="idProduction" placeholder="Production">
+                                            </div>
                                             <div class="col">
                                                 <input type="date" class="form-control" name="from" placeholder="">
                                             </div>
@@ -311,7 +313,9 @@
                                             <tr>
                                                 <th style="width:-40%;"><input type="checkbox" id="checkAll"/></th>
                                                 <th scope="col">Id</th>
-                                                <th scope="col">Expain</th>
+                                                <th scope="col">Goods name</th>
+                                                <th scope="col">Unit</th>
+                                                <th scope="col">Quantity</th>
                                             </tr>
                                         </thead>
                                         <tbody class="myTable2" id="myTable2"> 
@@ -321,16 +325,16 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button onclick="getValue2();return false;"  id="btnServiceModalSave1" type="submit" class="btn btn-primary">Save changes</button>
+                                    <button  id="btnServiceModalSave1" type="button" class="btn btn-primary">Save changes</button>
                                     <button  id="btnServiceModalClose1"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- End modal -->
-                    <!--End modal-->
-
+                    <!--s-->
+                    <!--s-->
+                    <!--s-->
+                    <!--s-->
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
             </section>
@@ -346,27 +350,6 @@
         </footer>
         <script type="text/javascript">
             var stt = 0;
-
-
-            $("#btnServiceModalSave1").click(function () {
-                //set default selected
-                //    $('#service').prop('selectedIndex', 0);
-                //Hide modal
-                $("#modalSerchform2").modal('hide');
-
-                //Empty table
-                $("#myTable2").empty();
-
-
-            });
-            $("#btnServiceModalClose1").click(function () {
-                //set default selected
-                $('#service').prop('selectedIndex', 0);
-                //Hide modal
-                $("#modalSerchform2").modal('hide');
-                //Empty table
-                $("#myTable2").empty();
-            });
 
             //Remove row button
             $('#removelastrow').on("click", function () {
@@ -431,7 +414,6 @@
             }
 
 
-
             $(document).ready(function () {
                 ////
                 $('#message').delay(4000).fadeOut();
@@ -446,16 +428,25 @@
                     $("#modalkho").modal('show');
                 });
 
-
+// Document 
             });
             //Check all checkbox In service
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
+
+
+
+
+
+
+
+
             //OnClick To AutoComplete
             function dasdsadsa(x) {
                 //                alert("Row index is: " + x.rowIndex);
                 var index = 0;
+
                 index += x.rowIndex;
                 index--;
                 //                console.log(index);
@@ -471,11 +462,85 @@
                 //                document.getElementById("Date").value = date;
             } else {
                 months = "0" + (months = today.getMonth() + 1);
-                date = today.getFullYear() + '-' + months + '-' + today.getDate();
+                date = today.getFullYear() + '-' + months + '-' + "0" + today.getDate();
 
             }
             document.getElementById("DateLicene").value = date;
             //            $("#Date").val(date);
+
+
+
+
+            //Khu vực đặc biệt cho code bị tử kỷ
+            //
+            //
+            //
+            //Place vip for code have been tuky
+
+    //            $("#btnServiceModalSave1").click(function () {
+    //                //set default selected
+    //                //    $('#service').prop('selectedIndex', 0);
+    //                //Hide modal
+    //                stt = 0;
+    ////    var tangtudong = 1;
+    //                var checks = document.getElementsByClassName('checks1');
+    //                var strs = [];
+    //                var str = "";
+    //                for (i = 0; i < checks.length; i++) {
+    //                    if (checks[i].checked === true) {
+    //                        str = [checks[i].value];
+    //                        strs.push(str);
+    //                    }
+    //                }
+    ////    var url = "/warehouse/findGoods/";
+    //                $.ajax({
+    //                    url: '/warehouse/findMaterial/',
+    //                    method: 'POST',
+    //                    traditional: true,
+    //                    data: {
+    //                        id: strs
+    //                    },
+    //                    success: function (data) {
+    //                        $("#tableInput").empty();
+    ////            alert("SDasdsadas");
+    //                        console.log(data);
+    //                        if (data != null) {
+    //                            for (var i = 0; i < data.length; i++) {
+    //                                var checkid = data[i].id;
+    //                                var rowsds = $('<tr>');
+    //                                rowsds.append('<td> '+stt+'</td>');
+    //                                rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input readonly type='text'  id='unit" + stt + "' name='unit' value='" + data[i].unit + "'/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input  type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value='"+data[i].quantity+"'/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input readonly type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
+    //                                rowsds.append('<td>' + "<input readonly type='text' id='codeid" + stt + "' name='codeid' value='"+data[i].id+"'/>" + '</td>');
+    //                                rowsds.append('</tr>');
+    //                                $('#tableInput').append(rowsds);
+    //                                stt++;
+    ////                    tangtudong++;
+    //                            }
+    ////                            Autocomplete();
+    //                        }
+    //                    },
+    //                    error: function (request, status, error) {
+    //                        alert("Fail to submit please choose cancle if you want to getout");
+    //                        $('#service').prop('selectedIndex', 0);
+    //                    }
+    //                });
+    //                $("#modalSerchform2").modal('hide');
+    //                //Empty table
+    //                $("#myTable2").empty();
+    //            });
+    //
+    //
+
+
+
+
 
         </script>
         <!-- Optional JavaScript -->
@@ -497,6 +562,9 @@
         <!-- Bootstrap 4 -->
         <!-- Bootstrap 4 -->
         <script src="<c:url value='/resources/plugins/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+        <!-- daterangepicker -->
+        <script src="<c:url value='/resources/plugins/moment/moment.min.js'/>"></script>
+        <script src="<c:url value='/resources/plugins/daterangepicker/daterangepicker.js'/>"></script>
         <!-- Summernote -->
         <script src="<c:url value='/resources/plugins/summernote/summernote-bs4.min.js'/>"></script>
         <!-- overlayScrollbars -->

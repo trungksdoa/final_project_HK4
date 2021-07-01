@@ -54,13 +54,12 @@ public class InputContent implements Serializable {
     private Integer quantity;
     @Column(name = "warehouse")
     private String warehouse;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "imports_prices")
-    private Double importsPrices;
+    private Integer importsPrices;
     @Column(name = "group_goods")
     private String groupGoods;
     @Column(name = "weight")
-    private Double weight;
+    private Integer weight;
     @Column(name = "supplier")
     private String supplier;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
@@ -119,11 +118,11 @@ public class InputContent implements Serializable {
         this.warehouse = warehouse;
     }
 
-    public Double getImportsPrices() {
+    public Integer getImportsPrices() {
         return importsPrices;
     }
 
-    public void setImportsPrices(Double importsPrices) {
+    public void setImportsPrices(Integer importsPrices) {
         this.importsPrices = importsPrices;
     }
 
@@ -135,11 +134,11 @@ public class InputContent implements Serializable {
         this.groupGoods = groupGoods;
     }
 
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 

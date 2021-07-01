@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.warehouse.project.imp.warehouse;
+package com.warehouse.project.imp.warehouse.Other;
 
 import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.responsitory.warehouse.goodsResponisotry;
-import com.warehouse.project.service.warehouse.Igoodscatagory;
+import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

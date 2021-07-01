@@ -5,8 +5,10 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -62,8 +66,11 @@ public class SalesCoupon implements Serializable {
     private String seller;
     @Column(name = "status")
     private Boolean status;
+    @OneToMany(mappedBy = "salesCouponId")
+    private Collection<SalesCouponContent> salesCouponContentCollection;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Customer customerId;
 
     public SalesCoupon() {
@@ -151,6 +158,15 @@ public class SalesCoupon implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @XmlTransient
+    public Collection<SalesCouponContent> getSalesCouponContentCollection() {
+        return salesCouponContentCollection;
+    }
+
+    public void setSalesCouponContentCollection(Collection<SalesCouponContent> salesCouponContentCollection) {
+        this.salesCouponContentCollection = salesCouponContentCollection;
     }
 
     public Customer getCustomerId() {

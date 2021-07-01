@@ -18,4 +18,8 @@ import org.springframework.data.repository.query.Param;
  */
 public interface Warehouse_goods extends JpaRepository<Warehouse, String> {
 
+    @Query(nativeQuery = true,value = "Select *\n"
+            + " From Warehouse\n"
+            + " Where goods_id = :goodsId AND stock_card = :stock AND supplier = :supplier")
+    public Warehouse findByGoods(@Param("goodsId") String id,@Param("stock") String stock,@Param("supplier") String supplier);
 }

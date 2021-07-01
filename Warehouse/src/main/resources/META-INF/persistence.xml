@@ -8,7 +8,6 @@
     <class>com.warehouse.project.model.Productionorder</class>
     <class>com.warehouse.project.model.Quotes</class>
     <class>com.warehouse.project.model.SalesCouponContent</class>
-    <class>com.warehouse.project.model.GoodsCatagory</class>
     <class>com.warehouse.project.model.Customer</class>
     <class>com.warehouse.project.model.Barcode</class>
     <class>com.warehouse.project.model.SalesCoupon</class>
@@ -56,6 +55,11 @@
     <class>com.warehouse.project.model.Output_1</class>
     <class>com.warehouse.project.model.Warehouse</class>
     <class>com.warehouse.project.model.Production</class>
+    <class>com.warehouse.project.model.Materialproduction</class>
+    <class>com.warehouse.project.model.GoodsCatagory</class>
+    <class>com.warehouse.project.model.Findbyid</class>
+    <class>com.warehouse.project.model.TranferWarehouse_1</class>
+    <class>com.warehouse.project.model.Dynamicinputcontent</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

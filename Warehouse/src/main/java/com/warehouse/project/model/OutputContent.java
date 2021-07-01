@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,11 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OutputContent.findAll", query = "SELECT o FROM OutputContent o"),
     @NamedQuery(name = "OutputContent.findById", query = "SELECT o FROM OutputContent o WHERE o.id = :id"),
+    @NamedQuery(name = "OutputContent.findByGoodsId", query = "SELECT o FROM OutputContent o WHERE o.goodsId = :goodsId"),
     @NamedQuery(name = "OutputContent.findByGoodsName", query = "SELECT o FROM OutputContent o WHERE o.goodsName = :goodsName"),
     @NamedQuery(name = "OutputContent.findByUnit", query = "SELECT o FROM OutputContent o WHERE o.unit = :unit"),
     @NamedQuery(name = "OutputContent.findByWarehouse", query = "SELECT o FROM OutputContent o WHERE o.warehouse = :warehouse"),
     @NamedQuery(name = "OutputContent.findByQuantity", query = "SELECT o FROM OutputContent o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "OutputContent.findByExportsPrices", query = "SELECT o FROM OutputContent o WHERE o.exportsPrices = :exportsPrices"),
+    @NamedQuery(name = "OutputContent.findByGroupGoods", query = "SELECT o FROM OutputContent o WHERE o.groupGoods = :groupGoods"),
     @NamedQuery(name = "OutputContent.findByWeight", query = "SELECT o FROM OutputContent o WHERE o.weight = :weight"),
     @NamedQuery(name = "OutputContent.findBySupplier", query = "SELECT o FROM OutputContent o WHERE o.supplier = :supplier")})
 public class OutputContent implements Serializable {
@@ -44,27 +47,28 @@ public class OutputContent implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "goods_id")
+    private String goodsId;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "unit")
     private String unit;
     @Column(name = "warehouse")
     private String warehouse;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity")
-    private Double quantity;
+    private Integer quantity;
     @Column(name = "exports_prices")
-    private Double exportsPrices;
+    private Integer exportsPrices;
+    @Column(name = "group_goods")
+    private String groupGoods;
     @Column(name = "weight")
-    private Double weight;
+    private Integer weight;
     @Column(name = "supplier")
     private String supplier;
     @JoinColumn(name = "output_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Output outputId;
-    @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
-    @ManyToOne
-    private Warehouse goodsId;
 
     public OutputContent() {
     }
@@ -79,6 +83,14 @@ public class OutputContent implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName() {
@@ -105,28 +117,35 @@ public class OutputContent implements Serializable {
         this.warehouse = warehouse;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public Double getExportsPrices() {
+    public Integer getExportsPrices() {
         return exportsPrices;
     }
 
-    public void setExportsPrices(Double exportsPrices) {
+    public void setExportsPrices(Integer exportsPrices) {
         this.exportsPrices = exportsPrices;
     }
 
+    public String getGroupGoods() {
+        return groupGoods;
+    }
 
-    public Double getWeight() {
+    public void setGroupGoods(String groupGoods) {
+        this.groupGoods = groupGoods;
+    }
+
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -144,14 +163,6 @@ public class OutputContent implements Serializable {
 
     public void setOutputId(Output outputId) {
         this.outputId = outputId;
-    }
-
-    public Warehouse getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Warehouse goodsId) {
-        this.goodsId = goodsId;
     }
 
     @Override

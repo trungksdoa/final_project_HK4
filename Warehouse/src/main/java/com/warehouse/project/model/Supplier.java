@@ -35,8 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Supplier.findByTaxNumber", query = "SELECT s FROM Supplier s WHERE s.taxNumber = :taxNumber"),
     @NamedQuery(name = "Supplier.findByExplain", query = "SELECT s FROM Supplier s WHERE s.explain = :explain"),
     @NamedQuery(name = "Supplier.findByBirthdate", query = "SELECT s FROM Supplier s WHERE s.birthdate = :birthdate"),
-    @NamedQuery(name = "Supplier.findBySex", query = "SELECT s FROM Supplier s WHERE s.sex = :sex"),
-    @NamedQuery(name = "Supplier.findByCustomerPoint", query = "SELECT s FROM Supplier s WHERE s.customerPoint = :customerPoint")})
+    @NamedQuery(name = "Supplier.findBySex", query = "SELECT s FROM Supplier s WHERE s.sex = :sex")})
 public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,9 +59,7 @@ public class Supplier implements Serializable {
     private String birthdate;
     @Column(name = "sex")
     private Boolean sex;
-    @Column(name = "customer_point")
-    private Integer customerPoint;
-    @OneToMany(mappedBy = "supplierId")
+    @OneToMany(mappedBy = "supplierid")
     private Collection<Voucher> voucherCollection;
 
     public Supplier() {
@@ -144,14 +141,6 @@ public class Supplier implements Serializable {
         this.sex = sex;
     }
 
-    public Integer getCustomerPoint() {
-        return customerPoint;
-    }
-
-    public void setCustomerPoint(Integer customerPoint) {
-        this.customerPoint = customerPoint;
-    }
-
     @XmlTransient
     public Collection<Voucher> getVoucherCollection() {
         return voucherCollection;
@@ -185,5 +174,5 @@ public class Supplier implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.Supplier[ id=" + id + " ]";
     }
-
+    
 }

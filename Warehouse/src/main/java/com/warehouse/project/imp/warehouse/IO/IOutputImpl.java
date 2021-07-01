@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.warehouse.project.imp.warehouse;
+package com.warehouse.project.imp.warehouse.IO;
 
 import com.warehouse.project.model.Output;
-import com.warehouse.project.service.warehouse.IOutput;
+import com.warehouse.project.service.warehouse.IO.IOutput;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

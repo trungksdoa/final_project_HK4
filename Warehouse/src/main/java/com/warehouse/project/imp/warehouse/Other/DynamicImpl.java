@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.warehouse.project.imp.warehouse;
+package com.warehouse.project.imp.warehouse.Other;
 
-import com.warehouse.project.model.StockCard;
-import com.warehouse.project.responsitory.warehouse.Stockresponsitory;
-import com.warehouse.project.service.warehouse.IStock_card;
+import com.warehouse.project.model.Dynamicinputcontent;
+import com.warehouse.project.responsitory.warehouse.DynamicRes;
+import com.warehouse.project.service.warehouse.Other.Idynamic;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,14 @@ import org.springframework.stereotype.Service;
  * @author trung
  */
 @Service
-public class StockImpl implements IStock_card{
+public class DynamicImpl implements Idynamic {
 
     @Autowired
-    Stockresponsitory lab;
+    DynamicRes lab;
+
     @Override
-    public List<StockCard> findAll() {
+    public List<Dynamicinputcontent> findAll() {
        return lab.findAll();
     }
-    
+
 }

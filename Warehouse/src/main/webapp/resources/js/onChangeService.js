@@ -13,8 +13,7 @@ $('#service').change(function () {
         var row = $('<tr>');
         row.append('<td>' + "No Data" + '</td>');
         $('#myTable2').append(row);
-    }
-    else
+    } else
     {
         //
     }
@@ -39,6 +38,19 @@ $("#btnServiceModalClose").click(function () {
     //Empty table
     $("#myTable").empty();
 });
+
+
+
+
+$("#btnServiceModalClose1").click(function () {
+    //set default selected
+    $('#service').prop('selectedIndex', 0);
+    //Hide modal
+    $("#modalSerchform2").modal('hide');
+    //Empty table
+    $("#myTable2").empty();
+});
+
 //Submit for data
 //Submit remove modal and empty table
 
@@ -54,7 +66,7 @@ $("#saerchFrom").on("submit", function (event) {
     data = data.replace(/&?[^=]+=&|&[^=]+=$/g, '');
     console.log(data)
     var url = "warehouse/voucher/" + data;
-    $.get("/warehouse/voucher/" + data)
+    $.get("/api/input/voucher/" + data)
             .done(function (response) {
                 var table = document.getElementById("myTable");
                 var row = null;
@@ -89,13 +101,15 @@ $("#saerchFrom").on("submit", function (event) {
 
 
 
+
 //Service2
 $("#saerchFrom2").on("submit", function (event) {
     event.preventDefault();
     $("#myTable2").empty();
     var data = $('#saerchFrom2').serialize();
-    var url = "warehouse/production/" + data;
-    $.get("/warehouse/production/" + data)
+    var url = "/warehouse/findProduction/" + data;
+    console.log(data)
+    $.get("/api/input/findProduction/" + data)
             .done(function (response) {
                 var table = document.getElementById("myTable2");
                 var row = null;
@@ -109,7 +123,9 @@ $("#saerchFrom2").on("submit", function (event) {
                             var row = $('<tr>');
                             row.append("<td >" + '<input type="checkbox" class="checks1" value="' + response[i].id + '"/>' + "</td>");
                             row.append('<td>' + response[i].id + '</td>');
-                            row.append('<td>' + response[i].explain + '</td>');
+                            row.append('<td>' + response[i].goodsName + '</td>');
+                            row.append('<td>' + response[i].unit + '</td>');
+                            row.append('<td>' + response[i].quantity + '</td>');
                             $('#myTable2').append(row);
                         } else
                         {
@@ -121,8 +137,9 @@ $("#saerchFrom2").on("submit", function (event) {
                 } else
                 {
                     var row = $('<tr>');
-                    row.append('<td>' + "No Data" + '</td>');
+                    row.append('<td>' + "No Data Found" + '</td>');
                     $('#myTable2').append(row);
                 }
             });
 });
+

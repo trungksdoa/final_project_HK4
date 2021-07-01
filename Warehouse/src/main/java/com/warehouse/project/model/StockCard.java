@@ -95,8 +95,7 @@ public class StockCard implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.StockCard[ id=" + id + " ]";
+        return id;
     }
-
     
 }

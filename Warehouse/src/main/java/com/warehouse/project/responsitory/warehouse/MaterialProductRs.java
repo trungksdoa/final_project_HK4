@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Production;
+import com.warehouse.project.model.Materialproduction;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,8 +15,7 @@ import org.springframework.data.repository.query.Param;
  *
  * @author trung
  */
-public interface ProductionViewRes extends JpaRepository<Production, Integer> {
-    
-    @Query("SELECT p FROM Production p WHERE p.productid LIKE %:productid% AND p.date BETWEEN :from AND :to")
-    public List<Production> findByDateAndId(@Param("productid") String productId,@Param("from") String from,@Param("to") String to);
+public interface MaterialProductRs extends JpaRepository<Materialproduction, Integer> {
+    @Query("SELECT m FROM Materialproduction m WHERE m.goodsId = :goodsId")    
+    public List<Materialproduction> findAllbyId(@Param("goodsId") int id);
 }

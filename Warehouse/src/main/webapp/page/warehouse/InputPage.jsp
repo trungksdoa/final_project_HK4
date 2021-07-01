@@ -164,16 +164,30 @@
                                 <table class="table table-bordered table-fixed" style="z-index: 1000">
                                     <thead>
                                         <tr>
-                                            <th>STT</th>
-                                            <th>Goods name (Searhing...)</th>
-                                            <th>Unit</th>
-                                            <th>Supplier</th>
-                                            <th>Warehouse</th>
-                                            <th>Quantity</th>
-                                            <th>Input Price</th>
-                                            <th>Group</th>
-                                            <th>Weight</th>
-                                            <th>Goods ID</th>
+                                            <th style="transform: translateY(-5px);">STT</th>
+                                            <th>Goods
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalgoods">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </th>
+                                            <th style="transform: translateY(-5px)">Unit</th>
+                                            <th>Supplier 
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSupplier">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </th>
+                                            <th>Warehouse 
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalkho">
+                                                    <i class="fas fa-plus"></i>
+                                                </button></th>
+                                            <th style="transform: translateY(-5px)">Quantity</th>
+                                            <th style="transform: translateY(-5px)">Input Price </th>
+                                            <th>Group 
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalGroup">
+                                                    <i class="fas fa-plus"></i>
+                                                </button></th>
+                                            <th style="transform: translateY(-5px)">Weight</th>
+                                            <th style="transform: translateY(-5px)">Goods ID</th>
 
                                         </tr>
                                     </thead>
@@ -190,18 +204,18 @@
 
                     <!--Open Modal-->
                     <!-- Modal flatform -->
-                    <form action="">
-                        <div id="modalkho" class="modal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Create warehouse</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
 
+                    <div id="modalkho" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create warehouse</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
                                         <div class="form-group row">
                                             <label for="object" class="col-lg-2 col-form-label">ID</label>
                                             <div class="col-lg-10">
@@ -218,11 +232,126 @@
                                             <button type="submit" class="btn btn-primary">Save changes</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <!--Open Modal-->
+                    <!-- Modal flatform -->
+
+                    <div id="modalSupplier" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Supplier</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--s-->
+                    <!--s-->
+                    <!--search voucher-->
+                    <!--s-->
+                    <!--s-->
+                    <!--Open Modal-->
+                    <!-- Modal flatform -->
+
+                    <div id="modalgoods" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Goods</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--s-->
+                    <!--s-->
+                    <!--search voucher-->
+                    <!--s-->
+                    <!--s-->
+                    <!--Open Modal-->
+                    <!-- Modal flatform -->
+
+                    <div id="modalGroup" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Group</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--s-->
                     <!--s-->
                     <!--search voucher-->
@@ -269,7 +398,7 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button onclick="getValue();return false;"  id="btnServiceModalSave" type="submit" class="btn btn-primary">Save changes</button>
+                                    <button onclick="getValue();return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
                                     <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -294,7 +423,7 @@
                                     <form id="saerchFrom2">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control" name="id" placeholder="Production">
+                                                <input type="text"class="form-control" id="productionsds" name="idProduction" placeholder="Production">
                                             </div>
                                             <div class="col">
                                                 <input type="date" class="form-control" name="from" placeholder="">
@@ -325,7 +454,7 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button onclick="getValue2();return false;"  id="btnServiceModalSave1" type="submit" class="btn btn-primary">Save changes</button>
+                                    <button  id="btnServiceModalSave1" type="button" class="btn btn-primary">Save changes</button>
                                     <button  id="btnServiceModalClose1"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -351,34 +480,13 @@
         <script type="text/javascript">
             var stt = 0;
 
-
-            $("#btnServiceModalSave1").click(function () {
-                //set default selected
-                //    $('#service').prop('selectedIndex', 0);
-                //Hide modal
-                $("#modalSerchform2").modal('hide');
-
-                //Empty table
-                $("#myTable2").empty();
-
-
-            });
-            $("#btnServiceModalClose1").click(function () {
-                //set default selected
-                $('#service').prop('selectedIndex', 0);
-                //Hide modal
-                $("#modalSerchform2").modal('hide');
-                //Empty table
-                $("#myTable2").empty();
-            });
-
             //Remove row button
             $('#removelastrow').on("click", function () {
 
 
-                if (stt == 3)
+                if (stt == 1)
                 {
-                    stt = 3;
+                    stt = 1;
                 } else
                 {
                     $('#tableInput tr:last').remove();
@@ -389,7 +497,7 @@
             function CreateID()
             {
 
-                $.get("/warehouse/getID/", function (data, status) {
+                $.get("/api/input/getID/", function (data, status) {
                     if (data == null)
                     {
                         let idgener = "NK0000";
@@ -435,7 +543,6 @@
             }
 
 
-
             $(document).ready(function () {
                 ////
                 $('#message').delay(4000).fadeOut();
@@ -446,20 +553,25 @@
                 });
                 addRow();
                 //Insert stock
-                $("#btnkho").click(function () {
-                    $("#modalkho").modal('show');
-                });
-
-
+// Document 
             });
             //Check all checkbox In service
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
+
+
+
+
+
+
+
+
             //OnClick To AutoComplete
             function dasdsadsa(x) {
                 //                alert("Row index is: " + x.rowIndex);
                 var index = 0;
+
                 index += x.rowIndex;
                 index--;
                 //                console.log(index);
@@ -480,6 +592,80 @@
             }
             document.getElementById("DateLicene").value = date;
             //            $("#Date").val(date);
+
+
+
+
+            //Khu vực đặc biệt cho code bị tử kỷ
+            //
+            //
+            //
+            //Place vip for code have been tuky
+
+            $("#btnServiceModalSave1").click(function () {
+                //set default selected
+                //    $('#service').prop('selectedIndex', 0);
+                //Hide modal
+                stt = 0;
+//    var tangtudong = 1;
+                var checks = document.getElementsByClassName('checks1');
+                var strs = [];
+                var str = "";
+                for (i = 0; i < checks.length; i++) {
+                    if (checks[i].checked === true) {
+                        str = [checks[i].value];
+                        strs.push(str);
+                    }
+                }
+//    var url = "/warehouse/findGoods/";
+                $.ajax({
+                    url: '/api/input/findMaterial/',
+                    method: 'POST',
+                    traditional: true,
+                    data: {
+                        id: strs
+                    },
+                    success: function (data) {
+                        $("#tableInput").empty();
+//            alert("SDasdsadas");
+                        console.log(data);
+                        if (data != null) {
+                            for (var i = 0; i < data.length; i++) {
+                                var checkid = data[i].id;
+                                var rowsds = $('<tr>');
+                                rowsds.append('<td> ' + stt + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
+                                rowsds.append('<td>' + "<input readonly type='text'  id='unit" + stt + "' name='unit' value='" + data[i].unit + "'/>" + '</td>');
+                                rowsds.append('<td>' + "<input  type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value='" + data[i].quantity + "'/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input readonly type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input readonly type='text' id='codeid" + stt + "' name='codeid' value='" + data[i].id + "'/>" + '</td>');
+                                rowsds.append('</tr>');
+                                $('#tableInput').append(rowsds);
+                                stt++;
+//                    tangtudong++;
+                            }
+//                            Autocomplete();
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("Fail to submit please choose cancle if you want to getout");
+                        $('#service').prop('selectedIndex', 0);
+                    }
+                });
+                $("#modalSerchform2").modal('hide');
+                //Empty table
+                $("#myTable2").empty();
+            });
+
+
+
+
+
+
 
         </script>
         <!-- Optional JavaScript -->

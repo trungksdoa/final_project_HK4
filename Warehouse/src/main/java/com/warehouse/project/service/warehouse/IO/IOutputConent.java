@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.warehouse.project.service.warehouse;
+package com.warehouse.project.service.warehouse.IO;
 
 import com.warehouse.project.model.OutputContent;
 

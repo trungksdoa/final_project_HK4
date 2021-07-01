@@ -7,12 +7,15 @@ package com.warehouse.project.controller.warehouse.api;
 
 import com.warehouse.project.model.Catagoryvoucher;
 import com.warehouse.project.model.CatagoryGroupSupplier;
+import com.warehouse.project.model.Groupsgoods;
 import com.warehouse.project.model.Input;
+import com.warehouse.project.model.Materialproduction;
 import com.warehouse.project.model.Production;
-import com.warehouse.project.service.warehouse.ICoupoContentViewnContent1;
-import com.warehouse.project.service.warehouse.ICoupon;
+import com.warehouse.project.model.Productionorder;
+import com.warehouse.project.service.warehouse.View.ICoupoContentViewnContent1;
+import com.warehouse.project.service.warehouse.Other.ICoupon;
 import com.warehouse.project.service.warehouse.IStock_card;
-import com.warehouse.project.service.warehouse.Igoodscatagory;
+import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.warehouse.project.model.StockCard;
+import com.warehouse.project.model.Supplier;
 import com.warehouse.project.model.Voucher;
-import com.warehouse.project.service.warehouse.IInput;
-import com.warehouse.project.service.warehouse.IProductionview;
+import com.warehouse.project.service.warehouse.Other.ISupplier;
+import com.warehouse.project.service.warehouse.IO.IInput;
+import com.warehouse.project.service.warehouse.View.IMaterialProduction;
+import com.warehouse.project.service.warehouse.Other.IProductionorder;
+import com.warehouse.project.service.warehouse.View.IProductionview;
+import com.warehouse.project.service.warehouse.Other.Igroupgoodds;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author trung
  */
 @Controller
-@RequestMapping("/warehouse")
+@RequestMapping("/api/input")
 public class InputControllerApi {
 
     @Autowired
@@ -55,9 +63,20 @@ public class InputControllerApi {
     @Autowired
     IProductionview lab6;
 
+    @Autowired
+    IMaterialProduction lab7;
+
+    @Autowired
+    IProductionorder lab8;
+
+    @Autowired
+    ISupplier lab9;
+
+    @Autowired
+    Igroupgoodds lab10;
+    
     @ResponseBody
     @RequestMapping(value = "/findGoods/")
-
     public ResponseEntity<List<Catagoryvoucher>> findgoods(@RequestParam(value = "id") String[] keyword) {
         List<Catagoryvoucher> arralists1 = new ArrayList<>();
 //        Catagoryvoucher addArrray = new Catagoryvoucher();
@@ -76,10 +95,10 @@ public class InputControllerApi {
         }
     }
 
+    //Production
     @ResponseBody
-    @RequestMapping(value = "/findProduction/id={id}&from={from}&to={to}")
-
-    public ResponseEntity<List<Production>> findMaterial(@PathVariable("id") String idking, @PathVariable("from") String from, @PathVariable("to") String to) {
+    @RequestMapping(value = "/findProduction/idProduction={idProduction}&from={from}&to={to}")
+    public ResponseEntity<List<Production>> findMaterial(@PathVariable("idProduction") String idking, @PathVariable("from") String from, @PathVariable("to") String to) {
 
         List<Production> ssss = lab6.findByDateAndId(idking, from, to);
         if (!ssss.isEmpty()) {
@@ -90,6 +109,28 @@ public class InputControllerApi {
         }
     }
 
+    //Find Material Production Goods
+    @ResponseBody
+    @RequestMapping(value = "/findMaterial/")
+    public ResponseEntity<List<Materialproduction>> findMaterial(@RequestParam(value = "id") int[] keyword) {
+        List<Materialproduction> arralists1 = new ArrayList<>();
+//        Catagoryvoucher addArrray = new Catagoryvoucher();
+
+        for (int data : keyword) {
+            List<Materialproduction> clist = lab7.findAll(data);
+
+            arralists1.addAll(clist);
+//            GoodsCatagory codese; 
+        }
+        if (!arralists1.isEmpty()) {
+            return new ResponseEntity<>(arralists1, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //AutoComplete
     @ResponseBody
     @RequestMapping(value = "/goodsCatagory/")
     public ResponseEntity<List<CatagoryGroupSupplier>> listGoods() {
@@ -104,6 +145,7 @@ public class InputControllerApi {
         }
     }
 
+    //Get Last Id
     @ResponseBody
     @RequestMapping(value = "/getID/")
     public Input listID() {
@@ -126,6 +168,54 @@ public class InputControllerApi {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/productionorderlist/")
+    public ResponseEntity<List<Productionorder>> ListID() {
+
+        List<Productionorder> arralists1 = lab8.findall();
+        //        Catagoryvoucher addArrray = new Catagoryvoucher();
+        if (!arralists1.isEmpty()) {
+            return new ResponseEntity<>(arralists1, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    //
+    //List supplier
+    //
+    @ResponseBody
+    @RequestMapping(value = "/supplierList/")
+    public ResponseEntity<List<Supplier>> ListSuplier() {
+
+        List<Supplier> arralists1 = lab9.findAll();
+        //        Catagoryvoucher addArrray = new Catagoryvoucher();
+        if (!arralists1.isEmpty()) {
+            return new ResponseEntity<>(arralists1, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+   //
+    //List supplier
+    //
+    @ResponseBody
+    @RequestMapping(value = "/GroupsgoodsList/")
+    public ResponseEntity<List<Groupsgoods>> ListSGroup() {
+
+        List<Groupsgoods> arralists1 = lab10.findALl();
+        //        Catagoryvoucher addArrray = new Catagoryvoucher();
+        if (!arralists1.isEmpty()) {
+            return new ResponseEntity<>(arralists1, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    //
+    //
+    //
     @RequestMapping(value = "/voucher/from={from}&to={to}", //
             method = RequestMethod.GET)
     public ResponseEntity<List<Voucher>> listVoucer(@PathVariable("from") String from, @PathVariable("to") String to) {

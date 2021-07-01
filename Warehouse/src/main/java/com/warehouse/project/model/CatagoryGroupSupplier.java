@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CatagoryGroupSupplier.findByFixedPurchasePrice", query = "SELECT c FROM CatagoryGroupSupplier c WHERE c.fixedPurchasePrice = :fixedPurchasePrice"),
     @NamedQuery(name = "CatagoryGroupSupplier.findByLastedPurchasePrice", query = "SELECT c FROM CatagoryGroupSupplier c WHERE c.lastedPurchasePrice = :lastedPurchasePrice"),
     @NamedQuery(name = "CatagoryGroupSupplier.findByUnitPrice", query = "SELECT c FROM CatagoryGroupSupplier c WHERE c.unitPrice = :unitPrice"),
-    @NamedQuery(name = "CatagoryGroupSupplier.findBySuplier", query = "SELECT c FROM CatagoryGroupSupplier c WHERE c.suplier = :suplier"),
     @NamedQuery(name = "CatagoryGroupSupplier.findByWeight", query = "SELECT c FROM CatagoryGroupSupplier c WHERE c.weight = :weight")})
 public class CatagoryGroupSupplier implements Serializable {
 
@@ -54,9 +53,6 @@ public class CatagoryGroupSupplier implements Serializable {
     private Double lastedPurchasePrice;
     @Column(name = "unit_price")
     private Double unitPrice;
-    @Basic(optional = false)
-    @Column(name = "suplier")
-    private String suplier;
     @Column(name = "weight")
     private Integer weight;
 
@@ -117,14 +113,6 @@ public class CatagoryGroupSupplier implements Serializable {
 
     public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
-    }
-
-    public String getSuplier() {
-        return suplier;
-    }
-
-    public void setSuplier(String suplier) {
-        this.suplier = suplier;
     }
 
     public Integer getWeight() {

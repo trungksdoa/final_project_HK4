@@ -6,34 +6,29 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author trung
  */
 @Entity
-@Table(name = "input")
+@Table(name = "Production_order")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Input.findAll", query = "SELECT i FROM Input i"),
-    @NamedQuery(name = "Input.findById", query = "SELECT i FROM Input i WHERE i.id = :id"),
-    @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
-    @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
-    @NamedQuery(name = "Input.findByService", query = "SELECT i FROM Input i WHERE i.service = :service"),
-    @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status")})
-public class Input implements Serializable {
+    @NamedQuery(name = "Productionorder.findAll", query = "SELECT p FROM Productionorder p"),
+    @NamedQuery(name = "Productionorder.findById", query = "SELECT p FROM Productionorder p WHERE p.id = :id"),
+    @NamedQuery(name = "Productionorder.findByDate", query = "SELECT p FROM Productionorder p WHERE p.date = :date"),
+    @NamedQuery(name = "Productionorder.findByExplain", query = "SELECT p FROM Productionorder p WHERE p.explain = :explain"),
+    @NamedQuery(name = "Productionorder.findByStatus", query = "SELECT p FROM Productionorder p WHERE p.status = :status")})
+public class Productionorder implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,17 +39,13 @@ public class Input implements Serializable {
     private String date;
     @Column(name = "explain")
     private String explain;
-    @Column(name = "service")
-    private String service;
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
-    private Collection<InputContent> inputContentCollection;
 
-    public Input() {
+    public Productionorder() {
     }
 
-    public Input(String id) {
+    public Productionorder(String id) {
         this.id = id;
     }
 
@@ -82,29 +73,12 @@ public class Input implements Serializable {
         this.explain = explain;
     }
 
-    public String getService() {
-        return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @XmlTransient
-    public Collection<InputContent> getInputContentCollection() {
-        return inputContentCollection;
-    }
-
-    public void setInputContentCollection(Collection<InputContent> inputContentCollection) {
-        this.inputContentCollection = inputContentCollection;
     }
 
     @Override
@@ -117,10 +91,10 @@ public class Input implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Input)) {
+        if (!(object instanceof Productionorder)) {
             return false;
         }
-        Input other = (Input) object;
+        Productionorder other = (Productionorder) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -129,7 +103,7 @@ public class Input implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Input[ id=" + id + " ]";
+        return "com.warehouse.project.model.Productionorder[ id=" + id + " ]";
     }
     
 }
