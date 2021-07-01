@@ -55,6 +55,7 @@
     <class>com.warehouse.project.model.Input_1</class>
     <class>com.warehouse.project.model.Output_1</class>
     <class>com.warehouse.project.model.Warehouse</class>
+    <class>com.warehouse.project.model.Production</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

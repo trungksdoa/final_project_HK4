@@ -14,5 +14,5 @@ import org.springframework.data.jpa.repository.Query;
  *
  * @author trung
  */
-public interface Warehouse_content extends JpaRepository<InputContent, String> {
+public interface WarehouseInput_content extends JpaRepository<InputContent, String> {
 }

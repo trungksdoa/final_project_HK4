@@ -5,35 +5,36 @@
  */
 package com.warehouse.project.imp.warehouse;
 
-import com.warehouse.project.model.Input;
-import com.warehouse.project.service.warehouse.IInput;
+import com.warehouse.project.model.Output;
+import com.warehouse.project.service.warehouse.IOutput;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.warehouse.project.responsitory.warehouse.Warehouse_input;
+import com.warehouse.project.responsitory.warehouse.Warehouse_output;
 
 /**
  *
  * @author trung
  */
 @Service
-public class InputImpl implements IInput {
+public class IOutputImpl implements IOutput {
 
     @Autowired
-    Warehouse_input house;
+    Warehouse_output house;
+
     @Override
-    public Input Save(Input input) {
-      return house.save(input);
+    public Output Save(Output output) {
+       return house.save(output);
     }
 
     @Override
-    public List<Input> findall() {
-       return  house.findAll();
+    public Output findAllId() {
+         return house.findByList();
     }
 
     @Override
-    public Input findAllId() {
-        return  house.findByList();
+    public List<Output> findall() {
+          return house.findAll();
     }
 
  

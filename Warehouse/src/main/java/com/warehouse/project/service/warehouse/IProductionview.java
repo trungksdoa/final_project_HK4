@@ -5,16 +5,14 @@
  */
 package com.warehouse.project.service.warehouse;
 
-import com.warehouse.project.model.Output;
+import com.warehouse.project.model.Production;
 import java.util.List;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author trung
  */
-public interface IOutput {
-        public abstract Output Save(Output output);
-
-    public abstract Output findAllId();
-    public abstract List<Output> findall();
+public interface IProductionview {
+  public List<Production> findByDateAndId(String productId,String from,String to);
 }

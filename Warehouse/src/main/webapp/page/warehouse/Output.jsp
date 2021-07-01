@@ -15,11 +15,18 @@
     <!--bootrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <!-- Jquery -->
+    <script src="<c:url value='/resources/plugins/jquery/jquery.min.js'/>"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="<c:url value='/resources/plugins/jquery-ui/jquery-ui.min.js'/>"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
     <!-- Fontanswome -->
     <link rel="stylesheet" href="<c:url value='/resources/plugins/fontawesome-free/css/all.min.css'/>">
+    <!-- JQVMap -->
+<!--    <link rel="stylesheet" href="<c:url value='/resources/plugins/jqvmap/jqvmap.min.css'/>"/>-->
     <!-- Theme style -->
     <link rel="stylesheet" href="<c:url value='/resources/dist/css/adminlte.min.css'/>"/>
     <!-- overlayScrollbars -->
@@ -77,12 +84,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
+                            <h1 class="m-0">Tổng quan</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Warehouse</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Input</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Output</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -134,9 +142,9 @@
                                             <div class="input-group mb-3">
                                                 <select name="service" required class="custom-select required" id="service">
                                                     <option selected="" value="" selected>Choose</option>
-                                                    <option value="voucher">Enter according to the proof of purchase</option>
-                                                    <option value="production">Import by work order</option>
-                                                    <option value="other">Enter another</option>
+                                                    <option value="voucher">Export according to sales slip</option>
+                                                    <option value="production">Export to work order</option>
+                                                    <option value="other">Other export</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -170,11 +178,10 @@
                                             <th>Supplier</th>
                                             <th>Warehouse</th>
                                             <th>Quantity</th>
-                                            <th>Input Price</th>
+                                            <th>Exports Price</th>
                                             <th>Group</th>
                                             <th>Weight</th>
                                             <th>Goods ID</th>
-
                                         </tr>
                                     </thead>
                                     <tbody id="tableInput">
@@ -223,16 +230,12 @@
                             </div>
                         </div>
                     </form>
-                    <!--s-->
-                    <!--s-->
-                    <!--search voucher-->
-                    <!--s-->
-                    <!--s-->
+
                     <div id="modalSerchform" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Searching.... voucher</h5>
+                                    <h5 class="modal-title">Searching....</h5>
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -241,6 +244,9 @@
                                 <div class="modal-body">
                                     <form id="saerchFrom">
                                         <div class="row">
+                                            <!--                                <div class="col">
+                                                                                <input type="text" class="form-control" name="ncc" placeholder="Supplier">
+                                                                            </div>-->
                                             <div class="col">
                                                 <input type="date" class="form-control" required="" name="from" placeholder="">
                                             </div>
@@ -275,16 +281,11 @@
                             </div>
                         </div>
                     </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--Search production-->
-                    <!--s-->
-                    <!--s-->
                     <div id="modalSerchform2" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Searching....  production order</h5>
+                                    <h5 class="modal-title">Searching....</h5>
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -293,9 +294,6 @@
                                 <div class="modal-body">
                                     <form id="saerchFrom2">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="id" placeholder="Production">
-                                            </div>
                                             <div class="col">
                                                 <input type="date" class="form-control" name="from" placeholder="">
                                             </div>
@@ -313,9 +311,7 @@
                                             <tr>
                                                 <th style="width:-40%;"><input type="checkbox" id="checkAll"/></th>
                                                 <th scope="col">Id</th>
-                                                <th scope="col">Goods name</th>
-                                                <th scope="col">Unit</th>
-                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Expain</th>
                                             </tr>
                                         </thead>
                                         <tbody class="myTable2" id="myTable2"> 
@@ -331,10 +327,10 @@
                             </div>
                         </div>
                     </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--s-->
-                    <!--s-->
+
+                    <!-- End modal -->
+                    <!--End modal-->
+
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
             </section>
@@ -475,7 +471,7 @@
                 //                document.getElementById("Date").value = date;
             } else {
                 months = "0" + (months = today.getMonth() + 1);
-                date = today.getFullYear() + '-' + months + '-' + "0" + today.getDate();
+                date = today.getFullYear() + '-' + months + '-' + today.getDate();
 
             }
             document.getElementById("DateLicene").value = date;
@@ -485,11 +481,11 @@
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-        <script src="<c:url value="/resources/js/Addrow.js" />"></script>
-        <script src="<c:url value="/resources/js/Autocomplete.js" />"></script>
-        <script src="<c:url value="/resources/js/EmptyData.js" />"></script>
-        <script src="<c:url value="/resources/js/getValue.js" />"></script>
-        <script src="<c:url value="/resources/js/onChangeService.js" />"></script>
+        <script src="<c:url value="/resources/js/outputjs/Addrow.js" />"></script>
+        <script src="<c:url value="/resources/js/outputjs/Autocomplete.js" />"></script>
+        <script src="<c:url value="/resources/js/outputjs/EmptyData.js" />"></script>
+        <script src="<c:url value="/resources/js/outputjs/getValue.js" />"></script>
+        <script src="<c:url value="/resources/js/outputjs/onChangeService.js" />"></script>
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -501,9 +497,6 @@
         <!-- Bootstrap 4 -->
         <!-- Bootstrap 4 -->
         <script src="<c:url value='/resources/plugins/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-        <!-- daterangepicker -->
-        <script src="<c:url value='/resources/plugins/moment/moment.min.js'/>"></script>
-        <script src="<c:url value='/resources/plugins/daterangepicker/daterangepicker.js'/>"></script>
         <!-- Summernote -->
         <script src="<c:url value='/resources/plugins/summernote/summernote-bs4.min.js'/>"></script>
         <!-- overlayScrollbars -->

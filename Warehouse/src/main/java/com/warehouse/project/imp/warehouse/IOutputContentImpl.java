@@ -6,25 +6,25 @@
 package com.warehouse.project.imp.warehouse;
 
 import com.warehouse.project.model.GoodsCatagory;
-import com.warehouse.project.model.InputContent;
-import com.warehouse.project.service.warehouse.IInputContent;
+import com.warehouse.project.model.OutputContent;
+import com.warehouse.project.service.warehouse.IOutputConent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.warehouse.project.responsitory.warehouse.WarehouseInput_content;
+import com.warehouse.project.responsitory.warehouse.WarehouseOutput_content;
 
 /**
  *
  * @author trung
  */
 @Service
-public class IInputContentImpl implements IInputContent {
+public class IOutputContentImpl implements IOutputConent {
 
     @Autowired
-    WarehouseInput_content lab;
+    WarehouseOutput_content lab;
 
     @Override
-    public InputContent Save(InputContent input) {
-        return lab.save(input);
+    public OutputContent Save(OutputContent content) {
+        return lab.save(content);
     }
 
 

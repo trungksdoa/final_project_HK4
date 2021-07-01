@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OutputContent.findByWarehouse", query = "SELECT o FROM OutputContent o WHERE o.warehouse = :warehouse"),
     @NamedQuery(name = "OutputContent.findByQuantity", query = "SELECT o FROM OutputContent o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "OutputContent.findByExportsPrices", query = "SELECT o FROM OutputContent o WHERE o.exportsPrices = :exportsPrices"),
-    @NamedQuery(name = "OutputContent.findByDiscounts", query = "SELECT o FROM OutputContent o WHERE o.discounts = :discounts"),
     @NamedQuery(name = "OutputContent.findByWeight", query = "SELECT o FROM OutputContent o WHERE o.weight = :weight"),
     @NamedQuery(name = "OutputContent.findBySupplier", query = "SELECT o FROM OutputContent o WHERE o.supplier = :supplier")})
 public class OutputContent implements Serializable {
@@ -56,8 +55,6 @@ public class OutputContent implements Serializable {
     private Double quantity;
     @Column(name = "exports_prices")
     private Double exportsPrices;
-    @Column(name = "discounts")
-    private Integer discounts;
     @Column(name = "weight")
     private Double weight;
     @Column(name = "supplier")
@@ -124,13 +121,6 @@ public class OutputContent implements Serializable {
         this.exportsPrices = exportsPrices;
     }
 
-    public Integer getDiscounts() {
-        return discounts;
-    }
-
-    public void setDiscounts(Integer discounts) {
-        this.discounts = discounts;
-    }
 
     public Double getWeight() {
         return weight;
