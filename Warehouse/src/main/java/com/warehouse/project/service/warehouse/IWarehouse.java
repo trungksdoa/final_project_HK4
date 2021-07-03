@@ -17,6 +17,12 @@ public interface IWarehouse {
     public abstract Warehouse Save(Warehouse input);
 
     public abstract List<Warehouse> FindALl();
-    
-    public abstract Warehouse FindDupGoods(String goods_id,String StockCard,String Supplier);
+
+    public abstract Warehouse FindDupGoods(String goods_id, String StockCard, String Supplier);
+
+    public abstract Warehouse FindQuantity(int quantity);
+
+    public abstract List<Warehouse> findAllTop5();
+
+    public abstract List<Warehouse> findWhere(String warehouse);
 }

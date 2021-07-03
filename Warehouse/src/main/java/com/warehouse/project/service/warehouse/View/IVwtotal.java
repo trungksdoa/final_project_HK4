@@ -5,13 +5,13 @@
  */
 package com.warehouse.project.service.warehouse.View;
 
-import com.warehouse.project.model.Vwprodcutionmaterial;
+import com.warehouse.project.model.Vwtotal;
 import java.util.List;
 
 /**
  *
  * @author trung
  */
-public interface IMaterialProduction {
-    public abstract List<Vwprodcutionmaterial>findAll(int id);
+public interface IVwtotal {
+    public List<Vwtotal> findALl();
 }

@@ -16,10 +16,21 @@ import org.springframework.data.repository.query.Param;
  *
  * @author trung
  */
-public interface Warehouse_goods extends JpaRepository<Warehouse, String> {
+public interface Warehouse_goods extends JpaRepository<Warehouse, Integer> {
 
-    @Query(nativeQuery = true,value = "Select *\n"
+    @Query(nativeQuery = true, value = "Select *\n"
             + " From Warehouse\n"
             + " Where goods_id = :goodsId AND stock_card = :stock AND supplier = :supplier")
-    public Warehouse findByGoods(@Param("goodsId") String id,@Param("stock") String stock,@Param("supplier") String supplier);
+    public Warehouse findByGoods(@Param("goodsId") String id, @Param("stock") String stock, @Param("supplier") String supplier);
+
+    @Query(nativeQuery = true, value = "SELECT TOP 10 * FROM Warehouse\n"
+            + "\n"
+            + "ORDER BY quantity_in_stock DESC")
+    public List<Warehouse> findTop5();
+
+
+    @Query(nativeQuery = true, value = "Select *\n"
+            + " From Warehouse\n"
+            + " Where  stock_card = :stock ")
+    public List<Warehouse> findWhere(@Param("stock") String stock);
 }

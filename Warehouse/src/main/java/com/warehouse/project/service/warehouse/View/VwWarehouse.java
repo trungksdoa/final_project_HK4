@@ -5,13 +5,15 @@
  */
 package com.warehouse.project.service.warehouse.View;
 
-import com.warehouse.project.model.Vwprodcutionmaterial;
+import com.warehouse.project.model.Production;
+import com.warehouse.project.model.Vwwarehouse;
 import java.util.List;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author trung
  */
-public interface IMaterialProduction {
-    public abstract List<Vwprodcutionmaterial>findAll(int id);
+public interface VwWarehouse {
+  public abstract List<Vwwarehouse> findALl();
 }

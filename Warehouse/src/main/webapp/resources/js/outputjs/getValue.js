@@ -13,9 +13,9 @@ function getValue() {
             strs.push(str);
         }
     }
-    var url = "/warehouse/findGoods/";
+    var url = "/api/output/findGoods/";
     $.ajax({
-        url: '/warehouse/findGoods/',
+        url: '/api/output/findGoods/',
         method: 'POST',
         traditional: true,
         data: {

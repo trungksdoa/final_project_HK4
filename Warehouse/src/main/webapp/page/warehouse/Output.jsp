@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+
     <!-- Fontanswome -->
     <link rel="stylesheet" href="<c:url value='/resources/plugins/fontawesome-free/css/all.min.css'/>">
     <!-- Theme style -->
@@ -27,16 +29,16 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="<c:url value='/resources/plugins/daterangepicker/daterangepicker.css'/>"/>
     <!-- summernote -->
-    <link rel="stylesheet" href="<c:url value='/resources/plugins/summernote/summernote-bs4.min.css' />  
+    <link rel="stylesheet" href="<c:url value='/resources/plugins/summernote/summernote-bs4.min.css' /> "/>
 
 
 
 
-          //End
+    //End
 
-          <!-- Google Font: Source Sans Pro -->
-          </head>
-          <body class="hold-transition sidebar-mini layout-fixed">
+    <!-- Google Font: Source Sans Pro -->
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -60,6 +62,12 @@
 
         <!--//Incldue here-->
         <style>
+            .ui-autocomplete-category {
+                font-weight: bold;
+                padding: .2em .4em;
+                margin: .8em 0 .2em;
+                line-height: 1.5;
+            }
             .my-custom-scrollbar {
                 position: relative;
                 height: 245px;
@@ -77,18 +85,27 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
+                            <h3>Output</h3>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Warehouse</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Input</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Output</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
-                <h3 id="message" style="text-align: center;color: green">
-                    ${message}
+                <h3 id="message" style="text-align: center;color: ${color}">
+                    ${message} 
+                </h3>
+                <h3 id="WrongID" style="text-align: center;color: ${color}">
+                    <c:if test = "${!empty listnull}">
+                        Good Id Is Wrong :
+                        <c:forEach items="${listnull}" var="x">
+                            ${x},
+                        </c:forEach>
+                    </c:if>
                 </h3>
             </div>
             <!-- /.content-header -->
@@ -99,7 +116,7 @@
                     <div class="main" style="margin-top: 8rem;">
                         <!--<input id="hidCidade" type="text" /><br>-->
                         <!---->
-                        <form id='maiForm' method="POST" action="/web/warehouse/page" onsubmit="return Validate()">
+                        <form id='maiForm' method="POST" action="/web/warehouse/output" onsubmit="return Validate()">
 
                             <div class="row">
                                 <div class="col-lg-8 col-md-8" >
@@ -107,6 +124,7 @@
                                         <label class="col-lg-2 col-form-label">Action</label>
                                         <div class="col-lg-10">
                                             <button onclick="document.getElementById("maiForm").reset();" style="" type="submit" id="savaDataAll"  class="btn btn-primary" >Save</button>   
+
                                             <!--<button onclick="window.print()">Print this page</button>-->
                                         </div>
 
@@ -117,7 +135,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" readonly="" name="id" id="id_liecene"  value="" placeholder="System will generation License">
                                                 <div class="input-group-prepend">
-                                                    <button onclick="CreateID();return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
+                                                    <button onclick="CreateID(); return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,7 +168,7 @@
                                             <p>Hint: Click on field at Goods name to start finding your goods easy</p>
                                             <button style="margin-right: 28px;" type="button" id="addDataTable"  class="btn btn-secondary" >Add row</button>
                                             <button style="margin-right: 28px;" type="button" id="removelastrow"  class="btn btn-secondary" >Remove last row</button>
-                                            <button onclick="emptyData();return false;"  class="btn btn-warning" onclick="">Reset row</button>
+                                            <button onclick="emptyData(); return false;"  class="btn btn-warning" onclick="">Reset row</button>
                                         </div>
                                     </div>
 
@@ -164,16 +182,17 @@
                                 <table class="table table-bordered table-fixed" style="z-index: 1000">
                                     <thead>
                                         <tr>
-                                            <th>STT</th>
-                                            <th>Goods (Searhing...)</th>
-                                            <th>Unit</th>
-                                            <th>Supplier (Searhing...)</th>
-                                            <th>Warehouse (Searhing...)</th>
-                                            <th>Quantity</th>
-                                            <th>Export Price</th>
-                                            <th>Group (Searhing...)</th>
-                                            <th>Weight</th>
-                                            <th>Goods ID</th>
+                                            <th style="transform: translateY(-5px);">STT</th>
+                                            <th style="transform: translateY(-5px)">Goods</th>
+                                            <th style="transform: translateY(-5px)">Unit</th>
+                                            <th style="transform: translateY(-5px)">Supplier</th>
+                                            <th style="transform: translateY(-5px)">Warehouse</th>
+                                            <th style="transform: translateY(-5px)">Quantity</th>
+                                            <th style="transform: translateY(-5px)">Export Price </th>
+                                            <th style="transform: translateY(-5px)">Group </th>
+                                            <th style="transform: translateY(-5px)">Weight/1</th>
+                                            <th style="transform: translateY(-5px)">Weight</th>
+                                            <th style="transform: translateY(-5px)">Goods ID</th>
 
                                         </tr>
                                     </thead>
@@ -189,19 +208,45 @@
                     <!-- Main row -->
 
                     <!--Open Modal-->
+                    <div id="modalcheckstock" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Select warehouse to continue</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/web/warehouse/checkstock">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="warehouse" id="warehouse" placeholder="warehouse">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal flatform -->
-                    <form action="">
-                        <div id="modalkho" class="modal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Create warehouse</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
 
+                    <div id="modalkho" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create warehouse</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
                                         <div class="form-group row">
                                             <label for="object" class="col-lg-2 col-form-label">ID</label>
                                             <div class="col-lg-10">
@@ -218,17 +263,132 @@
                                             <button type="submit" class="btn btn-primary">Save changes</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <!--Open Modal-->
+                    <!-- Modal flatform -->
+
+                    <div id="modalSupplier" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Supplier</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--s-->
                     <!--s-->
                     <!--search voucher-->
                     <!--s-->
                     <!--s-->
-                    <div id="modalSerchform" class="modal fade" tabindex="-1" role="dialog">
+                    <!--Open Modal-->
+                    <!-- Modal flatform -->
+
+                    <div id="modalgoods" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Goods</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--s-->
+                    <!--s-->
+                    <!--search voucher-->
+                    <!--s-->
+                    <!--s-->
+                    <!--Open Modal-->
+                    <!-- Modal flatform -->
+
+                    <div id="modalGroup" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Group</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--s-->
+                    <!--s-->
+                    <!--search voucher-->
+                    <!--s-->
+                    <!--s-->
+                    <div id="modalSerchform" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -269,7 +429,7 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button onclick="getValue();return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
+                                    <button onclick="getValue(); return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
                                     <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -280,7 +440,7 @@
                     <!--Search production-->
                     <!--s-->
                     <!--s-->
-                    <div id="modalSerchform2" class="modal fade" tabindex="-1" role="dialog">
+                    <div id="modalSerchform2" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -350,14 +510,13 @@
         </footer>
         <script type="text/javascript">
             var stt = 0;
-
             //Remove row button
             $('#removelastrow').on("click", function () {
 
 
-                if (stt == 3)
+                if (stt == 1)
                 {
-                    stt = 3;
+                    stt = 1;
                 } else
                 {
                     $('#tableInput tr:last').remove();
@@ -368,17 +527,16 @@
             function CreateID()
             {
 
-                $.get("/warehouse/getID/", function (data, status) {
+                $.get("/api/output/getID/", function (data, status) {
                     if (data == null)
                     {
-                        let idgener = "NK0000";
+                        let idgener = "XK0000";
                         console.log(data.id);
-
                         idgener = idgener.substring(2);
                         var id = parseInt(idgener);
                         id++;
                         var str = "" + id
-                        var pad = "NK0000"
+                        var pad = "XK0000"
                         var ans = pad.substring(0, pad.length - str.length) + str
                         //                console.log(ans)
                         $('#id_liecene').val(ans);
@@ -386,20 +544,17 @@
                     {
                         let idgener = data.id;
                         console.log(data.id);
-
                         idgener = idgener.substring(2);
                         var id = parseInt(idgener);
                         id++;
                         var str = "" + id
-                        var pad = "NK0000"
+                        var pad = "XK0000"
                         var ans = pad.substring(0, pad.length - str.length) + str
                         //                console.log(ans)
                         $('#id_liecene').val(ans);
                     }
 
                 });
-
-
             }
             function Validate()
             {
@@ -412,11 +567,23 @@
                     }
                 }
             }
+            function lookup(arg) {
+                var id = arg.getAttribute('id');
 
+                // var value = arg.value;
+                var res = id.charAt(id.length - 1);
+                var weighton1 = document.getElementById('weightOn1' + res);
+                var result = arg.value * weighton1.value;
 
+//                weightOn1
+
+                document.getElementById('weight' + res).value = result;
+                console.log('weight' + res)
+            }
             $(document).ready(function () {
                 ////
-                $('#message').delay(4000).fadeOut();
+
+                $('#message').delay(10000).fadeOut();
                 ////////////
 
                 $.ajaxSetup({
@@ -424,29 +591,17 @@
                 });
                 addRow();
                 //Insert stock
-                $("#btnkho").click(function () {
-                    $("#modalkho").modal('show');
-                });
-
+     
 // Document 
             });
             //Check all checkbox In service
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
-
-
-
-
-
-
-
-
             //OnClick To AutoComplete
             function dasdsadsa(x) {
                 //                alert("Row index is: " + x.rowIndex);
                 var index = 0;
-
                 index += x.rowIndex;
                 index--;
                 //                console.log(index);
@@ -463,85 +618,9 @@
             } else {
                 months = "0" + (months = today.getMonth() + 1);
                 date = today.getFullYear() + '-' + months + '-' + "0" + today.getDate();
-
             }
             document.getElementById("DateLicene").value = date;
             //            $("#Date").val(date);
-
-
-
-
-            //Khu vực đặc biệt cho code bị tử kỷ
-            //
-            //
-            //
-            //Place vip for code have been tuky
-
-    //            $("#btnServiceModalSave1").click(function () {
-    //                //set default selected
-    //                //    $('#service').prop('selectedIndex', 0);
-    //                //Hide modal
-    //                stt = 0;
-    ////    var tangtudong = 1;
-    //                var checks = document.getElementsByClassName('checks1');
-    //                var strs = [];
-    //                var str = "";
-    //                for (i = 0; i < checks.length; i++) {
-    //                    if (checks[i].checked === true) {
-    //                        str = [checks[i].value];
-    //                        strs.push(str);
-    //                    }
-    //                }
-    ////    var url = "/warehouse/findGoods/";
-    //                $.ajax({
-    //                    url: '/warehouse/findMaterial/',
-    //                    method: 'POST',
-    //                    traditional: true,
-    //                    data: {
-    //                        id: strs
-    //                    },
-    //                    success: function (data) {
-    //                        $("#tableInput").empty();
-    ////            alert("SDasdsadas");
-    //                        console.log(data);
-    //                        if (data != null) {
-    //                            for (var i = 0; i < data.length; i++) {
-    //                                var checkid = data[i].id;
-    //                                var rowsds = $('<tr>');
-    //                                rowsds.append('<td> '+stt+'</td>');
-    //                                rowsds.append('<td>' + "<input type='text' id='search" + stt + "' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input readonly type='text'  id='unit" + stt + "' name='unit' value='" + data[i].unit + "'/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input  type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input type='text' id='quantity" + stt + "' name='quantity' value='"+data[i].quantity+"'/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input type='text' id='importprice" + stt + "' name='importprice' value=''/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input readonly type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
-    //                                rowsds.append('<td>' + "<input readonly type='text' id='codeid" + stt + "' name='codeid' value='"+data[i].id+"'/>" + '</td>');
-    //                                rowsds.append('</tr>');
-    //                                $('#tableInput').append(rowsds);
-    //                                stt++;
-    ////                    tangtudong++;
-    //                            }
-    ////                            Autocomplete();
-    //                        }
-    //                    },
-    //                    error: function (request, status, error) {
-    //                        alert("Fail to submit please choose cancle if you want to getout");
-    //                        $('#service').prop('selectedIndex', 0);
-    //                    }
-    //                });
-    //                $("#modalSerchform2").modal('hide');
-    //                //Empty table
-    //                $("#myTable2").empty();
-    //            });
-    //
-    //
-
-
-
-
-
         </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -575,7 +654,7 @@
         <script src="<c:url value='/resources/dist/js/demo.js'/>"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="<c:url value='/resources/dist/js/pages/dashboard.js'/>"></script>
-        <!-- /.control-sidebar -->
+        <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
     </div>
     <!-- ./wrapper -->
 

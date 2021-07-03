@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 package com.warehouse.project.service.warehouse.View;
-
-import com.warehouse.project.model.Vwprodcutionmaterial;
+import com.warehouse.project.model.Vwwarehousesio;
 import java.util.List;
-
 /**
  *
  * @author trung
  */
-public interface IMaterialProduction {
-    public abstract List<Vwprodcutionmaterial>findAll(int id);
+public interface IVwwarehousesio {
+    List<Vwwarehousesio>findAll();
 }

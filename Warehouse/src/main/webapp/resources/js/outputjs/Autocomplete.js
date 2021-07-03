@@ -1,17 +1,17 @@
 function Autocomplete(index)
 {
     var goodsArray = [];
-    $.get("/warehouse/goodsCatagory/", function (data, status) {
+    $.get("/api/output/goodsCatagory/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
-            tempArray["id"] = data[i].id;
+            tempArray["id"] = data[i].goodsId;
             tempArray["label"] = data[i].goodsName;
             tempArray["value"] = data[i].goodsName;
-            tempArray["lastedPurchasePrice"] = data[i].lastedPurchasePrice;
             tempArray["weight"] = data[i].weight;
             tempArray["unit"] = data[i].unit;
-            tempArray["unitPrice"] = data[i].unitPrice;
-            tempArray["group"] = data[i].groupid;
+            tempArray["group_goods"] = data[i].groupGoods;
+            tempArray["warehouse"] = data[i].warehouse;
+            tempArray['supplier'] = data[i].supplier;
             goodsArray.push(tempArray);
         }
 //        console.log(goodsArray);
@@ -21,26 +21,31 @@ function Autocomplete(index)
             source: goodsArray,
             select: function (e, ui) {
                 var e = ui.item;
-                console.log(e.suplier);
+//                console.log(e.suplier);
                 $("#codeid" + index).val(e.id);
                 $("#unit" + index).val(e.unit);
-                $('#importprice' + index).val(e.unitPrice);
-                $('#weight' + index).val(e.weight);
-                $('#group' + index).val(e.group);
-
+                $('#weightOn1' + index).val(e.weight);
+                $('#groupid' + index).val(e.group_goods);
+                $('#quantity' + index).val(1);
+                $('#warehouse' +index).val(e.warehouse);
+                $('#suplier' + index).val(e.supplier);
             },
 
             change: function (e, ui) {
             }
-        });
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            return $("<li>")
+                    .append("<div>" + item.warehouse + "<br>" + item.label + "</div>")
+                    .appendTo(ul);
+        };
     }
 
     var stockcard = [];
-    $.get("/warehouse/groupWarehouse/", function (data, status) {
+    $.get("/api/output/groupWarehouse/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
             tempArray["id"] = data[i].id;
-            tempArray["name"] = data[i].id;
+            tempArray["label"] = data[i].id;
             tempArray["value"] = data[i].id;
             stockcard.push(tempArray);
         }
@@ -48,7 +53,7 @@ function Autocomplete(index)
     });
 
     var SupplierIDS = [];
-    $.get("/warehouse/supplierList/", function (data, status) {
+    $.get("/api/output/supplierList/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
             tempArray["id"] = data[i].id;
@@ -59,7 +64,7 @@ function Autocomplete(index)
 //                    console.log(SupplierIDS);
     });
     var groupList = [];
-    $.get("/warehouse/GroupsgoodsList/", function (data, status) {
+    $.get("/api/output/GroupsgoodsList/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
             tempArray["id"] = data[i].id;
@@ -88,7 +93,7 @@ function Autocomplete(index)
             change: function (e, ui) {
             }
         });
-        $("#group" + i).autocomplete({
+        $("#groupid" + i).autocomplete({
             source: groupList,
             select: function (e, ui) {
 

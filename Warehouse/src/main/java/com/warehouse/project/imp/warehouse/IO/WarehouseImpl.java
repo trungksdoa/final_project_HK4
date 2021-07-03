@@ -22,7 +22,8 @@ public class WarehouseImpl implements IWarehouse {
 
     @Autowired
     Warehouse_goods lab;
-
+    
+    
     @Override
     public Warehouse Save(Warehouse input) {
         return lab.save(input);
@@ -36,6 +37,26 @@ public class WarehouseImpl implements IWarehouse {
     @Override
     public Warehouse FindDupGoods(String goods_id, String StockCard, String Supplier) {
       return lab.findByGoods(goods_id, StockCard, Supplier);
+    }
+
+    @Override
+    public List<Warehouse> findAllTop5() {
+       return lab.findTop5();
+    }
+
+    @Override
+    public List<Warehouse> findWhere(String warehouse) {
+        return lab.findWhere(warehouse);
+    }
+
+//    @Override
+//    public Warehouse FindGoodsToSubtract(int goods_id, String StockCard, String Supplier) {
+//      return lab.findByGoodsWarehouse(goods_id, StockCard, Supplier);
+//    }
+
+    @Override
+    public Warehouse FindQuantity(int quantity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

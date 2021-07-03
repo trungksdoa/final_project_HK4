@@ -17,6 +17,8 @@ import com.warehouse.project.model.Productionorder;
 import com.warehouse.project.model.StockCard;
 import com.warehouse.project.model.Supplier;
 import com.warehouse.project.model.Voucher;
+import com.warehouse.project.model.Vwprodcutionmaterial;
+import com.warehouse.project.model.Vwwarehouse;
 import com.warehouse.project.model.Warehouse;
 import com.warehouse.project.service.warehouse.View.ICoupoContentViewnContent1;
 import com.warehouse.project.service.warehouse.Other.ICoupon;
@@ -29,6 +31,7 @@ import com.warehouse.project.service.warehouse.Other.ISupplier;
 import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import com.warehouse.project.service.warehouse.Other.Igroupgoodds;
+import com.warehouse.project.service.warehouse.View.VwWarehouse;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +82,9 @@ public class OutputControlllerAPi {
     @Autowired
     Igroupgoodds lab10;
     
+    @Autowired
+    VwWarehouse lab11;
+    
     @ResponseBody
     @RequestMapping(value = "/findGoods/")
     public ResponseEntity<List<Catagoryvoucher>> findgoods(@RequestParam(value = "id") String[] keyword) {
@@ -116,12 +122,12 @@ public class OutputControlllerAPi {
     //Find Material Production Goods
     @ResponseBody
     @RequestMapping(value = "/findMaterial/")
-    public ResponseEntity<List<Materialproduction>> findMaterial(@RequestParam(value = "id") int[] keyword) {
-        List<Materialproduction> arralists1 = new ArrayList<>();
+    public ResponseEntity<List<Vwprodcutionmaterial>> findMaterial(@RequestParam(value = "id") int[] keyword) {
+        List<Vwprodcutionmaterial> arralists1 = new ArrayList<>();
 //        Catagoryvoucher addArrray = new Catagoryvoucher();
 
         for (int data : keyword) {
-            List<Materialproduction> clist = lab7.findAll(data);
+            List<Vwprodcutionmaterial> clist = lab7.findAll(data);
 
             arralists1.addAll(clist);
 //            GoodsCatagory codese; 
@@ -137,9 +143,9 @@ public class OutputControlllerAPi {
     //AutoComplete
     @ResponseBody
     @RequestMapping(value = "/goodsCatagory/")
-    public ResponseEntity<List<Warehouse>> listGoods() {
+    public ResponseEntity<List<Vwwarehouse>> listGoods() {
 
-        List<Warehouse> arralists1 = lab4.FindALl();
+        List<Vwwarehouse> arralists1 = lab11.findALl();
         //        Catagoryvoucher addArrray = new Catagoryvoucher();
         if (!arralists1.isEmpty()) {
             return new ResponseEntity<>(arralists1, HttpStatus.OK);

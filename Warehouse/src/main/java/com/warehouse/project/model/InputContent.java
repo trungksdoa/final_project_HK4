@@ -188,7 +188,7 @@ public class InputContent implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.InputContent[ id=" + id + " ]";
+        return id.toString();
     }
 
 }

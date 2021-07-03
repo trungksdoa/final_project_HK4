@@ -66,7 +66,7 @@ $("#saerchFrom").on("submit", function (event) {
     data = data.replace(/&?[^=]+=&|&[^=]+=$/g, '');
     console.log(data)
     var url = "warehouse/voucher/" + data;
-    $.get("/warehouse/voucher/" + data)
+    $.get("/api/output/voucher/" + data)
             .done(function (response) {
                 var table = document.getElementById("myTable");
                 var row = null;
@@ -109,7 +109,7 @@ $("#saerchFrom2").on("submit", function (event) {
     var data = $('#saerchFrom2').serialize();
     var url = "/warehouse/findProduction/" + data;
     console.log(data)
-    $.get("/warehouse/findProduction/" + data)
+    $.get("/api/output/findProduction/" + data)
             .done(function (response) {
                 var table = document.getElementById("myTable2");
                 var row = null;

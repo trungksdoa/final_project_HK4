@@ -7,6 +7,7 @@ package com.warehouse.project.controller.warehouse.web;
 
 import com.warehouse.project.model.Dynamicinputcontent;
 import com.warehouse.project.model.GoodsCatagory;
+import com.warehouse.project.model.Hisio;
 import com.warehouse.project.model.Input;
 import com.warehouse.project.model.InputContent;
 import com.warehouse.project.model.StockCard;
@@ -14,6 +15,7 @@ import com.warehouse.project.model.Warehouse;
 import com.warehouse.project.service.warehouse.IO.IInput;
 import com.warehouse.project.service.warehouse.IO.IInputContent;
 import com.warehouse.project.service.warehouse.IWarehouse;
+import com.warehouse.project.service.warehouse.Ihistory;
 import com.warehouse.project.service.warehouse.Other.Idynamic;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,32 +34,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/web/warehouse")
 public class InputController {
-    
+
     @Autowired
     IInput lab;
-    
+
     @Autowired
     IInputContent lab2;
-    
+
     @Autowired
     Idynamic lab3;
-    
+
     @Autowired
     IWarehouse lab4;
-    
-    @RequestMapping("/")
-    public String page(Model model) {
-        model.addAttribute("listdata", lab.findall());
-        return "warehouse/showinput";
-    }
-    
+
+    @Autowired
+    Ihistory lab5;
+
+
+
     @RequestMapping("/input")
     public String index(Model model) {
-        
+
         model.addAttribute("message", "");
         return "warehouse/InputPage";
     }
-    
+
     public boolean isSpace(String[] array) {
         for (int i = 0; i < array.length; i++) {
             if ((array[i] == null) || (array[i].trim().length() == 0)) {
@@ -69,14 +70,14 @@ public class InputController {
         }
         return false;
     }
-    
+
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public String SaveData(@ModelAttribute("Input") Input input, Model model, HttpServletRequest request) {
         String getID = request.getParameter("id");
         String getDate = request.getParameter("Date");
         String getservice = request.getParameter("service");
         String getexplain = request.getParameter("explain");
-        
+
         String[] name = request.getParameterValues("name");
         String[] codeid = request.getParameterValues("codeid");
         String[] unit = request.getParameterValues("unit");
@@ -86,11 +87,12 @@ public class InputController {
         String[] importprice = request.getParameterValues("importprice");
         String[] group = request.getParameterValues("group");
         String[] weight = request.getParameterValues("weight");
-        
+
         Input addss = null;
         String message = "Success";
         if (isSpace(warehouse) || isSpace(quantity) || isSpace(importprice)) {
             message = "Some field is empty";
+            model.addAttribute("color", "red");
             model.addAttribute("message", message);
             return "warehouse/InputPage";
         } else {
@@ -126,7 +128,7 @@ public class InputController {
                 input.setExplain(getexplain);
                 input.setStatus("Chưa Xác Nhận");
                 addss = lab.Save(input);
-                
+
             } else {
                 //When Field id not null
                 input.setId(getID);
@@ -174,7 +176,16 @@ public class InputController {
                     add.setWeight(inputContent.getWeight());
                     add.setInputId(inputContent.getInputId());
                     respone = lab2.Save(add);
-                    
+                    Hisio history = new Hisio();
+                    history.setGoodsId(inputContent.getGoodsId().toString());
+                    history.setGoodsName(inputContent.getGoodsName());
+                    history.setDate(getDate);
+                    history.setMajor("Input");
+                    history.setPrice(respone.getImportsPrices());
+                    history.setQuantity(inputContent.getQuantity());
+                    history.setUnit(inputContent.getUnit());
+                    history.setWarehouse(inputContent.getWarehouse());
+                    lab5.save(history);
                     Warehouse getWarehouse = lab4.FindDupGoods("" + respone.getGoodsId().toString() + "", "" + respone.getWarehouse() + "", "" + respone.getSupplier() + "");
                     if (getWarehouse != null) {
 //                        arrraylists.add(getWarehouse);
@@ -183,7 +194,7 @@ public class InputController {
                         getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() + (getWarehouse.getImportPrice() * respone.getQuantity()));
                         Warehouse checksave = lab4.Save(getWarehouse);
                         System.out.println("Update Quantity of: " + checksave.getGoodsName());
-                        
+
                     } else {
                         Warehouse setWarehouse = new Warehouse();
                         setWarehouse.setGoodsId(respone.getGoodsId().toString());
@@ -199,17 +210,18 @@ public class InputController {
                         StockCard stockCards = new StockCard();
                         stockCards.setId(respone.getWarehouse());
                         setWarehouse.setStockCard(stockCards);
-                        
+
                         Warehouse checksave = lab4.Save(setWarehouse);
                         System.out.println("Add new " + checksave.getGoodsName());
                     }
                 }
             } else {
-                
+
             }
+            model.addAttribute("color", "green");
             model.addAttribute("message", message);
-            return "warehouse/input";
+            return "warehouse/InputPage";
         }
     }
-    
+
 }

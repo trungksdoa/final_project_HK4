@@ -5,28 +5,26 @@
  */
 package com.warehouse.project.imp.warehouse.Other;
 
-import com.warehouse.project.model.Materialproduction;
-import com.warehouse.project.model.Vwprodcutionmaterial;
-import com.warehouse.project.service.warehouse.View.IMaterialProduction;
+import com.warehouse.project.model.Vwtotal;
+import com.warehouse.project.responsitory.warehouse.IVwtotalRes;
+import com.warehouse.project.service.warehouse.View.IVwtotal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.warehouse.project.responsitory.warehouse.MaterialProductRs;
 
 /**
  *
  * @author trung
  */
 @Service
-public class MaterialProductionImpl implements IMaterialProduction {
+public class IVwtotalImp implements IVwtotal {
 
     @Autowired
-    MaterialProductRs lab;
+    IVwtotalRes lab;
 
     @Override
-    public List<Vwprodcutionmaterial> findAll(int id) {
-       return lab.findAllbyId(id);
+    public List<Vwtotal> findALl() {
+        return lab.findAll();
     }
-
 
 }

@@ -5,18 +5,21 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Materialproduction;
-import com.warehouse.project.model.Vwprodcutionmaterial;
+import com.warehouse.project.model.Hisio;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author trung
  */
-public interface MaterialProductRs extends JpaRepository<Materialproduction, Integer> {
-    @Query("SELECT v FROM Vwprodcutionmaterial v WHERE v.productionordercontentid = :productionordercontentid")    
-    public List<Vwprodcutionmaterial> findAllbyId(@Param("productionordercontentid") int id);
+public interface HistoryRes extends JpaRepository<Hisio, Integer> {
+
+
+
+    @Query("SELECT h FROM Hisio h WHERE h.goodsId = :goodsId AND h.warehouse = :warehouse")
+    List<Hisio> findALl(@Param("goodsId") String id,@Param("warehouse") String warehouse);
 }

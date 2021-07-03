@@ -128,7 +128,7 @@ public class Output implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Output[ id=" + id + " ]";
+        return id;
     }
     
 }

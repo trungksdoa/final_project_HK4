@@ -47,6 +47,7 @@ public class OutputContent implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
     @Column(name = "goods_id")
     private String goodsId;
     @Column(name = "goods_name")
@@ -75,6 +76,11 @@ public class OutputContent implements Serializable {
 
     public OutputContent(Integer id) {
         this.id = id;
+    }
+
+    public OutputContent(Integer id, String goodsId) {
+        this.id = id;
+        this.goodsId = goodsId;
     }
 
     public Integer getId() {

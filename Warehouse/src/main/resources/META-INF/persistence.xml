@@ -53,13 +53,18 @@
     <class>com.warehouse.project.model.CatagoryGroupSupplier</class>
     <class>com.warehouse.project.model.Input_1</class>
     <class>com.warehouse.project.model.Output_1</class>
-    <class>com.warehouse.project.model.Warehouse</class>
     <class>com.warehouse.project.model.Production</class>
     <class>com.warehouse.project.model.Materialproduction</class>
     <class>com.warehouse.project.model.GoodsCatagory</class>
     <class>com.warehouse.project.model.Findbyid</class>
     <class>com.warehouse.project.model.TranferWarehouse_1</class>
     <class>com.warehouse.project.model.Dynamicinputcontent</class>
+    <class>com.warehouse.project.model.Warehouse</class>
+    <class>com.warehouse.project.model.Vwwarehouse</class>
+    <class>com.warehouse.project.model.Vwprodcutionmaterial</class>
+    <class>com.warehouse.project.model.Vwtotal</class>
+    <class>com.warehouse.project.model.Hisio</class>
+    <class>com.warehouse.project.model.Vwwarehousesio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

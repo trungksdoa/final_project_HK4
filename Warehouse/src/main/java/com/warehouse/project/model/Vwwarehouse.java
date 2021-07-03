@@ -5,16 +5,11 @@
  */
 package com.warehouse.project.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,29 +20,29 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Warehouse")
+@Table(name = "Vw_warehouse")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w"),
-    @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
-    @NamedQuery(name = "Warehouse.findByGoodsId", query = "SELECT w FROM Warehouse w WHERE w.goodsId = :goodsId"),
-    @NamedQuery(name = "Warehouse.findByGoodsName", query = "SELECT w FROM Warehouse w WHERE w.goodsName = :goodsName"),
-    @NamedQuery(name = "Warehouse.findByUnit", query = "SELECT w FROM Warehouse w WHERE w.unit = :unit"),
-    @NamedQuery(name = "Warehouse.findByQuantityInStock", query = "SELECT w FROM Warehouse w WHERE w.quantityInStock = :quantityInStock"),
-    @NamedQuery(name = "Warehouse.findByImportPrice", query = "SELECT w FROM Warehouse w WHERE w.importPrice = :importPrice"),
-    @NamedQuery(name = "Warehouse.findBySupplier", query = "SELECT w FROM Warehouse w WHERE w.supplier = :supplier"),
-    @NamedQuery(name = "Warehouse.findByPriceInStock", query = "SELECT w FROM Warehouse w WHERE w.priceInStock = :priceInStock"),
-    @NamedQuery(name = "Warehouse.findBySellPrice", query = "SELECT w FROM Warehouse w WHERE w.sellPrice = :sellPrice"),
-    @NamedQuery(name = "Warehouse.findByGroupGoods", query = "SELECT w FROM Warehouse w WHERE w.groupGoods = :groupGoods"),
-    @NamedQuery(name = "Warehouse.findByWeight", query = "SELECT w FROM Warehouse w WHERE w.weight = :weight")})
-public class Warehouse implements Serializable {
+    @NamedQuery(name = "Vwwarehouse.findAll", query = "SELECT v FROM Vwwarehouse v"),
+    @NamedQuery(name = "Vwwarehouse.findById", query = "SELECT v FROM Vwwarehouse v WHERE v.id = :id"),
+    @NamedQuery(name = "Vwwarehouse.findByGoodsId", query = "SELECT v FROM Vwwarehouse v WHERE v.goodsId = :goodsId"),
+    @NamedQuery(name = "Vwwarehouse.findByGoodsName", query = "SELECT v FROM Vwwarehouse v WHERE v.goodsName = :goodsName"),
+    @NamedQuery(name = "Vwwarehouse.findByUnit", query = "SELECT v FROM Vwwarehouse v WHERE v.unit = :unit"),
+    @NamedQuery(name = "Vwwarehouse.findByQuantityInStock", query = "SELECT v FROM Vwwarehouse v WHERE v.quantityInStock = :quantityInStock"),
+    @NamedQuery(name = "Vwwarehouse.findByImportPrice", query = "SELECT v FROM Vwwarehouse v WHERE v.importPrice = :importPrice"),
+    @NamedQuery(name = "Vwwarehouse.findBySupplier", query = "SELECT v FROM Vwwarehouse v WHERE v.supplier = :supplier"),
+    @NamedQuery(name = "Vwwarehouse.findByPriceInStock", query = "SELECT v FROM Vwwarehouse v WHERE v.priceInStock = :priceInStock"),
+    @NamedQuery(name = "Vwwarehouse.findBySellPrice", query = "SELECT v FROM Vwwarehouse v WHERE v.sellPrice = :sellPrice"),
+    @NamedQuery(name = "Vwwarehouse.findByGroupGoods", query = "SELECT v FROM Vwwarehouse v WHERE v.groupGoods = :groupGoods"),
+    @NamedQuery(name = "Vwwarehouse.findByWeight", query = "SELECT v FROM Vwwarehouse v WHERE v.weight = :weight"),
+    @NamedQuery(name = "Vwwarehouse.findByWarehouse", query = "SELECT v FROM Vwwarehouse v WHERE v.warehouse = :warehouse")})
+public class Vwwarehouse implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Id
+    private int id;
     @Column(name = "goods_id")
     private String goodsId;
     @Column(name = "goods_name")
@@ -68,23 +63,18 @@ public class Warehouse implements Serializable {
     private String groupGoods;
     @Column(name = "weight")
     private Integer weight;
-    @JoinColumn(name = "stock_card", referencedColumnName = "id")
-    @ManyToOne
-    @JsonIgnore
-    private StockCard stockCard;
+    @Basic(optional = false)
+    @Column(name = "Warehouse")
+    private String warehouse;
 
-    public Warehouse() {
+    public Vwwarehouse() {
     }
 
-    public Warehouse(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -168,37 +158,12 @@ public class Warehouse implements Serializable {
         this.weight = weight;
     }
 
-    public StockCard getStockCard() {
-        return stockCard;
+    public String getWarehouse() {
+        return warehouse;
     }
 
-    public void setStockCard(StockCard stockCard) {
-        this.stockCard = stockCard;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Warehouse)) {
-            return false;
-        }
-        Warehouse other = (Warehouse) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.warehouse.project.model.Warehouse[ id=" + id + " ]";
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
     }
     
 }

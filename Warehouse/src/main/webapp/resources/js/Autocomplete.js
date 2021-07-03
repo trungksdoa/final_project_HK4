@@ -21,13 +21,12 @@ function Autocomplete(index)
             source: goodsArray,
             select: function (e, ui) {
                 var e = ui.item;
-                console.log(e.suplier);
+//                console.log(e.suplier);
                 $("#codeid" + index).val(e.id);
                 $("#unit" + index).val(e.unit);
-                $('#importprice' + index).val(e.unitPrice);
-                $('#weight' + index).val(e.weight);
                 $('#group' + index).val(e.group);
-
+                $('#quantity' + index).val(1);
+                $('#weightOn1' + index).val(e.weight);
             },
 
             change: function (e, ui) {
