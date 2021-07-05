@@ -5,9 +5,9 @@
  */
 package com.warehouse.project.imp.warehouse.Other;
 
-import com.warehouse.project.model.Vwwarehousesio;
-import com.warehouse.project.responsitory.warehouse.VwwarehousesioRes;
-import com.warehouse.project.service.warehouse.View.IVwwarehousesio;
+import com.warehouse.project.model.Materialproduction;
+import com.warehouse.project.responsitory.warehouse.VwprodcutionProductionRes;
+import com.warehouse.project.service.warehouse.View.MaterialproductionI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,12 @@ import org.springframework.stereotype.Service;
  * @author trung
  */
 @Service
-public class VwwarehousesioImpl implements IVwwarehousesio {
-
+public class MaterialproductionImp implements MaterialproductionI{
     @Autowired
-    VwwarehousesioRes lab;
+    VwprodcutionProductionRes lab;
 
     @Override
-    public List<Vwwarehousesio> findAll() {
-        return lab.findAll();
+    public List<Materialproduction> findALl(int keyword) {
+        return lab.findALl(keyword);
     }
-
 }

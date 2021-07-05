@@ -28,9 +28,25 @@ public interface Warehouse_goods extends JpaRepository<Warehouse, Integer> {
             + "ORDER BY quantity_in_stock DESC")
     public List<Warehouse> findTop5();
 
-
     @Query(nativeQuery = true, value = "Select *\n"
             + " From Warehouse\n"
             + " Where  stock_card = :stock ")
     public List<Warehouse> findWhere(@Param("stock") String stock);
+
+    @Query(nativeQuery = true, value = "SELECT goods_id, SUM(quantity_in_stock) AS QuantityAll, goods_name\n"
+            + "FROM     dbo.Warehouse\n"
+            + "WHERE  goods_id = :id\n"
+            + "GROUP BY goods_id, goods_name")
+    public List<Object[]> findALl(@Param("id") String id);
+
+    @Query(nativeQuery = true, value = "SELECT goods_id, goods_name, SUM(quantity_in_stock) AS QuantityAll\n"
+            + "FROM     dbo.Warehouse\n"
+            + "GROUP BY goods_id, goods_name")
+    public List<Object[]> FindALl();
+
+    @Query(nativeQuery = true, value = "SELECT stock_card as Warehouse\n"
+            + "FROM     dbo.Warehouse\n"
+            + "GROUP BY stock_card")
+    public List<Object[]> FindALlWarehouse();
+
 }

@@ -18,5 +18,5 @@ import org.springframework.data.repository.query.Param;
  * @author trung
  */
 public interface Warehouse_vuewgoods extends JpaRepository<Vwwarehouse, Integer> {
-
+    
 }

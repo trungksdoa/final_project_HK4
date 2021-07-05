@@ -30,8 +30,8 @@ public class WarehouseImpl implements IWarehouse {
     }
 
     @Override
-    public List<Warehouse> FindALl() {
-       return lab.findAll();
+    public List<Object[]> FindALl() {
+       return lab.FindALl();
     }
 
     @Override
@@ -39,10 +39,7 @@ public class WarehouseImpl implements IWarehouse {
       return lab.findByGoods(goods_id, StockCard, Supplier);
     }
 
-    @Override
-    public List<Warehouse> findAllTop5() {
-       return lab.findTop5();
-    }
+
 
     @Override
     public List<Warehouse> findWhere(String warehouse) {
@@ -54,9 +51,21 @@ public class WarehouseImpl implements IWarehouse {
 //      return lab.findByGoodsWarehouse(goods_id, StockCard, Supplier);
 //    }
 
+ 
+
     @Override
-    public Warehouse FindQuantity(int quantity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Object[]> findAll(String id) {
+       return lab.findALl(id);
+    }
+
+    @Override
+    public List<Warehouse> findAllData() {
+      return lab.findAll();
+    }
+
+    @Override
+    public List<Object[]> findAllWarehouse() {
+       return lab.FindALlWarehouse();
     }
 
 }

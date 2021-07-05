@@ -6,20 +6,15 @@
 package com.warehouse.project.controller.warehouse.api;
 
 
-import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.model.Catagoryvoucher;
 import com.warehouse.project.model.Groupsgoods;
-import com.warehouse.project.model.Input;
-import com.warehouse.project.model.Materialproduction;
 import com.warehouse.project.model.Output;
 import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Productionorder;
 import com.warehouse.project.model.StockCard;
 import com.warehouse.project.model.Supplier;
-import com.warehouse.project.model.Voucher;
 import com.warehouse.project.model.Vwprodcutionmaterial;
 import com.warehouse.project.model.Vwwarehouse;
-import com.warehouse.project.model.Warehouse;
 import com.warehouse.project.service.warehouse.View.ICoupoContentViewnContent1;
 import com.warehouse.project.service.warehouse.Other.ICoupon;
 import com.warehouse.project.service.warehouse.View.IMaterialProduction;
@@ -29,7 +24,6 @@ import com.warehouse.project.service.warehouse.View.IProductionview;
 import com.warehouse.project.service.warehouse.IStock_card;
 import com.warehouse.project.service.warehouse.Other.ISupplier;
 import com.warehouse.project.service.warehouse.IWarehouse;
-import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import com.warehouse.project.service.warehouse.Other.Igroupgoodds;
 import com.warehouse.project.service.warehouse.View.VwWarehouse;
 import java.util.ArrayList;
@@ -40,7 +34,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 

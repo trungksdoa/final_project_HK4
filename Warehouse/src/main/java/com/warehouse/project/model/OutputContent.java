@@ -193,7 +193,7 @@ public class OutputContent implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.OutputContent[ id=" + id + " ]";
+        return id.toString();
     }
     
 }

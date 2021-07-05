@@ -13,8 +13,16 @@ import java.util.List;
  * @author trung
  */
 public interface IOutput {
-        public abstract Output Save(Output output);
+
+    public abstract Output Save(Output output);
 
     public abstract Output findAllId();
+
     public abstract List<Output> findall();
+
+    public abstract Output findOne(String id);
+
+    public abstract Output Update(Output output);
+
+    public abstract void Delete(String id);
 }

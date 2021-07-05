@@ -198,7 +198,7 @@ public class Warehouse implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Warehouse[ id=" + id + " ]";
+        return id.toString();
     }
     
 }

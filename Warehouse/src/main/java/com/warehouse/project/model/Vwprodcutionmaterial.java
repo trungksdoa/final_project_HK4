@@ -29,9 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vwprodcutionmaterial.findByUnit", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.unit = :unit"),
     @NamedQuery(name = "Vwprodcutionmaterial.findByQuantity", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.quantity = :quantity"),
     @NamedQuery(name = "Vwprodcutionmaterial.findByPrice", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.price = :price"),
-    @NamedQuery(name = "Vwprodcutionmaterial.findByWeight", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.weight = :weight"),
     @NamedQuery(name = "Vwprodcutionmaterial.findByProductionordercontentid", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.productionordercontentid = :productionordercontentid"),
-    @NamedQuery(name = "Vwprodcutionmaterial.findByGroupGoods", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.groupGoods = :groupGoods")})
+    @NamedQuery(name = "Vwprodcutionmaterial.findByProductionorderid", query = "SELECT v FROM Vwprodcutionmaterial v WHERE v.productionorderid = :productionorderid")})
 public class Vwprodcutionmaterial implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,12 +47,10 @@ public class Vwprodcutionmaterial implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private Double price;
-    @Column(name = "weight")
-    private Integer weight;
     @Column(name = "Production_order_content_id")
     private Integer productionordercontentid;
-    @Column(name = "group_goods")
-    private String groupGoods;
+    @Column(name = "Production_order_id")
+    private String productionorderid;
 
     public Vwprodcutionmaterial() {
     }
@@ -98,14 +95,6 @@ public class Vwprodcutionmaterial implements Serializable {
         this.price = price;
     }
 
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
     public Integer getProductionordercontentid() {
         return productionordercontentid;
     }
@@ -114,12 +103,12 @@ public class Vwprodcutionmaterial implements Serializable {
         this.productionordercontentid = productionordercontentid;
     }
 
-    public String getGroupGoods() {
-        return groupGoods;
+    public String getProductionorderid() {
+        return productionorderid;
     }
 
-    public void setGroupGoods(String groupGoods) {
-        this.groupGoods = groupGoods;
+    public void setProductionorderid(String productionorderid) {
+        this.productionorderid = productionorderid;
     }
     
 }

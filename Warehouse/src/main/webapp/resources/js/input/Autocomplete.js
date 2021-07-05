@@ -5,7 +5,7 @@ function Autocomplete(index)
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
             tempArray["id"] = data[i].id;
-            tempArray["label"] = data[i].goodsName;
+            tempArray["label"] = data[i].id;
             tempArray["value"] = data[i].goodsName;
             tempArray["lastedPurchasePrice"] = data[i].lastedPurchasePrice;
             tempArray["weight"] = data[i].weight;
@@ -14,24 +14,28 @@ function Autocomplete(index)
             tempArray["group"] = data[i].groupid;
             goodsArray.push(tempArray);
         }
-//        console.log(goodsArray);
     });
     for (var i = 0; i < stt; i++) {
         $("#search" + i).autocomplete({
             source: goodsArray,
             select: function (e, ui) {
                 var e = ui.item;
-//                console.log(e.suplier);
                 $("#codeid" + index).val(e.id);
                 $("#unit" + index).val(e.unit);
                 $('#group' + index).val(e.group);
                 $('#quantity' + index).val(1);
+                $('#importprice' + index).val(1)
                 $('#weightOn1' + index).val(e.weight);
+                $('#weight' + index).val(e.weight * 1)
             },
 
             change: function (e, ui) {
             }
-        });
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            return $("<li>")
+                    .append("<div>" + item.value + "<br>" + item.label + "</div>")
+                    .appendTo(ul);
+        };
     }
 
     var stockcard = [];

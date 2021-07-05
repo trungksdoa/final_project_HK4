@@ -6,18 +6,14 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
     @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
     @NamedQuery(name = "Input.findByService", query = "SELECT i FROM Input i WHERE i.service = :service"),
-    @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status")})
+    @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status"),
+    @NamedQuery(name = "Input.findByDeletestatus", query = "SELECT i FROM Input i WHERE i.deletestatus = :deletestatus")})
 public class Input implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,8 +45,8 @@ public class Input implements Serializable {
     private String service;
     @Column(name = "status")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
-    private Collection<InputContent> inputContentCollection;
+    @Column(name = "deletestatus")
+    private Boolean deletestatus;
 
     public Input() {
     }
@@ -98,13 +95,12 @@ public class Input implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
-    public Collection<InputContent> getInputContentCollection() {
-        return inputContentCollection;
+    public Boolean getDeletestatus() {
+        return deletestatus;
     }
 
-    public void setInputContentCollection(Collection<InputContent> inputContentCollection) {
-        this.inputContentCollection = inputContentCollection;
+    public void setDeletestatus(Boolean deletestatus) {
+        this.deletestatus = deletestatus;
     }
 
     @Override

@@ -32,18 +32,4 @@ public class StockController {
     public String page(Model model) {
         return "warehouse/StockDashboard";
     }
-
-    @GetMapping
-    public String ListTop5GoodsWarehouse(Model model) {
-
-        List<Warehouse> arralists1 = lab.findAllTop5();
-        //        Catagoryvoucher addArrray = new Catagoryvoucher();
-//        List<String> namelist = lab.FindALl().stream().map(x -> x.getGoodsName()).collect(Collectors.toList());
-//        List<Integer> quantity = lab.FindALl().stream().map(x -> x.getQuantityInStock()).collect(Collectors.toList());
-
-        model.addAttribute("Namelist", lab.findAllTop5());
-        model.addAttribute("ListQuantity", lab.FindALl());
-//        model.addAttribute("quantityList",quantity);
-        return "warehouse/StockDashboard";
-    }
 }

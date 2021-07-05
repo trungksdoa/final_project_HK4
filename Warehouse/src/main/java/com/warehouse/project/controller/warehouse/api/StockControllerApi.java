@@ -7,8 +7,11 @@ package com.warehouse.project.controller.warehouse.api;
 
 import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Hisio;
+import com.warehouse.project.model.Warehouse;
+import com.warehouse.project.model.beanclass.WarehouseBean;
 import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Ihistory;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,17 +35,47 @@ public class StockControllerApi {
     @Autowired
     Ihistory lab;
 
-    @ResponseBody
-    @RequestMapping(value = "/getId/{id}&{warehouse}")
-    public ResponseEntity<List<Hisio>> findMaterial(@PathVariable("id") String idking, @PathVariable("warehouse") String warehouse) {
+    @Autowired
+    IWarehouse lab2;
 
-        List<Hisio> ssss = lab.listAll(idking, warehouse);
+    @ResponseBody
+    @RequestMapping(value = "/getId/{id}")
+    public ResponseEntity<List<WarehouseBean>> findMaterial(@PathVariable("id") String idking) {
+
+        List<Object[]> ssss = lab2.findAll(idking);
+        List<WarehouseBean> lsittodata = new ArrayList<>();
+        for (Object[] object : ssss) {
+            String id = (String) object[0];
+            int quantity = (int) object[1];
+            String name = (String) object[2];
+            WarehouseBean obecjt = new WarehouseBean(id, quantity, name);
+            lsittodata.add(obecjt);
+        }
         if (!ssss.isEmpty()) {
-            return new ResponseEntity<>(ssss, HttpStatus.OK);
+            return new ResponseEntity<>(lsittodata, HttpStatus.OK);
 
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/Warehousegoods")
+    public ResponseEntity<List<WarehouseBean>> findMaterial() {
+
+        List<Object[]> ssss = lab2.FindALl();
+        List<WarehouseBean> lsittodata = new ArrayList<>();
+        for (Object[] object : ssss) {
+            String id = (String) object[0];
+            int quantity = (int) object[2];
+            String name = (String) object[1];
+            WarehouseBean obecjt = new WarehouseBean(id, quantity, name);
+            lsittodata.add(obecjt);
+        }
+        if (!ssss.isEmpty()) {
+            return new ResponseEntity<>(lsittodata, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 }

@@ -13,6 +13,14 @@ import java.util.List;
  * @author trung
  */
 public interface Ihistory {
+
     public Hisio save(Hisio hisio);
-    public List<Hisio>listAll(String id,String warehouse);
+
+    public List<Hisio> listAll(String id, String warehouse);
+
+    public List<Object[]> groupBy();
+
+    public List<Hisio> findAll();
+
+    void Update(String keyword, int Codeid);
 }

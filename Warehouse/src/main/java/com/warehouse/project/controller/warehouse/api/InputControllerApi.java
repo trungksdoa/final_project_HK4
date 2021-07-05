@@ -9,6 +9,7 @@ import com.warehouse.project.model.Catagoryvoucher;
 import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.model.Groupsgoods;
 import com.warehouse.project.model.Input;
+import com.warehouse.project.model.Materialproduction;
 import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Productionorder;
 import com.warehouse.project.service.warehouse.View.ICoupoContentViewnContent1;
@@ -34,6 +35,7 @@ import com.warehouse.project.service.warehouse.View.IMaterialProduction;
 import com.warehouse.project.service.warehouse.Other.IProductionorder;
 import com.warehouse.project.service.warehouse.View.IProductionview;
 import com.warehouse.project.service.warehouse.Other.Igroupgoodds;
+import com.warehouse.project.service.warehouse.View.MaterialproductionI;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -75,6 +77,8 @@ public class InputControllerApi {
     @Autowired
     Igroupgoodds lab10;
 
+    @Autowired
+    MaterialproductionI lab11;
 
     @ResponseBody
     @RequestMapping(value = "/findGoods/")
@@ -131,6 +135,27 @@ public class InputControllerApi {
         }
     }
 
+    //Find Reference
+    @ResponseBody
+    @RequestMapping(value = "/findreference/")
+    public ResponseEntity<List<Materialproduction>> findreference(@RequestParam(value = "id") int[] keyword) {
+        List<Materialproduction> arralists1 = new ArrayList<>();
+//        Catagoryvoucher addArrray = new Catagoryvoucher();
+
+        for (int data : keyword) {
+            List<Materialproduction> clist = lab11.findALl(data);
+
+            arralists1.addAll(clist);
+//            GoodsCatagory codese; 
+        }
+        if (!arralists1.isEmpty()) {
+            return new ResponseEntity<>(arralists1, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
     //AutoComplete
     @ResponseBody
     @RequestMapping(value = "/goodsCatagory/")
@@ -145,7 +170,6 @@ public class InputControllerApi {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
- 
 
     //Get Last Id
     @ResponseBody

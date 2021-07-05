@@ -20,7 +20,6 @@
     <class>com.warehouse.project.model.Receipts</class>
     <class>com.warehouse.project.model.CouponPay</class>
     <class>com.warehouse.project.model.Quotescontent</class>
-    <class>com.warehouse.project.model.Productionordercontent</class>
     <class>com.warehouse.project.model.ReceiptsReference</class>
     <class>com.warehouse.project.model.Supplier</class>
     <class>com.warehouse.project.model.Orderdetail</class>
@@ -40,7 +39,6 @@
     <class>com.warehouse.project.model.Productiongoods</class>
     <class>com.warehouse.project.model.InputContent</class>
     <class>com.warehouse.project.model.Groupsgoods_1</class>
-    <class>com.warehouse.project.model.Input</class>
     <class>com.warehouse.project.model.Other</class>
     <class>com.warehouse.project.model.Debt</class>
     <class>com.warehouse.project.model.Suplierpay</class>
@@ -54,17 +52,18 @@
     <class>com.warehouse.project.model.Input_1</class>
     <class>com.warehouse.project.model.Output_1</class>
     <class>com.warehouse.project.model.Production</class>
-    <class>com.warehouse.project.model.Materialproduction</class>
     <class>com.warehouse.project.model.GoodsCatagory</class>
     <class>com.warehouse.project.model.Findbyid</class>
     <class>com.warehouse.project.model.TranferWarehouse_1</class>
     <class>com.warehouse.project.model.Dynamicinputcontent</class>
     <class>com.warehouse.project.model.Warehouse</class>
     <class>com.warehouse.project.model.Vwwarehouse</class>
-    <class>com.warehouse.project.model.Vwprodcutionmaterial</class>
     <class>com.warehouse.project.model.Vwtotal</class>
     <class>com.warehouse.project.model.Hisio</class>
-    <class>com.warehouse.project.model.Vwwarehousesio</class>
+    <class>com.warehouse.project.model.Materialproduction</class>
+    <class>com.warehouse.project.model.Input</class>
+    <class>com.warehouse.project.model.Vwprodcutionmaterial</class>
+    <class>com.warehouse.project.model.Checkslip</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

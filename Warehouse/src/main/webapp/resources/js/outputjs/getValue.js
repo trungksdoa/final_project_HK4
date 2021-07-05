@@ -30,7 +30,7 @@ function getValue() {
                     var checkid = data[i].id;
 
                     var row = $('<tr>');
-                    row.append('<td>' + stt + '</td>');
+                    row.append('<td>' + tangtudong + '</td>');
                     row.append('<td>' + "<input id='search" + stt + "' type='text' name='name[]' value='" + data[i].goodsName + "'/>" + '</td>');
                     row.append('<td>' + "<input type='text' id='unit" + stt + "' name='unit[]' value='" + data[i].unit + "'/>" + '</td>');
                     row.append('<td>' + "<input type='text'  id='warehouse" + stt + "' name='warehouse[]' value=''/>" + '</td>');
@@ -43,6 +43,7 @@ function getValue() {
                     row.append('</tr>');
                     $('#tableInput').append(row);
                     stt++;
+                    tangtudong++;
                 }
 //                            Autocomplete();
             }

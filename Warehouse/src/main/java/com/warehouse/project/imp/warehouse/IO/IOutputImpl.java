@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.warehouse.project.responsitory.warehouse.Warehouse_output;
+import java.util.Optional;
 
 /**
  *
@@ -24,19 +25,34 @@ public class IOutputImpl implements IOutput {
 
     @Override
     public Output Save(Output output) {
-       return house.save(output);
+        return house.save(output);
     }
 
     @Override
     public Output findAllId() {
-         return house.findByList();
+        return house.findByList();
     }
 
     @Override
     public List<Output> findall() {
-          return house.findAll();
+        return house.findAll();
     }
 
- 
+    @Override
+    public Output findOne(String id) {
+        Optional<Output> option = house.findById(id);
+        Output object = option.get();
+        return object;
+    }
+
+    @Override
+    public Output Update(Output output) {
+        return house.save(output);
+    }
+
+    @Override
+    public void Delete(String id) {
+        house.deleteById(id);
+    }
 
 }

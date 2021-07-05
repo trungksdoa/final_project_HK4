@@ -109,6 +109,7 @@ public class Outputcontroller {
         String getDate = request.getParameter("Date");
         String getservice = request.getParameter("service");
         String getexplain = request.getParameter("explain");
+        String[] refreence = request.getParameterValues("refercne");
 
         String[] name = request.getParameterValues("name");
         String[] codeid = request.getParameterValues("codeid");
@@ -160,6 +161,7 @@ public class Outputcontroller {
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
                 output.setStatus("Chưa Xác Nhận");
+                output.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(output);
 
             } else {
@@ -169,6 +171,7 @@ public class Outputcontroller {
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
                 output.setStatus("Chưa Xác Nhận");
+                output.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(output);
             }
             List<OutputContent> objectList = new ArrayList<>();
@@ -191,6 +194,35 @@ public class Outputcontroller {
                     outputs.setId(addss.getId());
                     outputContent.setOutputId(outputs);
                     objectList.add(outputContent);
+
+                    //Insert history
+                    if (refreence == null) {
+                        //Insert history
+                        Hisio history = new Hisio();
+                        history.setGoodsId(codeid[i]);
+                        history.setGoodsName(name[i]);
+                        history.setDate(getDate);
+                        history.setMajor("Output");
+                        history.setPrice(Integer.valueOf(importprice[i]));
+                        history.setQuantity(Integer.valueOf(quantity[i]));
+                        history.setUnit(unit[i]);
+                        history.setWarehouse(warehouse[i]);
+                        history.setLicense("Other export");
+                        lab5.save(history);
+                    } else {
+                        //Insert history
+                        Hisio history = new Hisio();
+                        history.setGoodsId(codeid[i]);
+                        history.setGoodsName(name[i]);
+                        history.setDate(getDate);
+                        history.setMajor("Output");
+                        history.setPrice(Integer.valueOf(importprice[i]));
+                        history.setQuantity(Integer.valueOf(quantity[i]));
+                        history.setUnit(unit[i]);
+                        history.setWarehouse(warehouse[i]);
+                        history.setLicense(refreence[i]);
+                        lab5.save(history);
+                    }
                 }
                 OutputContent respone = null;
                 for (OutputContent outputContent : objectList) {
@@ -206,23 +238,12 @@ public class Outputcontroller {
                     add.setWeight(outputContent.getWeight());
                     add.setOutputId(outputContent.getOutputId());
                     respone = lab1.Save(add);
-                    Hisio history = new Hisio();
-                    //Insert to History
-                    history.setGoodsId(outputContent.getGoodsId().toString());
-                    history.setGoodsName(outputContent.getGoodsName());
-                    history.setDate(getDate);
-                    history.setMajor("Output");
-                    history.setQuantity(outputContent.getQuantity());
-                    history.setWarehouse(outputContent.getWarehouse());
-                    history.setPrice(respone.getExportsPrices());
-                    history.setUnit(outputContent.getUnit());
-                    lab5.save(history);
 
                     //Warehouse insert
                     Warehouse getWarehouse = lab4.FindDupGoods("" + respone.getGoodsId().toString() + "", "" + respone.getWarehouse() + "", "" + respone.getSupplier() + "");
                     if (getWarehouse != null) {
                         getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() - respone.getQuantity());
-//                        getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() - (getWarehouse.getImportPrice() * respone.getQuantity()));
+                        getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() - (getWarehouse.getImportPrice() * respone.getQuantity()));
                         Warehouse checksave = lab4.Save(getWarehouse);
                         System.out.println("Update Quantity of: " + checksave.getGoodsName());
                     } else {

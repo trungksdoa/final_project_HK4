@@ -6,17 +6,14 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Output.findByDate", query = "SELECT o FROM Output o WHERE o.date = :date"),
     @NamedQuery(name = "Output.findBySerivce", query = "SELECT o FROM Output o WHERE o.serivce = :serivce"),
     @NamedQuery(name = "Output.findByExplain", query = "SELECT o FROM Output o WHERE o.explain = :explain"),
-    @NamedQuery(name = "Output.findByStatus", query = "SELECT o FROM Output o WHERE o.status = :status")})
+    @NamedQuery(name = "Output.findByStatus", query = "SELECT o FROM Output o WHERE o.status = :status"),
+    @NamedQuery(name = "Output.findByDeletestatus", query = "SELECT o FROM Output o WHERE o.deletestatus = :deletestatus")})
 public class Output implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,8 +45,8 @@ public class Output implements Serializable {
     private String explain;
     @Column(name = "status")
     private String status;
-    @OneToMany(mappedBy = "outputId")
-    private Collection<OutputContent> outputContentCollection;
+    @Column(name = "deletestatus")
+    private Boolean deletestatus;
 
     public Output() {
     }
@@ -97,13 +95,12 @@ public class Output implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
-    public Collection<OutputContent> getOutputContentCollection() {
-        return outputContentCollection;
+    public Boolean getDeletestatus() {
+        return deletestatus;
     }
 
-    public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
-        this.outputContentCollection = outputContentCollection;
+    public void setDeletestatus(Boolean deletestatus) {
+        this.deletestatus = deletestatus;
     }
 
     @Override

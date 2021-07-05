@@ -5,7 +5,8 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Vwwarehousesio;
+import com.warehouse.project.model.Checkslip;
+import javax.persistence.Id;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +14,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author trung
  */
-public interface VwwarehousesioRes extends JpaRepository<Vwwarehousesio, String> {
+public interface ICheckstockRes extends JpaRepository<Checkslip, Integer> {
     
 }

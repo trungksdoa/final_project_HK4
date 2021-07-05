@@ -31,6 +31,22 @@ public class HistoryImpl implements Ihistory{
       return lab.findALl(id,warehouse);
     }
 
+    @Override
+    public List<Object[]> groupBy() {
+      return lab.listBy();
+    }
+
+    @Override
+    public void Update(String keyword, int Codeid) {
+       lab.Update(keyword, Codeid);
+    }
+
+    @Override
+    public List<Hisio> findAll() {
+      return lab.findAll();
+    }
+
+
 
     
 }

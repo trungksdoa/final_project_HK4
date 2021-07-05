@@ -5,7 +5,7 @@
  */
 package com.warehouse.project.controller.warehouse.web;
 
-import com.warehouse.project.model.Dynamicinputcontent;
+import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.model.GoodsCatagory;
 import com.warehouse.project.model.Hisio;
 import com.warehouse.project.model.Input;
@@ -17,6 +17,7 @@ import com.warehouse.project.service.warehouse.IO.IInputContent;
 import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Ihistory;
 import com.warehouse.project.service.warehouse.Other.Idynamic;
+import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -50,12 +51,22 @@ public class InputController {
     @Autowired
     Ihistory lab5;
 
-
+    @Autowired
+    Igoodscatagory lab242;
 
     @RequestMapping("/input")
     public String index(Model model) {
 
+        ArrayList<String> goodsName = new ArrayList<>();
+        ArrayList<String> ncc = new ArrayList<>();
+        ArrayList<String> Warehouse = new ArrayList<>();
+        for (CatagoryGroupSupplier string1 : lab242.findALl()) {
+            goodsName.add(string1.getGoodsName());
+        }
         model.addAttribute("message", "");
+        model.addAttribute("Namelist", goodsName);
+        model.addAttribute("SupplierList", ncc);
+        model.addAttribute("WarehouseList", Warehouse);
         return "warehouse/InputPage";
     }
 
@@ -71,12 +82,25 @@ public class InputController {
         return false;
     }
 
+    public boolean isEmpty(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if ((array[i] == null)) {
+                //true on null, empty string, or white space only. Do something here
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public String SaveData(@ModelAttribute("Input") Input input, Model model, HttpServletRequest request) {
         String getID = request.getParameter("id");
         String getDate = request.getParameter("Date");
         String getservice = request.getParameter("service");
         String getexplain = request.getParameter("explain");
+        String[] refreence = request.getParameterValues("refercne");
 
         String[] name = request.getParameterValues("name");
         String[] codeid = request.getParameterValues("codeid");
@@ -90,6 +114,7 @@ public class InputController {
 
         Input addss = null;
         String message = "Success";
+
         if (isSpace(warehouse) || isSpace(quantity) || isSpace(importprice)) {
             message = "Some field is empty";
             model.addAttribute("color", "red");
@@ -97,6 +122,7 @@ public class InputController {
             return "warehouse/InputPage";
         } else {
             //
+
             //Insert to input information
             //
             //When field id == null
@@ -127,6 +153,7 @@ public class InputController {
                 input.setService(getservice);
                 input.setExplain(getexplain);
                 input.setStatus("Chưa Xác Nhận");
+                input.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(input);
 
             } else {
@@ -136,6 +163,7 @@ public class InputController {
                 input.setService(getservice);
                 input.setExplain(getexplain);
                 input.setStatus("Chưa Xác Nhận");
+                input.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(input);
             }
             List<InputContent> objectList = new ArrayList<>();
@@ -160,6 +188,35 @@ public class InputController {
                     sdsa.setId(addss.getId());
                     inputobject.setInputId(sdsa);
                     objectList.add(inputobject);
+
+                    if (refreence == null) {
+                        //Insert history
+                        Hisio history = new Hisio();
+                        history.setGoodsId(codeid[i]);
+                        history.setGoodsName(name[i]);
+                        history.setDate(getDate);
+                        history.setMajor("Input");
+                        history.setPrice(Integer.valueOf(importprice[i]));
+                        history.setQuantity(Integer.valueOf(quantity[i]));
+                        history.setUnit(unit[i]);
+                        history.setWarehouse(warehouse[i]);
+                        history.setLicense("Enter another");
+                        lab5.save(history);
+                    } else {
+                        //Insert history
+                        Hisio history = new Hisio();
+                        history.setGoodsId(codeid[i]);
+                        history.setGoodsName(name[i]);
+                        history.setDate(getDate);
+                        history.setMajor("Input");
+                        history.setPrice(Integer.valueOf(importprice[i]));
+                        history.setQuantity(Integer.valueOf(quantity[i]));
+                        history.setUnit(unit[i]);
+                        history.setWarehouse(warehouse[i]);
+                        history.setLicense(refreence[i]);
+                        lab5.save(history);
+                    }
+
                 }
 //                List<InputContent> arrraylist = new ArrayList<>();
                 InputContent respone = null;
@@ -176,16 +233,8 @@ public class InputController {
                     add.setWeight(inputContent.getWeight());
                     add.setInputId(inputContent.getInputId());
                     respone = lab2.Save(add);
-                    Hisio history = new Hisio();
-                    history.setGoodsId(inputContent.getGoodsId().toString());
-                    history.setGoodsName(inputContent.getGoodsName());
-                    history.setDate(getDate);
-                    history.setMajor("Input");
-                    history.setPrice(respone.getImportsPrices());
-                    history.setQuantity(inputContent.getQuantity());
-                    history.setUnit(inputContent.getUnit());
-                    history.setWarehouse(inputContent.getWarehouse());
-                    lab5.save(history);
+
+                    //Insert warehouse
                     Warehouse getWarehouse = lab4.FindDupGoods("" + respone.getGoodsId().toString() + "", "" + respone.getWarehouse() + "", "" + respone.getSupplier() + "");
                     if (getWarehouse != null) {
 //                        arrraylists.add(getWarehouse);

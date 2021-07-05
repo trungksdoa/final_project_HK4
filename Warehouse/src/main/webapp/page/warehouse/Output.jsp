@@ -76,7 +76,67 @@
             .table-wrapper-scroll-y {
                 display: block;
             }
+            #savaDataAll{
+                width: 80px; 
+                height:37px;
+                position: absolute;
+                right: 320px;
+                top:4px;
+            }
+            #saveandprint{
+                width: 150px; 
+                height:37px; 
+                position: absolute;
+                right: 160px;
+                top:-5px;
+            }
 
+            #resetbutton{
+                width: 100px;
+                height:37px; 
+                position: absolute;
+                right: 50px;
+                top:-5px;
+            }
+            img {
+                width: 100%;
+                height: auto;
+            }
+            @media only screen and (max-width: 900px) {
+                img {
+                    margin-top: 50px;
+                }
+            }
+
+            @media only screen and (max-width: 768px) {
+                img {
+                    display:none;
+                }
+                #resetbutton{
+                    margin-top: 54px;
+                    width: 100px;
+                    height: 37px;
+                    position: absolute;
+                    right: 50px;
+                    top: -5px;
+                }
+                #savaDataAll{
+                    margin-top: 45px;
+                    width: 80px;
+                    height: 37px;
+                    position: absolute;
+                    right: 320px;
+                    top: 4px;
+                }
+                #saveandprint{
+                    margin-top: 54px;
+                    width: 150px;
+                    height: 37px;
+                    position: absolute;
+                    right: 160px;
+                    top: -5px;
+                }
+            }
         </style>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -99,110 +159,135 @@
                 <h3 id="message" style="text-align: center;color: ${color}">
                     ${message} 
                 </h3>
-                <h3 id="WrongID" style="text-align: center;color: ${color}">
-                    <c:if test = "${!empty listnull}">
-                        Good Id Is Wrong :
-                        <c:forEach items="${listnull}" var="x">
-                            ${x},
-                        </c:forEach>
-                    </c:if>
-                </h3>
             </div>
             <!-- /.content-header -->
 
             <!-- Main content -->
             <section class="content">
-                <div class="container">
-                    <div class="main" style="margin-top: 8rem;">
-                        <!--<input id="hidCidade" type="text" /><br>-->
-                        <!---->
-                        <form id='maiForm' method="POST" action="/web/warehouse/output" onsubmit="return Validate()">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <div class="card card-primary card-outline card-tabs">
+                                <div class="card-header p-0 pt-1 border-bottom-0">
+                                    <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill"
+                                               href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
+                                               aria-selected="true"><b>Output</b></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               href="xemphieu.html"><b>View Output</b></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-three-tabContent">
+                                        <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
+                                             aria-labelledby="custom-tabs-three-home-tab">
+                                            <form id='maiForm' method="POST" action="/web/warehouse/output" onsubmit="return Validate()">
+                                                <input type="number" name="index" id="index" value="" hidden="true">
+                                                <button type="submit" id="savaDataAll"
+                                                        onclick="document.getElementById("maiForm").reset();"   class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
+                                                <button  type="button" data-toggle="modal" id="saveandprint" data-target="#login-modal" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i> Save and
+                                                    Print</button>
+                                                <button  onclick="emptyData(); return false;" type="button"
+                                                         id="resetbutton"
+                                                         class="btn btn-block bg-gradient-danger"><i class="fas fa-delete"></i>Reset</button>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-8 col-md-8" >
+                                                            <div class="form-group row">
+                                                                <label for="id" class="col-lg-2 col-form-label">License</label>
+                                                                <div class="col-lg-10">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" readonly="" name="id" id="id_liecene"  value="" placeholder="System will generation License">
+                                                                        <div class="input-group-prepend">
+                                                                            <button onclick="CreateID(); return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="Date" class="col-lg-2 col-form-label">Date</label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="date" required="" class="form-control" name="Date" id="DateLicene" placeholder="Date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="Date" class="col-lg-2 col-form-label">Service</label>
+                                                                <div class="col-lg-10">
+                                                                    <div class="input-group mb-3">
+                                                                        <select name="service" required class="custom-select required" id="service">
+                                                                            <option selected="" value="" selected>Choose</option>
+                                                                            <option value="voucher">Enter according to the proof of purchase</option>
+                                                                            <option value="production">Import by work order</option>
+                                                                            <option value="other">Enter another</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="explain" class="col-lg-2 col-form-label">Explain</label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text"   class="form-control" name="explain" id="explain" placeholder="explain">
+                                                                </div>
+                                                                <div class="col-lg-10 col-md-12 col-sm-12">
+                                                                    <p>Tham chiếu: <span id="reference"></span></p>
+                                                                    <span id="ibputfiedl">
+                                                                        <table id="Reference" class="table">
 
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8" >
-                                    <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Action</label>
-                                        <div class="col-lg-10">
-                                            <button onclick="document.getElementById("maiForm").reset();" style="" type="submit" id="savaDataAll"  class="btn btn-primary" >Save</button>   
+                                                                        </table>
+                                                                    </span>
+                                                                    <p>Hint: Click on field at Goods name to start finding your goods easy , max in field quantity is a maximum quantity in stock</p>
+                                                                    <div class="btn-group">
+                                                                        <button style="margin-right: 30px;height: 33px" type="button" id="addDataTable" 
+                                                                                class="btn btn-block btn-success btn-sm add-row"><i style="color: white;" class="fa fa-plus" ></i> Add row</button>
+                                                                        <button style="margin-right: 30px;height: 33px;margin-top: 0px;" type="button" id="removelastrow" class="btn btn-block btn-danger btn-sm" ><i class="fa fa-trash can "></i>Remove row</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                            <!--<button onclick="window.print()">Print this page</button>-->
-                                        </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4">  
+                                                            <img src="<c:url value="/resources/img/warehouse.jpg" />" alt="Girl in a jacket" width="350" height="300">
+                                                        </div>
+                                                    </div>
 
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="id" class="col-lg-2 col-form-label">License</label>
-                                        <div class="col-lg-10">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" readonly="" name="id" id="id_liecene"  value="" placeholder="System will generation License">
-                                                <div class="input-group-prepend">
-                                                    <button onclick="CreateID(); return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
+                                                    <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                                        <table class="table table-bordered table-fixed" style="z-index: 1000">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="transform: translateY(-5px);">STT</th>
+                                                                    <th style="transform: translateY(-5px)">Goods</th>
+                                                                    <th style="transform: translateY(-5px)">Unit</th>
+                                                                    <th style="transform: translateY(-5px)">Supplier</th>
+                                                                    <th style="transform: translateY(-5px)">Warehouse</th>
+                                                                    <th style="transform: translateY(-5px)">Quantity</th>
+                                                                    <th style="transform: translateY(-5px)">Export Price </th>
+                                                                    <th style="transform: translateY(-5px)">Group </th>
+                                                                    <th style="transform: translateY(-5px)">Weight/1</th>
+                                                                    <th style="transform: translateY(-5px)">Weight</th>
+                                                                    <th style="transform: translateY(-5px)">Goods ID</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tableInput">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Date" class="col-lg-2 col-form-label">Date</label>
-                                        <div class="col-lg-10">
-                                            <input type="date" required="" class="form-control" name="Date" id="DateLicene" placeholder="Date">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Date" class="col-lg-2 col-form-label">Service</label>
-                                        <div class="col-lg-10">
-                                            <div class="input-group mb-3">
-                                                <select name="service" required class="custom-select required" id="service">
-                                                    <option selected="" value="" selected>Choose</option>
-                                                    <option value="voucher">Enter according to the proof of purchase</option>
-                                                    <option value="production">Import by work order</option>
-                                                    <option value="other">Enter another</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="explain" class="col-lg-2 col-form-label">Explain</label>
-                                        <div class="col-lg-10">
-                                            <input type="text"   class="form-control" name="explain" id="explain" placeholder="explain">
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <p>Hint: Click on field at Goods name to start finding your goods easy</p>
-                                            <button style="margin-right: 28px;" type="button" id="addDataTable"  class="btn btn-secondary" >Add row</button>
-                                            <button style="margin-right: 28px;" type="button" id="removelastrow"  class="btn btn-secondary" >Remove last row</button>
-                                            <button onclick="emptyData(); return false;"  class="btn btn-warning" onclick="">Reset row</button>
-                                        </div>
-                                    </div>
+                                                <!--                </form>-->
+                                            </form>
 
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4">  
-                                    <img src="<c:url value="/resources/img/warehouse.jpg" />" alt="Girl in a jacket" width="350" height="300">
-                                </div>
+                                <!-- /.card -->
                             </div>
+                        </div>
 
-                            <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
-                                <table class="table table-bordered table-fixed" style="z-index: 1000">
-                                    <thead>
-                                        <tr>
-                                            <th style="transform: translateY(-5px);">STT</th>
-                                            <th style="transform: translateY(-5px)">Goods</th>
-                                            <th style="transform: translateY(-5px)">Unit</th>
-                                            <th style="transform: translateY(-5px)">Supplier</th>
-                                            <th style="transform: translateY(-5px)">Warehouse</th>
-                                            <th style="transform: translateY(-5px)">Quantity</th>
-                                            <th style="transform: translateY(-5px)">Export Price </th>
-                                            <th style="transform: translateY(-5px)">Group </th>
-                                            <th style="transform: translateY(-5px)">Weight/1</th>
-                                            <th style="transform: translateY(-5px)">Weight</th>
-                                            <th style="transform: translateY(-5px)">Goods ID</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tableInput">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--                </form>-->
-                        </form>
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
@@ -213,9 +298,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Select warehouse to continue</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="/web/warehouse/checkstock">
@@ -241,9 +323,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Create warehouse</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="">
@@ -276,9 +355,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Create Supplier</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="">
@@ -316,9 +392,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Create Goods</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="">
@@ -356,9 +429,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Create Group</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="">
@@ -393,10 +463,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Searching.... voucher</h5>
-
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form id="saerchFrom">
@@ -445,10 +511,6 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Searching....  production order</h5>
-
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <form id="saerchFrom2">
@@ -496,7 +558,7 @@
                     <!--s-->
                     <!--s-->
                     <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                </div>
             </section>
             <!-- /.content -->
         </div>
@@ -510,6 +572,7 @@
         </footer>
         <script type="text/javascript">
             var stt = 0;
+            var tangtudong = 1;
             //Remove row button
             $('#removelastrow').on("click", function () {
 
@@ -517,10 +580,13 @@
                 if (stt == 1)
                 {
                     stt = 1;
+                    tangtudong = 2;
                 } else
                 {
                     $('#tableInput tr:last').remove();
+                    
                     stt -= 1;
+                    tangtudong -= 1;
                 }
 
             });
@@ -560,6 +626,7 @@
             {
                 for (var i = 0; i < stt; i++) {
                     var searchings = document.forms["maiForm"]["search" + i].value;
+                    var searchings = document.forms["maiForm"]["search" + i].value;
                     if (searchings.trim() == null || searchings.trim() == "" || searchings === " ") {
                         alert("Goods name ust be filled out");
                         document.getElementById("search" + i).focus();
@@ -569,12 +636,10 @@
             }
             function lookup(arg) {
                 var id = arg.getAttribute('id');
-
                 // var value = arg.value;
                 var res = id.charAt(id.length - 1);
                 var weighton1 = document.getElementById('weightOn1' + res);
                 var result = arg.value * weighton1.value;
-
 //                weightOn1
 
                 document.getElementById('weight' + res).value = result;
@@ -582,6 +647,9 @@
             }
             $(document).ready(function () {
                 ////
+                $("#checkAll").click(function () {
+                    $('input:checkbox').not(this).prop('checked', this.checked);
+                });
 
                 $('#message').delay(10000).fadeOut();
                 ////////////
@@ -591,23 +659,31 @@
                 });
                 addRow();
                 //Insert stock
-     
+
 // Document 
             });
             //Check all checkbox In service
-            $("#checkAll").click(function () {
-                $('input:checkbox').not(this).prop('checked', this.checked);
-            });
-            //OnClick To AutoComplete
             function dasdsadsa(x) {
                 //                alert("Row index is: " + x.rowIndex);
-                var index = 0;
-                index += x.rowIndex;
-                index--;
+//                    var index = 0;
+                var res = x.charAt(x.length - 1);
+//                    index += x.rowIndex;
+//                    index--;
+                console.log(res);
                 //                console.log(index);
-                Autocomplete(index);
+                Autocomplete(res);
                 //                return x.rowIndex;
             }
+            //OnClick To AutoComplete
+//            function dasdsadsa(x) {
+//                //                alert("Row index is: " + x.rowIndex);
+//                var index = 0;
+//                index += x.rowIndex;
+//                index--;
+//                //                console.log(index);
+//                Autocomplete(index);
+//                //                return x.rowIndex;
+//            }
             var today = new Date();
             var months = "";
             var date = "";
@@ -626,10 +702,10 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
         <script src="<c:url value="/resources/js/outputjs/Addrow.js" />"></script>
-        <script src="<c:url value="/resources/js/outputjs/Autocomplete.js" />"></script>
         <script src="<c:url value="/resources/js/outputjs/EmptyData.js" />"></script>
         <script src="<c:url value="/resources/js/outputjs/getValue.js" />"></script>
         <script src="<c:url value="/resources/js/outputjs/onChangeService.js" />"></script>
+        <script src="<c:url value="/resources/js/outputjs/Autocomplete.js" />"></script>
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->

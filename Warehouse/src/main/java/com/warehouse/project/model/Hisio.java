@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Hisio.findByUnit", query = "SELECT h FROM Hisio h WHERE h.unit = :unit"),
     @NamedQuery(name = "Hisio.findByPrice", query = "SELECT h FROM Hisio h WHERE h.price = :price"),
     @NamedQuery(name = "Hisio.findByWarehouse", query = "SELECT h FROM Hisio h WHERE h.warehouse = :warehouse"),
+    @NamedQuery(name = "Hisio.findByLicense", query = "SELECT h FROM Hisio h WHERE h.license = :license"),
     @NamedQuery(name = "Hisio.findByMajor", query = "SELECT h FROM Hisio h WHERE h.major = :major")})
 public class Hisio implements Serializable {
 
@@ -57,6 +58,8 @@ public class Hisio implements Serializable {
     private Integer price;
     @Column(name = "warehouse")
     private String warehouse;
+    @Column(name = "License")
+    private String license;
     @Column(name = "Major")
     private String major;
 
@@ -129,6 +132,14 @@ public class Hisio implements Serializable {
 
     public void setWarehouse(String warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public String getMajor() {

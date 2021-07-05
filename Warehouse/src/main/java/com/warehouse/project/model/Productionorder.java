@@ -6,14 +6,17 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Productionorder.findByExplain", query = "SELECT p FROM Productionorder p WHERE p.explain = :explain"),
     @NamedQuery(name = "Productionorder.findByStatus", query = "SELECT p FROM Productionorder p WHERE p.status = :status")})
 public class Productionorder implements Serializable {
+
 
     private static final long serialVersionUID = 1L;
     @Id

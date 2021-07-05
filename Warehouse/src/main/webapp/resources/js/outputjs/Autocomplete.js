@@ -4,11 +4,12 @@ function Autocomplete(index)
     $.get("/api/output/goodsCatagory/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
-            tempArray["id"] = data[i].goodsId;
-            tempArray["label"] = data[i].goodsName;
+            tempArray["id"] = data[i].id;
+            tempArray["label"] = data[i].id;
             tempArray["value"] = data[i].goodsName;
             tempArray["weight"] = data[i].weight;
             tempArray["unit"] = data[i].unit;
+            tempArray["quantityInStock"] = data[i].quantityInStock;
             tempArray["group_goods"] = data[i].groupGoods;
             tempArray["warehouse"] = data[i].warehouse;
             tempArray['supplier'] = data[i].supplier;
@@ -26,9 +27,15 @@ function Autocomplete(index)
                 $("#unit" + index).val(e.unit);
                 $('#weightOn1' + index).val(e.weight);
                 $('#groupid' + index).val(e.group_goods);
-                $('#quantity' + index).val(1);
-                $('#warehouse' +index).val(e.warehouse);
+                $('#warehouse' + index).val(e.warehouse);
                 $('#suplier' + index).val(e.supplier);
+                $('#weight' + index).val(e.weight * 1);
+                $('#quantity' + index).val(1)
+                $('#Exportprice' + index).val(1);
+                $("#quantity" + index).attr({
+                    "max": e.quantityInStock,
+                });
+
             },
 
             change: function (e, ui) {

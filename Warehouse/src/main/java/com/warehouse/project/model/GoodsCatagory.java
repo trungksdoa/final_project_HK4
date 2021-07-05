@@ -190,5 +190,7 @@ public class GoodsCatagory implements Serializable {
     public String toString() {
         return id;
     }
+
+
     
 }
