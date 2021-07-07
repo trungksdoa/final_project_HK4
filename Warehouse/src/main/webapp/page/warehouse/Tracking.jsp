@@ -247,8 +247,7 @@
 
                                                                 <td>${x.quantity}</td>
                                                                 <td>
-                                                                    <fmt:setLocale value = "en_US"/>
-                                                                    <fmt:formatNumber value = "${x.price}" type = "currency"/>
+                                                                    ${x.price}
                                                                 </td>
                                                                 <c:choose>
                                                                     <c:when test="${x.major == 'Input'}">
@@ -260,8 +259,7 @@
                                                                 </c:choose>
                                                                 <td>${x.warehouse}</td>
                                                                 <td>
-                                                                    <fmt:setLocale value = "en_US"/>
-                                                                    <fmt:formatNumber value = "${x.price * x.quantity}" type = "currency"/>
+                                                                    ${x.price * x.quantity}
                                                                 </td>
                                                             </tr>
                                                             <% stt2++; %>

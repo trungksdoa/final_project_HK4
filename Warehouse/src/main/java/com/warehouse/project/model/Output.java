@@ -42,6 +42,8 @@ public class Output implements Serializable {
     private String id;
     @Column(name = "date")
     private String date;
+    @Column(name = "date2")
+    private String date2;
     @Column(name = "serivce")
     private String serivce;
     @Column(name = "explain")
@@ -62,6 +64,14 @@ public class Output implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     public void setId(String id) {
@@ -141,5 +151,5 @@ public class Output implements Serializable {
     public String toString() {
         return id;
     }
-    
+
 }

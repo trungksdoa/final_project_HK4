@@ -57,10 +57,6 @@ public class GoodsCatagory implements Serializable {
     private Double unitPrice;
     @Column(name = "weight")
     private Integer weight;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<SalesCouponContent> salesCouponContentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<VoucherContent> voucherContentCollection;
     @JoinColumn(name = "group_goods", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
@@ -131,24 +127,6 @@ public class GoodsCatagory implements Serializable {
         this.weight = weight;
     }
 
-    @XmlTransient
-    public Collection<SalesCouponContent> getSalesCouponContentCollection() {
-        return salesCouponContentCollection;
-    }
-
-    public void setSalesCouponContentCollection(Collection<SalesCouponContent> salesCouponContentCollection) {
-        this.salesCouponContentCollection = salesCouponContentCollection;
-    }
-
-    @XmlTransient
-    public Collection<VoucherContent> getVoucherContentCollection() {
-        return voucherContentCollection;
-    }
-
-    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
-        this.voucherContentCollection = voucherContentCollection;
-    }
-
     public Groupsgoods getGroupGoods() {
         return groupGoods;
     }
@@ -191,6 +169,4 @@ public class GoodsCatagory implements Serializable {
         return id;
     }
 
-
-    
 }

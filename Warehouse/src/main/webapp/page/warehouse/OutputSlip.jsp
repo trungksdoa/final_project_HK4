@@ -239,6 +239,7 @@
                                                             <th scope="col">#</th>
                                                             <th scope="col">ID</th>
                                                             <th scope="col">Date</th>
+                                                            <th scope="col">Date Complete</th>
                                                             <th scope="col">Expaln</th>
                                                             <th scope="col">Service</th>
                                                             <th scope="col">Status</th>
@@ -253,9 +254,10 @@
                                                                 <th scope="row"><%= stt2 %></th>
                                                                 <td>${x.id}</td>
                                                                 <td>${x.date}</td>
+                                                                <td>${x.date2}</td>
                                                                 <td>${x.explain}</td>
                                                                 <td>${x.serivce}</td>
-                                                                <td><a href="/web/warehouse/UpdateOutput/${x.id}" id="Completed" class="btn  ${x.status}">${x.status}</a></td>
+                                                                <td><a id="Completed" class="btn  ${x.status}">${x.status}</a></td>
                                                                 <td><button onClick="reply_click(this.id)" id="<c:out value = "${x.getId()}"/>"><i class="fas fa-edit"></i></button></td>
                                                             </tr>
                                                             <% stt2++; %>
@@ -322,7 +324,14 @@
                                             </form>
                                         </div>
                                         <div id="tabs-2">
-                                            <form action="#" method="POST">
+                                            <form action="/web/warehouse/UpdateOutputWarehouse" method="POST">
+                                                <table  id="hiddenId">
+
+                                                </table>
+                                                <table  id="hiddenId2">
+
+                                                </table>
+                                                <span id="slipId"></span>
                                                 <table class="table" style="overflow-y: hidden">
                                                     <thead>
                                                         <tr>
@@ -340,6 +349,11 @@
 
                                                     </tbody>
                                                 </table>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-10">
+                                                        <button type="submit" id="Balances" class="btn btn-primary">Save</button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -393,12 +407,17 @@
                         if (data.status == "Completed")
                         {
                             $('#deletebtn').text("Completed");
+                            $('#Balances').text("Changed");
+                            $('#Balances').prop("disabled", true);
                             $("#deletebtn").prop("disabled", true);
 //                            $("#Completed").prop("disabled", true);
                         } else
                         {
                             $('#deletebtn').text("Cancle");
                         }
+                        var datainput = "<input type='hidden' name='slipId' value='" + data.id + "'/>"
+//                        console.log(datainput);
+                        $('#slipId').append(datainput);
                     });
 
                     var stt23 = 1;
@@ -423,6 +442,17 @@
                             rowsds.append('</tr>');
                             $('#tbodys').append(rowsds);
                             stt23++;
+
+                            var rowsds2 = $('<tr>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='idenentity'  name='idenentity' value='" + data2[i].id + "'/>" + '</td>');
+                            rowsds2.append('</tr>');
+                            $('#hiddenId').append(rowsds2);
+
+                            var rowsds3 = $('<tr>');
+                            rowsds3.append('<td>' + "<input type='hidden' id='reference'  name='reference' value='" + data2[i].reference + "'/>" + '</td>');
+                            rowsds3.append('</tr>');
+                            $('#hiddenId2').append(rowsds3);
+
                         }
 
                     });

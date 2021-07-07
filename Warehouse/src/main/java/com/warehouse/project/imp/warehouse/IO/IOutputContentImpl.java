@@ -11,6 +11,8 @@ import com.warehouse.project.service.warehouse.IO.IOutputConent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.warehouse.project.responsitory.warehouse.WarehouseOutput_content;
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -27,6 +29,11 @@ public class IOutputContentImpl implements IOutputConent {
         return lab.save(content);
     }
 
-
+    @Override
+    public OutputContent findOneData(int id) {
+        Optional<OutputContent> option = lab.findById(id);
+        OutputContent object = option.get();
+        return object;
+    }
 
 }

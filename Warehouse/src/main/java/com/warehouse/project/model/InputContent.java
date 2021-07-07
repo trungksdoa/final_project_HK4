@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InputContent.findByImportsPrices", query = "SELECT i FROM InputContent i WHERE i.importsPrices = :importsPrices"),
     @NamedQuery(name = "InputContent.findByGroupGoods", query = "SELECT i FROM InputContent i WHERE i.groupGoods = :groupGoods"),
     @NamedQuery(name = "InputContent.findByWeight", query = "SELECT i FROM InputContent i WHERE i.weight = :weight"),
-    @NamedQuery(name = "InputContent.findBySupplier", query = "SELECT i FROM InputContent i WHERE i.supplier = :supplier")})
+    @NamedQuery(name = "InputContent.findBySupplier", query = "SELECT i FROM InputContent i WHERE i.supplier = :supplier"),
+    @NamedQuery(name = "InputContent.findByReference", query = "SELECT i FROM InputContent i WHERE i.reference = :reference")})
 public class InputContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,8 @@ public class InputContent implements Serializable {
     private Integer weight;
     @Column(name = "supplier")
     private String supplier;
+    @Column(name = "reference")
+    private String reference;
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
@@ -150,6 +153,14 @@ public class InputContent implements Serializable {
         this.supplier = supplier;
     }
 
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
     public GoodsCatagory getGoodsId() {
         return goodsId;
     }
@@ -188,7 +199,7 @@ public class InputContent implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.InputContent[ id=" + id + " ]";
+        return id.toString();
     }
-    
+
 }

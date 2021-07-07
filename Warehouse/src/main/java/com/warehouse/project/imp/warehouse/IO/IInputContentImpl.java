@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.warehouse.project.responsitory.warehouse.WarehouseInput_content;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -31,6 +32,23 @@ public class IInputContentImpl implements IInputContent {
     @Override
     public List<InputContent> findAll() {
         return lab.findAll();
+    }
+
+    @Override
+    public List<InputContent> findWhereId(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Object[]> findWhereByCodeId(String id) {
+       return lab.findALlWherecodeId(id);
+    }
+
+    @Override
+    public InputContent findOneData(int id) {
+        Optional<InputContent> option = lab.findById(id);
+        InputContent object = option.get();
+        return object;
     }
 
 }

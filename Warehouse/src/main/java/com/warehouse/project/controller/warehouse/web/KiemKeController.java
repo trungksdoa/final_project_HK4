@@ -260,7 +260,7 @@ public class KiemKeController {
                 warehouse2.setQuantityInStock(Integer.valueOf(quantityreal[i].trim()));
                 warehouse2.setImportPrice(warehouse2.getImportPrice());
                 warehouse2.setSupplier(warehouse2.getSupplier());
-                warehouse2.setPriceInStock(warehouse2.getPriceInStock());
+                warehouse2.setPriceInStock(warehouse2.getImportPrice() *  Integer.valueOf(quantityreal[i].trim()));
                 warehouse2.setGroupGoods(warehouse2.getGroupGoods());
                 warehouse2.setWeight(warehouse2.getWeight());
                 warehouse2.setStockCard(warehouse2.getStockCard());
@@ -286,7 +286,7 @@ public class KiemKeController {
                 historyabc.setDate(datesd);
 
                 historyabc.setGoodsName(warehouselaydata.getGoodsName());
-                historyabc.setQuantity(different1);
+                historyabc.setQuantity(0-different1);
                 historyabc.setPrice(warehouselaydata.getImportPrice());
                 historyabc.setUnit(warehouselaydata.getUnit());
                 historyabc.setWarehouse(warehouses.trim());

@@ -12,6 +12,7 @@ import com.warehouse.project.model.Input;
 import com.warehouse.project.model.InputContent;
 import com.warehouse.project.model.StockCard;
 import com.warehouse.project.model.Warehouse;
+
 import com.warehouse.project.service.warehouse.IO.IInput;
 import com.warehouse.project.service.warehouse.IO.IInputContent;
 import com.warehouse.project.service.warehouse.IWarehouse;
@@ -155,11 +156,6 @@ public class InputController {
             model.addAttribute("message", message);
             return "warehouse/InputPage";
         } else {
-            //
-
-            //Insert to input information
-            //
-            //When field id == null
             if ("".equals(getID)) {
                 Input idobject = lab.findAllId();
                 if (idobject != null) {
@@ -184,9 +180,10 @@ public class InputController {
                     input.setId(ans);
                 }
                 input.setDate(getDate);
+                input.setDate2("");
                 input.setService(getservice);
                 input.setExplain(getexplain);
-                input.setStatus("Chưa Xác Nhận");
+                input.setStatus("NotComplete");
                 input.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(input);
 
@@ -194,9 +191,10 @@ public class InputController {
                 //When Field id not null
                 input.setId(getID);
                 input.setDate(getDate);
+                input.setDate2("");
                 input.setService(getservice);
                 input.setExplain(getexplain);
-                input.setStatus("Chưa Xác Nhận");
+                input.setStatus("NotComplete");
                 input.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(input);
             }
@@ -206,6 +204,7 @@ public class InputController {
             //
             if (addss != null) {
                 for (int i = 0; i < name.length; i++) {
+                    InputContent respone = null;
                     GoodsCatagory catagory = new GoodsCatagory();
                     InputContent inputobject = new InputContent();
                     catagory.setId(codeid[i]);
@@ -221,90 +220,279 @@ public class InputController {
                     Input sdsa = new Input();
                     sdsa.setId(addss.getId());
                     inputobject.setInputId(sdsa);
-                    objectList.add(inputobject);
-
-                    if (refreence == null) {
-                        //Insert history
-                        Hisio history = new Hisio();
-                        history.setGoodsId(codeid[i]);
-                        history.setGoodsName(name[i]);
-                        history.setDate(getDate);
-                        history.setMajor("Input");
-                        history.setPrice(Integer.valueOf(importprice[i]));
-                        history.setQuantity(Integer.valueOf(quantity[i]));
-                        history.setUnit(unit[i]);
-                        history.setWarehouse(warehouse[i]);
-                        history.setLicense("Enter another");
-                        lab5.save(history);
+                    if (refreence != null) {
+                        inputobject.setReference(refreence[i]);
                     } else {
-                        //Insert history
-                        Hisio history = new Hisio();
-                        history.setGoodsId(codeid[i]);
-                        history.setGoodsName(name[i]);
-                        history.setDate(getDate);
-                        history.setMajor("Input");
-                        history.setPrice(Integer.valueOf(importprice[i]));
-                        history.setQuantity(Integer.valueOf(quantity[i]));
-                        history.setUnit(unit[i]);
-                        history.setWarehouse(warehouse[i]);
-                        history.setLicense(refreence[i]);
-                        lab5.save(history);
+                        inputobject.setReference("Enter another");
                     }
 
-                }
-//                List<InputContent> arrraylist = new ArrayList<>();
-                InputContent respone = null;
-                for (InputContent inputContent : objectList) {
-                    InputContent add = new InputContent();
-                    add.setGoodsId(inputContent.getGoodsId());
-                    add.setGoodsName(inputContent.getGoodsName());
-                    add.setUnit(inputContent.getUnit());
-                    add.setSupplier(inputContent.getSupplier());
-                    add.setWarehouse(inputContent.getWarehouse());
-                    add.setQuantity(inputContent.getQuantity());
-                    add.setImportsPrices(inputContent.getImportsPrices());
-                    add.setGroupGoods(inputContent.getGroupGoods());
-                    add.setWeight(inputContent.getWeight());
-                    add.setInputId(inputContent.getInputId());
-                    respone = lab2.Save(add);
-
-                    //Insert warehouse
-                    Warehouse getWarehouse = lab4.FindDupGoods("" + respone.getGoodsId().toString() + "", "" + respone.getWarehouse() + "", "" + respone.getSupplier() + "");
-                    if (getWarehouse != null) {
-//                        arrraylists.add(getWarehouse);
-                        getWarehouse.setImportPrice(respone.getImportsPrices());
-                        getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() + respone.getQuantity());
-                        getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() + (getWarehouse.getImportPrice() * respone.getQuantity()));
-                        Warehouse checksave = lab4.Save(getWarehouse);
-                        System.out.println("Update Quantity of: " + checksave.getGoodsName());
-
-                    } else {
-                        Warehouse setWarehouse = new Warehouse();
-                        setWarehouse.setGoodsId(respone.getGoodsId().toString());
-                        setWarehouse.setGoodsName(respone.getGoodsName());
-                        setWarehouse.setUnit(respone.getUnit());
-                        setWarehouse.setQuantityInStock(respone.getQuantity());
-                        setWarehouse.setImportPrice(respone.getImportsPrices());
-                        setWarehouse.setSupplier(respone.getSupplier());
-                        setWarehouse.setPriceInStock(respone.getQuantity() * respone.getImportsPrices());
-                        setWarehouse.setSupplier(respone.getSupplier());
-                        setWarehouse.setGroupGoods(respone.getGroupGoods());
-                        setWarehouse.setWeight(respone.getWeight());
-                        StockCard stockCards = new StockCard();
-                        stockCards.setId(respone.getWarehouse());
-                        setWarehouse.setStockCard(stockCards);
-
-                        Warehouse checksave = lab4.Save(setWarehouse);
-                        System.out.println("Add new " + checksave.getGoodsName());
-                    }
+                    respone = lab2.Save(inputobject);
                 }
             } else {
 
             }
-            model.addAttribute("color", "green");
-            model.addAttribute("message", message);
             return "redirect:/web/warehouse/InputsipData";
         }
     }
 
+    @RequestMapping("/UpdateInputWarehouse")
+    public String UpdateInputWarehouse(Model model, HttpServletRequest request) {
+        String[] idse = request.getParameterValues("idenentity");
+        String[] reference = request.getParameterValues("reference");
+        String slipId = request.getParameter("slipId");
+        Input findData2 = lab.findOne(slipId);
+        findData2.setId(findData2.getId());
+        findData2.setService(findData2.getService());
+        findData2.setExplain(findData2.getExplain());
+        String date = String.valueOf(java.time.LocalDate.now());
+        findData2.setDate2(date);
+        findData2.setDate(findData2.getDate());
+        findData2.setStatus("Completed");
+        findData2.setDeletestatus(Boolean.FALSE);
+        lab.Save(findData2);
+        for (int i = 0; i < idse.length; i++) {
+            InputContent dataget = lab2.findOneData(Integer.valueOf(idse[i]));
+            Warehouse getWarehouse = lab4.FindDupGoods("" + dataget.getGoodsId().toString() + "", "" + dataget.getWarehouse() + "", "" + dataget.getSupplier() + "");
+            if (getWarehouse != null) {
+                getWarehouse.setImportPrice(dataget.getImportsPrices());
+                getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() + dataget.getQuantity());
+                getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() + (getWarehouse.getImportPrice() * dataget.getQuantity()));
+                Warehouse checksave = lab4.Save(getWarehouse);
+//                System.out.println("Update Quantity of: " + checksave.getGoodsName());
+
+            } else {
+                Warehouse setWarehouse = new Warehouse();
+                setWarehouse.setGoodsId(dataget.getGoodsId().toString());
+                setWarehouse.setGoodsName(dataget.getGoodsName());
+                setWarehouse.setUnit(dataget.getUnit());
+                setWarehouse.setQuantityInStock(dataget.getQuantity());
+                setWarehouse.setImportPrice(dataget.getImportsPrices());
+                setWarehouse.setSupplier(dataget.getSupplier());
+                setWarehouse.setPriceInStock(dataget.getQuantity() * dataget.getImportsPrices());
+                setWarehouse.setSupplier(dataget.getSupplier());
+                setWarehouse.setGroupGoods(dataget.getGroupGoods());
+                setWarehouse.setWeight(dataget.getWeight());
+                StockCard stockCards = new StockCard();
+                stockCards.setId(dataget.getWarehouse());
+                setWarehouse.setStockCard(stockCards);
+
+                Warehouse checksave = lab4.Save(setWarehouse);
+//                System.out.println("Add new " + checksave.getGoodsName());
+            }
+            if (reference == null) {
+                //Insert history
+                Hisio history = new Hisio();
+                history.setGoodsId(dataget.getGoodsId().toString());
+                history.setGoodsName(dataget.getGoodsId().toString());
+                history.setDate(dataget.getGoodsId().toString());
+                history.setMajor("Input");
+                history.setPrice(Integer.valueOf(dataget.getImportsPrices()));
+                history.setQuantity(Integer.valueOf(dataget.getQuantity()));
+                history.setUnit(dataget.getUnit());
+                history.setWarehouse(dataget.getWarehouse());
+                history.setLicense("Enter another");
+                lab5.save(history);
+            } else {
+                //Insert history
+                Hisio history = new Hisio();
+                history.setGoodsId(dataget.getGoodsId().toString());
+                history.setGoodsName(dataget.getGoodsId().toString());
+                history.setDate(dataget.getGoodsId().toString());
+                history.setMajor("Input");
+                history.setPrice(Integer.valueOf(dataget.getImportsPrices()));
+                history.setQuantity(Integer.valueOf(dataget.getQuantity()));
+                history.setUnit(dataget.getUnit());
+                history.setWarehouse(dataget.getWarehouse());
+                history.setLicense(dataget.getReference());
+                lab5.save(history);
+            }
+
+        }
+        return "redirect:/web/warehouse/InputsipData";
+
+    }
+
 }
+
+//
+//
+// @RequestMapping(value = "/page", method = RequestMethod.POST)
+//    public String SaveData(@ModelAttribute("Input") Input input, Model model, HttpServletRequest request) {
+//        String getID = request.getParameter("id");
+//        String getDate = request.getParameter("Date");
+//        String getservice = request.getParameter("service");
+//        String getexplain = request.getParameter("explain");
+//        String[] refreence = request.getParameterValues("refercne");
+//
+//        String[] name = request.getParameterValues("name");
+//        String[] codeid = request.getParameterValues("codeid");
+//        String[] unit = request.getParameterValues("unit");
+//        String[] suplier = request.getParameterValues("suplier");
+//        String[] warehouse = request.getParameterValues("warehouse");
+//        String[] quantity = request.getParameterValues("quantity");
+//        String[] importprice = request.getParameterValues("importprice");
+//        String[] group = request.getParameterValues("group");
+//        String[] weight = request.getParameterValues("weight");
+//
+//        Input addss = null;
+//        String message = "Success";
+//
+//        if (isSpace(warehouse) || isSpace(quantity) || isSpace(importprice)) {
+//            message = "Some field is empty";
+//            model.addAttribute("color", "red");
+//            model.addAttribute("message", message);
+//            return "warehouse/InputPage";
+//        } else {
+//            //
+//
+//            //Insert to input information
+//            //
+//            //When field id == null
+//            if ("".equals(getID)) {
+//                Input idobject = lab.findAllId();
+//                if (idobject != null) {
+//                    String idgen = idobject.toString();
+//                    idgen = idgen.substring(2);
+//                    int idstt = Integer.valueOf(idgen);
+//                    idstt = idstt + 1;
+//                    String str = "" + idstt;
+//                    String pad = "NK0000";
+//                    String ans = pad.substring(0, pad.length() - str.length()) + str;
+//                    input.setId(ans);
+//                } else {
+//
+//                    //when data is null then add default value is Nk0000
+//                    String idgen = "NK0000";
+//                    idgen = idgen.substring(2);
+//                    int idstt = Integer.valueOf(idgen);
+//                    idstt = idstt + 1;
+//                    String str = "" + idstt;
+//                    String pad = "NK0000";
+//                    String ans = pad.substring(0, pad.length() - str.length()) + str;
+//                    input.setId(ans);
+//                }
+//                input.setDate(getDate);
+//                input.setService(getservice);
+//                input.setExplain(getexplain);
+//                input.setStatus("NotComplete");
+//                input.setDeletestatus(Boolean.FALSE);
+//                addss = lab.Save(input);
+//
+//            } else {
+//                //When Field id not null
+//                input.setId(getID);
+//                input.setDate(getDate);
+//                input.setService(getservice);
+//                input.setExplain(getexplain);
+//                input.setStatus("NotComplete");
+//                input.setDeletestatus(Boolean.FALSE);
+//                addss = lab.Save(input);
+//            }
+//            List<InputContent> objectList = new ArrayList<>();
+//            //
+//            //Insert into input content
+//            //
+//            if (addss != null) {
+//                for (int i = 0; i < name.length; i++) {
+//                    GoodsCatagory catagory = new GoodsCatagory();
+//                    InputContent inputobject = new InputContent();
+//                    catagory.setId(codeid[i]);
+//                    inputobject.setGoodsId(catagory);
+//                    inputobject.setGoodsName(name[i]);
+//                    inputobject.setUnit(unit[i]);
+//                    inputobject.setSupplier(suplier[i]);
+//                    inputobject.setWarehouse(warehouse[i]);
+//                    inputobject.setQuantity(Integer.valueOf(quantity[i]));
+//                    inputobject.setImportsPrices(Integer.valueOf(importprice[i]));
+//                    inputobject.setGroupGoods(group[i]);
+//                    inputobject.setWeight(Integer.valueOf(weight[i]));
+//                    Input sdsa = new Input();
+//                    sdsa.setId(addss.getId());
+//                    inputobject.setInputId(sdsa);
+//                    objectList.add(inputobject);
+//
+//                    if (refreence == null) {
+//                        //Insert history
+//                        Hisio history = new Hisio();
+//                        history.setGoodsId(codeid[i]);
+//                        history.setGoodsName(name[i]);
+//                        history.setDate(getDate);
+//                        history.setMajor("Input");
+//                        history.setPrice(Integer.valueOf(importprice[i]));
+//                        history.setQuantity(Integer.valueOf(quantity[i]));
+//                        history.setUnit(unit[i]);
+//                        history.setWarehouse(warehouse[i]);
+//                        history.setLicense("Enter another");
+//                        lab5.save(history);
+//                    } else {
+//                        //Insert history
+//                        testarray.clear();
+//                        testarray.add(refreence[i]);
+//                        Hisio history = new Hisio();
+//                        history.setGoodsId(codeid[i]);
+//                        history.setGoodsName(name[i]);
+//                        history.setDate(getDate);
+//                        history.setMajor("Input");
+//                        history.setPrice(Integer.valueOf(importprice[i]));
+//                        history.setQuantity(Integer.valueOf(quantity[i]));
+//                        history.setUnit(unit[i]);
+//                        history.setWarehouse(warehouse[i]);
+//                        history.setLicense(refreence[i]);
+//                        lab5.save(history);
+//                    }
+//
+//                }
+////                List<InputContent> arrraylist = new ArrayList<>();
+//                InputContent respone = null;
+//                for (InputContent inputContent : objectList) {
+//                    InputContent add = new InputContent();
+//                    add.setGoodsId(inputContent.getGoodsId());
+//                    add.setGoodsName(inputContent.getGoodsName());
+//                    add.setUnit(inputContent.getUnit());
+//                    add.setSupplier(inputContent.getSupplier());
+//                    add.setWarehouse(inputContent.getWarehouse());
+//                    add.setQuantity(inputContent.getQuantity());
+//                    add.setImportsPrices(inputContent.getImportsPrices());
+//                    add.setGroupGoods(inputContent.getGroupGoods());
+//                    add.setWeight(inputContent.getWeight());
+//                    add.setInputId(inputContent.getInputId());
+//                    respone = lab2.Save(add);
+//
+//                    //Insert warehouse
+//                    Warehouse getWarehouse = lab4.FindDupGoods("" + respone.getGoodsId().toString() + "", "" + respone.getWarehouse() + "", "" + respone.getSupplier() + "");
+//                    if (getWarehouse != null) {
+////                        arrraylists.add(getWarehouse);
+//                        getWarehouse.setImportPrice(respone.getImportsPrices());
+//                        getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() + respone.getQuantity());
+//                        getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() + (getWarehouse.getImportPrice() * respone.getQuantity()));
+//                        Warehouse checksave = lab4.Save(getWarehouse);
+//                        System.out.println("Update Quantity of: " + checksave.getGoodsName());
+//
+//                    } else {
+//                        Warehouse setWarehouse = new Warehouse();
+//                        setWarehouse.setGoodsId(respone.getGoodsId().toString());
+//                        setWarehouse.setGoodsName(respone.getGoodsName());
+//                        setWarehouse.setUnit(respone.getUnit());
+//                        setWarehouse.setQuantityInStock(respone.getQuantity());
+//                        setWarehouse.setImportPrice(respone.getImportsPrices());
+//                        setWarehouse.setSupplier(respone.getSupplier());
+//                        setWarehouse.setPriceInStock(respone.getQuantity() * respone.getImportsPrices());
+//                        setWarehouse.setSupplier(respone.getSupplier());
+//                        setWarehouse.setGroupGoods(respone.getGroupGoods());
+//                        setWarehouse.setWeight(respone.getWeight());
+//                        StockCard stockCards = new StockCard();
+//                        stockCards.setId(respone.getWarehouse());
+//                        setWarehouse.setStockCard(stockCards);
+//
+//                        Warehouse checksave = lab4.Save(setWarehouse);
+//                        System.out.println("Add new " + checksave.getGoodsName());
+//                    }
+//                }
+//            } else {
+//
+//            }
+//            model.addAttribute("color", "green");
+//            model.addAttribute("message", message);
+//            return "redirect:/web/warehouse/InputsipData";
+//        }
+//    }

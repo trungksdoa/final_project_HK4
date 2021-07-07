@@ -43,6 +43,8 @@ public class Input implements Serializable {
     private String id;
     @Column(name = "date")
     private String date;
+    @Column(name = "date2")
+    private String date2;
     @Column(name = "explain")
     private String explain;
     @Column(name = "service")
@@ -63,6 +65,14 @@ public class Input implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     public void setId(String id) {
@@ -140,7 +150,7 @@ public class Input implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.Input[ id=" + id + " ]";
+        return id;
     }
-    
+
 }

@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author trung
  */
-public interface WarehouseOutput_content extends JpaRepository<OutputContent, String> {
+public interface WarehouseOutput_content extends JpaRepository<OutputContent, Integer> {
 }

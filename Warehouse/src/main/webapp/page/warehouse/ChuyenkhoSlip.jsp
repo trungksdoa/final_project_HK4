@@ -204,7 +204,7 @@
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                     <li class="breadcrumb-item "><a href="#">Warehouse</a></li>
-                                    <li class="breadcrumb-item "><a href="/web/warehouse/InputsipData">Input</a></li>
+                                    <li class="breadcrumb-item "><a href="/web/warehouse/OutputSlip">Output</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -221,11 +221,11 @@
                                         <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                   href="/web/warehouse/input"><b>Create Input</b></a>
+                                                   href="/web/warehouse/output"><b>Create output</b></a>
                                             </li>
                                             <li class="nav-item " id="custom-tabs-three-home-tab" data-toggle="pill" aria-selected="true"  role="tab" aria-controls="custom-tabs-three-home">
                                                 <a class="nav-link active"
-                                                   href="#custom-tabs-three-home"><b>Input</b></a>
+                                                   href="#custom-tabs-three-home"><b>Output</b></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -239,9 +239,7 @@
                                                             <th scope="col">#</th>
                                                             <th scope="col">ID</th>
                                                             <th scope="col">Date</th>
-                                                            <th scope="col">Date Complete</th>
                                                             <th scope="col">Expaln</th>
-                                                            <th scope="col">Service</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col">Action</th>
 
@@ -249,15 +247,13 @@
                                                     </thead>
                                                     <tbody>
                                                         <% int stt2 = 1; %>
-                                                        <c:forEach items="${InputsipData}" var="x">
+                                                        <c:forEach items="${dataList}" var="x">
                                                             <tr>
                                                                 <th scope="row"><%= stt2 %></th>
                                                                 <td>${x.id}</td>
                                                                 <td>${x.date}</td>
-                                                                <td>${x.date2}</td>
                                                                 <td>${x.explain}</td>
-                                                                <td>${x.service}</td>
-                                                                <td><a  id="Completed" class="btn  ${x.status}">${x.status}</a></td>
+                                                                <td><a href="/web/warehouse/UpdateOutput/${x.id}" id="Completed" class="btn  ${x.status}">${x.status}</a></td>
                                                                 <td><button onClick="reply_click(this.id)" id="<c:out value = "${x.getId()}"/>"><i class="fas fa-edit"></i></button></td>
                                                             </tr>
                                                             <% stt2++; %>
@@ -291,7 +287,7 @@
 
                                         </ul>
                                         <div id="tabs-1">
-                                            <form action='/web/warehouse/Updates/' method="POST">
+                                            <form action='/web/warehouse/DeleteOustput/' method="POST">
                                                 <div class="form-group row">
                                                     <label for="idcode" class="col-sm-2 col-form-label">ID</label>
                                                     <div class="col-sm-10">
@@ -311,12 +307,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="Explain" class="col-sm-2 col-form-label">service</label>
-                                                    <div class="col-sm-10">
-                                                        <input readonly type="text" class="form-control" name="service" id="service" placeholder="service">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
                                                     <div class="col-sm-6">
                                                         <button type="submit" id="deletebtn" class="btn btn-primary">Delete</button>
                                                     </div>
@@ -324,36 +314,34 @@
                                             </form>
                                         </div>
                                         <div id="tabs-2">
-                                            <form action="/web/warehouse/UpdateInputWarehouse" method="POST">
-                                                <table  id="hiddenId">
+                                            <table  id="hiddenId">
 
-                                                </table>
-                                                <span id="slipId"></span>
+                                            </table>
+                                            <table  id="hiddenId2">
+
+                                            </table>
+                                            <span id="codeids"></span>
+                                            <form action="/web/warehouse/PushToDatabase" method="POST">
                                                 <table class="table" style="overflow-y: hidden">
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 40px;">#</th>
-                                                            <th>Name</th>
+                                                            <th>Good id</th>
+                                                            <th>Good name</th>
                                                             <th>Unit</th>
-                                                            <th>Imports Prices</th>
                                                             <th>Quantity</th>
-                                                            <th>Supplier</th>
-                                                            <th>Warehouse</th>
-                                                            <th>Weight</th>
+                                                            <th>From</th>
+                                                            <th>To</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tbodys">
 
                                                     </tbody>
                                                 </table>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-10">
-                                                        <button type="submit" id="Balances" class="btn btn-primary">Save</button>
-                                                    </div>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -393,18 +381,16 @@
                     $('#message').delay(10000).fadeOut();
                 });
                 function reply_click(id) {
-
-                    $('#tbodys').empty();
                     $('#hiddenId').empty();
-                    $.get("/api/input/findInputData/" + id, function (data, status) {
+                    $('#tbodys').empty();
+                    $('#codeis22').remove();
+                    $.get("/api/stock/TranferWarehouse/" + id, function (data, status) {
                         $('#idcode').val("" + data.id + "");
                         $('#Dates').val("" + data.date + "");
                         $('#Explain').val("" + data.explain + "");
-                        $('#service').val("" + data.service + "");
-
+//                        console.log(data);
                         if (data.status == "Completed")
                         {
-
                             $('#deletebtn').text("Completed");
                             $('#Balances').text("Changed");
                             $('#Balances').prop("disabled", true);
@@ -414,14 +400,13 @@
                         {
                             $('#deletebtn').text("Cancle");
                         }
-                        var datainput = "<input type='hidden' name='slipId' value='" + data.id + "'/>"
-//                        console.log(datainput);
-                        $('#slipId').append(datainput);
+                        var inputfield = "<input type='text' id='codeis22' name='codeis22' value='" + data.id + "'/>"
+                        $('#codeids').append(inputfield);
                     });
 
                     var stt23 = 1;
 
-                    $.get("/api/input/GetItemInput/" + id, function (data2, status) {
+                    $.get("/api/stock/TranferWarehouseGetId/" + id, function (data2, status) {
                         console.log(data2)
                         for (var i = 0; i < data2.length; i++) {
                             if (data2[i].status == true)
@@ -431,19 +416,20 @@
                             }
                             var rowsds = $('<tr>');
                             rowsds.append('<td>' + stt23 + '</td>');
-
+                            rowsds.append('<td>' + data2[i].goodsid + '</td>');
                             rowsds.append('<td>' + data2[i].goodsName + '</td>');
                             rowsds.append('<td>' + data2[i].unit + '</td>');
-                            rowsds.append('<td>' + data2[i].importsPrices + '</td>');
                             rowsds.append('<td>' + data2[i].quantity + '</td>');
-                            rowsds.append('<td>' + data2[i].supplier + '</td>');
-                            rowsds.append('<td>' + data2[i].warehouse + '</td>');
-                            rowsds.append('<td>' + data2[i].weight + '</td>');
+                            rowsds.append('<td>' + data2[i].froms + '</td>');
+                            rowsds.append('<td>' + data2[i].tos + '</td>');
                             rowsds.append('</tr>');
                             $('#tbodys').append(rowsds);
                             stt23++;
+
                             var rowsds2 = $('<tr>');
                             rowsds2.append('<td>' + "<input type='hidden' id='idenentity'  name='idenentity' value='" + data2[i].id + "'/>" + '</td>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='froms'  name='froms' value='" + data2[i].froms + "'/>" + '</td>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='tos'  name='tos' value='" + data2[i].tos + "'/>" + '</td>');
                             rowsds2.append('</tr>');
                             $('#hiddenId').append(rowsds2);
                         }

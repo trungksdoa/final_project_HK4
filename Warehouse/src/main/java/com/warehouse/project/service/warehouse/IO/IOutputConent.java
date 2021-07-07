@@ -12,6 +12,9 @@ import com.warehouse.project.model.OutputContent;
  * @author trung
  */
 public interface IOutputConent {
-    
+
     public abstract OutputContent Save(OutputContent outputContent);
+
+    public abstract OutputContent findOneData(int id);
+
 }

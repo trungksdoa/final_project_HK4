@@ -408,7 +408,7 @@
                                     '<td>' + stt + '</td>',
                                     '<td>' + "<input readonly type='text' id='idcode" + stt + "' name='idcode' value='" + idcode + "'/>" + '</td>',
                                     '<td>' + "<input readonly type='text' id='quantity" + stt + "' name='quantity' value='" + tempquantity + "'/>" + '</td>',
-                                    '<td>' + "<input require type='number' min=1 onkeyup='lookup(this.id);' id='realQuantity" + stt + "' name='realQuantity' value='' placeholder=''/>" + '</td>',
+                                    '<td>' + "<input require type='number' min=0 onkeyup='lookup(this.id);' id='realQuantity" + stt + "' name='realQuantity' value='' placeholder=''/>" + '</td>',
                                     '<td>' + "<input readonly type='number' id='BetweenRealAndStock" + stt + "' name='BetweenRealAndStock' value='' placeholder=''/>" + '</td>',
                                     '<td>' + "<textarea id='explain " + stt + "'  name='explain' rows='2' cols='20'></textarea>" + '</td>'
                                 ]).draw(false);

@@ -57,10 +57,10 @@ public class Outputcontroller {
 
     @RequestMapping("/OutputSlip")
     public String OutputSlip(Model model) {
-        for (Output output : lab.findall()) {
-            System.out.println(output.getId());
-        }
-        model.addAttribute("outputData",lab.findall());
+//        for (Output output : lab.findall()) {
+//            System.out.println(output.getId());
+//        }
+        model.addAttribute("outputData", lab.findall());
         model.addAttribute("message", "");
         return "warehouse/OutputSlip";
     }
@@ -177,6 +177,7 @@ public class Outputcontroller {
 
             }
             //When field id == null
+            String date = String.valueOf(java.time.LocalDate.now());
             if (getID == "") {
                 Output idobject = lab.findAllId();
                 if (idobject != null) {
@@ -200,6 +201,7 @@ public class Outputcontroller {
                     output.setId(ans);
                 }
                 output.setDate(getDate);
+                output.setDate2("");
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
                 output.setStatus("NotComplete");
@@ -210,6 +212,8 @@ public class Outputcontroller {
                 //When Field id not null
                 output.setId(getID);
                 output.setDate(getDate);
+
+                output.setDate2("");
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
                 output.setStatus("NotComplete");
@@ -235,69 +239,79 @@ public class Outputcontroller {
                     Output outputs = new Output();
                     outputs.setId(addss.getId());
                     outputContent.setOutputId(outputs);
-                    objectList.add(outputContent);
+                    if (refreence == null) {
+                        outputContent.setReference("Other export");
+                    } else {
+                        outputContent.setReference(refreence[i]);
+                    }
+                    lab1.Save(outputContent);
 
                     //Insert history
-                    if (refreence == null) {
-                        //Insert history
-                        Hisio history = new Hisio();
-                        history.setGoodsId(codeid[i]);
-                        history.setGoodsName(name[i]);
-                        history.setDate(getDate);
-                        history.setMajor("Output");
-                        history.setPrice(0 - Integer.valueOf(importprice[i]));
-                        history.setQuantity(Integer.valueOf(quantity[i]));
-                        history.setUnit(unit[i]);
-                        history.setWarehouse(warehouse[i]);
-                        history.setLicense("Other export");
-                        lab5.save(history);
-                    } else {
-                        //Insert history
-                        Hisio history = new Hisio();
-                        history.setGoodsId(codeid[i]);
-                        history.setGoodsName(name[i]);
-                        history.setDate(getDate);
-                        history.setMajor("Output");
-                        history.setPrice(0 - Integer.valueOf(importprice[i]));
-                        history.setQuantity(Integer.valueOf(quantity[i]));
-                        history.setUnit(unit[i]);
-                        history.setWarehouse(warehouse[i]);
-                        history.setLicense(refreence[i]);
-                        lab5.save(history);
-                    }
-                }
-                OutputContent respone = null;
-                for (OutputContent outputContent : objectList) {
-                    OutputContent add = new OutputContent();
-                    add.setGoodsId(outputContent.getGoodsId());
-                    add.setGoodsName(outputContent.getGoodsName());
-                    add.setUnit(outputContent.getUnit());
-                    add.setSupplier(outputContent.getSupplier());
-                    add.setWarehouse(outputContent.getWarehouse());
-                    add.setQuantity(outputContent.getQuantity());
-                    add.setExportsPrices(outputContent.getExportsPrices());
-                    add.setGroupGoods(outputContent.getGroupGoods());
-                    add.setWeight(outputContent.getWeight());
-                    add.setOutputId(outputContent.getOutputId());
-                    respone = lab1.Save(add);
-
-                    //Warehouse insert
-                    Warehouse getWarehouse = lab4.FindDupGoods("" + respone.getGoodsId().toString() + "", "" + respone.getWarehouse() + "", "" + respone.getSupplier() + "");
-                    if (getWarehouse != null) {
-                        getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() - respone.getQuantity());
-                        getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() - (getWarehouse.getImportPrice() * respone.getQuantity()));
-                        Warehouse checksave = lab4.Save(getWarehouse);
-                        System.out.println("Update Quantity of: " + checksave.getGoodsName());
-                    } else {
-                        System.out.println("Eo update");
-                    }
                 }
             } else {
 
             }
-            model.addAttribute("color", "green");
-            model.addAttribute("message", message);
             return "redirect:/web/warehouse/OutputSlip";
         }
+    }
+
+    @RequestMapping("/UpdateOutputWarehouse")
+    public String UpdateInputWarehouse(Model model, HttpServletRequest request) {
+        String[] idse = request.getParameterValues("idenentity");
+        String[] reference = request.getParameterValues("reference");
+        String slipId = request.getParameter("slipId");
+        Output findData2 = lab.findOne(slipId);
+        findData2.setId(findData2.getId());
+        findData2.setSerivce(findData2.getSerivce());
+        findData2.setExplain(findData2.getExplain());
+        String date = String.valueOf(java.time.LocalDate.now());
+        findData2.setDate2(date);
+        findData2.setDate(findData2.getDate());
+        findData2.setStatus("Completed");
+        findData2.setDeletestatus(Boolean.FALSE);
+        lab.Save(findData2);
+        for (int i = 0; i < idse.length; i++) {
+            OutputContent dataget = lab1.findOneData(Integer.valueOf(idse[i]));
+            Warehouse getWarehouse = lab4.FindDupGoods("" + dataget.getGoodsId().toString() + "", "" + dataget.getWarehouse() + "", "" + dataget.getSupplier() + "");
+            if (getWarehouse != null) {
+                getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() - dataget.getQuantity());
+                getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() - (getWarehouse.getImportPrice() * dataget.getQuantity()));
+                getWarehouse.setSellPrice(dataget.getExportsPrices());
+                Warehouse checksave = lab4.Save(getWarehouse);
+//                System.out.println("Update Quantity of: " + checksave.getGoodsName());
+            } else {
+//                System.out.println("Eo update");
+            }
+            if (reference == null) {
+                //Insert history
+                Hisio history = new Hisio();
+                history.setGoodsId(dataget.getGoodsId());
+                history.setGoodsName(dataget.getGoodsName());
+                history.setDate(date);
+                history.setMajor("Output");
+                history.setPrice(dataget.getExportsPrices());
+                history.setQuantity(dataget.getQuantity());
+                history.setUnit(dataget.getUnit());
+                history.setWarehouse(dataget.getWarehouse());
+                history.setLicense("Other export");
+                lab5.save(history);
+            } else {
+                //Insert history
+                Hisio history = new Hisio();
+                history.setGoodsId(dataget.getGoodsId());
+                history.setGoodsName(dataget.getGoodsName());
+                history.setDate(date);
+                history.setMajor("Output");
+                history.setPrice(dataget.getExportsPrices());
+                history.setQuantity(dataget.getQuantity());
+                history.setUnit(dataget.getUnit());
+                history.setWarehouse(dataget.getWarehouse());
+                history.setLicense(reference[i]);
+                lab5.save(history);
+            }
+
+        }
+        return "redirect:/web/warehouse/OutputSlip";
+
     }
 }

@@ -10,7 +10,7 @@ import com.warehouse.project.model.Checkstockslip;
 import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Hisio;
 import com.warehouse.project.model.TranferWarehouse;
-import com.warehouse.project.model.Warehouse;
+import com.warehouse.project.model.TranferConent;
 import com.warehouse.project.model.beanclass.WarehouseBean;
 import com.warehouse.project.service.warehouse.CheckSockSlipI;
 import com.warehouse.project.service.warehouse.ICheckstock;
@@ -18,6 +18,7 @@ import com.warehouse.project.service.warehouse.ITranferWarehouse;
 import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Ihistory;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,26 @@ public class StockControllerApi {
 
     @Autowired
     ITranferWarehouse ewqeqw;
+
+    @ResponseBody
+    @RequestMapping(value = "/TranferWarehouse/{id}")
+    public TranferWarehouse findInputData(@PathVariable("id") String idking) {
+        TranferWarehouse ssss = ewqeqw.findOne(idking);
+        return ssss;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/TranferWarehouseGetId/{id}")
+    public ResponseEntity<Collection<TranferConent>> findGoodsInput(@PathVariable("id") String idking) {
+        TranferWarehouse ssss = ewqeqw.findOne(idking);
+        Collection<TranferConent> objectList = ssss.getTranferConentCollection();
+        if (!objectList.isEmpty()) {
+            return new ResponseEntity<>(objectList, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 
     @ResponseBody
     @RequestMapping(value = "/getId/{id}")

@@ -236,7 +236,9 @@
                                                             <th scope="col">ID</th>
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Quantity</th>
+                                                            <th scope="col">Input price</th>
                                                             <th scope="col">Price</th>
+                                                            <th scope="col">Sell Price</th>
                                                             <th scope="col">Group</th>
                                                             <th scope="col">Weight</th>
                                                             <th scope="col">Warehouse</th>
@@ -248,8 +250,7 @@
                                                             <th style="text-align: center;" colspan="3">Total</th>
                                                             <th>${sumquantity}</th>
                                                             <th>
-                                                                <fmt:setLocale value = "it-IT"/>
-                                                                <fmt:formatNumber value = "${SumPrice}" type = "currency"/>
+                                                                ${SumPrice}
                                                             </th>
                                                         </tr>
                                                         <% int stt = 1; %>
@@ -259,17 +260,14 @@
                                                                 <td>${x.goodsId}</td>
                                                                 <td>${x.goodsName}</td>
                                                                 <td>${x.quantityInStock}</td>
+                                                                <td>${x.importPrice}</td>
                                                                 <td>
-                                                                    <fmt:setLocale value = "it-IT"/>
-                                                                    <fmt:formatNumber value = "${x.priceInStock}" type = "currency"/>
+                                                                    ${x.priceInStock}
                                                                 </td>
+                                                                <td>${x.sellPrice}</td>
                                                                 <td>${x.groupGoods}</td>
                                                                 <td>${x.weight}</td>
                                                                 <td>${x.stockCard}</td>
-                                                                <!--data-toggle="modal" data-target="#modalkho"-->
-<!--                                                                <td><button id="${x.goodsId}" class="${x.stockCard} GetId"  >    
-                                                                        Looking
-                                                                    </button></td>-->
                                                             </tr>
                                                             <% stt++; %>
                                                         </c:forEach>

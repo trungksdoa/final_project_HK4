@@ -94,8 +94,32 @@ public class InputControllerApi {
     public ResponseEntity<Collection<InputContent>> findGoodsInput(@PathVariable("id") String idking) {
         Input ssss = lab.findOne(idking);
         Collection<InputContent> objectList = ssss.getInputContentCollection();       
-        if (!objectList.isEmpty()) {
-            return new ResponseEntity<>(objectList, HttpStatus.OK);
+        List<InputContent> datalist = new ArrayList<>();
+        for (InputContent inputContent : objectList) {
+            InputContent addTOArray = new InputContent();
+            addTOArray.setId(inputContent.getId());
+            addTOArray.setGoodsId(inputContent.getGoodsId());
+            addTOArray.setGoodsName(inputContent.getGoodsName());
+            addTOArray.setUnit(inputContent.getUnit());
+            addTOArray.setQuantity(inputContent.getQuantity());
+            addTOArray.setWarehouse(inputContent.getWarehouse());
+            addTOArray.setImportsPrices(inputContent.getImportsPrices());
+            addTOArray.setGroupGoods(inputContent.getGroupGoods());
+            addTOArray.setWeight(inputContent.getWeight());
+            addTOArray.setInputId(inputContent.getInputId());
+            addTOArray.setSupplier(inputContent.getSupplier());
+            if(inputContent.getReference() == null || inputContent.getReference() == "")
+            {
+                addTOArray.setReference("");
+            }
+            else
+            {
+            addTOArray.setReference(inputContent.getReference());
+            }
+            datalist.add(addTOArray);
+        }
+        if (!datalist.isEmpty()) {
+            return new ResponseEntity<>(datalist, HttpStatus.OK);
 
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TranferConent.findAll", query = "SELECT t FROM TranferConent t"),
     @NamedQuery(name = "TranferConent.findById", query = "SELECT t FROM TranferConent t WHERE t.id = :id"),
-    @NamedQuery(name = "TranferConent.findByWarehouseId", query = "SELECT t FROM TranferConent t WHERE t.warehouseId = :warehouseId"),
+    @NamedQuery(name = "TranferConent.findByGoodsid", query = "SELECT t FROM TranferConent t WHERE t.goodsid = :goodsid"),
     @NamedQuery(name = "TranferConent.findByGoodsName", query = "SELECT t FROM TranferConent t WHERE t.goodsName = :goodsName"),
     @NamedQuery(name = "TranferConent.findByUnit", query = "SELECT t FROM TranferConent t WHERE t.unit = :unit"),
     @NamedQuery(name = "TranferConent.findByQuantity", query = "SELECT t FROM TranferConent t WHERE t.quantity = :quantity"),
@@ -44,8 +44,8 @@ public class TranferConent implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "warehouse_id")
-    private Integer warehouseId;
+    @Column(name = "Goods_id")
+    private String goodsid;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "unit")
@@ -77,12 +77,12 @@ public class TranferConent implements Serializable {
         this.id = id;
     }
 
-    public Integer getWarehouseId() {
-        return warehouseId;
+    public String getGoodsid() {
+        return goodsid;
     }
 
-    public void setWarehouseId(Integer warehouseId) {
-        this.warehouseId = warehouseId;
+    public void setGoodsid(String goodsid) {
+        this.goodsid = goodsid;
     }
 
     public String getGoodsName() {

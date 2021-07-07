@@ -66,12 +66,24 @@ public class OutputContent implements Serializable {
     private Integer weight;
     @Column(name = "supplier")
     private String supplier;
+
+    @Column(name = "reference")
+    private String reference;
+
     @JoinColumn(name = "output_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
     private Output outputId;
 
     public OutputContent() {
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public OutputContent(Integer id) {
@@ -195,5 +207,5 @@ public class OutputContent implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.OutputContent[ id=" + id + " ]";
     }
-    
+
 }

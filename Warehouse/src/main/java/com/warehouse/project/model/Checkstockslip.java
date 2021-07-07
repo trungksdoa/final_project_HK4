@@ -38,6 +38,8 @@ public class Checkstockslip implements Serializable {
     private String id;
     @Column(name = "Date")
     private String date;
+    @Column(name = "Date2")
+    private String Date2;
     @Column(name = "warehouse")
     private String warehouse;
     @Column(name = "status")
@@ -50,6 +52,14 @@ public class Checkstockslip implements Serializable {
 
     public Checkstockslip(String id) {
         this.id = id;
+    }
+
+    public String getDate2() {
+        return Date2;
+    }
+
+    public void setDate2(String Date2) {
+        this.Date2 = Date2;
     }
 
     public String getId() {
@@ -116,5 +126,5 @@ public class Checkstockslip implements Serializable {
     public String toString() {
         return id;
     }
-    
+
 }

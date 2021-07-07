@@ -128,7 +128,7 @@ public class TranferWarehouse implements Serializable {
 
     @Override
     public String toString() {
-        return id;
+        return "com.warehouse.project.model.TranferWarehouse[ id=" + id + " ]";
     }
     
 }

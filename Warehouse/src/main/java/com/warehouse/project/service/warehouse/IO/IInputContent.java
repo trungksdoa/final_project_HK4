@@ -18,4 +18,10 @@ public interface IInputContent {
     public abstract InputContent Save(InputContent input);
 
     public List<InputContent> findAll();
+    
+    public abstract InputContent findOneData(int id);
+    
+    public List<InputContent>findWhereId(String id);
+    
+    public  List<Object[]>findWhereByCodeId(String id);
 }
