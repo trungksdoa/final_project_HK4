@@ -33,17 +33,29 @@ function Autocomplete(index)
             source: goodsArray,
             select: function (e, ui) {
                 var e = ui.item;
-                console.log(e.warehouse);
-                $("#Unit" + index).val(e.unit);
-                $('#From' + index).val(e.warehouse);
-                $('#Quantity' + index).val(e.quantityInStock);
-                $("#Quantity" + index).attr({
-                    "max": e.quantityInStock,
-                });
+//                console.log(e.warehouse);
+                if (e.quantityInStock <= 0)
+                {
+                    alert("This goods have quantity is 0, Please input before you do output")
+                } else
+                {
+                    $("#Unit" + index).val(e.unit);
+                    $('#From' + index).val(e.warehouse);
+                    $('#Quantity' + index).val(e.quantityInStock);
+                    $("#Quantity" + index).attr({
+                        "max": e.quantityInStock,
+                    });
+                }
+
 
             },
 
             change: function (e, ui) {
+                 var e = ui.item;
+                if (e.quantityInStock <= 0)
+                {
+                    $('#ID' + index).val("");
+                }
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
             return $("<li>")

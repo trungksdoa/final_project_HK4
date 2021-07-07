@@ -23,22 +23,33 @@ function Autocomplete(index)
             select: function (e, ui) {
                 var e = ui.item;
 //                console.log(e.suplier);
-                $("#codeid" + index).val(e.id);
-                $("#unit" + index).val(e.unit);
-                $('#weightOn1' + index).val(e.weight);
-                $('#groupid' + index).val(e.group_goods);
-                $('#warehouse' + index).val(e.warehouse);
-                $('#suplier' + index).val(e.supplier);
-                $('#weight' + index).val(e.weight * 1);
-                $('#quantity' + index).val(1)
-                $('#Exportprice' + index).val(1);
-                $("#quantity" + index).attr({
-                    "max": e.quantityInStock,
-                });
+                if (e.quantityInStock <= 0)
+                {
+                    alert("This goods have quantity is 0, Please input before you do output")
+                } else
+                {
+                    $("#codeid" + index).val(e.id);
+                    $("#unit" + index).val(e.unit);
+                    $('#weightOn1' + index).val(e.weight);
+                    $('#groupid' + index).val(e.group_goods);
+                    $('#warehouse' + index).val(e.warehouse);
+                    $('#suplier' + index).val(e.supplier);
+                    $('#weight' + index).val(e.weight * 1);
+                    $('#quantity' + index).val(1)
+                    $('#Exportprice' + index).val(1);
+                    $("#quantity" + index).attr({
+                        "max": e.quantityInStock,
+                    });
+                }
 
             },
 
             change: function (e, ui) {
+                var e = ui.item;
+                if (e.quantityInStock <= 0)
+                {
+                    $('#search' + index).val("");
+                }
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
             return $("<li>")
