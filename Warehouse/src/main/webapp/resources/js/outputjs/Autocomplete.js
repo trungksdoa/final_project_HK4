@@ -4,8 +4,8 @@ function Autocomplete(index)
     $.get("/api/output/goodsCatagory/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
-            tempArray["id"] = data[i].id;
-            tempArray["label"] = data[i].id;
+            tempArray["id"] = data[i].goodsId;
+            tempArray["label"] = data[i].goodsId;
             tempArray["value"] = data[i].goodsName;
             tempArray["weight"] = data[i].weight;
             tempArray["unit"] = data[i].unit;
@@ -42,7 +42,7 @@ function Autocomplete(index)
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
             return $("<li>")
-                    .append("<div>" + item.warehouse + "<br>" + item.label + "</div>")
+                    .append("<div>" + "Name: " + item.value + " " + "WH:" + item.warehouse + "" + "<br>" + "ID: " + item.id + "</div>")
                     .appendTo(ul);
         };
     }

@@ -30,11 +30,6 @@ public class WarehouseImpl implements IWarehouse {
     }
 
     @Override
-    public List<Object[]> FindALl() {
-       return lab.FindALl();
-    }
-
-    @Override
     public Warehouse FindDupGoods(String goods_id, String StockCard, String Supplier) {
       return lab.findByGoods(goods_id, StockCard, Supplier);
     }
@@ -66,6 +61,16 @@ public class WarehouseImpl implements IWarehouse {
     @Override
     public List<Object[]> findAllWarehouse() {
        return lab.FindALlWarehouse();
+    }
+
+    @Override
+    public List<Object[]> FindALl(String stockcard) {
+       return lab.FindALl(stockcard);
+    }
+
+    @Override
+    public Warehouse findOnes(String id,String warehouse) {
+        return lab.findByIdDData(id, warehouse);
     }
 
 }

@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -52,6 +53,47 @@ public class Outputcontroller {
 
         model.addAttribute("message", "");
         return "warehouse/Output";
+    }
+
+    @RequestMapping("/OutputSlip")
+    public String OutputSlip(Model model) {
+        for (Output output : lab.findall()) {
+            System.out.println(output.getId());
+        }
+        model.addAttribute("outputData",lab.findall());
+        model.addAttribute("message", "");
+        return "warehouse/OutputSlip";
+    }
+
+    @RequestMapping("/UpdateOutput/{id}")
+    public String Updatesds(Model model, @PathVariable("id") String id) {
+        Output dataup = lab.findOne(id);
+        dataup.setId(dataup.getId());
+        dataup.setDate(dataup.getDate());
+        dataup.setSerivce(dataup.getSerivce());
+        dataup.setExplain(dataup.getExplain());
+        dataup.setStatus("Completed");
+        dataup.setDeletestatus(Boolean.FALSE);
+        dataup.setDate(dataup.getDate());
+        lab.Update(dataup);
+        model.addAttribute("InputsipData", lab.findall());
+        return "redirect:/web/warehouse/OutputSlip";
+    }
+
+    @RequestMapping("/DeleteOustput/")
+    public String Deletes(Model model, HttpServletRequest request) {
+        String id = request.getParameter("idcode");
+        Output dataup = lab.findOne(id);
+        dataup.setId(dataup.getId());
+        dataup.setDate(dataup.getDate());
+        dataup.setSerivce(dataup.getSerivce());
+        dataup.setExplain(dataup.getExplain());
+        dataup.setStatus("NotComplete");
+        dataup.setDeletestatus(Boolean.TRUE);
+        dataup.setDate(dataup.getDate());
+        lab.Update(dataup);
+        model.addAttribute("InputsipData", lab.findall());
+        return "redirect:/web/warehouse/OutputSlip";
     }
 
     public boolean isSpace(String[] array) {
@@ -160,7 +202,7 @@ public class Outputcontroller {
                 output.setDate(getDate);
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
-                output.setStatus("Chưa Xác Nhận");
+                output.setStatus("NotComplete");
                 output.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(output);
 
@@ -170,7 +212,7 @@ public class Outputcontroller {
                 output.setDate(getDate);
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
-                output.setStatus("Chưa Xác Nhận");
+                output.setStatus("NotComplete");
                 output.setDeletestatus(Boolean.FALSE);
                 addss = lab.Save(output);
             }
@@ -203,7 +245,7 @@ public class Outputcontroller {
                         history.setGoodsName(name[i]);
                         history.setDate(getDate);
                         history.setMajor("Output");
-                        history.setPrice(Integer.valueOf(importprice[i]));
+                        history.setPrice(0 - Integer.valueOf(importprice[i]));
                         history.setQuantity(Integer.valueOf(quantity[i]));
                         history.setUnit(unit[i]);
                         history.setWarehouse(warehouse[i]);
@@ -216,7 +258,7 @@ public class Outputcontroller {
                         history.setGoodsName(name[i]);
                         history.setDate(getDate);
                         history.setMajor("Output");
-                        history.setPrice(Integer.valueOf(importprice[i]));
+                        history.setPrice(0 - Integer.valueOf(importprice[i]));
                         history.setQuantity(Integer.valueOf(quantity[i]));
                         history.setUnit(unit[i]);
                         history.setWarehouse(warehouse[i]);
@@ -255,7 +297,7 @@ public class Outputcontroller {
             }
             model.addAttribute("color", "green");
             model.addAttribute("message", message);
-            return "warehouse/Output";
+            return "redirect:/web/warehouse/OutputSlip";
         }
     }
 }

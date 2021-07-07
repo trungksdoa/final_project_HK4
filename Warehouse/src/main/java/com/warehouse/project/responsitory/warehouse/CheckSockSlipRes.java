@@ -5,24 +5,23 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.Input;
-import com.warehouse.project.model.Input;
+import com.warehouse.project.model.Checkstockslip;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author trung
  */
-public interface Warehouse_input extends JpaRepository<Input, String> {
-
+public interface CheckSockSlipRes extends JpaRepository<Checkstockslip, String> {
     @Query(nativeQuery = true,
-            value = "SELECT TOP 1 * FROM input ORDER BY ID DESC")
-    Input findByList();
-
-    @Query("SELECT i FROM Input i WHERE i.deletestatus = FALSE")
-    List<Input> findAll();
+            value = "SELECT TOP 1 * FROM Checkstockslip ORDER BY ID DESC")
+    Checkstockslip findByList();
+    
+    @Query("SELECT c FROM Checkstockslip c WHERE c.status = False")
+    List<Checkstockslip>findAll();
+    @Query("SELECT c FROM Checkstockslip c WHERE c.id = :id")
+    Checkstockslip findOne(@Param("id") String ids);
 }

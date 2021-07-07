@@ -165,7 +165,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                   href="xemphieu.html"><b>View input</b></a>
+                                                   href="/web/warehouse/InputsipData"><b>View input</b></a>
                                             </li>
                                         </ul>
                                     </div>

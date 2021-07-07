@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TranferWarehouse.findAll", query = "SELECT t FROM TranferWarehouse t"),
     @NamedQuery(name = "TranferWarehouse.findById", query = "SELECT t FROM TranferWarehouse t WHERE t.id = :id"),
-    @NamedQuery(name = "TranferWarehouse.findByFromss", query = "SELECT t FROM TranferWarehouse t WHERE t.fromss = :fromss"),
-    @NamedQuery(name = "TranferWarehouse.findByToss", query = "SELECT t FROM TranferWarehouse t WHERE t.toss = :toss"),
     @NamedQuery(name = "TranferWarehouse.findByDate", query = "SELECT t FROM TranferWarehouse t WHERE t.date = :date"),
-    @NamedQuery(name = "TranferWarehouse.findByExplain", query = "SELECT t FROM TranferWarehouse t WHERE t.explain = :explain")})
+    @NamedQuery(name = "TranferWarehouse.findByExplain", query = "SELECT t FROM TranferWarehouse t WHERE t.explain = :explain"),
+    @NamedQuery(name = "TranferWarehouse.findByDeletestatus", query = "SELECT t FROM TranferWarehouse t WHERE t.deletestatus = :deletestatus"),
+    @NamedQuery(name = "TranferWarehouse.findByStatus", query = "SELECT t FROM TranferWarehouse t WHERE t.status = :status")})
 public class TranferWarehouse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +39,14 @@ public class TranferWarehouse implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
-    @Column(name = "fromss")
-    private String fromss;
-    @Column(name = "toss")
-    private String toss;
     @Column(name = "date")
     private String date;
     @Column(name = "explain")
     private String explain;
+    @Column(name = "deletestatus")
+    private Boolean deletestatus;
+    @Column(name = "status")
+    private String status;
     @OneToMany(mappedBy = "traferId")
     private Collection<TranferConent> tranferConentCollection;
 
@@ -65,22 +65,6 @@ public class TranferWarehouse implements Serializable {
         this.id = id;
     }
 
-    public String getFromss() {
-        return fromss;
-    }
-
-    public void setFromss(String fromss) {
-        this.fromss = fromss;
-    }
-
-    public String getToss() {
-        return toss;
-    }
-
-    public void setToss(String toss) {
-        this.toss = toss;
-    }
-
     public String getDate() {
         return date;
     }
@@ -95,6 +79,22 @@ public class TranferWarehouse implements Serializable {
 
     public void setExplain(String explain) {
         this.explain = explain;
+    }
+
+    public Boolean getDeletestatus() {
+        return deletestatus;
+    }
+
+    public void setDeletestatus(Boolean deletestatus) {
+        this.deletestatus = deletestatus;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @XmlTransient
@@ -128,7 +128,7 @@ public class TranferWarehouse implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.TranferWarehouse[ id=" + id + " ]";
+        return id;
     }
     
 }

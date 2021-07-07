@@ -165,21 +165,14 @@
                     right: 320px;
                     top:4px;
                 }
-                #saveandprint{
-                    width: 150px; 
-                    height:37px; 
-                    position: absolute;
-                    right: 160px;
-                    top:-5px;
-                }
+                /*                #saveandprint{
+                                    width: 150px; 
+                                    height:37px; 
+                                    position: absolute;
+                                    right: 160px;
+                                    top:-5px;
+                                }*/
 
-                #resetbutton{
-                    width: 100px;
-                    height:37px; 
-                    position: absolute;
-                    right: 50px;
-                    top:-5px;
-                }
 
                 @media only screen and (max-width: 768px) {
 
@@ -199,14 +192,21 @@
                         right: 320px;
                         top: 4px;
                     }
-                    #saveandprint{
-                        margin-top: 54px;
-                        width: 150px;
-                        height: 37px;
-                        position: absolute;
-                        right: 160px;
-                        top: -5px;
-                    }
+                    /*                    #saveandprint{
+                                            margin-top: 54px;
+                                            width: 150px;
+                                            height: 37px;
+                                            position: absolute;
+                                            right: 160px;
+                                            top: -5px;
+                                        }*/
+                }
+
+                .minus{
+                    color:red;
+                }
+                .plus{
+                    color:green;
                 }
             </style>
             <!-- Content Wrapper. Contains page content -->
@@ -216,7 +216,7 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Inventory slip</h1>
+                                <h1>Check inventory ${kho}</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -249,24 +249,24 @@
                                                 <a class="nav-link active"
                                                    href="#custom-tabs-three-home"><b>Tracking Stock</b></a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"  href="/web/warehouse/page4" ><b>Tracking Stock List</b></a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="card-body">
                                         <div class="tab-content" id="custom-tabs-three-tabContent">
                                             <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
                                                  aria-labelledby="custom-tabs-three-home-tab">
-                                                <form action='/stock/saveData' method='post'>
+                                                <form action='/web/warehouse/stock/saveData' method='post'>
                                                     <button type="submit" id="savaDataAll"
                                                             class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
-                                                    <button  type="button" data-toggle="modal" id="saveandprint" data-target="#login-modal" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i> Save and
-                                                        Print</button>
-                                                    <button  type="button" data-toggle="modal" id="saveandprint" data-target="#login-modal" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i> Balance the number of warehouses</button>
                                                     <div style="margin-top: 20px; margin-right: 50px;">
                                                         <div class="ui-widget">
                                                             <label for="tags">Tags: </label>
                                                             <input id="result">
                                                             <button style='' type='button' class="btn btn-info" id='addRow'>Search</button>
-
+                                                            <input type='hidden' name='kho' value="${kho}"/>
                                                         </div>
                                                     </div>
 
@@ -276,8 +276,8 @@
                                                             <thead>
                                                                 <tr>
                                                                 <tr>
-                                                                    <th style="width: 40px;">STT</th>
-                                                                    <th style="width: 100px;">Mà hàng</th>
+                                                                    <th style="width: 40px;">#</th>
+                                                                    <th style="width: 100px;">ID</th>
                                                                     <th>Total inventory</th>
                                                                     <th>Actual inventory</th>
                                                                     <th>Difference</th>
@@ -291,7 +291,12 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                 </form>
+                                                <div id="buttonhere">
+
+                                                </div>
+
                                                 <!-- /.card-body -->
                                             </div>
                                         </div>
@@ -341,34 +346,39 @@
 
 //                    index += arg.rowIndex;
 //                        index--;
-                    console.log(res)
+//                    console.log(res)
                     // var value = arg.value;
                     let tet = $('#quantity' + res).val();
                     let tet2 = $('#realQuantity' + res).val();
                     let result = tet2 - tet;
-
                     document.getElementById('BetweenRealAndStock' + res).value = result;
-                    // console.log('Weight' + res)
                 }
+
                 $(function () {
                     var counter = 1;
                     var goods = [];
                     var mahanghoa2 = [];
                     var tempquantity = 0;
                     var idcode = "";
-                    $.get("/api/stock/Warehousegoods", function (data, status) {
-                        for (var i = 0; i < data.length; i++) {
-                            var tempArray = new Array();
-                            tempArray["id"] = data[i].id;
-                            tempArray["label"] = data[i].name;
-                            tempArray["value"] = data[i].name;
-                            tempArray["quantity"] = data[i].Quantity;
-                            goods.push(tempArray);
-                            mahanghoa2.push(data[i].name);
-                        }
-//                        console.log(data)
-                    });
+
+                <c:forEach items="${listItemStock}" var="x">
+                    var tempArray = new Array();
+                    tempArray["id"] = "<c:out value = "${x.getId()}"/>";
+                    tempArray["label"] = "<c:out value = "${x.getId()}"/>";
+                    tempArray["value"] = "<c:out value = "${x.getName()}"/>";
+                    tempArray["quantity"] =<c:out value = "${x.getQuantity()}"/>;
+                    goods.push(tempArray);
+                    mahanghoa2.push("<c:out value = "${x.getName()}"/>");
+                </c:forEach>
+//                    $.get("/api/stock/Warehousegoods", function (data, status) {
+//             
+////                        console.log(data)
+//                    });
 //                    console.log(mahanghoa2);
+                    var toCheck = 0;
+                    //
+                    //
+                    //
                     $("#result").autocomplete({
                         source: goods,
                         select: function (e, ui) {
@@ -388,6 +398,7 @@
                         "responsive": true,
                     });
                     $('#addRow').on('click', function () {
+                        toCheck = 1;
                         var valueinput = $('#result').val();
                         if (mahanghoa2.indexOf(valueinput) === -1) {
                             alert("element doesn't exist");
@@ -395,9 +406,9 @@
                             if (tempArray.indexOf(valueinput) === -1) {
                                 t.row.add([
                                     '<td>' + stt + '</td>',
-                                    '<td>' + "<input readonly type='text' id='id" + stt + "' name='id' value='" + idcode + "'/>" + '</td>',
+                                    '<td>' + "<input readonly type='text' id='idcode" + stt + "' name='idcode' value='" + idcode + "'/>" + '</td>',
                                     '<td>' + "<input readonly type='text' id='quantity" + stt + "' name='quantity' value='" + tempquantity + "'/>" + '</td>',
-                                    '<td>' + "<input type='number' min=1 onkeyup='lookup(this.id);' id='realQuantity" + stt + "' name='realQuantity' value='' placeholder=''/>" + '</td>',
+                                    '<td>' + "<input require type='number' min=1 onkeyup='lookup(this.id);' id='realQuantity" + stt + "' name='realQuantity' value='' placeholder=''/>" + '</td>',
                                     '<td>' + "<input readonly type='number' id='BetweenRealAndStock" + stt + "' name='BetweenRealAndStock' value='' placeholder=''/>" + '</td>',
                                     '<td>' + "<textarea id='explain " + stt + "'  name='explain' rows='2' cols='20'></textarea>" + '</td>'
                                 ]).draw(false);
@@ -413,7 +424,8 @@
                         }
                     });
 //                    console.log(tempArray);
-                });
+                }
+                );
 
             </script>
             <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>

@@ -5,10 +5,15 @@
  */
 package com.warehouse.project.service.warehouse;
 
+import com.warehouse.project.model.TranferConent;
+import java.util.List;
+
 /**
  *
  * @author trung
  */
 public interface ITranferContent {
-    
+    public abstract TranferConent save(TranferConent tranferConent);
+    public abstract List<TranferConent>findALl();
+    public abstract TranferConent findOne(int id);
 }

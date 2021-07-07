@@ -30,10 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TranferConent.findAll", query = "SELECT t FROM TranferConent t"),
     @NamedQuery(name = "TranferConent.findById", query = "SELECT t FROM TranferConent t WHERE t.id = :id"),
+    @NamedQuery(name = "TranferConent.findByWarehouseId", query = "SELECT t FROM TranferConent t WHERE t.warehouseId = :warehouseId"),
     @NamedQuery(name = "TranferConent.findByGoodsName", query = "SELECT t FROM TranferConent t WHERE t.goodsName = :goodsName"),
     @NamedQuery(name = "TranferConent.findByUnit", query = "SELECT t FROM TranferConent t WHERE t.unit = :unit"),
     @NamedQuery(name = "TranferConent.findByQuantity", query = "SELECT t FROM TranferConent t WHERE t.quantity = :quantity"),
-    @NamedQuery(name = "TranferConent.findByPrice", query = "SELECT t FROM TranferConent t WHERE t.price = :price")})
+    @NamedQuery(name = "TranferConent.findByFroms", query = "SELECT t FROM TranferConent t WHERE t.froms = :froms"),
+    @NamedQuery(name = "TranferConent.findByTos", query = "SELECT t FROM TranferConent t WHERE t.tos = :tos")})
 public class TranferConent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +44,8 @@ public class TranferConent implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "warehouse_id")
+    private Integer warehouseId;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "unit")
@@ -49,16 +53,14 @@ public class TranferConent implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity")
     private Double quantity;
-    @Column(name = "price")
-    private Integer price;
+    @Column(name = "froms")
+    private String froms;
+    @Column(name = "tos")
+    private String tos;
     @JoinColumn(name = "trafer_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
     private TranferWarehouse traferId;
-    @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
-    @ManyToOne
-    @JsonIgnore
-    private Warehouse warehouseId;
 
     public TranferConent() {
     }
@@ -73,6 +75,14 @@ public class TranferConent implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(Integer warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
     public String getGoodsName() {
@@ -99,12 +109,20 @@ public class TranferConent implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getFroms() {
+        return froms;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setFroms(String froms) {
+        this.froms = froms;
+    }
+
+    public String getTos() {
+        return tos;
+    }
+
+    public void setTos(String tos) {
+        this.tos = tos;
     }
 
     public TranferWarehouse getTraferId() {
@@ -113,14 +131,6 @@ public class TranferConent implements Serializable {
 
     public void setTraferId(TranferWarehouse traferId) {
         this.traferId = traferId;
-    }
-
-    public Warehouse getWarehouseId() {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(Warehouse warehouseId) {
-        this.warehouseId = warehouseId;
     }
 
     @Override
@@ -147,5 +157,5 @@ public class TranferConent implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.TranferConent[ id=" + id + " ]";
     }
-
+    
 }

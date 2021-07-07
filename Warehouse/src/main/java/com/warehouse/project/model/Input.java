@@ -6,14 +6,18 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -47,6 +51,8 @@ public class Input implements Serializable {
     private String status;
     @Column(name = "deletestatus")
     private Boolean deletestatus;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
+    private Collection<InputContent> inputContentCollection;
 
     public Input() {
     }
@@ -103,6 +109,15 @@ public class Input implements Serializable {
         this.deletestatus = deletestatus;
     }
 
+    @XmlTransient
+    public Collection<InputContent> getInputContentCollection() {
+        return inputContentCollection;
+    }
+
+    public void setInputContentCollection(Collection<InputContent> inputContentCollection) {
+        this.inputContentCollection = inputContentCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -125,7 +140,7 @@ public class Input implements Serializable {
 
     @Override
     public String toString() {
-        return id;
+        return "com.warehouse.project.model.Input[ id=" + id + " ]";
     }
     
 }

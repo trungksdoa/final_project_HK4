@@ -6,14 +6,17 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -47,6 +50,8 @@ public class Output implements Serializable {
     private String status;
     @Column(name = "deletestatus")
     private Boolean deletestatus;
+    @OneToMany(mappedBy = "outputId")
+    private Collection<OutputContent> outputContentCollection;
 
     public Output() {
     }
@@ -101,6 +106,15 @@ public class Output implements Serializable {
 
     public void setDeletestatus(Boolean deletestatus) {
         this.deletestatus = deletestatus;
+    }
+
+    @XmlTransient
+    public Collection<OutputContent> getOutputContentCollection() {
+        return outputContentCollection;
+    }
+
+    public void setOutputContentCollection(Collection<OutputContent> outputContentCollection) {
+        this.outputContentCollection = outputContentCollection;
     }
 
     @Override

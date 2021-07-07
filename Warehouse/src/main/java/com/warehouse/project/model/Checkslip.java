@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Checkslip.findByQuantityireal", query = "SELECT c FROM Checkslip c WHERE c.quantityireal = :quantityireal"),
     @NamedQuery(name = "Checkslip.findByDifference", query = "SELECT c FROM Checkslip c WHERE c.difference = :difference"),
     @NamedQuery(name = "Checkslip.findByExplain", query = "SELECT c FROM Checkslip c WHERE c.explain = :explain"),
-    @NamedQuery(name = "Checkslip.findByAlet", query = "SELECT c FROM Checkslip c WHERE c.alet = :alet"),
-    @NamedQuery(name = "Checkslip.findByStatus", query = "SELECT c FROM Checkslip c WHERE c.status = :status")})
+    @NamedQuery(name = "Checkslip.findByStatus", query = "SELECT c FROM Checkslip c WHERE c.status = :status"),
+    @NamedQuery(name = "Checkslip.findByCheckslipid", query = "SELECT c FROM Checkslip c WHERE c.checkslipid = :checkslipid")})
 public class Checkslip implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,10 +55,10 @@ public class Checkslip implements Serializable {
     private Integer difference;
     @Column(name = "Explain")
     private String explain;
-    @Column(name = "alet")
-    private String alet;
     @Column(name = "status")
     private Boolean status;
+    @Column(name = "checkslipid")
+    private String checkslipid;
 
     public Checkslip() {
     }
@@ -123,20 +123,20 @@ public class Checkslip implements Serializable {
         this.explain = explain;
     }
 
-    public String getAlet() {
-        return alet;
-    }
-
-    public void setAlet(String alet) {
-        this.alet = alet;
-    }
-
     public Boolean getStatus() {
         return status;
     }
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getCheckslipid() {
+        return checkslipid;
+    }
+
+    public void setCheckslipid(String checkslipid) {
+        this.checkslipid = checkslipid;
     }
 
     @Override

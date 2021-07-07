@@ -20,6 +20,8 @@ public interface ICheckstock {
 
     public abstract Checkslip findOne(int id);
 
+//    public abstract Checkslip findOnese(String id,String goodsid);
+    
     public abstract Checkslip update(Checkslip checkslip);
-//    public abstract Checkslip Save();
+    public abstract List<Checkslip> ListByCheckid(String id);
 }

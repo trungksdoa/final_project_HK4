@@ -16,7 +16,7 @@ public interface IWarehouse {
 
     public abstract Warehouse Save(Warehouse input);
 
-    public abstract List<Object[]> FindALl();
+    public abstract List<Object[]> FindALl(String stockcard);
 
     public abstract Warehouse FindDupGoods(String goods_id, String StockCard, String Supplier);
 
@@ -25,5 +25,7 @@ public interface IWarehouse {
 
     public abstract List<Object[]> findAll(String id);
 
+    public abstract Warehouse findOnes(String id,String warehouse);
+    
     public abstract List<Warehouse> findWhere(String warehouse);
 }

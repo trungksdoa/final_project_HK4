@@ -61,9 +61,10 @@
     <class>com.warehouse.project.model.Vwtotal</class>
     <class>com.warehouse.project.model.Hisio</class>
     <class>com.warehouse.project.model.Materialproduction</class>
-    <class>com.warehouse.project.model.Input</class>
     <class>com.warehouse.project.model.Vwprodcutionmaterial</class>
     <class>com.warehouse.project.model.Checkslip</class>
+    <class>com.warehouse.project.model.Checkstockslip</class>
+    <class>com.warehouse.project.model.Input</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

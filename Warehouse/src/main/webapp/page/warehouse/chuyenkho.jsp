@@ -145,7 +145,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h3>Output</h3>
+                            <h3>CK</h3>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -177,7 +177,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link"
-                                               href="/web/warehouse/OutputSlip"><b>View Output</b></a>
+                                               href="xemphieu.html"><b>View Output</b></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -185,10 +185,10 @@
                                     <div class="tab-content" id="custom-tabs-three-tabContent">
                                         <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
                                              aria-labelledby="custom-tabs-three-home-tab">
-                                            <form id='maiForm' method="POST" action="/web/warehouse/output" onsubmit="return Validate()">
+                                            <form id='maiForm' method="POST" action="/web/warehouse/ck" onsubmit="return Validate()">
                                                 <input type="number" name="index" id="index" value="" hidden="true">
                                                 <button type="submit" id="savaDataAll"
-                                                        onclick="document.getElementById("maiForm").reset();"   class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
+                                                         class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
                                                 <button  type="button" data-toggle="modal" id="saveandprint" data-target="#login-modal" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i> Save and
                                                     Print</button>
                                                 <button  onclick="emptyData(); return false;" type="button"
@@ -215,30 +215,11 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="Date" class="col-lg-2 col-form-label">Service</label>
-                                                                <div class="col-lg-10">
-                                                                    <div class="input-group mb-3">
-                                                                        <select name="service" required class="custom-select required" id="service">
-                                                                            <option selected="" value="" selected>Choose</option>
-                                                                            <option value="voucher">Enter according to the proof of purchase</option>
-                                                                            <option value="production">Import by work order</option>
-                                                                            <option value="other">Enter another</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
                                                                 <label for="explain" class="col-lg-2 col-form-label">Explain</label>
                                                                 <div class="col-lg-10">
                                                                     <input type="text"   class="form-control" name="explain" id="explain" placeholder="explain">
                                                                 </div>
                                                                 <div class="col-lg-10 col-md-12 col-sm-12">
-                                                                    <p>Tham chiếu: <span id="reference"></span></p>
-                                                                    <span id="ibputfiedl">
-                                                                        <table id="Reference" class="table">
-
-                                                                        </table>
-                                                                    </span>
                                                                     <p>Hint: Click on field at Goods name to start finding your goods easy , max in field quantity is a maximum quantity in stock</p>
                                                                     <div class="btn-group">
                                                                         <button style="margin-right: 30px;height: 33px" type="button" id="addDataTable" 
@@ -259,17 +240,11 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="transform: translateY(-5px);">STT</th>
-                                                                    <th style="transform: translateY(-5px)">Goods</th>
+                                                                    <th style="transform: translateY(-5px)">ID</th>
                                                                     <th style="transform: translateY(-5px)">Unit</th>
-                                                                    <th style="transform: translateY(-5px)">Supplier</th>
-                                                                    <th style="transform: translateY(-5px)">Warehouse</th>
+                                                                    <th style="transform: translateY(-5px)">From</th>
+                                                                    <th style="transform: translateY(-5px)">To</th>
                                                                     <th style="transform: translateY(-5px)">Quantity</th>
-                                                                    <th style="transform: translateY(-5px)">Export Price </th>
-                                                                    <th style="transform: translateY(-5px)">Group </th>
-                                                                    <th style="transform: translateY(-5px)">Weight/1</th>
-                                                                    <th style="transform: translateY(-5px)">Weight</th>
-                                                                    <th style="transform: translateY(-5px)">Goods ID</th>
-
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="tableInput">
@@ -291,32 +266,6 @@
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
-
-                    <!--Open Modal-->
-                    <div id="modalcheckstock" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Select warehouse to continue</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/web/warehouse/checkstock">
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="warehouse" id="warehouse" placeholder="warehouse">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal flatform -->
 
                     <div id="modalkho" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
                         <div class="modal-dialog " role="document">
@@ -347,217 +296,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--Open Modal-->
-                    <!-- Modal flatform -->
-
-                    <div id="modalSupplier" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Create Supplier</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--search voucher-->
-                    <!--s-->
-                    <!--s-->
-                    <!--Open Modal-->
-                    <!-- Modal flatform -->
-
-                    <div id="modalgoods" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Create Goods</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--search voucher-->
-                    <!--s-->
-                    <!--s-->
-                    <!--Open Modal-->
-                    <!-- Modal flatform -->
-
-                    <div id="modalGroup" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Create Group</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">ID</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="object" id="object1" placeholder="object">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="object" class="col-lg-2 col-form-label">Name</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="object" id="object2" placeholder="object">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--search voucher-->
-                    <!--s-->
-                    <!--s-->
-                    <div id="modalSerchform" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-xl" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Searching.... voucher</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="saerchFrom">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input type="date" class="form-control" required="" name="from" placeholder="">
-                                            </div>
-                                            <div class="col">
-                                                <input type="date" class="form-control" required name="to" placeholder="">
-                                            </div>
-                                            <div class="col">
-                                                <input type="submit" class="form-control" value="Filter">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <br>
-                                    <table class="table">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th style="width:-40%;"><input type="checkbox" id="checkAll"/></th>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Expain</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="myTable" id="myTable"> 
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button onclick="getValue(); return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
-                                    <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--Search production-->
-                    <!--s-->
-                    <!--s-->
-                    <div id="modalSerchform2" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-xl" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Searching....  production order</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="saerchFrom2">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input type="text"class="form-control" id="productionsds" name="idProduction" placeholder="Production">
-                                            </div>
-                                            <div class="col">
-                                                <input type="date" class="form-control" name="from" placeholder="">
-                                            </div>
-                                            <div class="col">
-                                                <input type="date" class="form-control" name="to" placeholder="">
-                                            </div>
-                                            <div class="col">
-                                                <input type="submit" class="form-control" value="Filter">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <br>
-                                    <table class="table">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th style="width:-40%;"><input type="checkbox" id="checkAll"/></th>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">Goods name</th>
-                                                <th scope="col">Unit</th>
-                                                <th scope="col">Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="myTable2" id="myTable2"> 
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button  id="btnServiceModalSave1" type="button" class="btn btn-primary">Save changes</button>
-                                    <button  id="btnServiceModalClose1"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--s-->
-                    <!--s-->
-                    <!--s-->
-                    <!--s-->
-                    <!-- /.row (main row) -->
                 </div>
             </section>
             <!-- /.content -->
@@ -593,16 +331,16 @@
             function CreateID()
             {
 
-                $.get("/api/output/getID/", function (data, status) {
+                $.get("/api/stock/ListOne/", function (data, status) {
                     if (data == null)
                     {
-                        let idgener = "XK0000";
+                        let idgener = "CK0000";
                         console.log(data.id);
                         idgener = idgener.substring(2);
                         var id = parseInt(idgener);
                         id++;
                         var str = "" + id
-                        var pad = "XK0000"
+                        var pad = "CK0000"
                         var ans = pad.substring(0, pad.length - str.length) + str
                         //                console.log(ans)
                         $('#id_liecene').val(ans);
@@ -614,7 +352,7 @@
                         var id = parseInt(idgener);
                         id++;
                         var str = "" + id
-                        var pad = "XK0000"
+                        var pad = "CK0000"
                         var ans = pad.substring(0, pad.length - str.length) + str
                         //                console.log(ans)
                         $('#id_liecene').val(ans);
@@ -659,31 +397,12 @@
                 });
                 addRow();
                 //Insert stock
-
-// Document 
             });
             //Check all checkbox In service
             function dasdsadsa(x) {
-                //                alert("Row index is: " + x.rowIndex);
-//                    var index = 0;
                 var res = x.charAt(x.length - 1);
-//                    index += x.rowIndex;
-//                    index--;
-                console.log(res);
-                //                console.log(index);
                 Autocomplete(res);
-                //                return x.rowIndex;
             }
-            //OnClick To AutoComplete
-//            function dasdsadsa(x) {
-//                //                alert("Row index is: " + x.rowIndex);
-//                var index = 0;
-//                index += x.rowIndex;
-//                index--;
-//                //                console.log(index);
-//                Autocomplete(index);
-//                //                return x.rowIndex;
-//            }
             var today = new Date();
             var months = "";
             var date = "";
@@ -701,11 +420,9 @@
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-        <script src="<c:url value="/resources/js/outputjs/Addrow.js" />"></script>
-        <script src="<c:url value="/resources/js/outputjs/EmptyData.js" />"></script>
-        <script src="<c:url value="/resources/js/outputjs/getValue.js" />"></script>
-        <script src="<c:url value="/resources/js/outputjs/onChangeService.js" />"></script>
-        <script src="<c:url value="/resources/js/outputjs/Autocomplete.js" />"></script>
+        <script src="<c:url value="/resources/js/ck/Addrow.js" />"></script>
+        <script src="<c:url value="/resources/js/ck/EmptyData.js" />"></script>
+        <script src="<c:url value="/resources/js/ck/Autocomplete.js" />"></script>
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->

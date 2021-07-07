@@ -5,16 +5,18 @@
  */
 package com.warehouse.project.responsitory.warehouse;
 
-import com.warehouse.project.model.GoodsCatagory;
-import com.warehouse.project.model.InputContent;
-import java.util.List;
+import com.warehouse.project.model.TranferWarehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author trung
  */
-public interface WarehouseInput_content extends JpaRepository<InputContent, String> {
+public interface TranferWarehouseRes extends JpaRepository<TranferWarehouse, String> {
 
+    @Query(nativeQuery = true,
+            value = "SELECT TOP 1 * FROM tranfer_warehouse ORDER BY ID DESC")
+    TranferWarehouse findByList();
 }

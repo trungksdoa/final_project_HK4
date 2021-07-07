@@ -21,10 +21,12 @@ import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -60,9 +62,9 @@ public class InputController {
         ArrayList<String> goodsName = new ArrayList<>();
         ArrayList<String> ncc = new ArrayList<>();
         ArrayList<String> Warehouse = new ArrayList<>();
-        for (CatagoryGroupSupplier string1 : lab242.findALl()) {
+        lab242.findALl().forEach(string1 -> {
             goodsName.add(string1.getGoodsName());
-        }
+        });
         model.addAttribute("message", "");
         model.addAttribute("Namelist", goodsName);
         model.addAttribute("SupplierList", ncc);
@@ -70,26 +72,58 @@ public class InputController {
         return "warehouse/InputPage";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("/InputsipData")
+    public String InputsipData(Model model) {
+        model.addAttribute("InputsipData", lab.findall());
+        return "warehouse/InputsipData";
+    }
+
+    @RequestMapping("/Updates/{id}")
+    public String Updates(Model model, @PathVariable("id") String id) {
+        Input dataup = lab.findOne(id);
+        dataup.setId(dataup.getId());
+        dataup.setDate(dataup.getDate());
+        dataup.setService(dataup.getService());
+        dataup.setExplain(dataup.getExplain());
+        dataup.setStatus("Completed");
+        dataup.setDeletestatus(Boolean.FALSE);
+        dataup.setDate(dataup.getDate());
+        lab.Update(dataup);
+        model.addAttribute("InputsipData", lab.findall());
+        return "redirect:/web/warehouse/InputsipData";
+    }
+
+    @RequestMapping("/Deletes/")
+    public String Deletes(Model model, HttpServletRequest request) {
+        String id = request.getParameter("idcode");
+        Input dataup = lab.findOne(id);
+        dataup.setId(dataup.getId());
+        dataup.setDate(dataup.getDate());
+        dataup.setService(dataup.getService());
+        dataup.setExplain(dataup.getExplain());
+        dataup.setStatus("NotComplete");
+        dataup.setDeletestatus(Boolean.TRUE);
+        dataup.setDate(dataup.getDate());
+        lab.Update(dataup);
+        model.addAttribute("InputsipData", lab.findall());
+        return "redirect:/web/warehouse/InputsipData";
+    }
+
     public boolean isSpace(String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if ((array[i] == null) || (array[i].trim().length() == 0)) {
-                //true on null, empty string, or white space only. Do something here
-                return true;
-            } else {
-                return false;
-            }
+        for (String array1 : array) {
+            return (array1 == null) || (array1.trim().length() == 0); //true on null, empty string, or white space only. Do something here
         }
         return false;
     }
 
     public boolean isEmpty(String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if ((array[i] == null)) {
-                //true on null, empty string, or white space only. Do something here
-                return true;
-            } else {
-                return false;
-            }
+        for (String array1 : array) {
+            return array1 == null; //true on null, empty string, or white space only. Do something here
         }
         return false;
     }
@@ -126,7 +160,7 @@ public class InputController {
             //Insert to input information
             //
             //When field id == null
-            if (getID == "") {
+            if ("".equals(getID)) {
                 Input idobject = lab.findAllId();
                 if (idobject != null) {
                     String idgen = idobject.toString();
@@ -269,7 +303,7 @@ public class InputController {
             }
             model.addAttribute("color", "green");
             model.addAttribute("message", message);
-            return "warehouse/InputPage";
+            return "redirect:/web/warehouse/InputsipData";
         }
     }
 

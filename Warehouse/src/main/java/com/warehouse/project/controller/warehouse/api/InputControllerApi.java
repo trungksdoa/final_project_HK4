@@ -9,6 +9,7 @@ import com.warehouse.project.model.Catagoryvoucher;
 import com.warehouse.project.model.CatagoryGroupSupplier;
 import com.warehouse.project.model.Groupsgoods;
 import com.warehouse.project.model.Input;
+import com.warehouse.project.model.InputContent;
 import com.warehouse.project.model.Materialproduction;
 import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Productionorder;
@@ -36,6 +37,7 @@ import com.warehouse.project.service.warehouse.Other.IProductionorder;
 import com.warehouse.project.service.warehouse.View.IProductionview;
 import com.warehouse.project.service.warehouse.Other.Igroupgoodds;
 import com.warehouse.project.service.warehouse.View.MaterialproductionI;
+import java.util.Collection;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -79,6 +81,26 @@ public class InputControllerApi {
 
     @Autowired
     MaterialproductionI lab11;
+
+    @ResponseBody
+    @RequestMapping(value = "/findInputData/{id}")
+    public Input findInputData(@PathVariable("id") String idking) {
+        Input ssss = lab.findOne(idking);
+        return ssss;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/GetItemInput/{id}")
+    public ResponseEntity<Collection<InputContent>> findGoodsInput(@PathVariable("id") String idking) {
+        Input ssss = lab.findOne(idking);
+        Collection<InputContent> objectList = ssss.getInputContentCollection();       
+        if (!objectList.isEmpty()) {
+            return new ResponseEntity<>(objectList, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 
     @ResponseBody
     @RequestMapping(value = "/findGoods/")

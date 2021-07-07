@@ -20,8 +20,8 @@ public interface IInput {
 
     public abstract List<Input> findall();
 
-     public abstract Input findOne(String id);
-    
+    public abstract Input findOne(String id);
+
     public abstract Input Update(Input input);
 
     public abstract void Delete(String id);

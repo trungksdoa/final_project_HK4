@@ -9,6 +9,7 @@ package com.warehouse.project.controller.warehouse.api;
 import com.warehouse.project.model.Catagoryvoucher;
 import com.warehouse.project.model.Groupsgoods;
 import com.warehouse.project.model.Output;
+import com.warehouse.project.model.OutputContent;
 import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Productionorder;
 import com.warehouse.project.model.StockCard;
@@ -27,6 +28,7 @@ import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Other.Igroupgoodds;
 import com.warehouse.project.service.warehouse.View.VwWarehouse;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,8 +56,7 @@ public class OutputControlllerAPi {
     @Autowired
     ICoupoContentViewnContent1 lab3;
 
-    @Autowired
-    IWarehouse lab4;
+    
 
     @Autowired
     IStock_card lab5;
@@ -77,6 +78,33 @@ public class OutputControlllerAPi {
     
     @Autowired
     VwWarehouse lab11;
+    
+    
+    
+    
+    @ResponseBody
+    @RequestMapping(value = "/findOutptData/{id}")
+    public Output findInputData(@PathVariable("id") String idking) {
+        Output ssss = lab.findOne(idking);
+        return ssss;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/GetItemOut/{id}")
+    public ResponseEntity<Collection<OutputContent>> findGoodsInput(@PathVariable("id") String idking) {
+        Output ssss = lab.findOne(idking);
+        Collection<OutputContent> objectList = ssss.getOutputContentCollection();       
+        if (!objectList.isEmpty()) {
+            return new ResponseEntity<>(objectList, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    
+    
+    
+    
     
     @ResponseBody
     @RequestMapping(value = "/findGoods/")

@@ -47,4 +47,14 @@ public class ICheckstockImpl implements ICheckstock {
        return lab.save(checkslip);
     }
 
+    @Override
+    public List<Checkslip> ListByCheckid(String id) {
+       return lab.ListByCheckId(id);
+    }
+//
+//    @Override
+//    public Checkslip findOnese(String id,String goodsid) {
+//       return lab.UpdateList(id,goodsid);
+//    }
+
 }

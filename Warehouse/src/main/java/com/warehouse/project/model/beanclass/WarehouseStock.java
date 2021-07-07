@@ -10,18 +10,18 @@ package com.warehouse.project.model.beanclass;
  * @author trung
  */
 public class WarehouseStock {
-    public  String Warehouse;
+    public  String name;
 
-    public WarehouseStock(String Warehouse) {
-        this.Warehouse = Warehouse;
+    public WarehouseStock(String name) {
+        this.name = name;
     }
 
     public String getWarehouse() {
-        return Warehouse;
+        return name;
     }
 
-    public void setWarehouse(String Warehouse) {
-        this.Warehouse = Warehouse;
+    public void setWarehouse(String name) {
+        this.name = name;
     }
     
 }

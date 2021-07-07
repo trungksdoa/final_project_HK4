@@ -218,7 +218,10 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                   href="/web/warehouse/page3"><b>Tracking stock</b></a>
+                                                   href="/web/warehouse/welcome"><b>Tracking stock</b></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"  href="/web/warehouse/page4" ><b>Tracking Stock List</b></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -236,8 +239,8 @@
                                                             <th scope="col">Price</th>
                                                             <th scope="col">Group</th>
                                                             <th scope="col">Weight</th>
-                                                             <th scope="col">Warehouse</th>
-                                                            <th scope="col">Action</th>
+                                                            <th scope="col">Warehouse</th>
+                                                            <!--<th scope="col">Action</th>-->
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -264,9 +267,9 @@
                                                                 <td>${x.weight}</td>
                                                                 <td>${x.stockCard}</td>
                                                                 <!--data-toggle="modal" data-target="#modalkho"-->
-                                                                <td><button id="${x.goodsId}" class="${x.stockCard} GetId"  >    
+<!--                                                                <td><button id="${x.goodsId}" class="${x.stockCard} GetId"  >    
                                                                         Looking
-                                                                    </button></td>
+                                                                    </button></td>-->
                                                             </tr>
                                                             <% stt++; %>
                                                         </c:forEach>
@@ -292,18 +295,8 @@
                                 <h5 class="modal-title" id="NameGoods"></h5>
                             </div>
                             <div class="modal-body">
-                                <table class="table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Total inventory of all warehouses</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="historyId">
-
-                                    </tbody>
-                                </table>
+                                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                                <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                                 <div class="modal-footer">
                                     <button type="button" onclick="preventClicl()" class="btn btn-secondary" >Close</button>
                                 </div>
@@ -334,29 +327,43 @@
         <%--<jsp:include page="/fragment/RootJs.jsp" />--%>  
         <!-- Bootstrap 4 -->
         <script>
-            $(".GetId").click(function () {
-                var warehouse = $(this).attr("class");
-                var id = $(this).attr("id");
-                var newString = warehouse.replace('GetId', '');
-                $('#modalkho').modal('show')
-                var groupList = [];
-                var stt = 1;
-                console.log("/api/stock/getId/" + id)
-                $.get("/api/stock/getId/" + id, function (data, status) {
-
-                    for (var i = 0; i < data.length; i++) {
-                        $('#NameGoods').text(data[i].name)
-                        var rowsds = $('<tr>');
-                        rowsds.append('<td>' + stt + '</td>');
-                        rowsds.append('<td>' + data[i].id + '</td>');
-                        rowsds.append('<td style="text-align: center;">' + data[i].Quantity + '</td>');
-                        rowsds.append('</tr>');
-                        $('#historyId').append(rowsds);
-                        stt++;
-                    }
-//                    console.log(SupplierIDS);
-                });
-            });
+//            $(".GetId").click(function () {
+//                var warehouse = $(this).attr("class");
+//                var id = $(this).attr("id");
+//                var newString = warehouse.replace('GetId', '');
+//                $('#modalkho').modal('show')
+//                var groupList = [];
+//                var stt = 1;
+//                console.log("/api/stock/getId/" + id)
+//                $.get("/api/stock/getId/" + id, function (data, status) {
+//                    var chart = new CanvasJS.Chart("chartContainer", {
+//                        animationEnabled: true,
+//                        theme: "light2",
+//                        title: {
+//                            text: "Simple Line Chart"
+//                        },
+//                        data: [{
+//                                type: "line",
+//                                indexLabelFontSize: 16,
+//                                dataPoints: [
+//                                    {y: 450},
+//                                    {y: 414},
+//                                    {y: 520, indexLabel: "\u2191 highest", markerColor: "red", markerType: "triangle"},
+//                                    {y: 460},
+//                                    {y: 450},
+//                                    {y: 500},
+//                                    {y: 480},
+//                                    {y: 480},
+//                                    {y: 410, indexLabel: "\u2193 lowest", markerColor: "DarkSlateGrey", markerType: "cross"},
+//                                    {y: 500},
+//                                    {y: 480},
+//                                    {y: 510}
+//                                ]
+//                            }]
+//                    });
+//                    chart.render();
+//                });
+//            });
             function preventClicl()
             {
                 $("#historyId").empty();
