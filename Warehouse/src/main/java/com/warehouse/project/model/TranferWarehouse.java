@@ -23,30 +23,30 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "tranfer_warehouse", catalog = "Databases_", schema = "dbo")
+@Table(name = "tranfer_warehouse")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TranferWarehouse.findAll", query = "SELECT t FROM TranferWarehouse t"),
     @NamedQuery(name = "TranferWarehouse.findById", query = "SELECT t FROM TranferWarehouse t WHERE t.id = :id"),
-    @NamedQuery(name = "TranferWarehouse.findByFromss", query = "SELECT t FROM TranferWarehouse t WHERE t.fromss = :fromss"),
-    @NamedQuery(name = "TranferWarehouse.findByToss", query = "SELECT t FROM TranferWarehouse t WHERE t.toss = :toss"),
     @NamedQuery(name = "TranferWarehouse.findByDate", query = "SELECT t FROM TranferWarehouse t WHERE t.date = :date"),
-    @NamedQuery(name = "TranferWarehouse.findByExplain", query = "SELECT t FROM TranferWarehouse t WHERE t.explain = :explain")})
+    @NamedQuery(name = "TranferWarehouse.findByDate2", query = "SELECT t FROM TranferWarehouse t WHERE t.date2 = :date2"),
+    @NamedQuery(name = "TranferWarehouse.findByExplain", query = "SELECT t FROM TranferWarehouse t WHERE t.explain = :explain"),
+    @NamedQuery(name = "TranferWarehouse.findByStatus", query = "SELECT t FROM TranferWarehouse t WHERE t.status = :status")})
 public class TranferWarehouse implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "fromss", length = 50)
-    private String fromss;
-    @Column(name = "toss", length = 50)
-    private String toss;
-    @Column(name = "date", length = 50)
+    @Column(name = "date")
     private String date;
-    @Column(name = "explain", length = 50)
+    @Column(name = "date2")
+    private String date2;
+    @Column(name = "explain")
     private String explain;
+    @Column(name = "status")
+    private Integer status;
     @OneToMany(mappedBy = "traferId")
     private Collection<TranferConent> tranferConentCollection;
 
@@ -65,22 +65,6 @@ public class TranferWarehouse implements Serializable {
         this.id = id;
     }
 
-    public String getFromss() {
-        return fromss;
-    }
-
-    public void setFromss(String fromss) {
-        this.fromss = fromss;
-    }
-
-    public String getToss() {
-        return toss;
-    }
-
-    public void setToss(String toss) {
-        this.toss = toss;
-    }
-
     public String getDate() {
         return date;
     }
@@ -89,12 +73,28 @@ public class TranferWarehouse implements Serializable {
         this.date = date;
     }
 
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
+    }
+
     public String getExplain() {
         return explain;
     }
 
     public void setExplain(String explain) {
         this.explain = explain;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @XmlTransient

@@ -6,24 +6,21 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author trung
  */
 @Entity
-@Table(name = "supplier", catalog = "Databases_", schema = "dbo")
+@Table(name = "supplier")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Supplier.findAll", query = "SELECT s FROM Supplier s"),
@@ -35,39 +32,30 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Supplier.findByTaxNumber", query = "SELECT s FROM Supplier s WHERE s.taxNumber = :taxNumber"),
     @NamedQuery(name = "Supplier.findByExplain", query = "SELECT s FROM Supplier s WHERE s.explain = :explain"),
     @NamedQuery(name = "Supplier.findByBirthdate", query = "SELECT s FROM Supplier s WHERE s.birthdate = :birthdate"),
-    @NamedQuery(name = "Supplier.findBySex", query = "SELECT s FROM Supplier s WHERE s.sex = :sex"),
-    @NamedQuery(name = "Supplier.findByCustomerPoint", query = "SELECT s FROM Supplier s WHERE s.customerPoint = :customerPoint")})
+    @NamedQuery(name = "Supplier.findBySex", query = "SELECT s FROM Supplier s WHERE s.sex = :sex")})
 public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "name", length = 50)
+    @Column(name = "name")
     private String name;
     @Column(name = "phone")
     private Integer phone;
-    @Column(name = "address", length = 50)
+    @Column(name = "address")
     private String address;
-    @Column(name = "email", length = 50)
+    @Column(name = "email")
     private String email;
     @Column(name = "tax_number")
     private Integer taxNumber;
-    @Column(name = "explain", length = 50)
+    @Column(name = "explain")
     private String explain;
-    @Column(name = "birthdate", length = 20)
+    @Column(name = "birthdate")
     private String birthdate;
     @Column(name = "sex")
     private Boolean sex;
-    @Column(name = "customer_point")
-    private Integer customerPoint;
-    @OneToMany(mappedBy = "supplierId")
-    private Collection<Voucher> voucherCollection;
-    @OneToMany(mappedBy = "object1")
-    private Collection<CouponPay> couponPayCollection;
-    @OneToMany(mappedBy = "supplierId")
-    private Collection<Input> inputCollection;
 
     public Supplier() {
     }
@@ -146,41 +134,6 @@ public class Supplier implements Serializable {
 
     public void setSex(Boolean sex) {
         this.sex = sex;
-    }
-
-    public Integer getCustomerPoint() {
-        return customerPoint;
-    }
-
-    public void setCustomerPoint(Integer customerPoint) {
-        this.customerPoint = customerPoint;
-    }
-
-    @XmlTransient
-    public Collection<Voucher> getVoucherCollection() {
-        return voucherCollection;
-    }
-
-    public void setVoucherCollection(Collection<Voucher> voucherCollection) {
-        this.voucherCollection = voucherCollection;
-    }
-
-    @XmlTransient
-    public Collection<CouponPay> getCouponPayCollection() {
-        return couponPayCollection;
-    }
-
-    public void setCouponPayCollection(Collection<CouponPay> couponPayCollection) {
-        this.couponPayCollection = couponPayCollection;
-    }
-
-    @XmlTransient
-    public Collection<Input> getInputCollection() {
-        return inputCollection;
-    }
-
-    public void setInputCollection(Collection<Input> inputCollection) {
-        this.inputCollection = inputCollection;
     }
 
     @Override

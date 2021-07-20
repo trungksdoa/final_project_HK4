@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,46 +25,52 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "input_content", catalog = "Databases_", schema = "dbo")
+@Table(name = "input_content")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InputContent.findAll", query = "SELECT i FROM InputContent i"),
     @NamedQuery(name = "InputContent.findById", query = "SELECT i FROM InputContent i WHERE i.id = :id"),
+    @NamedQuery(name = "InputContent.findByGoodsId", query = "SELECT i FROM InputContent i WHERE i.goodsId = :goodsId"),
     @NamedQuery(name = "InputContent.findByGoodsName", query = "SELECT i FROM InputContent i WHERE i.goodsName = :goodsName"),
     @NamedQuery(name = "InputContent.findByUnit", query = "SELECT i FROM InputContent i WHERE i.unit = :unit"),
     @NamedQuery(name = "InputContent.findByQuantity", query = "SELECT i FROM InputContent i WHERE i.quantity = :quantity"),
+    @NamedQuery(name = "InputContent.findByWarehouse", query = "SELECT i FROM InputContent i WHERE i.warehouse = :warehouse"),
     @NamedQuery(name = "InputContent.findByImportsPrices", query = "SELECT i FROM InputContent i WHERE i.importsPrices = :importsPrices"),
-    @NamedQuery(name = "InputContent.findByAfterPrice", query = "SELECT i FROM InputContent i WHERE i.afterPrice = :afterPrice"),
     @NamedQuery(name = "InputContent.findByGroupGoods", query = "SELECT i FROM InputContent i WHERE i.groupGoods = :groupGoods"),
-    @NamedQuery(name = "InputContent.findByWeight", query = "SELECT i FROM InputContent i WHERE i.weight = :weight")})
+    @NamedQuery(name = "InputContent.findByWeight", query = "SELECT i FROM InputContent i WHERE i.weight = :weight"),
+    @NamedQuery(name = "InputContent.findBySupplier", query = "SELECT i FROM InputContent i WHERE i.supplier = :supplier"),
+    @NamedQuery(name = "InputContent.findByReference", query = "SELECT i FROM InputContent i WHERE i.reference = :reference")})
 public class InputContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "goods_name", length = 50)
+    @Column(name = "goods_id")
+    private String goodsId;
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity", precision = 53)
-    private Double quantity;
-    @Column(name = "imports_prices", precision = 53)
-    private Double importsPrices;
-    @Column(name = "after_price", precision = 53)
-    private Double afterPrice;
-    @Column(name = "group_goods", length = 10)
+    @Column(name = "quantity")
+    private Integer quantity;
+    @Column(name = "warehouse")
+    private String warehouse;
+    @Column(name = "imports_prices")
+    private Integer importsPrices;
+    @Column(name = "group_goods")
     private String groupGoods;
-    @Column(name = "weight", precision = 53)
-    private Double weight;
-    @JoinColumn(name = "goods_id", referencedColumnName = "id")
-    @ManyToOne
-    private GoodsCatagory goodsId;
-    @JoinColumn(name = "input_id", referencedColumnName = "id", nullable = false)
+    @Column(name = "weight")
+    private Integer weight;
+    @Column(name = "supplier")
+    private String supplier;
+    @Column(name = "reference")
+    private String reference;
+    @JoinColumn(name = "input_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Input inputId;
 
     public InputContent() {
@@ -79,6 +86,14 @@ public class InputContent implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName() {
@@ -97,28 +112,28 @@ public class InputContent implements Serializable {
         this.unit = unit;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public Double getImportsPrices() {
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public Integer getImportsPrices() {
         return importsPrices;
     }
 
-    public void setImportsPrices(Double importsPrices) {
+    public void setImportsPrices(Integer importsPrices) {
         this.importsPrices = importsPrices;
-    }
-
-    public Double getAfterPrice() {
-        return afterPrice;
-    }
-
-    public void setAfterPrice(Double afterPrice) {
-        this.afterPrice = afterPrice;
     }
 
     public String getGroupGoods() {
@@ -129,20 +144,28 @@ public class InputContent implements Serializable {
         this.groupGoods = groupGoods;
     }
 
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public GoodsCatagory getGoodsId() {
-        return goodsId;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public void setGoodsId(GoodsCatagory goodsId) {
-        this.goodsId = goodsId;
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public Input getInputId() {

@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Voucher_report_refere", catalog = "Databases_", schema = "dbo")
+@Table(name = "Voucher_report_refere")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Voucherreportrefere.findAll", query = "SELECT v FROM Voucherreportrefere v"),
@@ -40,21 +41,22 @@ public class Voucherreportrefere implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "Goods_name", length = 50)
+    @Column(name = "Goods_name")
     private String goodsname;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "Quantity", precision = 53)
+    @Column(name = "Quantity")
     private Double quantity;
-    @Column(name = "unitprice", precision = 53)
+    @Column(name = "unitprice")
     private Double unitprice;
-    @Column(name = "Where_to_buy", length = 100)
+    @Column(name = "Where_to_buy")
     private String wheretobuy;
-    @Column(name = "Date", length = 50)
+    @Column(name = "Date")
     private String date;
     @JoinColumn(name = "voucherId", referencedColumnName = "id")
     @ManyToOne
+     @JsonIgnore
     private Voucherreport voucherId;
 
     public Voucherreportrefere() {

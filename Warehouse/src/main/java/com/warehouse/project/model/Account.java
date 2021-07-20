@@ -6,6 +6,7 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Account.findByAddress", query = "SELECT a FROM Account a WHERE a.address = :address"),
     @NamedQuery(name = "Account.findByStatus", query = "SELECT a FROM Account a WHERE a.status = :status")})
 public class Account implements Serializable {
+
+    @OneToMany(mappedBy = "userid")
+    private Collection<Quest> questCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -140,6 +146,15 @@ public class Account implements Serializable {
     @Override
     public String toString() {
         return "com.warehouse.project.model.Account[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Quest> getQuestCollection() {
+        return questCollection;
+    }
+
+    public void setQuestCollection(Collection<Quest> questCollection) {
+        this.questCollection = questCollection;
     }
     
 }

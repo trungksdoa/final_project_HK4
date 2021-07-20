@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Customer", catalog = "Databases_", schema = "dbo")
+@Table(name = "Customer")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
@@ -34,42 +34,42 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
     @NamedQuery(name = "Customer.findByTaxNumber", query = "SELECT c FROM Customer c WHERE c.taxNumber = :taxNumber"),
     @NamedQuery(name = "Customer.findByExplain", query = "SELECT c FROM Customer c WHERE c.explain = :explain"),
+    @NamedQuery(name = "Customer.findByPaymentterm", query = "SELECT c FROM Customer c WHERE c.paymentterm = :paymentterm"),
     @NamedQuery(name = "Customer.findByBirthdate", query = "SELECT c FROM Customer c WHERE c.birthdate = :birthdate"),
     @NamedQuery(name = "Customer.findBySex", query = "SELECT c FROM Customer c WHERE c.sex = :sex"),
-    @NamedQuery(name = "Customer.findByCustomerPoint", query = "SELECT c FROM Customer c WHERE c.customerPoint = :customerPoint")})
+    @NamedQuery(name = "Customer.findByCustomerPoint", query = "SELECT c FROM Customer c WHERE c.customerPoint = :customerPoint"),
+    @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "name", length = 50)
+    @Column(name = "name")
     private String name;
     @Column(name = "phone")
     private Integer phone;
-    @Column(name = "address", length = 50)
+    @Column(name = "address")
     private String address;
-    @Column(name = "email", length = 50)
+    @Column(name = "email")
     private String email;
     @Column(name = "tax_number")
     private Integer taxNumber;
-    @Column(name = "explain", length = 50)
+    @Column(name = "explain")
     private String explain;
-    @Column(name = "birthdate", length = 20)
+    @Column(name = "paymentterm")
+    private String paymentterm;
+    @Column(name = "birthdate")
     private String birthdate;
     @Column(name = "sex")
     private Boolean sex;
     @Column(name = "customer_point")
     private Integer customerPoint;
-    @OneToMany(mappedBy = "customerId")
-    private Collection<Quotes> quotesCollection;
-    @OneToMany(mappedBy = "customerId")
-    private Collection<Output> outputCollection;
-    @OneToMany(mappedBy = "object1")
-    private Collection<Receipts> receiptsCollection;
-    @OneToMany(mappedBy = "customerId")
-    private Collection<SalesCoupon> salesCouponCollection;
+    @Column(name = "status")
+    private Boolean status;
+    @OneToMany(mappedBy = "client")
+    private Collection<Other> otherCollection;
 
     public Customer() {
     }
@@ -134,6 +134,14 @@ public class Customer implements Serializable {
         this.explain = explain;
     }
 
+    public String getPaymentterm() {
+        return paymentterm;
+    }
+
+    public void setPaymentterm(String paymentterm) {
+        this.paymentterm = paymentterm;
+    }
+
     public String getBirthdate() {
         return birthdate;
     }
@@ -158,40 +166,21 @@ public class Customer implements Serializable {
         this.customerPoint = customerPoint;
     }
 
-    @XmlTransient
-    public Collection<Quotes> getQuotesCollection() {
-        return quotesCollection;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setQuotesCollection(Collection<Quotes> quotesCollection) {
-        this.quotesCollection = quotesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Output> getOutputCollection() {
-        return outputCollection;
-    }
-
-    public void setOutputCollection(Collection<Output> outputCollection) {
-        this.outputCollection = outputCollection;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @XmlTransient
-    public Collection<Receipts> getReceiptsCollection() {
-        return receiptsCollection;
+    public Collection<Other> getOtherCollection() {
+        return otherCollection;
     }
 
-    public void setReceiptsCollection(Collection<Receipts> receiptsCollection) {
-        this.receiptsCollection = receiptsCollection;
-    }
-
-    @XmlTransient
-    public Collection<SalesCoupon> getSalesCouponCollection() {
-        return salesCouponCollection;
-    }
-
-    public void setSalesCouponCollection(Collection<SalesCoupon> salesCouponCollection) {
-        this.salesCouponCollection = salesCouponCollection;
+    public void setOtherCollection(Collection<Other> otherCollection) {
+        this.otherCollection = otherCollection;
     }
 
     @Override

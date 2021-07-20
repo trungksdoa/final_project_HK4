@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "goods_catagory", catalog = "Databases_", schema = "dbo")
+@Table(name = "goods_catagory")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GoodsCatagory.findAll", query = "SELECT g FROM GoodsCatagory g"),
@@ -41,32 +42,29 @@ public class GoodsCatagory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "goods_name", length = 50)
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "fixed_purchase_price", precision = 53)
+    @Column(name = "fixed_purchase_price")
     private Double fixedPurchasePrice;
-    @Column(name = "lasted_purchase_price", precision = 53)
+    @Column(name = "lasted_purchase_price")
     private Double lastedPurchasePrice;
-    @Column(name = "unit_price", precision = 53)
+    @Column(name = "unit_price")
     private Double unitPrice;
     @Column(name = "weight")
     private Integer weight;
     @JoinColumn(name = "group_goods", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Groupsgoods groupGoods;
-    @OneToMany(mappedBy = "goodsCatagoryId")
-    private Collection<Materialgoods> materialgoodsCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<Productionordercontent> productionordercontentCollection;
+    private Collection<VQuotesContent> vQuotesContentCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<VoucherContent> voucherContentCollection;
-    @OneToMany(mappedBy = "goodsId")
-    private Collection<InputContent> inputContentCollection;
+    private Collection<Quotescontent> quotescontentCollection;
 
     public GoodsCatagory() {
     }
@@ -140,39 +138,21 @@ public class GoodsCatagory implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Materialgoods> getMaterialgoodsCollection() {
-        return materialgoodsCollection;
+    public Collection<VQuotesContent> getVQuotesContentCollection() {
+        return vQuotesContentCollection;
     }
 
-    public void setMaterialgoodsCollection(Collection<Materialgoods> materialgoodsCollection) {
-        this.materialgoodsCollection = materialgoodsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Productionordercontent> getProductionordercontentCollection() {
-        return productionordercontentCollection;
-    }
-
-    public void setProductionordercontentCollection(Collection<Productionordercontent> productionordercontentCollection) {
-        this.productionordercontentCollection = productionordercontentCollection;
+    public void setVQuotesContentCollection(Collection<VQuotesContent> vQuotesContentCollection) {
+        this.vQuotesContentCollection = vQuotesContentCollection;
     }
 
     @XmlTransient
-    public Collection<VoucherContent> getVoucherContentCollection() {
-        return voucherContentCollection;
+    public Collection<Quotescontent> getQuotescontentCollection() {
+        return quotescontentCollection;
     }
 
-    public void setVoucherContentCollection(Collection<VoucherContent> voucherContentCollection) {
-        this.voucherContentCollection = voucherContentCollection;
-    }
-
-    @XmlTransient
-    public Collection<InputContent> getInputContentCollection() {
-        return inputContentCollection;
-    }
-
-    public void setInputContentCollection(Collection<InputContent> inputContentCollection) {
-        this.inputContentCollection = inputContentCollection;
+    public void setQuotescontentCollection(Collection<Quotescontent> quotescontentCollection) {
+        this.quotescontentCollection = quotescontentCollection;
     }
 
     @Override

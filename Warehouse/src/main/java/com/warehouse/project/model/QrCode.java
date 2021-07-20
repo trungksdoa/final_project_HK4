@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,12 +22,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "qr_code", catalog = "Databases_", schema = "dbo")
+@Table(name = "qr_code")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "QrCode.findAll", query = "SELECT q FROM QrCode q"),
     @NamedQuery(name = "QrCode.findById", query = "SELECT q FROM QrCode q WHERE q.id = :id"),
     @NamedQuery(name = "QrCode.findByBarcode", query = "SELECT q FROM QrCode q WHERE q.barcode = :barcode"),
+    @NamedQuery(name = "QrCode.findByGoodsId", query = "SELECT q FROM QrCode q WHERE q.goodsId = :goodsId"),
     @NamedQuery(name = "QrCode.findByDate", query = "SELECT q FROM QrCode q WHERE q.date = :date"),
     @NamedQuery(name = "QrCode.findByTexthere", query = "SELECT q FROM QrCode q WHERE q.texthere = :texthere")})
 public class QrCode implements Serializable {
@@ -38,17 +37,16 @@ public class QrCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "barcode", length = 100)
+    @Column(name = "barcode")
     private String barcode;
-    @Column(name = "date", length = 50)
+    @Column(name = "goods_id")
+    private String goodsId;
+    @Column(name = "date")
     private String date;
-    @Column(name = "texthere", length = 100)
+    @Column(name = "texthere")
     private String texthere;
-    @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
-    @ManyToOne
-    private Warehouse goodsId;
 
     public QrCode() {
     }
@@ -73,6 +71,14 @@ public class QrCode implements Serializable {
         this.barcode = barcode;
     }
 
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+    }
+
     public String getDate() {
         return date;
     }
@@ -87,14 +93,6 @@ public class QrCode implements Serializable {
 
     public void setTexthere(String texthere) {
         this.texthere = texthere;
-    }
-
-    public Warehouse getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Warehouse goodsId) {
-        this.goodsId = goodsId;
     }
 
     @Override

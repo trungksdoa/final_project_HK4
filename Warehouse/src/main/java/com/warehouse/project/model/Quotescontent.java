@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "Quotes_content", catalog = "Databases_", schema = "dbo")
+@Table(name = "Quotes_content")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Quotescontent.findAll", query = "SELECT q FROM Quotescontent q"),
@@ -42,28 +43,30 @@ public class Quotescontent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "goods_name", length = 100)
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
     @Column(name = "quantity")
     private Integer quantity;
     @Column(name = "goods_price")
     private Integer goodsPrice;
-    @Column(name = "afterpirce", length = 10)
-    private String afterpirce;
+    @Column(name = "afterpirce")
+    private Integer afterpirce;
     @Column(name = "discount")
     private Integer discount;
     @Column(name = "lasted_price")
     private Integer lastedPrice;
+    @JoinColumn(name = "goods_id", referencedColumnName = "id")
+    @ManyToOne
+    @JsonIgnore
+    private GoodsCatagory goodsId;
     @JoinColumn(name = "Quotes_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Quotes quotesid;
-    @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
-    @ManyToOne
-    private Warehouse goodsId;
 
     public Quotescontent() {
     }
@@ -112,11 +115,11 @@ public class Quotescontent implements Serializable {
         this.goodsPrice = goodsPrice;
     }
 
-    public String getAfterpirce() {
+    public Integer getAfterpirce() {
         return afterpirce;
     }
 
-    public void setAfterpirce(String afterpirce) {
+    public void setAfterpirce(Integer afterpirce) {
         this.afterpirce = afterpirce;
     }
 
@@ -136,20 +139,20 @@ public class Quotescontent implements Serializable {
         this.lastedPrice = lastedPrice;
     }
 
+    public GoodsCatagory getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(GoodsCatagory goodsId) {
+        this.goodsId = goodsId;
+    }
+
     public Quotes getQuotesid() {
         return quotesid;
     }
 
     public void setQuotesid(Quotes quotesid) {
         this.quotesid = quotesid;
-    }
-
-    public Warehouse getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Warehouse goodsId) {
-        this.goodsId = goodsId;
     }
 
     @Override
@@ -176,5 +179,5 @@ public class Quotescontent implements Serializable {
     public String toString() {
         return "com.warehouse.project.model.Quotescontent[ id=" + id + " ]";
     }
-    
+
 }

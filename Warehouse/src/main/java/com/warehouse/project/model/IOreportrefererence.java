@@ -5,6 +5,7 @@
  */
 package com.warehouse.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "IO_report_refererence", catalog = "Databases_", schema = "dbo")
+@Table(name = "IO_report_refererence")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "IOreportrefererence.findAll", query = "SELECT i FROM IOreportrefererence i"),
@@ -37,14 +38,15 @@ public class IOreportrefererence implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "code_id", length = 50)
+    @Column(name = "code_id")
     private String codeId;
-    @Column(name = "explain", length = 10)
+    @Column(name = "explain")
     private String explain;
     @JoinColumn(name = "IO_report_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private IOreport iOreportid;
 
     public IOreportrefererence() {

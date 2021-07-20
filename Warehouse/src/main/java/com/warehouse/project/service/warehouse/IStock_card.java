@@ -5,10 +5,13 @@
  */
 package com.warehouse.project.service.warehouse;
 
+import com.warehouse.project.model.StockCard;
+import java.util.List;
+
 /**
  *
  * @author trung
  */
 public interface IStock_card {
-    
+    public abstract  List<StockCard> findAll();
 }

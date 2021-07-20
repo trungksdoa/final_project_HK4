@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,43 +22,49 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author trung
  */
 @Entity
-@Table(name = "sales_coupon_content", catalog = "Databases_", schema = "dbo")
+@Table(name = "sales_coupon_content")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SalesCouponContent.findAll", query = "SELECT s FROM SalesCouponContent s"),
     @NamedQuery(name = "SalesCouponContent.findById", query = "SELECT s FROM SalesCouponContent s WHERE s.id = :id"),
+    @NamedQuery(name = "SalesCouponContent.findByGoodsId", query = "SELECT s FROM SalesCouponContent s WHERE s.goodsId = :goodsId"),
     @NamedQuery(name = "SalesCouponContent.findByGoodsName", query = "SELECT s FROM SalesCouponContent s WHERE s.goodsName = :goodsName"),
     @NamedQuery(name = "SalesCouponContent.findByUnit", query = "SELECT s FROM SalesCouponContent s WHERE s.unit = :unit"),
     @NamedQuery(name = "SalesCouponContent.findByQuantity", query = "SELECT s FROM SalesCouponContent s WHERE s.quantity = :quantity"),
-    @NamedQuery(name = "SalesCouponContent.findByGoodsPrice", query = "SELECT s FROM SalesCouponContent s WHERE s.goodsPrice = :goodsPrice"),
+    @NamedQuery(name = "SalesCouponContent.findByUnitPrice", query = "SELECT s FROM SalesCouponContent s WHERE s.unitPrice = :unitPrice"),
     @NamedQuery(name = "SalesCouponContent.findByDiscount", query = "SELECT s FROM SalesCouponContent s WHERE s.discount = :discount"),
-    @NamedQuery(name = "SalesCouponContent.findByAfterpirce", query = "SELECT s FROM SalesCouponContent s WHERE s.afterpirce = :afterpirce")})
+    @NamedQuery(name = "SalesCouponContent.findByAfterpirce", query = "SELECT s FROM SalesCouponContent s WHERE s.afterpirce = :afterpirce"),
+    @NamedQuery(name = "SalesCouponContent.findBySalesCouponId", query = "SELECT s FROM SalesCouponContent s WHERE s.salesCouponId = :salesCouponId"),
+    @NamedQuery(name = "SalesCouponContent.findByStatus", query = "SELECT s FROM SalesCouponContent s WHERE s.status = :status"),
+    @NamedQuery(name = "SalesCouponContent.findByDiscoutPrice", query = "SELECT s FROM SalesCouponContent s WHERE s.discoutPrice = :discoutPrice")})
 public class SalesCouponContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "goods_name", length = 100)
+    @Column(name = "goods_id")
+    private String goodsId;
+    @Column(name = "goods_name")
     private String goodsName;
-    @Column(name = "unit", length = 10)
+    @Column(name = "unit")
     private String unit;
     @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "goods_price")
-    private Integer goodsPrice;
+    @Column(name = "unit_price")
+    private Integer unitPrice;
     @Column(name = "discount")
     private Integer discount;
-    @Column(name = "afterpirce", length = 10)
-    private String afterpirce;
-    @JoinColumn(name = "sales_coupon_id", referencedColumnName = "id")
-    @ManyToOne
-    private SalesCoupon salesCouponId;
-    @JoinColumn(name = "goods_id", referencedColumnName = "goods_id")
-    @ManyToOne
-    private Warehouse goodsId;
+    @Column(name = "afterpirce")
+    private Integer afterpirce;
+    @Column(name = "sales_coupon_id")
+    private String salesCouponId;
+    @Column(name = "status")
+    private Boolean status;
+    @Column(name = "discout_price")
+    private Integer discoutPrice;
 
     public SalesCouponContent() {
     }
@@ -75,6 +79,14 @@ public class SalesCouponContent implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName() {
@@ -101,12 +113,12 @@ public class SalesCouponContent implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getGoodsPrice() {
-        return goodsPrice;
+    public Integer getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setGoodsPrice(Integer goodsPrice) {
-        this.goodsPrice = goodsPrice;
+    public void setUnitPrice(Integer unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public Integer getDiscount() {
@@ -117,28 +129,36 @@ public class SalesCouponContent implements Serializable {
         this.discount = discount;
     }
 
-    public String getAfterpirce() {
+    public Integer getAfterpirce() {
         return afterpirce;
     }
 
-    public void setAfterpirce(String afterpirce) {
+    public void setAfterpirce(Integer afterpirce) {
         this.afterpirce = afterpirce;
     }
 
-    public SalesCoupon getSalesCouponId() {
+    public String getSalesCouponId() {
         return salesCouponId;
     }
 
-    public void setSalesCouponId(SalesCoupon salesCouponId) {
+    public void setSalesCouponId(String salesCouponId) {
         this.salesCouponId = salesCouponId;
     }
 
-    public Warehouse getGoodsId() {
-        return goodsId;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setGoodsId(Warehouse goodsId) {
-        this.goodsId = goodsId;
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Integer getDiscoutPrice() {
+        return discoutPrice;
+    }
+
+    public void setDiscoutPrice(Integer discoutPrice) {
+        this.discoutPrice = discoutPrice;
     }
 
     @Override

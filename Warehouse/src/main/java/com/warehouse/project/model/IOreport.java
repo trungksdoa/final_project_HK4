@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "IO_report", catalog = "Databases_", schema = "dbo")
+@Table(name = "IO_report")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "IOreport.findAll", query = "SELECT i FROM IOreport i"),
@@ -39,13 +39,13 @@ public class IOreport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "date", length = 50)
+    @Column(name = "date")
     private String date;
-    @Column(name = "explain", length = 100)
+    @Column(name = "explain")
     private String explain;
-    @Column(name = "major", length = 20)
+    @Column(name = "major")
     private String major;
     @OneToMany(mappedBy = "iOreportid")
     private Collection<IOreportrefererence> iOreportrefererenceCollection;

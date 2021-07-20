@@ -6,57 +6,83 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author trung
  */
 @Entity
-@Table(name = "sales_coupon", catalog = "Databases_", schema = "dbo")
+@Table(name = "sales_coupon")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SalesCoupon.findAll", query = "SELECT s FROM SalesCoupon s"),
     @NamedQuery(name = "SalesCoupon.findById", query = "SELECT s FROM SalesCoupon s WHERE s.id = :id"),
     @NamedQuery(name = "SalesCoupon.findByDate", query = "SELECT s FROM SalesCoupon s WHERE s.date = :date"),
+    @NamedQuery(name = "SalesCoupon.findByCustomerId", query = "SELECT s FROM SalesCoupon s WHERE s.customerId = :customerId"),
     @NamedQuery(name = "SalesCoupon.findByAddress", query = "SELECT s FROM SalesCoupon s WHERE s.address = :address"),
     @NamedQuery(name = "SalesCoupon.findByPhone", query = "SELECT s FROM SalesCoupon s WHERE s.phone = :phone"),
     @NamedQuery(name = "SalesCoupon.findByExpain", query = "SELECT s FROM SalesCoupon s WHERE s.expain = :expain"),
-    @NamedQuery(name = "SalesCoupon.findBySeller", query = "SELECT s FROM SalesCoupon s WHERE s.seller = :seller")})
+    @NamedQuery(name = "SalesCoupon.findBySeller", query = "SELECT s FROM SalesCoupon s WHERE s.seller = :seller"),
+    @NamedQuery(name = "SalesCoupon.findByCircumstance", query = "SELECT s FROM SalesCoupon s WHERE s.circumstance = :circumstance"),
+    @NamedQuery(name = "SalesCoupon.findByStatus", query = "SELECT s FROM SalesCoupon s WHERE s.status = :status"),
+    @NamedQuery(name = "SalesCoupon.findByReceiver", query = "SELECT s FROM SalesCoupon s WHERE s.receiver = :receiver"),
+    @NamedQuery(name = "SalesCoupon.findByTotalquantity", query = "SELECT s FROM SalesCoupon s WHERE s.totalquantity = :totalquantity"),
+    @NamedQuery(name = "SalesCoupon.findByTotalDiscount", query = "SELECT s FROM SalesCoupon s WHERE s.totalDiscount = :totalDiscount"),
+    @NamedQuery(name = "SalesCoupon.findByTatolPrice", query = "SELECT s FROM SalesCoupon s WHERE s.tatolPrice = :tatolPrice"),
+    @NamedQuery(name = "SalesCoupon.findByQuotesId", query = "SELECT s FROM SalesCoupon s WHERE s.quotesId = :quotesId"),
+    @NamedQuery(name = "SalesCoupon.findByPayments", query = "SELECT s FROM SalesCoupon s WHERE s.payments = :payments"),
+    @NamedQuery(name = "SalesCoupon.findByLastedPrice", query = "SELECT s FROM SalesCoupon s WHERE s.lastedPrice = :lastedPrice"),
+    @NamedQuery(name = "SalesCoupon.findByPaid", query = "SELECT s FROM SalesCoupon s WHERE s.paid = :paid"),
+    @NamedQuery(name = "SalesCoupon.findByOwed", query = "SELECT s FROM SalesCoupon s WHERE s.owed = :owed")})
 public class SalesCoupon implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "date", length = 20)
+    @Column(name = "date")
     private String date;
-    @Column(name = "address", length = 50)
+    @Column(name = "customer_id")
+    private String customerId;
+    @Column(name = "address")
     private String address;
     @Column(name = "phone")
-    private Integer phone;
-    @Column(name = "expain", length = 50)
+    private String phone;
+    @Column(name = "expain")
     private String expain;
-    @Column(name = "seller", length = 50)
+    @Column(name = "seller")
     private String seller;
-    @OneToMany(mappedBy = "salesCouponId")
-    private Collection<SalesCouponContent> salesCouponContentCollection;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne
-    private Customer customerId;
+    @Column(name = "circumstance")
+    private Integer circumstance;
+    @Column(name = "status")
+    private Boolean status;
+    @Column(name = "receiver")
+    private String receiver;
+    @Column(name = "totalquantity")
+    private Integer totalquantity;
+    @Column(name = "total_discount")
+    private Integer totalDiscount;
+    @Column(name = "tatol_price")
+    private Integer tatolPrice;
+    @Column(name = "quotes_id")
+    private String quotesId;
+    @Column(name = "payments")
+    private String payments;
+    @Column(name = "lasted_price")
+    private Integer lastedPrice;
+    @Column(name = "paid")
+    private Integer paid;
+    @Column(name = "owed")
+    private Integer owed;
 
     public SalesCoupon() {
     }
@@ -81,6 +107,14 @@ public class SalesCoupon implements Serializable {
         this.date = date;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -89,11 +123,11 @@ public class SalesCoupon implements Serializable {
         this.address = address;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -113,21 +147,92 @@ public class SalesCoupon implements Serializable {
         this.seller = seller;
     }
 
-    @XmlTransient
-    public Collection<SalesCouponContent> getSalesCouponContentCollection() {
-        return salesCouponContentCollection;
+    public Integer getCircumstance() {
+        return circumstance;
     }
 
-    public void setSalesCouponContentCollection(Collection<SalesCouponContent> salesCouponContentCollection) {
-        this.salesCouponContentCollection = salesCouponContentCollection;
+    public void setCircumstance(Integer circumstance) {
+        this.circumstance = circumstance;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public Integer getTotalquantity() {
+        return totalquantity;
+    }
+
+    public void setTotalquantity(Integer totalquantity) {
+        this.totalquantity = totalquantity;
+    }
+
+    public Integer getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(Integer totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public Integer getTatolPrice() {
+        return tatolPrice;
+    }
+
+    public void setTatolPrice(Integer tatolPrice) {
+        this.tatolPrice = tatolPrice;
+    }
+
+    public String getQuotesId() {
+        return quotesId;
+    }
+
+    public void setQuotesId(String quotesId) {
+        this.quotesId = quotesId;
+    }
+
+    public String getPayments() {
+        return payments;
+    }
+
+    public void setPayments(String payments) {
+        this.payments = payments;
+    }
+
+    public Integer getLastedPrice() {
+        return lastedPrice;
+    }
+
+    public void setLastedPrice(Integer lastedPrice) {
+        this.lastedPrice = lastedPrice;
+    }
+
+    public Integer getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Integer paid) {
+        this.paid = paid;
+    }
+
+    public Integer getOwed() {
+        return owed;
+    }
+
+    public void setOwed(Integer owed) {
+        this.owed = owed;
     }
 
     @Override

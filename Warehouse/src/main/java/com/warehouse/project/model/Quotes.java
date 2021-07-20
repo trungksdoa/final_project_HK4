@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,39 +23,53 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author trung
  */
 @Entity
-@Table(name = "Quotes", catalog = "Databases_", schema = "dbo")
+@Table(name = "Quotes")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Quotes.findAll", query = "SELECT q FROM Quotes q"),
     @NamedQuery(name = "Quotes.findById", query = "SELECT q FROM Quotes q WHERE q.id = :id"),
     @NamedQuery(name = "Quotes.findByDate", query = "SELECT q FROM Quotes q WHERE q.date = :date"),
+    @NamedQuery(name = "Quotes.findByCustomerId", query = "SELECT q FROM Quotes q WHERE q.customerId = :customerId"),
     @NamedQuery(name = "Quotes.findByAddress", query = "SELECT q FROM Quotes q WHERE q.address = :address"),
     @NamedQuery(name = "Quotes.findByPhone", query = "SELECT q FROM Quotes q WHERE q.phone = :phone"),
     @NamedQuery(name = "Quotes.findByReceiver", query = "SELECT q FROM Quotes q WHERE q.receiver = :receiver"),
     @NamedQuery(name = "Quotes.findByExplain", query = "SELECT q FROM Quotes q WHERE q.explain = :explain"),
-    @NamedQuery(name = "Quotes.findByCreator", query = "SELECT q FROM Quotes q WHERE q.creator = :creator")})
+    @NamedQuery(name = "Quotes.findByCreator", query = "SELECT q FROM Quotes q WHERE q.creator = :creator"),
+    @NamedQuery(name = "Quotes.findByTotalquantity", query = "SELECT q FROM Quotes q WHERE q.totalquantity = :totalquantity"),
+    @NamedQuery(name = "Quotes.findByTotalDiscount", query = "SELECT q FROM Quotes q WHERE q.totalDiscount = :totalDiscount"),
+    @NamedQuery(name = "Quotes.findByTatolPrice", query = "SELECT q FROM Quotes q WHERE q.tatolPrice = :tatolPrice"),
+    @NamedQuery(name = "Quotes.findByLastedPrice", query = "SELECT q FROM Quotes q WHERE q.lastedPrice = :lastedPrice")})
 public class Quotes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
-    @Column(name = "date", length = 50)
+    @Column(name = "date")
     private String date;
-    @Column(name = "address", length = 50)
+    @Column(name = "customer_id")
+    private String customerId;
+    @Column(name = "address")
     private String address;
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone")
     private String phone;
-    @Column(name = "receiver", length = 50)
+    @Column(name = "receiver")
     private String receiver;
-    @Column(name = "explain", length = 100)
+    @Column(name = "explain")
     private String explain;
-    @Column(name = "creator", length = 50)
+    @Column(name = "creator")
     private String creator;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne
-    private Customer customerId;
+    @Column(name = "totalquantity")
+    private Integer totalquantity;
+    @Column(name = "total_discount")
+    private Integer totalDiscount;
+    @Column(name = "tatol_price")
+    private Integer tatolPrice;
+    @Column(name = "lasted_price")
+    private Integer lastedPrice;
+    @OneToMany(mappedBy = "quotesid")
+    private Collection<VQuotesContent> vQuotesContentCollection;
     @OneToMany(mappedBy = "quotesid")
     private Collection<Quotescontent> quotescontentCollection;
 
@@ -82,6 +94,14 @@ public class Quotes implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getAddress() {
@@ -124,12 +144,45 @@ public class Quotes implements Serializable {
         this.creator = creator;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Integer getTotalquantity() {
+        return totalquantity;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setTotalquantity(Integer totalquantity) {
+        this.totalquantity = totalquantity;
+    }
+
+    public Integer getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(Integer totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public Integer getTatolPrice() {
+        return tatolPrice;
+    }
+
+    public void setTatolPrice(Integer tatolPrice) {
+        this.tatolPrice = tatolPrice;
+    }
+
+    public Integer getLastedPrice() {
+        return lastedPrice;
+    }
+
+    public void setLastedPrice(Integer lastedPrice) {
+        this.lastedPrice = lastedPrice;
+    }
+
+    @XmlTransient
+    public Collection<VQuotesContent> getVQuotesContentCollection() {
+        return vQuotesContentCollection;
+    }
+
+    public void setVQuotesContentCollection(Collection<VQuotesContent> vQuotesContentCollection) {
+        this.vQuotesContentCollection = vQuotesContentCollection;
     }
 
     @XmlTransient
