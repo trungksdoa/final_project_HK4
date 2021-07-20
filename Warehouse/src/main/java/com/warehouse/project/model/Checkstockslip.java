@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Checkstockslip.findAll", query = "SELECT c FROM Checkstockslip c"),
     @NamedQuery(name = "Checkstockslip.findById", query = "SELECT c FROM Checkstockslip c WHERE c.id = :id"),
     @NamedQuery(name = "Checkstockslip.findByDate", query = "SELECT c FROM Checkstockslip c WHERE c.date = :date"),
+    @NamedQuery(name = "Checkstockslip.findByDate2", query = "SELECT c FROM Checkstockslip c WHERE c.date2 = :date2"),
     @NamedQuery(name = "Checkstockslip.findByWarehouse", query = "SELECT c FROM Checkstockslip c WHERE c.warehouse = :warehouse"),
-    @NamedQuery(name = "Checkstockslip.findByStatus", query = "SELECT c FROM Checkstockslip c WHERE c.status = :status"),
-    @NamedQuery(name = "Checkstockslip.findByStatus2", query = "SELECT c FROM Checkstockslip c WHERE c.status2 = :status2")})
+    @NamedQuery(name = "Checkstockslip.findByStatus", query = "SELECT c FROM Checkstockslip c WHERE c.status = :status")})
 public class Checkstockslip implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,27 +39,17 @@ public class Checkstockslip implements Serializable {
     @Column(name = "Date")
     private String date;
     @Column(name = "Date2")
-    private String Date2;
+    private String date2;
     @Column(name = "warehouse")
     private String warehouse;
     @Column(name = "status")
-    private Boolean status;
-    @Column(name = "status2")
-    private String status2;
+    private Integer status;
 
     public Checkstockslip() {
     }
 
     public Checkstockslip(String id) {
         this.id = id;
-    }
-
-    public String getDate2() {
-        return Date2;
-    }
-
-    public void setDate2(String Date2) {
-        this.Date2 = Date2;
     }
 
     public String getId() {
@@ -78,6 +68,14 @@ public class Checkstockslip implements Serializable {
         this.date = date;
     }
 
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
+    }
+
     public String getWarehouse() {
         return warehouse;
     }
@@ -86,20 +84,12 @@ public class Checkstockslip implements Serializable {
         this.warehouse = warehouse;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getStatus2() {
-        return status2;
-    }
-
-    public void setStatus2(String status2) {
-        this.status2 = status2;
     }
 
     @Override
@@ -126,5 +116,5 @@ public class Checkstockslip implements Serializable {
     public String toString() {
         return id;
     }
-
+    
 }

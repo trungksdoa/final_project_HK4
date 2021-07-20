@@ -73,6 +73,73 @@
 
             <!--//Incldue here-->
             <style>
+                .ui-autocomplete-input {
+                    border: none; 
+                    font-size: 14px;
+                    width: 250px;
+                    height: 37px;
+                    margin-bottom: 5px;
+                    padding-top: 2px;
+                    border: 1px solid #DDD !important;
+                    padding-top: 0px !important;
+                    z-index: 1511;
+                    position: relative;
+                }
+                .ui-menu .ui-menu-item a {
+                    font-size: 12px;
+                }
+                .ui-autocomplete {
+                    max-height: 200px;
+                    overflow-y: auto;
+                    /* prevent horizontal scrollbar */
+                    overflow-x: hidden;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1510 !important;
+                    float: left;
+                    display: none;
+                    min-width: 160px;
+                    width: 160px;
+                    padding: 4px 0;
+                    margin: 2px 0 0 0;
+                    list-style: none;
+                    background-color: #ffffff;
+                    border-color: #ccc;
+                    border-color: rgba(0, 0, 0, 0.2);
+                    border-style: solid;
+                    border-width: 1px;
+                    -webkit-border-radius: 2px;
+                    -moz-border-radius: 2px;
+                    border-radius: 2px;
+                    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    -webkit-background-clip: padding-box;
+                    -moz-background-clip: padding;
+                    background-clip: padding-box;
+                    *border-right-width: 2px;
+                    *border-bottom-width: 2px;
+                }
+                .ui-menu-item > a.ui-corner-all {
+                    display: block;
+                    padding: 3px 15px;
+                    clear: both;
+                    font-weight: normal;
+                    line-height: 18px;
+                    color: #555555;
+                    white-space: nowrap;
+                    text-decoration: none;
+                }
+                .ui-state-hover, .ui-state-active {
+                    color: #ffffff;
+                    text-decoration: none;
+                    background-color: #0088cc;
+                    border-radius: 0px;
+                    -webkit-border-radius: 0px;
+                    -moz-border-radius: 0px;
+                    background-image: none;
+                }
                 #chart {
                     height: 440px;
                 }
@@ -257,7 +324,14 @@
                                                                 <td>${x.date2}</td>
                                                                 <td>${x.explain}</td>
                                                                 <td>${x.serivce}</td>
-                                                                <td><a id="Completed" class="btn  ${x.status}">${x.status}</a></td>
+                                                                <c:choose>
+                                                                    <c:when test='${x.status == 2}'>
+                                                                        <td><a class="btn btn-success">Completed</a></td>
+                                                                    </c:when>
+                                                                    <c:when test='${x.status == 1}'>
+                                                                        <td><a class="btn btn-secondary">In progress</a></td>
+                                                                    </c:when>
+                                                                </c:choose>
                                                                 <td><button onClick="reply_click(this.id)" id="<c:out value = "${x.getId()}"/>"><i class="fas fa-edit"></i></button></td>
                                                             </tr>
                                                             <% stt2++; %>
@@ -288,7 +362,7 @@
                                         <ul>
                                             <li><a href="#tabs-1">Info</a></li>
                                             <li><a href="#tabs-2">Goods info</a></li>       
-
+                                            <li><a href="#tabs-3" id="addmore">Additional</a></li>     
                                         </ul>
                                         <div id="tabs-1">
                                             <form action='/web/warehouse/DeleteOustput/' method="POST">
@@ -299,7 +373,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="Date" class="col-sm-2 col-form-label">Date</label>
+                                                    <label for="Dates" class="col-sm-2 col-form-label">Date</label>
                                                     <div class="col-sm-10">
                                                         <input readonly type="text" class="form-control" name="Dates" id="Dates" placeholder="Date">
                                                     </div>
@@ -311,7 +385,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="Explain" class="col-sm-2 col-form-label">service</label>
+                                                    <label for="service" class="col-sm-2 col-form-label">service</label>
                                                     <div class="col-sm-10">
                                                         <input readonly type="text" class="form-control" name="service" id="service" placeholder="service">
                                                     </div>
@@ -332,17 +406,20 @@
 
                                                 </table>
                                                 <span id="slipId"></span>
+                                                <span style="color:green;text-align: center" id="message"></span>
+                                                <span id="explaintcanbeupdate"></span>
                                                 <table class="table" style="overflow-y: hidden">
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 40px;">#</th>
                                                             <th>Name</th>
                                                             <th>Unit</th>
-                                                            <th>Imports Prices</th>
+                                                            <th>Export Prices</th>
                                                             <th>Quantity</th>
                                                             <th>Supplier</th>
                                                             <th>Warehouse</th>
                                                             <th>Weight</th>
+                                                           <th id="actionmethod">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tbodys">
@@ -350,11 +427,67 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="form-group row">
+                                                    <label for="Explain23s" class="col-sm-2 col-form-label">Explain</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="Explain23s" id="Explain23s" placeholder="Explain">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <div class="col-sm-10">
                                                         <button type="submit" id="Balances" class="btn btn-primary">Save</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                        </div>
+                                        <div id="tabs-3">
+                                            <span id="slipId2"></span>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpGoodssId">Id</label>
+                                                    <input onkeydown="Autocomplete()" type="text" class="form-control" id="UpGoodssId" placeholder="Search">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpGoodsName">Name</label>
+                                                    <input type="text" class="form-control" readonly="" id="UpGoodsName" placeholder="Good_names">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpUnit">Unit</label>
+                                                    <input type="text" class="form-control" id="UpUnit" placeholder="" readonly="">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpQuantity">Quantity</label>
+                                                    <input type="number" class="form-control" min="1" id="UpQuantity" placeholder="UpQuantity">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpWarehouse">Warehouse</label>
+                                                    <input readonly  type="text" class="form-control" id="UpWarehouse">
+                                                </div>
+
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpExportprice">Input price</label>
+                                                    <input type="number" class="form-control" id="UpExportprice">
+                                                </div>      
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpGroup">Group</label>
+                                                    <input readonly  type="text" class="form-control" id="UpGroup">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpWeight">Weight</label>
+                                                    <input type="text" class="form-control" id="UpWeight">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpSupplier">Supplier</label>
+                                                    <input readonly type="text" class="form-control" id="UpSupplier">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpWeight"></label>
+                                                    <button type="button" onclick="saveNewTranContent()" id="submitbuton" style='margin-top: 32px;' class="btn btn-primary">Add</button>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
 
@@ -396,30 +529,81 @@
                     $("#tabs").tabs();
                     $('#message').delay(10000).fadeOut();
                 });
-                function reply_click(id) {
-                    $('#tbodys').empty();
-                    $.get("/api/output/findOutptData/" + id, function (data, status) {
-                        $('#idcode').val("" + data.id + "");
-                        $('#Dates').val("" + data.date + "");
-                        $('#Explain').val("" + data.explain + "");
-                        $('#service').val("" + data.serivce + "");
-//                        console.log(data);
-                        if (data.status == "Completed")
-                        {
-                            $('#deletebtn').text("Completed");
-                            $('#Balances').text("Changed");
-                            $('#Balances').prop("disabled", true);
-                            $("#deletebtn").prop("disabled", true);
-//                            $("#Completed").prop("disabled", true);
-                        } else
-                        {
-                            $('#deletebtn').text("Cancle");
-                        }
-                        var datainput = "<input type='hidden' name='slipId' value='" + data.id + "'/>"
-//                        console.log(datainput);
-                        $('#slipId').append(datainput);
-                    });
 
+
+
+                function Autocomplete()
+                {
+                    var goodsArray = [];
+                    $.get("/api/output/goodsCatagory/", function (data, status) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tempArray = new Array();
+                            tempArray["id"] = data[i].goodsName;
+                            tempArray["label"] = data[i].goodsId;
+                            tempArray["value"] = data[i].goodsId;
+                            tempArray["weight"] = data[i].weight;
+                            tempArray["unit"] = data[i].unit;
+                            tempArray["quantityInStock"] = data[i].quantityInStock;
+                            tempArray["group_goods"] = data[i].groupGoods;
+                            tempArray["warehouse"] = data[i].warehouse;
+                            tempArray['supplier'] = data[i].supplier;
+                            tempArray['sellPrice'] = data[i].sellPrice;
+
+                            goodsArray.push(tempArray);
+                        }
+                        console.log(goodsArray);
+                    });
+                    $("#UpGoodssId").autocomplete({
+                        source: goodsArray,
+                        select: function (e, ui) {
+                            var e = ui.item;
+//                console.log(e.suplier);
+                            if (e.quantityInStock <= 0)
+                            {
+                                alert("This goods have quantity is 0, Please input before you do output")
+                                $("#UpGoodsName").val("");
+                                $("#UpUnit").val("");
+                                $('#UpGroup').val("");
+                                $('#UpWarehouse').val("");
+                                $('#UpSupplier').val("");
+                                $('#UpWeight').val("");
+                                $('#UpQuantity').val("")
+                            } else
+                            {
+                                $("#UpGoodsName").val(e.id);
+                                $("#UpUnit").val(e.unit);
+                                $('#UpGroup').val(e.group_goods);
+                                $('#UpWarehouse').val(e.warehouse);
+                                $('#UpSupplier').val(e.supplier);
+                                $('#UpWeight').val(e.weight);
+                                $('#UpQuantity').val(e.quantityInStock)
+                                if (e.sellPrice == null)
+                                {
+                                    $('#UpExportprice').val(1);
+                                } else
+                                {
+                                    $('#UpExportprice').val(e.sellPrice);
+                                }
+
+                                $("#UpQuantity").attr({
+                                    "max": e.quantityInStock,
+                                });
+                            }
+
+                        },
+
+                        change: function (e, ui) {
+                        }
+                    }).autocomplete("instance")._renderItem = function (ul, item) {
+                        return $("<li>")
+                                .append("<div>" + "Name: " + item.id + " " + "WH:" + item.warehouse + "" + " - " + item.quantityInStock + "<br>" + "ID: " + item.value + "</div>")
+                                .appendTo(ul);
+                    };
+                }
+                function addNewcontent(id)
+                {
+                    stt = 0;
+                    $('#tbodys').empty();
                     var stt23 = 1;
 
                     $.get("/api/output/GetItemOut/" + id, function (data2, status) {
@@ -435,27 +619,270 @@
                             rowsds.append('<td>' + data2[i].goodsName + '</td>');
                             rowsds.append('<td>' + data2[i].unit + '</td>');
                             rowsds.append('<td>' + data2[i].exportsPrices + '</td>');
+                            rowsds.append('<td style="text-align: center;width: 30%;">' + "<a onClick='UpdateQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click" + stt + "'><i class='fas fa-plus'></i></a>" + "<input style='width: 30%;' min=1 type='number' id='quantity" + data2[i].id + "' class='quanttoys'  name='quantity' value='" + data2[i].quantity + "'/>" + "<a onClick='UpdateMinusQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click1" + stt + "'><i class='fas fa-minus'></i></a>" + '</td>');
                             rowsds.append('<td>' + data2[i].quantity + '</td>');
                             rowsds.append('<td>' + data2[i].supplier + '</td>');
                             rowsds.append('<td>' + data2[i].warehouse + '</td>');
                             rowsds.append('<td>' + data2[i].weight + '</td>');
+                            rowsds.append('<td id="actionmethod2' + stt + '">' + "<span onClick='UpdateToData(this.id)' id='" + data2[i].id + "' ><i style='cursor:pointer' class='fas fa-edit'></i></span>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  class='" + data2[i].id + "' id='remove" + stt + "' onClick='RemoveData(this)' ><i  style='cursor:pointer' class='fas fa-trash'></i></span>" + '</td>');
                             rowsds.append('</tr>');
                             $('#tbodys').append(rowsds);
                             stt23++;
-
+                            stt++;
                             var rowsds2 = $('<tr>');
                             rowsds2.append('<td>' + "<input type='hidden' id='idenentity'  name='idenentity' value='" + data2[i].id + "'/>" + '</td>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='reference'  name='reference' value='" + data2[i].reference + "'/>" + '</td>');
                             rowsds2.append('</tr>');
                             $('#hiddenId').append(rowsds2);
-
-                            var rowsds3 = $('<tr>');
-                            rowsds3.append('<td>' + "<input type='hidden' id='reference'  name='reference' value='" + data2[i].reference + "'/>" + '</td>');
-                            rowsds3.append('</tr>');
-                            $('#hiddenId2').append(rowsds3);
 
                         }
 
                     });
+                    //
+                    //Object[i]
+                    //
+                    $.get("/api/output/findOutptData/" + id, function (data, status) {
+                        $('#idcode').val("" + data.id + "");
+                        $('#Dates').val("" + data.date + "");
+                        $('#Explain').val("" + data.explain + "");
+                        $('#service').val("" + data.serivce + "");
+//                        console.log(data);
+                        if (data.status == 2)
+                        {
+                            $('#addmore').remove();
+                            $('#actionmethod').remove();
+                            $('#deletebtn').text("Completed");
+                            $('#Balances').text("Changed");
+                            $('#Balances').prop("disabled", true);
+                            $("#deletebtn").prop("disabled", true);
+                            $(".quanttoys").prop("disabled", true);
+                            for (var i = 0; i < stt; i++) {
+                                $('#actionmethod2' + i).remove();
+                                $('.click' + i).remove();
+                                $('.click1' + i).remove();
+                            }
+//                            $("#Completed").prop("disabled", true);
+                        } else
+                        {
+                            $('#deletebtn').text("Cancle");
+                        }
+                        var datainput = "<input type='hidden' name='slipI232d' id='slipI232d' value='" + data.id + "'/>"
+
+//                        console.log(datainput);
+                        $('#slipId').append(datainput);
+                    });
+
+                }
+
+
+                function saveNewTranContent() {
+                    var UpGoodssId = $('#UpGoodssId').val();
+                    var UpGoodsName = $('#UpGoodsName').val();
+                    var UpQuantity = $('#UpQuantity').val();
+                    var UpUnit = $('#UpUnit').val();
+                    var UpWarehouse = $('#UpWarehouse').val();
+                    var UpExportprice = $('#UpExportprice').val();
+                    var UpGroup = $('#UpGroup').val();
+                    var UpWeight = $('#UpWeight').val();
+                    var UpSupplier = $('#UpSupplier').val();
+                    var codeis22 = $('#slipI232d').val();
+                    console.log(codeis22);
+                    if (UpGoodsName == "" || UpUnit == "")
+                    {
+                        alert("Please field correct value");
+                        var UpGoodssId = $('#UpGoodssId').val("");
+                        var UpGoodsName = $('#UpGoodsName').val("");
+                        var UpQuantity = $('#UpQuantity').val("");
+                        var UpUnit = $('#UpUnit').val("");
+                        var UpWarehouse = $('#UpWarehouse').val("");
+                        var UpExportprice = $('#UpExportprice').val("");
+                        var UpGroup = $('#UpGroup').val("");
+                        var UpWeight = $('#UpWeight').val("");
+                        var UpSupplier = $('#UpSupplier').val("");
+                    } else
+                    {
+                        $.post("/api/output/SaveNewoutputContent/", {
+                            UpGoodssId: UpGoodssId,
+                            UpGoodsName: UpGoodsName,
+                            UpQuantity: UpQuantity,
+                            UpUnit: UpUnit,
+                            UpWarehouse: UpWarehouse,
+                            UpExportprice: UpExportprice,
+                            UpGroup: UpGroup,
+                            UpWeight: UpWeight,
+                            UpSupplier: UpSupplier,
+                            codeis22: codeis22
+                        }, function (data2) {
+                            if (data2 == null)
+                            {
+                                alert("your goods is already have in table, Please enter other");
+                                var UpGoodssId = $('#UpGoodssId').val("");
+                                var UpGoodsName = $('#UpGoodsName').val("");
+                                var UpQuantity = $('#UpQuantity').val("");
+                                var UpUnit = $('#UpUnit').val("");
+                                var UpWarehouse = $('#UpWarehouse').val("");
+                                var UpExportprice = $('#UpExportprice').val("");
+                                var UpGroup = $('#UpGroup').val("");
+                                var UpWeight = $('#UpWeight').val("");
+                                var UpSupplier = $('#UpSupplier').val("");
+                                addNewcontent(codeis22);
+                            } else
+                            {
+                                var UpGoodssId = $('#UpGoodssId').val("");
+                                var UpGoodsName = $('#UpGoodsName').val("");
+                                var UpQuantity = $('#UpQuantity').val("");
+                                var UpUnit = $('#UpUnit').val("");
+                                var UpWarehouse = $('#UpWarehouse').val("");
+                                var UpExportprice = $('#UpExportprice').val("");
+                                var UpGroup = $('#UpGroup').val("");
+                                var UpWeight = $('#UpWeight').val("");
+                                var UpSupplier = $('#UpSupplier').val("");
+                                addNewcontent(codeis22);
+                            }
+                        });
+                    }
+                    ;
+
+                }
+                ;
+                function UpdateQuantity(id)
+                {
+
+                    counter = 0;
+                    var quanttity = 0;
+                    let defaultquantity = $("#quantity" + id + "").val();
+                    let index = ++defaultquantity;
+                    $("#quantity" + id + "").val("" + index + "");
+                }
+
+                function UpdateMinusQuantity(id)
+                {
+
+                    counter = 0;
+                    var quanttity = 0;
+                    let defaultquantity = $("#quantity" + id + "").val();
+                    let index = --defaultquantity;
+                    $("#quantity" + id + "").val("" + index + "");
+                }
+
+                function UpdateToData(id)
+                {
+                    let defaultquantity = $("#quantity" + id + "").val();
+                    $.post("/api/output/UpdatePlusQuantity/", {id: id, qty: defaultquantity}, function (result) {
+                        $("#message").css("color", "green");
+                        $('#message').text("Update Sucess");
+                        $('#message').fadeIn();
+                        $('#message').delay(900).fadeOut();
+                    }).fail(function () {
+                        $("#message").css("color", "red");
+                        $('#message').text("Errorr");
+                        $('#message').fadeIn();
+                        $('#message').delay(900).fadeOut();
+                    });
+                }
+//                onClick='RemoveData(this.class)'
+                function RemoveData(dataclass)
+                {
+                    var colClass = dataclass.className
+                    var colId = dataclass.getAttribute('id');
+//                    console.log(colClass);
+//                    console.log(colId);
+                    var mateches = colId.trim().match(/(\d+)/);
+                    if (mateches[0] == 0)
+                    {
+                        alert("Cannot delete last goods");
+                    } else
+                    {
+                        document.getElementById("tbodys").deleteRow(mateches[0]);
+
+                        $.post("/api/output/DeleteBy/", {id: colClass}, function (result) {
+                            $("#message").css("color", "green");
+                            $('#message').text("Delete Sucess");
+                            $('#message').fadeIn();
+                            $('#message').delay(900).fadeOut();
+                        }).fail(function () {
+                            $("#message").css("color", "red");
+                            $('#message').text("Errorr");
+                            $('#message').fadeIn();
+                            $('#message').delay(900).fadeOut();
+                        });
+                    }
+                }
+
+
+
+
+
+                function reply_click(id) {
+                    stt = 0;
+                    $('#tbodys').empty();
+                    var stt23 = 1;
+
+                    $.get("/api/output/GetItemOut/" + id, function (data2, status) {
+                        console.log(data2)
+                        for (var i = 0; i < data2.length; i++) {
+                            if (data2[i].status == true)
+                            {
+                                $("#Balances").prop("disabled", true);
+                                $("#Balances").text("Changed");
+                            }
+                            var rowsds = $('<tr>');
+                            rowsds.append('<td>' + stt23 + '</td>');
+                            rowsds.append('<td>' + data2[i].goodsName + '</td>');
+                            rowsds.append('<td>' + data2[i].unit + '</td>');
+                            rowsds.append('<td>' + data2[i].exportsPrices + '</td>');
+                            rowsds.append('<td style="text-align: center;width: 30%;">' + "<a onClick='UpdateQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click" + stt + "'><i class='fas fa-plus'></i></a>" + "<input style='width: 30%;' type='number' min=1 id='quantity" + data2[i].id + "' class='quanttoys'  name='quantity' value='" + data2[i].quantity + "'/>" + "<a onClick='UpdateMinusQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click1" + stt + "'><i class='fas fa-minus'></i></a>" + '</td>');
+                            rowsds.append('<td>' + data2[i].supplier + '</td>');
+                            rowsds.append('<td>' + data2[i].warehouse + '</td>');
+                            rowsds.append('<td>' + data2[i].weight + '</td>');
+                            rowsds.append('<td id="actionmethod2' + stt + '">' + "<span onClick='UpdateToData(this.id)' id='" + data2[i].id + "' ><i style='cursor:pointer' class='fas fa-edit'></i></span>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  class='" + data2[i].id + "' id='remove" + stt + "' onClick='RemoveData(this)' ><i  style='cursor:pointer' class='fas fa-trash'></i></span>" + '</td>');
+                            rowsds.append('</tr>');
+                            $('#tbodys').append(rowsds);
+                            stt23++;
+                            stt++;
+                            var rowsds2 = $('<tr>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='idenentity'  name='idenentity' value='" + data2[i].id + "'/>" + '</td>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='reference'  name='reference' value='" + data2[i].reference + "'/>" + '</td>');
+                            rowsds2.append('</tr>');
+                            $('#hiddenId').append(rowsds2);
+
+                        }
+
+                    });
+                    //
+                    //Object[i]
+                    //
+                    $.get("/api/output/findOutptData/" + id, function (data, status) {
+                        $('#idcode').val("" + data.id + "");
+                        $('#Dates').val("" + data.date + "");
+                        $('#Explain').val("" + data.explain + "");
+                        $('#service').val("" + data.serivce + "");
+//                        console.log(data);
+                        if (data.status == 2)
+                        {
+                            $('#addmore').remove();
+                            $('#actionmethod').remove();
+                            $('#deletebtn').text("Completed");
+                            $('#Balances').text("Changed");
+                            $('#Balances').prop("disabled", true);
+                            $("#deletebtn").prop("disabled", true);
+                            $(".quanttoys").prop("disabled", true);
+                            for (var i = 0; i < stt; i++) {
+                                $('#actionmethod2' + i).remove();
+                                $('.click' + i).remove();
+                                $('.click1' + i).remove();
+                            }
+//                            $("#Completed").prop("disabled", true);
+                        } else
+                        {
+                            $('#deletebtn').text("Cancle");
+                        }
+                        var datainput = "<input id='slipI232d' type='hidden' name='slipI232d' value='" + data.id + "'/>"
+//                        console.log(datainput);
+                        $('#slipId').append(datainput);
+                    });
+
+
                     $('#mymodal').modal('show');
                 }
             </script>

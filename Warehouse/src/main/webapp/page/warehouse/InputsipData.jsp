@@ -73,6 +73,73 @@
 
             <!--//Incldue here-->
             <style>
+                .ui-autocomplete-input {
+                    border: none; 
+                    font-size: 14px;
+                    width: 250px;
+                    height: 37px;
+                    margin-bottom: 5px;
+                    padding-top: 2px;
+                    border: 1px solid #DDD !important;
+                    padding-top: 0px !important;
+                    z-index: 1511;
+                    position: relative;
+                }
+                .ui-menu .ui-menu-item a {
+                    font-size: 12px;
+                }
+                .ui-autocomplete {
+                    max-height: 200px;
+                    overflow-y: auto;
+                    /* prevent horizontal scrollbar */
+                    overflow-x: hidden;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1510 !important;
+                    float: left;
+                    display: none;
+                    min-width: 160px;
+                    width: 160px;
+                    padding: 4px 0;
+                    margin: 2px 0 0 0;
+                    list-style: none;
+                    background-color: #ffffff;
+                    border-color: #ccc;
+                    border-color: rgba(0, 0, 0, 0.2);
+                    border-style: solid;
+                    border-width: 1px;
+                    -webkit-border-radius: 2px;
+                    -moz-border-radius: 2px;
+                    border-radius: 2px;
+                    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    -webkit-background-clip: padding-box;
+                    -moz-background-clip: padding;
+                    background-clip: padding-box;
+                    *border-right-width: 2px;
+                    *border-bottom-width: 2px;
+                }
+                .ui-menu-item > a.ui-corner-all {
+                    display: block;
+                    padding: 3px 15px;
+                    clear: both;
+                    font-weight: normal;
+                    line-height: 18px;
+                    color: #555555;
+                    white-space: nowrap;
+                    text-decoration: none;
+                }
+                .ui-state-hover, .ui-state-active {
+                    color: #ffffff;
+                    text-decoration: none;
+                    background-color: #0088cc;
+                    border-radius: 0px;
+                    -webkit-border-radius: 0px;
+                    -moz-border-radius: 0px;
+                    background-image: none;
+                }
                 #chart {
                     height: 440px;
                 }
@@ -233,9 +300,11 @@
                                         <div class="tab-content" id="custom-tabs-three-tabContent">
                                             <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
                                                  aria-labelledby="custom-tabs-three-home-tab">
-                                                <table id="myTable" class="table table-bordered">
+                                                <table class="table table-bordered">
                                                     <thead class="thead-light" id="tableheade">
                                                         <tr>
+                                                            <th style="width: 35px;">Print</th>
+                                                            <th style="width: 80px;">Edit</th>
                                                             <th scope="col">#</th>
                                                             <th scope="col">ID</th>
                                                             <th scope="col">Date</th>
@@ -243,25 +312,32 @@
                                                             <th scope="col">Expaln</th>
                                                             <th scope="col">Service</th>
                                                             <th scope="col">Status</th>
-                                                            <th scope="col">Action</th>
-
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <% int stt2 = 1; %>
                                                         <c:forEach items="${InputsipData}" var="x">
-                                                            <tr>
-                                                                <th scope="row"><%= stt2 %></th>
-                                                                <td>${x.id}</td>
-                                                                <td>${x.date}</td>
-                                                                <td>${x.date2}</td>
-                                                                <td>${x.explain}</td>
-                                                                <td>${x.service}</td>
-                                                                <td><a  id="Completed" class="btn  ${x.status}">${x.status}</a></td>
-                                                                <td><button onClick="reply_click(this.id)" id="<c:out value = "${x.getId()}"/>"><i class="fas fa-edit"></i></button></td>
-                                                            </tr>
-                                                            <% stt2++; %>
-                                                        </c:forEach>
+                                                            <tr id="<%= stt2 %>">
+                                                        <td><a onclick="show(this.id)" id="<c:out value = "${x.getId()}"/>" style='color:greenyellow;text-align: center'>Print</a></td>
+                                                        <td><a style="cursor:pointer" onClick="reply_click(this.id)" id="<c:out value = "${x.getId()}"/>"><center><i style="color: rgb(15, 202, 235);" class="fas fa-edit"></i></center></a></td>
+                                                        <td><%= stt2 %></td>
+                                                        <td><a href="">${x.id}</a></td>
+                                                        <td class="row-data">${x.date}</td>
+                                                        <td class="row-data">${x.date2}</td>
+                                                        <td class="row-data">${x.explain}</td>
+                                                        <td class="row-data">${x.service}</td>
+                                                        <c:choose>
+                                                            <c:when test='${x.status == 2}'>
+                                                                <td class="row-data"><a class="btn btn-success">Completed</a></td>
+                                                            </c:when>
+                                                            <c:when test='${x.status == 1}'>
+                                                                <td class="row-data"><a class="btn btn-secondary">In progress</a></td>
+                                                            </c:when>
+                                                        </c:choose>
+
+                                                        </tr>
+                                                        <% stt2++; %>
+                                                    </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -287,11 +363,12 @@
                                     <div id="tabs">
                                         <ul>
                                             <li><a href="#tabs-1">Info</a></li>
-                                            <li><a href="#tabs-2">Goods info</a></li>       
+                                            <li><a href="#tabs-2">Goods info</a></li>
+                                            <li><a href="#tabs-3" id="addmore">Additional</a></li>     
 
                                         </ul>
                                         <div id="tabs-1">
-                                            <form action='/web/warehouse/Updates/' method="POST">
+                                            <form action='/web/warehouse/Deletes/' method="POST">
                                                 <div class="form-group row">
                                                     <label for="idcode" class="col-sm-2 col-form-label">ID</label>
                                                     <div class="col-sm-10">
@@ -329,6 +406,8 @@
 
                                                 </table>
                                                 <span id="slipId"></span>
+                                                <span style="color:green;text-align: center" id="message"></span>
+                                                <span id="explaintcanbeupdate"></span>
                                                 <table class="table" style="overflow-y: hidden">
                                                     <thead>
                                                         <tr>
@@ -336,10 +415,11 @@
                                                             <th>Name</th>
                                                             <th>Unit</th>
                                                             <th>Imports Prices</th>
-                                                            <th>Quantity</th>
+                                                            <th style="text-align: center">Quantity</th>
                                                             <th>Supplier</th>
                                                             <th>Warehouse</th>
                                                             <th>Weight</th>
+                                                            <th id="actionmethod">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tbodys">
@@ -347,11 +427,67 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="form-group row">
+                                                    <label for="Explain" class="col-sm-2 col-form-label">Explain</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="Explain23s" id="Explain23s" placeholder="Explain">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <div class="col-sm-10">
                                                         <button type="submit" id="Balances" class="btn btn-primary">Save</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                        </div>
+                                        <div id="tabs-3">
+                                            <span id="slipId2"></span>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpGoodssId">Id</label>
+                                                    <input onkeydown="Autocomplete()" type="text" class="form-control" id="UpGoodssId" placeholder="Search">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpGoodsName">Name</label>
+                                                    <input type="text" class="form-control" readonly="" id="UpGoodsName" placeholder="Good_names">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpUnit">Unit</label>
+                                                    <input type="text" class="form-control" id="UpUnit" placeholder="" readonly="">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpQuantity">Quantity</label>
+                                                    <input type="number" class="form-control" id="UpQuantity" placeholder="UpQuantity">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpWarehouse">Warehouse</label>
+                                                    <input onkeydown="Autocomplete()" type="text" class="form-control" id="UpWarehouse">
+                                                </div>
+
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpImpotprice">Input price</label>
+                                                    <input type="number" class="form-control" id="UpImpotprice">
+                                                </div>      
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpGroup">Group</label>
+                                                    <input onkeydown="Autocomplete()" type="text" class="form-control" id="UpGroup">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpWeight">Weight</label>
+                                                    <input type="text" class="form-control" id="UpWeight">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpSupplier">Supplier</label>
+                                                    <input onkeydown="Autocomplete()" type="text" class="form-control" id="UpSupplier">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="UpWeight"></label>
+                                                    <button type="button" onclick="saveNewTranContent()" id="submitbuton" style='margin-top: 32px;' class="btn btn-primary">Add</button>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -363,7 +499,52 @@
 
                         </div>  
                     </div>
+                    <div id="printModa" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-xl " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button id="prisdnthis">Print</button>
+                                    <button style="float:right"   type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container" id="printthis" style="background-color: white;  padding: 26px 110px;">
+                                        <h3 style="padding-top: 10px;">Công Ty TNHH Bánh Xe</h3>
+                                        <h3 style="float: right;color: white;" id='statusus'></h3>
+                                        <span><i style="font-size: 25px;">Adress: 506 California</i></span><br>
+                                        <span>ĐT:<i>0335857134</i></span>
+                                        <h1 style="text-align: center; margin-top: 50px;margin-bottom: 20px;">Input Slip</h1>
+                                        <span style="font-size: 20px;">Code:<b id="idsodecode"></b></span>
+                                        <span style="font-size: 20px;">Expain:<b id="explaints"></b></span>
+                                        <span style="float: right;font-size: 20px">Date:<b id="datesodecode"></b></span><br>
+                                        <table style="width: 100%;margin-bottom: 30px;" border="1px">
+                                            <thead>
+                                                <tr>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Goods name</th>
+                                                    <th>Supplier</th>
+                                                    <th>Unit</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='bodyTest321321'>
 
+                                            </tbody>
+
+
+                                        </table>
+
+                                        <span style="font-size: 20px">Total: <b id='taotal'></b></span><br>
+                                        <span style="float:right;font-size: 20px;margin-right: 65px;"><i>(Sign, full name)</i></span><br><br><br><br>
+                                        <span style="float:right;font-size: 22px;margin-right: 70px;"><b></b></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
                 <!-- /.content -->
             </div>
@@ -392,67 +573,449 @@
                     $("#tabs").tabs();
                     $('#message').delay(10000).fadeOut();
                 });
-                function reply_click(id) {
 
-                    $('#tbodys').empty();
-                    $('#hiddenId').empty();
-                    $.get("/api/input/findInputData/" + id, function (data, status) {
-                        $('#idcode').val("" + data.id + "");
-                        $('#Dates').val("" + data.date + "");
-                        $('#Explain').val("" + data.explain + "");
-                        $('#service').val("" + data.service + "");
-
-                        if (data.status == "Completed")
-                        {
-
-                            $('#deletebtn').text("Completed");
-                            $('#Balances').text("Changed");
-                            $('#Balances').prop("disabled", true);
-                            $("#deletebtn").prop("disabled", true);
-//                            $("#Completed").prop("disabled", true);
-                        } else
-                        {
-                            $('#deletebtn').text("Cancle");
+                function Autocomplete()
+                {
+                    var goodsArray = [];
+                    $.get("/api/input/goodsCatagory/", function (data, status) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tempArray = new Array();
+                            tempArray["id"] = data[i].goodsName;
+                            tempArray["label"] = data[i].id;
+                            tempArray["value"] = data[i].id;
+                            tempArray["lastedPurchasePrice"] = data[i].lastedPurchasePrice;
+                            tempArray["weight"] = data[i].weight;
+                            tempArray["unit"] = data[i].unit;
+                            tempArray["unitPrice"] = data[i].unitPrice;
+                            tempArray["group"] = data[i].groupid;
+                            goodsArray.push(tempArray);
                         }
-                        var datainput = "<input type='hidden' name='slipId' value='" + data.id + "'/>"
-//                        console.log(datainput);
-                        $('#slipId').append(datainput);
+                    });
+                    $("#UpGoodssId").autocomplete({
+                        source: goodsArray,
+                        select: function (e, ui) {
+                            var e = ui.item;
+                            $("#UpGoodsName").val(e.id);
+                            $("#UpUnit").val(e.unit);
+                            $('#UpGroup').val(e.group);
+                            $('#UpQuantity').val(1);
+                            $('#UpImpotprice').val(1)
+                            $('#UpWeight').val(e.weight)
+
+                        },
+
+                        change: function (e, ui) {
+                        }
+                    }).autocomplete("instance")._renderItem = function (ul, item) {
+                        return $("<li>")
+                                .append("<div>" + item.value + "<br>" + item.id + "</div>")
+                                .appendTo(ul);
+                    };
+
+                    var stockcard = [];
+                    $.get("/api/input/groupWarehouse/", function (data, status) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tempArray = new Array();
+                            tempArray["id"] = data[i].id;
+                            tempArray["name"] = data[i].id;
+                            tempArray["value"] = data[i].id;
+                            stockcard.push(tempArray);
+                        }
+//        console.log(stockcard);
                     });
 
-                    var stt23 = 1;
+                    var SupplierIDS = [];
+                    $.get("/api/input/supplierList/", function (data, status) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tempArray = new Array();
+                            tempArray["id"] = data[i].id;
+                            tempArray["label"] = data[i].name;
+                            tempArray["value"] = data[i].id;
+                            SupplierIDS.push(tempArray);
+                        }
+//                    console.log(SupplierIDS);
+                    });
+                    var groupList = [];
+                    $.get("/api/input/GroupsgoodsList/", function (data, status) {
+                        for (var i = 0; i < data.length; i++) {
+                            var tempArray = new Array();
+                            tempArray["id"] = data[i].id;
+                            tempArray["label"] = data[i].name;
+                            tempArray["value"] = data[i].id;
+                            groupList.push(tempArray);
+                        }
+//                    console.log(SupplierIDS);
+                    });
+                    $("#UpWarehouse").autocomplete({
+                        source: stockcard,
+                        select: function (e, ui) {
 
+                        },
+
+                        change: function (e, ui) {
+                        }
+                    });
+                    $("#UpSupplier").autocomplete({
+                        source: SupplierIDS,
+                        select: function (e, ui) {
+
+                        },
+
+                        change: function (e, ui) {
+                        }
+                    });
+                    $("#UpGroup").autocomplete({
+                        source: groupList,
+                        select: function (e, ui) {
+
+                        },
+
+                        change: function (e, ui) {
+                        }
+                    });
+                }
+
+
+
+
+
+                function saveNewTranContent() {
+                    var UpGoodssId = $('#UpGoodssId').val();
+                    var UpGoodsName = $('#UpGoodsName').val();
+                    var UpQuantity = $('#UpQuantity').val();
+                    var UpUnit = $('#UpUnit').val();
+                    var UpWarehouse = $('#UpWarehouse').val();
+                    var UpImpotprice = $('#UpImpotprice').val();
+                    var UpGroup = $('#UpGroup').val();
+                    var UpWeight = $('#UpWeight').val();
+                    var UpSupplier = $('#UpSupplier').val();
+                    var codeis22 = $('#slipIds').val();
+                    console.log(codeis22);
+                    if (UpGoodsName == "" || UpUnit == "")
+                    {
+                        alert("Please field correct value");
+                        var UpGoodssId = $('#UpGoodssId').val("");
+                        var UpGoodsName = $('#UpGoodsName').val("");
+                        var UpQuantity = $('#UpQuantity').val("");
+                        var UpUnit = $('#UpUnit').val("");
+                        var UpWarehouse = $('#UpWarehouse').val("");
+                        var UpImpotprice = $('#UpImpotprice').val("");
+                        var UpGroup = $('#UpGroup').val("");
+                        var UpWeight = $('#UpWeight').val("");
+                        var UpSupplier = $('#UpSupplier').val("");
+                    } else
+                    {
+                        $.post("/api/input/SaveNewInputContent/", {
+                            UpGoodssId: UpGoodssId,
+                            UpGoodsName: UpGoodsName,
+                            UpQuantity: UpQuantity,
+                            UpUnit: UpUnit,
+                            UpWarehouse: UpWarehouse,
+                            UpImpotprice: UpImpotprice,
+                            UpGroup: UpGroup,
+                            UpWeight: UpWeight,
+                            UpSupplier: UpSupplier,
+                            codeis22: codeis22
+                        }, function (data2) {
+                            if (data2 == null)
+                            {
+                                alert("your goods is already have in table, Please enter other");
+                                var UpGoodssId = $('#UpGoodssId').val("");
+                                var UpGoodsName = $('#UpGoodsName').val("");
+                                var UpQuantity = $('#UpQuantity').val("");
+                                var UpUnit = $('#UpUnit').val("");
+                                var UpWarehouse = $('#UpWarehouse').val("");
+                                var UpImpotprice = $('#UpImpotprice').val("");
+                                var UpGroup = $('#UpGroup').val("");
+                                var UpWeight = $('#UpWeight').val("");
+                                var UpSupplier = $('#UpSupplier').val("");
+                                addNewcontent(codeis22);
+                            } else
+                            {
+                                var UpGoodssId = $('#UpGoodssId').val("");
+                                var UpGoodsName = $('#UpGoodsName').val("");
+                                var UpQuantity = $('#UpQuantity').val("");
+                                var UpUnit = $('#UpUnit').val("");
+                                var UpWarehouse = $('#UpWarehouse').val("");
+                                var UpImpotprice = $('#UpImpotprice').val("");
+                                var UpGroup = $('#UpGroup').val("");
+                                var UpWeight = $('#UpWeight').val("");
+                                var UpSupplier = $('#UpSupplier').val("");
+                                addNewcontent(codeis22);
+                            }
+                        });
+                    }
+                    ;
+
+                }
+                ;
+                function UpdateQuantity(id)
+                {
+
+                    counter = 0;
+                    var quanttity = 0;
+                    let defaultquantity = $("#quantity" + id + "").val();
+                    let index = ++defaultquantity;
+                    $("#quantity" + id + "").val("" + index + "");
+                }
+
+                function UpdateMinusQuantity(id)
+                {
+
+                    counter = 0;
+                    var quanttity = 0;
+                    let defaultquantity = $("#quantity" + id + "").val();
+                    let index = --defaultquantity;
+                    $("#quantity" + id + "").val("" + index + "");
+                }
+
+                function UpdateToData(id)
+                {
+                    let defaultquantity = $("#quantity" + id + "").val();
+                    $.post("/api/input/UpdatePlusQuantity/", {id: id, qty: defaultquantity}, function (result) {
+                        $("#message").css("color", "green");
+                        $('#message').text("Update Sucess");
+                        $('#message').fadeIn();
+                        $('#message').delay(900).fadeOut();
+                    }).fail(function () {
+                        $("#message").css("color", "red");
+                        $('#message').text("Errorr");
+                        $('#message').fadeIn();
+                        $('#message').delay(900).fadeOut();
+                    });
+                }
+//                onClick='RemoveData(this.class)'
+                function RemoveData(dataclass)
+                {
+                    var colClass = dataclass.className
+                    var colId = dataclass.getAttribute('id');
+//                    console.log(colClass);
+//                    console.log(colId);
+                    var mateches = colId.trim().match(/(\d+)/);
+                    if (mateches[0] == 0)
+                    {
+                        alert("Cannot delete last goods");
+                    } else
+                    {
+                        document.getElementById("tbodys").deleteRow(mateches[0]);
+
+                        $.post("/api/input/DeleteByInputs/", {id: colClass}, function (result) {
+                            $("#message").css("color", "green");
+                            $('#message').text("Delete Sucess");
+                            $('#message').fadeIn();
+                            $('#message').delay(900).fadeOut();
+                        }).fail(function () {
+                            $("#message").css("color", "red");
+                            $('#message').text("Errorr");
+                            $('#message').fadeIn();
+                            $('#message').delay(900).fadeOut();
+                        });
+                    }
+                }
+
+
+                function addNewcontent(id)
+                {
+                    stt = 0;
+                    $('#tbodys').empty();
+                    $('#hiddenId').empty();
+
+                    var stt23 = 1;
                     $.get("/api/input/GetItemInput/" + id, function (data2, status) {
                         console.log(data2)
                         for (var i = 0; i < data2.length; i++) {
-                            if (data2[i].status == true)
-                            {
-                                $("#Balances").prop("disabled", true);
-                                $("#Balances").text("Changed");
-                            }
                             var rowsds = $('<tr>');
                             rowsds.append('<td>' + stt23 + '</td>');
 
-                            rowsds.append('<td>' + data2[i].goodsName + '</td>');
+                            rowsds.append('<td>' + data2[i].goodsname + '</td>');
                             rowsds.append('<td>' + data2[i].unit + '</td>');
-                            rowsds.append('<td>' + data2[i].importsPrices + '</td>');
-                            rowsds.append('<td>' + data2[i].quantity + '</td>');
-                            rowsds.append('<td>' + data2[i].supplier + '</td>');
+                            rowsds.append('<td>' + data2[i].inputPrice + '</td>');
+                            rowsds.append('<td style="text-align: center;width: 30%;">' + "<a onClick='UpdateQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click" + stt + "'><i class='fas fa-plus'></i></a>" + "<input style='width: 30%;' min=1 type='number' id='quantity" + data2[i].id + "' class='quanttoys'  name='quantity' value='" + data2[i].Quantity + "'/>" + "<a onClick='UpdateMinusQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click1" + stt + "'><i class='fas fa-minus'></i></a>" + '</td>');
+                            rowsds.append('<td>' + data2[i].supplierid + '</td>');
                             rowsds.append('<td>' + data2[i].warehouse + '</td>');
                             rowsds.append('<td>' + data2[i].weight + '</td>');
+                            rowsds.append('<td id="trungahihih' + stt + '">' + "<span onClick='UpdateToData(this.id)' id='" + data2[i].id + "' ><i style='cursor:pointer' class='fas fa-edit'></i></span>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  class='" + data2[i].id + "' id='remove" + stt + "' onClick='RemoveData(this)' ><i  style='cursor:pointer' class='fas fa-trash'></i></span>" + '</td>');
                             rowsds.append('</tr>');
                             $('#tbodys').append(rowsds);
                             stt23++;
+                            stt++;
                             var rowsds2 = $('<tr>');
                             rowsds2.append('<td>' + "<input type='hidden' id='idenentity'  name='idenentity' value='" + data2[i].id + "'/>" + '</td>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='reference'  name='reference' value='" + data2[i].refeences + "'/>" + '</td>');
+
                             rowsds2.append('</tr>');
                             $('#hiddenId').append(rowsds2);
                         }
 
                     });
+
+
+                    $.get("/api/input/findInputData/" + id, function (data, status) {
+                        $('#idcode').val("" + data.id + "");
+                        $('#Dates').val("" + data.date + "");
+                        $('#Explain').val("" + data.explain + "");
+                        $('#service').val("" + data.service + "");
+                        if (data.status == 2)
+                        {
+                            $('#addmore').remove();
+                            $('#actionmethod').remove();
+                            $('#deletebtn').text("Completed");
+                            $('#Balances').text("Changed");
+                            $('#Balances').prop("disabled", true);
+                            $("#deletebtn").prop("disabled", true);
+                            $(".quanttoys").prop("disabled", true);
+                            for (var i = 0; i < stt; i++) {
+                                $('#trungahihih' + i).remove();
+                                $('.click' + i).remove();
+                                $('.click1' + i).remove();
+                            }
+//                            $("#Completed").prop("disabled", true);
+                        } else
+                        {
+                            $('#deletebtn').text("Cancle");
+                        }
+                        var datainput = "<input type='hidden' id='slipIds' name='slipIds' value='" + data.id + "'/>"
+//                        console.log(datainput);
+                        $('#slipId').append(datainput);
+                    });
+
+
+                }
+
+
+
+
+                function reply_click(id) {
+                    stt = 0;
+                    $('#tbodys').empty();
+                    $('#hiddenId').empty();
+
+                    var stt23 = 1;
+                    $.get("/api/input/GetItemInput/" + id, function (data2, status) {
+//                        console.log(data2)
+                        for (var i = 0; i < data2.length; i++) {
+                            var rowsds = $('<tr>');
+                            rowsds.append('<td>' + stt23 + '</td>');
+
+                            rowsds.append('<td>' + data2[i].goodsname + '</td>');
+                            rowsds.append('<td>' + data2[i].unit + '</td>');
+                            rowsds.append('<td>' + data2[i].inputPrice + '</td>');
+                            rowsds.append('<td style="text-align: center;width: 30%;">' + "<a onClick='UpdateQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click" + stt + "'><i class='fas fa-plus'></i></a>" + "<input style='width: 30%;' min=1 type='number' id='quantity" + data2[i].id + "' class='quanttoys'  name='quantity' value='" + data2[i].Quantity + "'/>" + "<a onClick='UpdateMinusQuantity(this.id)' style='cursor:pointer;' id='" + data2[i].id + "' class='btn click1" + stt + "'><i class='fas fa-minus'></i></a>" + '</td>');
+                            rowsds.append('<td>' + data2[i].supplierid + '</td>');
+                            rowsds.append('<td>' + data2[i].warehouse + '</td>');
+                            rowsds.append('<td>' + data2[i].weight + '</td>');
+                            rowsds.append('<td id="trungahihih' + stt + '">' + "<span onClick='UpdateToData(this.id)' id='" + data2[i].id + "' ><i style='cursor:pointer' class='fas fa-edit'></i></span>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  class='" + data2[i].id + "' id='remove" + stt + "' onClick='RemoveData(this)' ><i  style='cursor:pointer' class='fas fa-trash'></i></span>" + '</td>');
+                            rowsds.append('</tr>');
+                            $('#tbodys').append(rowsds);
+                            stt23++;
+                            stt++;
+                            var rowsds2 = $('<tr>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='idenentity'  name='idenentity' value='" + data2[i].id + "'/>" + '</td>');
+                            rowsds2.append('<td>' + "<input type='hidden' id='reference'  name='reference' value='" + data2[i].refeences + "'/>" + '</td>');
+
+                            rowsds2.append('</tr>');
+                            $('#hiddenId').append(rowsds2);
+                        }
+
+                    });
+
+
+                    $.get("/api/input/findInputData/" + id, function (data, status) {
+                        $('#idcode').val("" + data.id + "");
+                        $('#Dates').val("" + data.date + "");
+                        $('#Explain').val("" + data.explain + "");
+                        $('#service').val("" + data.service + "");
+                        if (data.status == 2)
+                        {
+
+                            $('#addmore').remove();
+                            $('#actionmethod').remove();
+
+                            $('#deletebtn').text("Completed");
+                            $('#Balances').text("Changed");
+                            $('#Balances').prop("disabled", true);
+                            $("#deletebtn").prop("disabled", true);
+                            $(".quanttoys").prop("disabled", true);
+                            for (var i = 0; i < stt; i++) {
+                                $('#trungahihih' + i).remove();
+                                $('.click' + i).remove();
+                                $('.click1' + i).remove();
+                            }
+//                            for (var i = 0; i < stt; i++) {
+//                                $('#actionmethod2' + i).remove();
+//                                $('.click' + i).remove();
+//                                $('.click1' + i).remove();
+//                            }
+//                            $("#Completed").prop("disabled", true);
+                        } else
+                        {
+                            $('#deletebtn').text("Cancle");
+                        }
+                        var datainput = "<input type='hidden' id='slipIds' name='slipIds' value='" + data.id + "'/>"
+//                        console.log(datainput);
+                        $('#slipId').append(datainput);
+                    });
                     $('#mymodal').modal('show');
                 }
-            </script>
+                function show(id) {
+                    var rowId =
+                            event.target.parentNode.parentNode.id;
+                    //this gives id of tr whose button was clicked
+                    var data =
+                            document.getElementById(rowId).querySelectorAll(".row-data");
+                    /*returns array of all elements with 
+                     "row-data" class within the row with given id*/
+                    var id = id;
+                    var date1 = data[0].innerHTML;
+                    var date2 = data[1].innerHTML;
+                    var explain = data[2].innerHTML;
+                    var service = data[3].innerHTML;
+                    var statusus = data[4].innerHTML;
+                    if (explain == null)
+                    {
+                        explain = "Null";
+                    }
+                    document.getElementById("idsodecode").innerHTML = id;
+                    document.getElementById("datesodecode").innerHTML = date1;
+                    document.getElementById("explaints").innerHTML = explain;
+                    document.getElementById("statusus").innerHTML = statusus;
 
+//                    $('#datesds').val("date1");
+                    $('#bodyTest321321').empty();
+                    $.get("/api/input/findWhereInputId/" + id, function (product, status2) {
+                        console.log(product);
+                        var tangtudong23 = 1;
+                        let sumALl = 0;
+
+                        for (var i = 0; i < product.length; i++) {
+                            console.log(product[i].goodsName)
+                            let resutlvalue = product[i].importsPrices * product[i].quantity;
+                            sumALl += resutlvalue;
+                            var produc2t = $('<tr>');
+                            produc2t.append('<td>' + tangtudong23 + '</td>');
+                            produc2t.append('<td>' + product[i].goodsName + '</td>');
+                            produc2t.append('<td>' + product[i].supplier + '</td>');
+                            produc2t.append('<td>' + product[i].unit + '</td>');
+                            produc2t.append('<td>' + product[i].quantity + '</td>');
+                            produc2t.append('<td>' + product[i].importsPrices + '</td>');
+                            produc2t.append('<td>' + resutlvalue + '</td>');
+                            produc2t.append('</tr>');
+                            $('#bodyTest321321').append(produc2t);
+                            tangtudong23++;
+                        }
+                        document.getElementById("taotal").innerHTML = sumALl;
+                    });
+                    $('#printModa').modal('show');
+
+                }
+                $("#prisdnthis").click(function () {
+                    $('#printthis').printThis({
+                        importCSS: false,
+                        loadCSS: "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                    });
+                });
+            </script>
+            <script src="<c:url value="/resources/js/input/printThis.js" />"></script>  
             <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" crossorigin="anonymous"></script>
             <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>

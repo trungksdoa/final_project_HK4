@@ -70,14 +70,125 @@ public class chuyenkhoController {
         return false;
     }
 
+    @RequestMapping(value = "/ck/Save", method = RequestMethod.POST)
+    public String SaveToDB(Model model, HttpServletRequest request) {
+        String[] idcode = request.getParameterValues("goodsidss");
+        String[] Unit = request.getParameterValues("unitss");
+        String[] From = request.getParameterValues("froms");
+        String[] To = request.getParameterValues("tos");
+        String[] Quantity = request.getParameterValues("quantityss");
+        String lincenceId = request.getParameter("codeis22");
+        String Explainssds = request.getParameter("Explainssds");
+//        Minus From warehouse
+        TranferWarehouse tranferWarehouse = lab2.findOne(lincenceId);
+        String date = String.valueOf(java.time.LocalDate.now());
+        tranferWarehouse.setDate2(date);
+        tranferWarehouse.setExplain(Explainssds);
+        tranferWarehouse.setStatus(2);
+        TranferWarehouse add213 = lab2.save(tranferWarehouse);
+        for (int i = 0; i < idcode.length; i++) {
+            
+            Warehouse warehouse2 = lab.findOnes(idcode[i].trim(), From[i].trim());
+            warehouse2.setGoodsId(idcode[i].trim());
+            warehouse2.setGoodsName(warehouse2.getGoodsName());
+            warehouse2.setUnit(warehouse2.getUnit());
+            warehouse2.setQuantityInStock(warehouse2.getQuantityInStock() - Integer.valueOf(Quantity[i].trim()));
+            warehouse2.setImportPrice(warehouse2.getImportPrice());
+            warehouse2.setSupplier(warehouse2.getSupplier());
+            warehouse2.setPriceInStock(warehouse2.getPriceInStock() - (Integer.valueOf(Quantity[i].trim()) * warehouse2.getImportPrice()));
+            warehouse2.setGroupGoods(warehouse2.getGroupGoods());
+            warehouse2.setWeight(warehouse2.getWeight());
+            warehouse2.setStockCard(warehouse2.getStockCard());
+            //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
+            Warehouse Froms = lab.Save(warehouse2);
+            if (From != null) {
+                Hisio historyabc = new Hisio();
+                historyabc.setGoodsId(idcode[i].trim());
+
+                String datesd = String.valueOf(java.time.LocalDate.now());
+                historyabc.setDate(datesd);
+
+                historyabc.setGoodsName(Froms.getGoodsName());
+                historyabc.setQuantity(Integer.valueOf(Quantity[i].trim()));
+                historyabc.setPrice(Froms.getImportPrice());
+                historyabc.setUnit(Froms.getUnit());
+                historyabc.setWarehouse(From[i].trim());
+                historyabc.setLicense(lincenceId);
+                historyabc.setMajor("Output");
+                lab5.save(historyabc);
+            }
+            //Plus to warehouse
+            Warehouse warehouse3 = lab.findOnes(idcode[i].trim(), To[i].trim());
+            if (warehouse3 != null) {
+                warehouse3.setGoodsId(idcode[i].trim());
+                warehouse3.setGoodsName(warehouse3.getGoodsName());
+                warehouse3.setUnit(warehouse3.getUnit());
+                warehouse3.setQuantityInStock(warehouse3.getQuantityInStock() + Integer.valueOf(Quantity[i].trim()));
+                warehouse3.setImportPrice(warehouse3.getImportPrice());
+                warehouse3.setSupplier(warehouse3.getSupplier());
+                warehouse3.setPriceInStock(warehouse3.getPriceInStock() + (Integer.valueOf(Quantity[i].trim()) * warehouse2.getImportPrice()));
+                warehouse3.setGroupGoods(warehouse3.getGroupGoods());
+                warehouse3.setWeight(warehouse3.getWeight());
+                warehouse3.setStockCard(warehouse3.getStockCard());
+                //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
+                Warehouse Tos = lab.Save(warehouse3);
+                if (Tos != null) {
+                    Hisio historyabc = new Hisio();
+                    historyabc.setGoodsId(idcode[i].trim());
+                    String datesd = String.valueOf(java.time.LocalDate.now());
+                    historyabc.setDate(datesd);
+                    historyabc.setGoodsName(Tos.getGoodsName());
+                    historyabc.setQuantity(Integer.valueOf(Quantity[i].trim()));
+                    historyabc.setPrice(Tos.getImportPrice());
+                    historyabc.setUnit(Tos.getUnit());
+                    historyabc.setWarehouse(To[i].trim());
+                    historyabc.setLicense(lincenceId);
+                    historyabc.setMajor("Input");
+                    lab5.save(historyabc);
+                }
+            } else {
+                Warehouse warehouse4 = new Warehouse();
+                warehouse4.setGoodsId(Froms.getGoodsId());
+                warehouse4.setGoodsName(Froms.getGoodsName());
+                warehouse4.setUnit(Froms.getUnit());
+                warehouse4.setQuantityInStock(Integer.valueOf(Quantity[i].trim()));
+                warehouse4.setImportPrice(Froms.getImportPrice());
+                warehouse4.setSupplier(Froms.getSupplier());
+                warehouse4.setPriceInStock(Integer.valueOf(Quantity[i].trim()) * Froms.getImportPrice());
+                warehouse4.setGroupGoods(Froms.getGroupGoods());
+                warehouse4.setWeight(Froms.getWeight());
+                StockCard stockcard = new StockCard();
+                stockcard.setId(To[i].trim());
+                warehouse4.setStockCard(stockcard);
+                //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
+                Warehouse Toss = lab.Save(warehouse4);
+
+                if (Toss != null) {
+                    Hisio historxyz = new Hisio();
+                    historxyz.setGoodsId(idcode[i].trim());
+                    String datesd = String.valueOf(java.time.LocalDate.now());
+                    historxyz.setDate(datesd);
+                    historxyz.setGoodsName(Froms.getGoodsName());
+                    historxyz.setQuantity(Integer.valueOf(Quantity[i].trim()));
+                    historxyz.setPrice(Froms.getImportPrice());
+                    historxyz.setUnit(Froms.getUnit());
+                    historxyz.setWarehouse(To[i].trim());
+                    historxyz.setLicense(lincenceId);
+                    historxyz.setMajor("Input");
+                    lab5.save(historxyz);
+                }
+            }
+        }
+        return "redirect:/web/warehouse/ck/slip";
+    }
+
     @RequestMapping(value = "/ck", method = RequestMethod.POST)
-    public String SaveData(Model model, HttpServletRequest request) {
+    public String SaveToSlip(Model model, HttpServletRequest request) {
         String[] idcode = request.getParameterValues("ID");
         String[] Unit = request.getParameterValues("Unit");
         String[] From = request.getParameterValues("From");
         String[] To = request.getParameterValues("To");
         String[] Quantity = request.getParameterValues("Quantity");
-
 //        String idsse= request.getParameter("id");
         String Date = request.getParameter("Date");
         String explain = request.getParameter("explain");
@@ -93,242 +204,36 @@ public class chuyenkhoController {
                 int idstt = Integer.valueOf(idgen);
                 idstt = idstt + 1;
                 String str = "" + idstt;
-                String pad = "KK0000";
+                String pad = "CK0000";
                 String ans = pad.substring(0, pad.length() - str.length()) + str;
                 tranferWarehouse.setId(ans);
             } else {
                 //when data is null then add default value is Nk0000
-                String idgen = "KK0000";
+                String idgen = "CK0000";
                 idgen = idgen.substring(2);
                 int idstt = Integer.valueOf(idgen);
                 idstt = idstt + 1;
                 String str = "" + idstt;
-                String pad = "KK0000";
+                String pad = "CK0000";
                 String ans = pad.substring(0, pad.length() - str.length()) + str;
                 tranferWarehouse.setId(ans);
             }
             tranferWarehouse.setDate(Date);
-            tranferWarehouse.setExplain(Date);
-            tranferWarehouse.setStatus("NotComplete");
-            tranferWarehouse.setDeletestatus(Boolean.FALSE);
+            tranferWarehouse.setExplain(explain);
+            tranferWarehouse.setStatus(1);
             TranferWarehouse add213 = lab2.save(tranferWarehouse);
             for (int i = 0; i < idcode.length; i++) {
                 TranferConent content = new TranferConent();
-                content.setGoodsName(idcode[i].trim());
+                content.setGoodsid(idcode[i].trim());
                 content.setFroms(From[i]);
                 content.setTos(To[i]);
                 content.setUnit(Unit[i]);
-                content.setQuantity(Double.valueOf(Quantity[i]));
+                content.setQuantity(Integer.valueOf(Quantity[i]));
                 content.setTraferId(add213);
                 lab3.save(content);
-
-                //Minus From warehouse
-                Warehouse warehouse2 = lab.findOnes(idcode[i].trim(), From[i].trim());
-                warehouse2.setGoodsId(idcode[i].trim());
-                warehouse2.setGoodsName(warehouse2.getGoodsName());
-                warehouse2.setUnit(warehouse2.getUnit());
-                warehouse2.setQuantityInStock(warehouse2.getQuantityInStock() - Integer.valueOf(Quantity[i].trim()));
-                warehouse2.setImportPrice(warehouse2.getImportPrice());
-                warehouse2.setSupplier(warehouse2.getSupplier());
-                warehouse2.setPriceInStock(warehouse2.getPriceInStock() - (Integer.valueOf(Quantity[i].trim()) * warehouse2.getImportPrice()));
-                warehouse2.setGroupGoods(warehouse2.getGroupGoods());
-                warehouse2.setWeight(warehouse2.getWeight());
-                warehouse2.setStockCard(warehouse2.getStockCard());
-                //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
-                Warehouse Froms = lab.Save(warehouse2);
-                if (From != null) {
-                    Hisio historyabc = new Hisio();
-                    historyabc.setGoodsId(idcode[i].trim());
-
-                    String datesd = String.valueOf(java.time.LocalDate.now());
-                    historyabc.setDate(datesd);
-
-                    historyabc.setGoodsName(Froms.getGoodsName());
-                    historyabc.setQuantity(Integer.valueOf(Quantity[i].trim()));
-                    historyabc.setPrice(Froms.getImportPrice());
-                    historyabc.setUnit(Froms.getUnit());
-                    historyabc.setWarehouse(From[i].trim());
-                    historyabc.setLicense(add213.getId());
-                    historyabc.setMajor("Output");
-                    lab5.save(historyabc);
-                }
-
-                //Plus to warehouse
-                Warehouse warehouse3 = lab.findOnes(idcode[i].trim(), To[i].trim());
-                if (warehouse3 != null) {
-                    warehouse3.setGoodsId(idcode[i].trim());
-                    warehouse3.setGoodsName(warehouse3.getGoodsName());
-                    warehouse3.setUnit(warehouse3.getUnit());
-                    warehouse3.setQuantityInStock(warehouse3.getQuantityInStock() + Integer.valueOf(Quantity[i].trim()));
-                    warehouse3.setImportPrice(warehouse3.getImportPrice());
-                    warehouse3.setSupplier(warehouse3.getSupplier());
-                    warehouse3.setPriceInStock(warehouse3.getPriceInStock() + (Integer.valueOf(Quantity[i].trim()) * warehouse2.getImportPrice()));
-                    warehouse3.setGroupGoods(warehouse3.getGroupGoods());
-                    warehouse3.setWeight(warehouse3.getWeight());
-                    warehouse3.setStockCard(warehouse3.getStockCard());
-                    //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
-                    Warehouse Tos = lab.Save(warehouse3);
-                    if (Tos != null) {
-                        Hisio historyabc = new Hisio();
-                        historyabc.setGoodsId(idcode[i].trim());
-                        String datesd = String.valueOf(java.time.LocalDate.now());
-                        historyabc.setDate(datesd);
-                        historyabc.setGoodsName(Froms.getGoodsName());
-                        historyabc.setQuantity(Integer.valueOf(Quantity[i].trim()));
-                        historyabc.setPrice(Froms.getImportPrice());
-                        historyabc.setUnit(Froms.getUnit());
-                        historyabc.setWarehouse(From[i].trim());
-                        historyabc.setLicense(add213.getId());
-                        historyabc.setMajor("Input");
-                        lab5.save(historyabc);
-                    }
-                } else {
-                    Warehouse warehouse4 = new Warehouse();
-                    warehouse4.setGoodsId(Froms.getGoodsId());
-                    warehouse4.setGoodsName(Froms.getGoodsName());
-                    warehouse4.setUnit(Froms.getUnit());
-                    warehouse4.setQuantityInStock(Integer.valueOf(Quantity[i].trim()));
-                    warehouse4.setImportPrice(Froms.getImportPrice());
-                    warehouse4.setSupplier(Froms.getSupplier());
-                    warehouse4.setPriceInStock(Integer.valueOf(Quantity[i].trim()) * Froms.getImportPrice());
-                    warehouse4.setGroupGoods(Froms.getGroupGoods());
-                    warehouse4.setWeight(Froms.getWeight());
-                    StockCard stockcard = new StockCard();
-                    stockcard.setId(To[i].trim());
-                    warehouse4.setStockCard(stockcard);
-                    //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
-                    Warehouse Toss = lab.Save(warehouse4);
-
-                    if (Toss != null) {
-                        Hisio historxyz = new Hisio();
-                        historxyz.setGoodsId(idcode[i].trim());
-                        String datesd = String.valueOf(java.time.LocalDate.now());
-                        historxyz.setDate(datesd);
-                        historxyz.setGoodsName(Froms.getGoodsName());
-                        historxyz.setQuantity(Integer.valueOf(Quantity[i].trim()));
-                        historxyz.setPrice(Froms.getImportPrice());
-                        historxyz.setUnit(Froms.getUnit());
-                        historxyz.setWarehouse(To[i].trim());
-                        historxyz.setLicense(add213.getId());
-                        historxyz.setMajor("Input");
-                        lab5.save(historxyz);
-                    }
-                }
-
             }
-            return "redirect:/web/warehouse/ck";
+            return "redirect:/web/warehouse/ck/slip";
         }
 
     }
-
-//    @RequestMapping(value = "/PushToDatabase", method = RequestMethod.POST)
-//    public String PushToDatabase(Model model, HttpServletRequest request) {
-//        String[] idenentity = request.getParameterValues("idenentity");
-//        String ocideid = request.getParameter("codeis22");
-//        for (int i = 0; i < idenentity.length; i++) {
-//            TranferConent content = new TranferConent();
-//            content.setGoodsName(idenentity[i].trim());
-//            content.setFroms(From[i]);
-//            content.setTos(To[i]);
-//            content.setUnit(Unit[i]);
-//            content.setQuantity(Double.valueOf(Quantity[i]));
-//            content.setTraferId(add213);
-//            lab3.save(content);
-//
-//            //Minus From warehouse
-//            Warehouse warehouse2 = lab.findOnes(idcode[i].trim(), From[i].trim());
-//            warehouse2.setGoodsId(idcode[i].trim());
-//            warehouse2.setGoodsName(warehouse2.getGoodsName());
-//            warehouse2.setUnit(warehouse2.getUnit());
-//            warehouse2.setQuantityInStock(warehouse2.getQuantityInStock() - Integer.valueOf(Quantity[i].trim()));
-//            warehouse2.setImportPrice(warehouse2.getImportPrice());
-//            warehouse2.setSupplier(warehouse2.getSupplier());
-//            warehouse2.setPriceInStock(warehouse2.getPriceInStock() - (Integer.valueOf(Quantity[i].trim()) * warehouse2.getImportPrice()));
-//            warehouse2.setGroupGoods(warehouse2.getGroupGoods());
-//            warehouse2.setWeight(warehouse2.getWeight());
-//            warehouse2.setStockCard(warehouse2.getStockCard());
-//            //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
-//            Warehouse Froms = lab.Save(warehouse2);
-//            if (From != null) {
-//                Hisio historyabc = new Hisio();
-//                historyabc.setGoodsId(idcode[i].trim());
-//
-//                String datesd = String.valueOf(java.time.LocalDate.now());
-//                historyabc.setDate(datesd);
-//
-//                historyabc.setGoodsName(Froms.getGoodsName());
-//                historyabc.setQuantity(Integer.valueOf(Quantity[i].trim()));
-//                historyabc.setPrice(Froms.getImportPrice());
-//                historyabc.setUnit(Froms.getUnit());
-//                historyabc.setWarehouse(From[i].trim());
-//                historyabc.setLicense(add213.getId());
-//                historyabc.setMajor("Output");
-//                lab5.save(historyabc);
-//            }
-//
-//            //Plus to warehouse
-//            Warehouse warehouse3 = lab.findOnes(idcode[i].trim(), To[i].trim());
-//            if (warehouse3 != null) {
-//                warehouse3.setGoodsId(idcode[i].trim());
-//                warehouse3.setGoodsName(warehouse3.getGoodsName());
-//                warehouse3.setUnit(warehouse3.getUnit());
-//                warehouse3.setQuantityInStock(warehouse3.getQuantityInStock() + Integer.valueOf(Quantity[i].trim()));
-//                warehouse3.setImportPrice(warehouse3.getImportPrice());
-//                warehouse3.setSupplier(warehouse3.getSupplier());
-//                warehouse3.setPriceInStock(warehouse3.getPriceInStock() + (Integer.valueOf(Quantity[i].trim()) * warehouse2.getImportPrice()));
-//                warehouse3.setGroupGoods(warehouse3.getGroupGoods());
-//                warehouse3.setWeight(warehouse3.getWeight());
-//                warehouse3.setStockCard(warehouse3.getStockCard());
-//                //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
-//                Warehouse Tos = lab.Save(warehouse3);
-//                if (Tos != null) {
-//                    Hisio historyabc = new Hisio();
-//                    historyabc.setGoodsId(idcode[i].trim());
-//                    String datesd = String.valueOf(java.time.LocalDate.now());
-//                    historyabc.setDate(datesd);
-//                    historyabc.setGoodsName(Froms.getGoodsName());
-//                    historyabc.setQuantity(Integer.valueOf(Quantity[i].trim()));
-//                    historyabc.setPrice(Froms.getImportPrice());
-//                    historyabc.setUnit(Froms.getUnit());
-//                    historyabc.setWarehouse(From[i].trim());
-//                    historyabc.setLicense(add213.getId());
-//                    historyabc.setMajor("Input");
-//                    lab5.save(historyabc);
-//                }
-//            } else {
-//                Warehouse warehouse4 = new Warehouse();
-//                warehouse4.setGoodsId(Froms.getGoodsId());
-//                warehouse4.setGoodsName(Froms.getGoodsName());
-//                warehouse4.setUnit(Froms.getUnit());
-//                warehouse4.setQuantityInStock(Integer.valueOf(Quantity[i].trim()));
-//                warehouse4.setImportPrice(Froms.getImportPrice());
-//                warehouse4.setSupplier(Froms.getSupplier());
-//                warehouse4.setPriceInStock(Integer.valueOf(Quantity[i].trim()) * Froms.getImportPrice());
-//                warehouse4.setGroupGoods(Froms.getGroupGoods());
-//                warehouse4.setWeight(Froms.getWeight());
-//                StockCard stockcard = new StockCard();
-//                stockcard.setId(To[i].trim());
-//                warehouse4.setStockCard(stockcard);
-//                //Save Data By Code Id and Warehouse Query Search where Codeid and Warehouse
-//                Warehouse Toss = lab.Save(warehouse4);
-//
-//                if (Toss != null) {
-//                    Hisio historxyz = new Hisio();
-//                    historxyz.setGoodsId(idcode[i].trim());
-//                    String datesd = String.valueOf(java.time.LocalDate.now());
-//                    historxyz.setDate(datesd);
-//                    historxyz.setGoodsName(Froms.getGoodsName());
-//                    historxyz.setQuantity(Integer.valueOf(Quantity[i].trim()));
-//                    historxyz.setPrice(Froms.getImportPrice());
-//                    historxyz.setUnit(Froms.getUnit());
-//                    historxyz.setWarehouse(To[i].trim());
-//                    historxyz.setLicense(add213.getId());
-//                    historxyz.setMajor("Input");
-//                    lab5.save(historxyz);
-//                }
-//            }
-//
-//        }
-//        return "redirect:/web/warehouse/ck";
-//    }
 }

@@ -61,8 +61,12 @@ public class GoodsCatagory implements Serializable {
     @ManyToOne
     @JsonIgnore
     private Groupsgoods groupGoods;
+    @OneToMany(mappedBy = "goodsCatagoryId")
+    private Collection<Materialgoods> materialgoodsCollection;
     @OneToMany(mappedBy = "goodsId")
-    private Collection<InputContent> inputContentCollection;
+    private Collection<VQuotesContent> vQuotesContentCollection;
+    @OneToMany(mappedBy = "goodsId")
+    private Collection<Quotescontent> quotescontentCollection;
 
     public GoodsCatagory() {
     }
@@ -136,12 +140,30 @@ public class GoodsCatagory implements Serializable {
     }
 
     @XmlTransient
-    public Collection<InputContent> getInputContentCollection() {
-        return inputContentCollection;
+    public Collection<Materialgoods> getMaterialgoodsCollection() {
+        return materialgoodsCollection;
     }
 
-    public void setInputContentCollection(Collection<InputContent> inputContentCollection) {
-        this.inputContentCollection = inputContentCollection;
+    public void setMaterialgoodsCollection(Collection<Materialgoods> materialgoodsCollection) {
+        this.materialgoodsCollection = materialgoodsCollection;
+    }
+
+    @XmlTransient
+    public Collection<VQuotesContent> getVQuotesContentCollection() {
+        return vQuotesContentCollection;
+    }
+
+    public void setVQuotesContentCollection(Collection<VQuotesContent> vQuotesContentCollection) {
+        this.vQuotesContentCollection = vQuotesContentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Quotescontent> getQuotescontentCollection() {
+        return quotescontentCollection;
+    }
+
+    public void setQuotescontentCollection(Collection<Quotescontent> quotescontentCollection) {
+        this.quotescontentCollection = quotescontentCollection;
     }
 
     @Override
@@ -166,7 +188,7 @@ public class GoodsCatagory implements Serializable {
 
     @Override
     public String toString() {
-        return id;
+        return "com.warehouse.project.model.GoodsCatagory[ id=" + id + " ]";
     }
 
 }

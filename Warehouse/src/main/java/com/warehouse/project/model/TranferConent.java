@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TranferConent.findAll", query = "SELECT t FROM TranferConent t"),
     @NamedQuery(name = "TranferConent.findById", query = "SELECT t FROM TranferConent t WHERE t.id = :id"),
     @NamedQuery(name = "TranferConent.findByGoodsid", query = "SELECT t FROM TranferConent t WHERE t.goodsid = :goodsid"),
-    @NamedQuery(name = "TranferConent.findByGoodsName", query = "SELECT t FROM TranferConent t WHERE t.goodsName = :goodsName"),
     @NamedQuery(name = "TranferConent.findByUnit", query = "SELECT t FROM TranferConent t WHERE t.unit = :unit"),
     @NamedQuery(name = "TranferConent.findByQuantity", query = "SELECT t FROM TranferConent t WHERE t.quantity = :quantity"),
     @NamedQuery(name = "TranferConent.findByFroms", query = "SELECT t FROM TranferConent t WHERE t.froms = :froms"),
@@ -46,13 +45,10 @@ public class TranferConent implements Serializable {
     private Integer id;
     @Column(name = "Goods_id")
     private String goodsid;
-    @Column(name = "goods_name")
-    private String goodsName;
     @Column(name = "unit")
     private String unit;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "quantity")
-    private Double quantity;
+    private Integer quantity;
     @Column(name = "froms")
     private String froms;
     @Column(name = "tos")
@@ -85,14 +81,6 @@ public class TranferConent implements Serializable {
         this.goodsid = goodsid;
     }
 
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
     public String getUnit() {
         return unit;
     }
@@ -101,11 +89,11 @@ public class TranferConent implements Serializable {
         this.unit = unit;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

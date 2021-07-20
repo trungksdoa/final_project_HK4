@@ -6,17 +6,14 @@
 package com.warehouse.project.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,8 +56,6 @@ public class Supplier implements Serializable {
     private String birthdate;
     @Column(name = "sex")
     private Boolean sex;
-    @OneToMany(mappedBy = "supplierid")
-    private Collection<Voucher> voucherCollection;
 
     public Supplier() {
     }
@@ -139,15 +134,6 @@ public class Supplier implements Serializable {
 
     public void setSex(Boolean sex) {
         this.sex = sex;
-    }
-
-    @XmlTransient
-    public Collection<Voucher> getVoucherCollection() {
-        return voucherCollection;
-    }
-
-    public void setVoucherCollection(Collection<Voucher> voucherCollection) {
-        this.voucherCollection = voucherCollection;
     }
 
     @Override

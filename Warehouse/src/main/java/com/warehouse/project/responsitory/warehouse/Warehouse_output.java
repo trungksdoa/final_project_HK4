@@ -20,6 +20,6 @@ public interface Warehouse_output extends JpaRepository<Output, String> {
             value = "SELECT TOP 1 * FROM Output ORDER BY ID DESC")
     Output findByList();
 
-    @Query("SELECT i FROM Output i WHERE i.deletestatus = FALSE")
+    @Query("SELECT i FROM Output i WHERE i.status = 1 OR i.status = 2")
     List<Output> findAll();
 }

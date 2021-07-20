@@ -30,10 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Input.findAll", query = "SELECT i FROM Input i"),
     @NamedQuery(name = "Input.findById", query = "SELECT i FROM Input i WHERE i.id = :id"),
     @NamedQuery(name = "Input.findByDate", query = "SELECT i FROM Input i WHERE i.date = :date"),
+    @NamedQuery(name = "Input.findByDate2", query = "SELECT i FROM Input i WHERE i.date2 = :date2"),
     @NamedQuery(name = "Input.findByExplain", query = "SELECT i FROM Input i WHERE i.explain = :explain"),
     @NamedQuery(name = "Input.findByService", query = "SELECT i FROM Input i WHERE i.service = :service"),
-    @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status"),
-    @NamedQuery(name = "Input.findByDeletestatus", query = "SELECT i FROM Input i WHERE i.deletestatus = :deletestatus")})
+    @NamedQuery(name = "Input.findByStatus", query = "SELECT i FROM Input i WHERE i.status = :status")})
 public class Input implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,9 +50,7 @@ public class Input implements Serializable {
     @Column(name = "service")
     private String service;
     @Column(name = "status")
-    private String status;
-    @Column(name = "deletestatus")
-    private Boolean deletestatus;
+    private Integer status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inputId")
     private Collection<InputContent> inputContentCollection;
 
@@ -67,14 +65,6 @@ public class Input implements Serializable {
         return id;
     }
 
-    public String getDate2() {
-        return date2;
-    }
-
-    public void setDate2(String date2) {
-        this.date2 = date2;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -85,6 +75,14 @@ public class Input implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     public String getExplain() {
@@ -103,20 +101,12 @@ public class Input implements Serializable {
         this.service = service;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Boolean getDeletestatus() {
-        return deletestatus;
-    }
-
-    public void setDeletestatus(Boolean deletestatus) {
-        this.deletestatus = deletestatus;
     }
 
     @XmlTransient
@@ -152,5 +142,5 @@ public class Input implements Serializable {
     public String toString() {
         return id;
     }
-
+    
 }

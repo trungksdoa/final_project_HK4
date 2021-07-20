@@ -66,66 +66,12 @@
 
             <!--//Incldue here-->
             <style>
-                #chart {
-                    height: 440px;
-                }
-                .card-counter{
-                    box-shadow: 2px 2px 10px #DADADA;
-                    margin: 5px;
-                    padding: 20px 10px;
-                    background-color: #fff;
-                    height: 100px;
-                    border-radius: 5px;
-                    transition: .3s linear all;
-                }
-
-                .card-counter:hover{
-                    box-shadow: 4px 4px 20px #DADADA;
-                    transition: .3s linear all;
-                }
-
-                .card-counter.primary{
-                    background-color: #007bff;
-                    color: #FFF;
-                }
-
-                .card-counter.danger{
-                    background-color: #ef5350;
-                    color: #FFF;
-                }  
-
-                .card-counter.success{
-                    background-color: #66bb6a;
-                    color: #FFF;
-                }  
-
-                .card-counter.info{
-                    background-color: #26c6da;
-                    color: #FFF;
-                }  
-
-                .card-counter i{
-                    font-size: 4em;
-                    opacity: 0.2;
-                }
-
-                .card-counter .count-numbers{
-                    position: absolute;
-                    right: 35px;
-                    top: 20px;
-                    font-size: 32px;
-                    display: block;
-                }
-
-                .card-counter .count-name{
-                    position: absolute;
-                    right: 35px;
-                    top: 65px;
-                    font-style: italic;
-                    text-transform: capitalize;
-                    opacity: 0.5;
-                    display: block;
-                    font-size: 18px;
+                .dataTables_scrollBody{
+                    position: relative;
+                    overflow: auto;
+                    max-height: 400px !important;
+                    height: 400px !important;
+                    width: 99% !important;
                 }
                 #exTab2 h3 {
                     color: white;

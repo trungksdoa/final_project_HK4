@@ -6,7 +6,10 @@
 package com.warehouse.project.imp.warehouse.IO;
 
 import com.warehouse.project.model.GoodsCatagory;
+import com.warehouse.project.model.Input;
 import com.warehouse.project.model.InputContent;
+import com.warehouse.project.model.beanclass.InputDTO;
+import com.warehouse.project.model.beanclass.TranferContnetDTO;
 import com.warehouse.project.service.warehouse.IO.IInputContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,13 +38,13 @@ public class IInputContentImpl implements IInputContent {
     }
 
     @Override
-    public List<InputContent> findWhereId(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public InputContent findWhereId(String id, String ware, Input input) {
+        return lab.findWhereId(id, ware, input);
     }
 
     @Override
     public List<Object[]> findWhereByCodeId(String id) {
-       return lab.findALlWherecodeId(id);
+        return lab.findALlWhereinput(id);
     }
 
     @Override
@@ -51,4 +54,18 @@ public class IInputContentImpl implements IInputContent {
         return object;
     }
 
+    @Override
+    public void Deletes(InputContent inputContent) {
+        lab.delete(inputContent);
+    }
+
+    @Override
+    public InputContent findTwo(String id) {
+        return lab.findByTwo(id);
+    }
+
+    @Override
+    public List<InputContent> findWhereInputId(Input input) {
+       return lab.findWhereinputId(input);
+    }
 }

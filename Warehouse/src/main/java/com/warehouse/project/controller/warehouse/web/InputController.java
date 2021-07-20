@@ -11,12 +11,15 @@ import com.warehouse.project.model.Hisio;
 import com.warehouse.project.model.Input;
 import com.warehouse.project.model.InputContent;
 import com.warehouse.project.model.StockCard;
+import com.warehouse.project.model.Supplier;
 import com.warehouse.project.model.Warehouse;
 
 import com.warehouse.project.service.warehouse.IO.IInput;
 import com.warehouse.project.service.warehouse.IO.IInputContent;
+import com.warehouse.project.service.warehouse.IStock_card;
 import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Ihistory;
+import com.warehouse.project.service.warehouse.Other.ISupplier;
 import com.warehouse.project.service.warehouse.Other.Idynamic;
 import com.warehouse.project.service.warehouse.Other.Igoodscatagory;
 import java.util.ArrayList;
@@ -57,6 +60,11 @@ public class InputController {
     @Autowired
     Igoodscatagory lab242;
 
+    @Autowired
+    ISupplier lab124;
+    
+    @Autowired
+    IStock_card lab134;
     @RequestMapping("/input")
     public String index(Model model) {
 
@@ -64,13 +72,29 @@ public class InputController {
         ArrayList<String> ncc = new ArrayList<>();
         ArrayList<String> Warehouse = new ArrayList<>();
         lab242.findALl().forEach(string1 -> {
-            goodsName.add(string1.getGoodsName());
+            goodsName.add(string1.getId());
         });
+        for (Supplier supplier : lab124.findAll()) {
+            ncc.add(supplier.getId());
+        }
+        for (StockCard stockCard : lab134.findAll()) {
+            Warehouse.add(stockCard.getId());
+        }
         model.addAttribute("message", "");
         model.addAttribute("Namelist", goodsName);
         model.addAttribute("SupplierList", ncc);
         model.addAttribute("WarehouseList", Warehouse);
         return "warehouse/InputPage";
+    }
+
+    @RequestMapping("/detaiiInput/")
+    public String DetailIndex(Model model, HttpServletRequest request) {
+//        String ids = request.getParameter("id");
+//        ArrayList<InputContent> goodsName = new ArrayList<>();
+//        Input details = lab.findOne(ids);
+//        model.addAttribute("detailist",details);
+//        goodsName.addAll(details.getInputContentCollection());
+        return "warehouse/InputPageDetail";
     }
 
     /**
@@ -84,21 +108,6 @@ public class InputController {
         return "warehouse/InputsipData";
     }
 
-    @RequestMapping("/Updates/{id}")
-    public String Updates(Model model, @PathVariable("id") String id) {
-        Input dataup = lab.findOne(id);
-        dataup.setId(dataup.getId());
-        dataup.setDate(dataup.getDate());
-        dataup.setService(dataup.getService());
-        dataup.setExplain(dataup.getExplain());
-        dataup.setStatus("Completed");
-        dataup.setDeletestatus(Boolean.FALSE);
-        dataup.setDate(dataup.getDate());
-        lab.Update(dataup);
-        model.addAttribute("InputsipData", lab.findall());
-        return "redirect:/web/warehouse/InputsipData";
-    }
-
     @RequestMapping("/Deletes/")
     public String Deletes(Model model, HttpServletRequest request) {
         String id = request.getParameter("idcode");
@@ -107,8 +116,7 @@ public class InputController {
         dataup.setDate(dataup.getDate());
         dataup.setService(dataup.getService());
         dataup.setExplain(dataup.getExplain());
-        dataup.setStatus("NotComplete");
-        dataup.setDeletestatus(Boolean.TRUE);
+        dataup.setStatus(3);
         dataup.setDate(dataup.getDate());
         lab.Update(dataup);
         model.addAttribute("InputsipData", lab.findall());
@@ -149,7 +157,6 @@ public class InputController {
 
         Input addss = null;
         String message = "Success";
-
         if (isSpace(warehouse) || isSpace(quantity) || isSpace(importprice)) {
             message = "Some field is empty";
             model.addAttribute("color", "red");
@@ -183,8 +190,7 @@ public class InputController {
                 input.setDate2("");
                 input.setService(getservice);
                 input.setExplain(getexplain);
-                input.setStatus("NotComplete");
-                input.setDeletestatus(Boolean.FALSE);
+                input.setStatus(1);
                 addss = lab.Save(input);
 
             } else {
@@ -194,8 +200,7 @@ public class InputController {
                 input.setDate2("");
                 input.setService(getservice);
                 input.setExplain(getexplain);
-                input.setStatus("NotComplete");
-                input.setDeletestatus(Boolean.FALSE);
+                input.setStatus(1);
                 addss = lab.Save(input);
             }
             List<InputContent> objectList = new ArrayList<>();
@@ -205,10 +210,9 @@ public class InputController {
             if (addss != null) {
                 for (int i = 0; i < name.length; i++) {
                     InputContent respone = null;
-                    GoodsCatagory catagory = new GoodsCatagory();
                     InputContent inputobject = new InputContent();
-                    catagory.setId(codeid[i]);
-                    inputobject.setGoodsId(catagory);
+                    String subString = codeid[i] + "_" + suplier[i] + "_" + warehouse[i];
+                    inputobject.setGoodsId(subString);
                     inputobject.setGoodsName(name[i]);
                     inputobject.setUnit(unit[i]);
                     inputobject.setSupplier(suplier[i]);
@@ -223,7 +227,7 @@ public class InputController {
                     if (refreence != null) {
                         inputobject.setReference(refreence[i]);
                     } else {
-                        inputobject.setReference("Enter another");
+                        inputobject.setReference(addss.getId());
                     }
 
                     respone = lab2.Save(inputobject);
@@ -239,20 +243,25 @@ public class InputController {
     public String UpdateInputWarehouse(Model model, HttpServletRequest request) {
         String[] idse = request.getParameterValues("idenentity");
         String[] reference = request.getParameterValues("reference");
-        String slipId = request.getParameter("slipId");
+        String slipId = request.getParameter("slipIds");
+        String expalin = request.getParameter("Explain23s");
+
         Input findData2 = lab.findOne(slipId);
         findData2.setId(findData2.getId());
         findData2.setService(findData2.getService());
-        findData2.setExplain(findData2.getExplain());
+        if (expalin == "") {
+            findData2.setExplain(findData2.getExplain());
+        } else {
+            findData2.setExplain(expalin);
+        };
         String date = String.valueOf(java.time.LocalDate.now());
         findData2.setDate2(date);
         findData2.setDate(findData2.getDate());
-        findData2.setStatus("Completed");
-        findData2.setDeletestatus(Boolean.FALSE);
+        findData2.setStatus(2);
         lab.Save(findData2);
         for (int i = 0; i < idse.length; i++) {
             InputContent dataget = lab2.findOneData(Integer.valueOf(idse[i]));
-            Warehouse getWarehouse = lab4.FindDupGoods("" + dataget.getGoodsId().toString() + "", "" + dataget.getWarehouse() + "", "" + dataget.getSupplier() + "");
+            Warehouse getWarehouse = lab4.findOnes(dataget.getGoodsId().toString(), dataget.getWarehouse());
             if (getWarehouse != null) {
                 getWarehouse.setImportPrice(dataget.getImportsPrices());
                 getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() + dataget.getQuantity());
@@ -279,34 +288,18 @@ public class InputController {
                 Warehouse checksave = lab4.Save(setWarehouse);
 //                System.out.println("Add new " + checksave.getGoodsName());
             }
-            if (reference == null) {
-                //Insert history
-                Hisio history = new Hisio();
-                history.setGoodsId(dataget.getGoodsId().toString());
-                history.setGoodsName(dataget.getGoodsId().toString());
-                history.setDate(dataget.getGoodsId().toString());
-                history.setMajor("Input");
-                history.setPrice(Integer.valueOf(dataget.getImportsPrices()));
-                history.setQuantity(Integer.valueOf(dataget.getQuantity()));
-                history.setUnit(dataget.getUnit());
-                history.setWarehouse(dataget.getWarehouse());
-                history.setLicense("Enter another");
-                lab5.save(history);
-            } else {
-                //Insert history
-                Hisio history = new Hisio();
-                history.setGoodsId(dataget.getGoodsId().toString());
-                history.setGoodsName(dataget.getGoodsId().toString());
-                history.setDate(dataget.getGoodsId().toString());
-                history.setMajor("Input");
-                history.setPrice(Integer.valueOf(dataget.getImportsPrices()));
-                history.setQuantity(Integer.valueOf(dataget.getQuantity()));
-                history.setUnit(dataget.getUnit());
-                history.setWarehouse(dataget.getWarehouse());
-                history.setLicense(dataget.getReference());
-                lab5.save(history);
-            }
-
+            //Insert history
+            Hisio history = new Hisio();
+            history.setGoodsId(dataget.getGoodsId().toString());
+            history.setGoodsName(dataget.getGoodsId().toString());
+            history.setDate(date);
+            history.setMajor("Input");
+            history.setPrice(Integer.valueOf(dataget.getImportsPrices()));
+            history.setQuantity(Integer.valueOf(dataget.getQuantity()));
+            history.setUnit(dataget.getUnit());
+            history.setWarehouse(dataget.getWarehouse());
+            history.setLicense(dataget.getReference());
+            lab5.save(history);
         }
         return "redirect:/web/warehouse/InputsipData";
 

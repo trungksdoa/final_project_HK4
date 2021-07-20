@@ -6,7 +6,10 @@
 package com.warehouse.project.service.warehouse.IO;
 
 import com.warehouse.project.model.GoodsCatagory;
+import com.warehouse.project.model.Input;
 import com.warehouse.project.model.InputContent;
+import com.warehouse.project.model.beanclass.InputDTO;
+import com.warehouse.project.model.beanclass.TranferContnetDTO;
 import java.util.List;
 
 /**
@@ -18,10 +21,16 @@ public interface IInputContent {
     public abstract InputContent Save(InputContent input);
 
     public List<InputContent> findAll();
-    
+
+    public void Deletes(InputContent inputContent);
+
+    public InputContent findTwo(String id);
+
     public abstract InputContent findOneData(int id);
+
+    public InputContent findWhereId(String id,String ware, Input input);
     
-    public List<InputContent>findWhereId(String id);
-    
-    public  List<Object[]>findWhereByCodeId(String id);
+    public List<InputContent> findWhereInputId(Input input);
+
+    public List<Object[]> findWhereByCodeId(String id);
 }

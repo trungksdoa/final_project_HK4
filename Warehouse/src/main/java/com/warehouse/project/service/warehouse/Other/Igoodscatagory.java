@@ -13,5 +13,8 @@ import java.util.List;
  * @author trung
  */
 public interface Igoodscatagory {
-    public abstract List<CatagoryGroupSupplier>findALl();
+
+    public abstract List<CatagoryGroupSupplier> findALl();
+
+    public abstract CatagoryGroupSupplier Searchwhere(String id, String name);
 }

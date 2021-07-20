@@ -137,6 +137,26 @@
                     top: -5px;
                 }
             }
+            #btnSelect {
+                padding: 8px 21px;
+                font-size: 10px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #04AA6D;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 9px #999;
+            }
+
+            #btnSelect:hover {background-color: #3e8e41}
+
+            #btnSelect:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
         </style>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -258,7 +278,9 @@
                                                         <table class="table table-bordered table-fixed" style="z-index: 1000">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>Delete</th>
                                                                     <th style="transform: translateY(-5px);">STT</th>
+                                                                    <th style="transform: translateY(-5px)">Goods ID</th>
                                                                     <th style="transform: translateY(-5px)">Goods</th>
                                                                     <th style="transform: translateY(-5px)">Unit</th>
                                                                     <th style="transform: translateY(-5px)">Supplier</th>
@@ -266,9 +288,8 @@
                                                                     <th style="transform: translateY(-5px)">Quantity</th>
                                                                     <th style="transform: translateY(-5px)">Export Price </th>
                                                                     <th style="transform: translateY(-5px)">Group </th>
-                                                                    <th style="transform: translateY(-5px)">Weight/1</th>
                                                                     <th style="transform: translateY(-5px)">Weight</th>
-                                                                    <th style="transform: translateY(-5px)">Goods ID</th>
+
 
                                                                 </tr>
                                                             </thead>
@@ -570,25 +591,51 @@
                 <b>Version</b> 3.1.0
             </div>
         </footer>
+        <script>
+            function isValidKey(e) {
+                var evt = e || window.event;
+                if (evt) {
+                    var keyCode = evt.charCode || evt.keyCode;
+                    if (keyCode === 8 || keyCode === 46) {
+                        if (evt.preventDefault) {
+                            evt.preventDefault();
+                        } else {
+                            evt.returnValue = false;
+                        }
+                    }
+                }
+                return false;
+            }
+        </script>
         <script type="text/javascript">
             var stt = 0;
             var tangtudong = 1;
+            var listIp = [];
             //Remove row button
             $('#removelastrow').on("click", function () {
+                var valuedsa = $('#tableInput').find('tr').length;
+                if (valuedsa == 1) {
+                    //do nothing
+                } else {
 
-
-                if (stt == 1)
-                {
-                    stt = 1;
-                    tangtudong = 2;
-                } else
-                {
-                    $('#tableInput tr:last').remove();
-
-                    stt -= 1;
-                    tangtudong -= 1;
+                    var valuedsa = $('#tableInput').find('tr').length;
+                    if (valuedsa == 1) {
+                        //do nothing
+                    } else {
+                        var productname = $('#tableInput tr:last td:nth-child(3) > input').val();
+                        var search_term = productname;
+                        // console.log(listIp);
+                        for (var i = listIp.length - 1; i >= 0; i--) {
+                            if (listIp[i] === search_term) {
+                                listIp.splice(i, 1);
+                            }
+                            // console.log(listIp)
+                        }
+                        $('#tableInput tr:last').remove();
+                        stt -= 1;
+                        tangtudong -= 1;
+                    }
                 }
-
             });
             function CreateID()
             {
@@ -634,17 +681,6 @@
                     }
                 }
             }
-            function lookup(arg) {
-                var id = arg.getAttribute('id');
-                // var value = arg.value;
-                var res = id.charAt(id.length - 1);
-                var weighton1 = document.getElementById('weightOn1' + res);
-                var result = arg.value * weighton1.value;
-//                weightOn1
-
-                document.getElementById('weight' + res).value = result;
-                console.log('weight' + res)
-            }
             $(document).ready(function () {
                 ////
                 $("#checkAll").click(function () {
@@ -664,26 +700,10 @@
             });
             //Check all checkbox In service
             function dasdsadsa(x) {
-                //                alert("Row index is: " + x.rowIndex);
-//                    var index = 0;
-                var res = x.charAt(x.length - 1);
-//                    index += x.rowIndex;
-//                    index--;
-                console.log(res);
-                //                console.log(index);
-                Autocomplete(res);
+                var matches = x.trim().match(/(\d+)/);
+                Autocomplete(matches[0]);
                 //                return x.rowIndex;
             }
-            //OnClick To AutoComplete
-//            function dasdsadsa(x) {
-//                //                alert("Row index is: " + x.rowIndex);
-//                var index = 0;
-//                index += x.rowIndex;
-//                index--;
-//                //                console.log(index);
-//                Autocomplete(index);
-//                //                return x.rowIndex;
-//            }
             var today = new Date();
             var months = "";
             var date = "";
@@ -697,6 +717,70 @@
             }
             document.getElementById("DateLicene").value = date;
             //            $("#Date").val(date);
+
+            function myFunction(is) {
+                var row_num = $('#tableInput').find('tr').length;
+                if (row_num == 1) {
+                    stt = 0;
+                    tangtudong = 1;
+                    var result = confirm("Danger !!. Last row will be reset , you want reset?");
+                    if (result) {
+                        var productname = $(is).closest("tr").find("td:nth-child(3) > input").val();
+                        var search_term = productname;
+                        // console.log(listIp);
+                        for (var i = listIp.length - 1; i >= 0; i--) {
+                            if (listIp[i] === search_term) {
+                                listIp.splice(i, 1);
+                            } else {
+                                //do nothing
+                            }
+                            // console.log(listIp);
+                            // console.log(listIp)
+                        }
+                        $('#tableInput').empty();
+                        for (var i = 0; i < 1; i++) {
+                            var rowsds = $('<tr>');
+                            rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
+                            rowsds.append('<td>' + tangtudong + '</td>');
+                            rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)'  type='text' id='search" + stt + "' name='codeid' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly type='text' id='name" + stt + "' name='name' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly  type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input type='number' id='quantity" + stt + "' min='1' oninvalid='Stock not Engght' name='quantity' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input type='number' id='Exportprice" + stt + "' min='1' name='Exportprice' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly type='text' id='groupid" + stt + "' name='group' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input type='number' min=1 id='weight" + stt + "' name='weight' value=''/>" + '</td>');
+                            rowsds.append('</tr>');
+                            $('#tableInput').append(rowsds);
+                            stt++;
+                            tangtudong++;
+                        }
+                    } else {
+                        tangtudong++;
+                        stt++;
+                    }
+                } else {
+                    var result = confirm("Danger !!. This row will be delete !, you want delete?");
+                    if (result) {
+                        var search_term = $(is).closest("tr").find("td:nth-child(3) > input").val();
+                        // console.log(listIp);
+                        for (var i = listIp.length - 1; i >= 0; i--) {
+                            if (listIp[i] === search_term) {
+                                listIp.splice(i, 1);
+                            } else {
+                                //do nothing
+                            }
+                            // console.log(listIp);
+                            // console.log(listIp)
+                        }
+
+                        var currentRow = $(is).closest('tr').remove();
+                        tangtudong = tangtudong;
+                        stt = stt;
+                    }
+                }
+            }
         </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

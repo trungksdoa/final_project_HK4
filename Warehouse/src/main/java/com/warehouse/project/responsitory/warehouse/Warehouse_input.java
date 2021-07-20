@@ -23,6 +23,6 @@ public interface Warehouse_input extends JpaRepository<Input, String> {
             value = "SELECT TOP 1 * FROM input ORDER BY ID DESC")
     Input findByList();
 
-    @Query("SELECT i FROM Input i WHERE i.deletestatus = FALSE")
+    @Query("SELECT i FROM Input i WHERE i.status = 1 OR i.status  = 2")
     List<Input> findAll();
 }

@@ -13,11 +13,14 @@ import java.util.List;
  * @author trung
  */
 public interface ITranferWarehouse {
+
     public abstract TranferWarehouse save(TranferWarehouse tranferWarehouse);
-    
+
     public abstract List<TranferWarehouse> findAll();
-    
+
     public abstract TranferWarehouse findOne(String id);
-    
-     public abstract TranferWarehouse ListOne();
+
+    public abstract TranferWarehouse ListOne();
+
+
 }

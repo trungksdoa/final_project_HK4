@@ -1,9 +1,8 @@
-<%--<%@page contentType="text/html" pageEncoding="UTF-8"%>--%> 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
         <img src="<c:url value='/resources/dist/img/AdminLTELogo.png'/>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Qu?n L√Ω Kho H√†ng</span>
+        <span class="brand-text font-weight-light">Warehouse Manager</span>
     </a>
 
     <!-- Sidebar -->
@@ -14,7 +13,7 @@
                 <img src="<c:url value='/resources/dist/img/4.jpg'/>" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin</a>
+                <a href="#" class="d-block"></a>
             </div>
         </div>
 
@@ -39,8 +38,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            T?ng Quan
-
+                            Dashboard
                         </p>
                     </a>
 
@@ -50,7 +48,7 @@
                     <a href="data.html" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            B√°o gi√°
+                            Quotes
                         </p>
                     </a>
                 </li>
@@ -58,7 +56,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            ??t h√†ng
+                            Order
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -66,13 +64,13 @@
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>??t h√†ng mua</p>
+                                <p>Voucher</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>??t h√†ng b√°n</p>
+                                <p>Sale Coupon</p>
                             </a>
                         </li>
                     </ul>
@@ -81,60 +79,65 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            QL H√†ng ho√°
+                            Warehouse
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="data.html" class="nav-link">
+                            <a href="/web/warehouse/input" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Nh?p h√†ng</p>
+                                <p>Input</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="data.html" class="nav-link">
+                            <a href="/web/warehouse/InputsipData" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Xu?t b√°n</p>
+                                <p>Input Slip</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/web/warehouse/output" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Output</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/web/warehouse/OutputSlip" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Input Slip</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Kho h√†ng
+                                    Inventory
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul style="margin-left: 30px;" class="nav nav-treeview">
                                 <li style="" class="nav-item">
-                                    <a href="data.html" class="nav-link">
-                                        <p>Th? kho</p>
+                                    <a href="/web/warehouse/page1" class="nav-link">
+                                        <p>Inventory</p>
                                     </a>
                                 </li>
                                 <li style="" class="nav-item">
-                                    <a href="data.html" class="nav-link">
-                                        <p>Phi?u quy ??i ?VT</p>
+                                    <a href="/web/warehouse/page2" class="nav-link">
+                                        <p>Tracking</p>
                                     </a>
                                 </li>
                                 <li style="" class="nav-item">
-                                    <a href="data.html" class="nav-link">
-                                        <p>BC-Nh?p-Xu?t-T?n</p>
+                                    <a href="/web/warehouse/welcome" class="nav-link">
+                                        <p>Tracking stock</p>
+                                    </a>
+                                </li>
+                                <li style="" class="nav-item">
+                                    <a href="/web/warehouse/page4" class="nav-link">
+                                        <p>Tracking Stock List</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>S? chi ti?t</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>S? t?ng h?p</p>
-                            </a>
                         </li>
                     </ul>
                 </li>
@@ -177,7 +180,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            C√¥ng n?
+                            CÙng n?
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -197,13 +200,13 @@
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>C√¥ng n? ph?i tr?</p>
+                                <p>CÙng n? ph?i tr?</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>C√¥ng n? ph?i thu</p>
+                                <p>CÙng n? ph?i thu</p>
                             </a>
                         </li>
                     </ul>
@@ -213,7 +216,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            B√°o c√°o - Th?ng k√™
+                            B·o c·o - Th?ng kÍ
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -227,19 +230,19 @@
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>th?ng k√™ chi ph√≠</p>
+                                <p>th?ng kÍ chi phÌ</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>B√°o c√°o doanh s?</p>
+                                <p>B·o c·o doanh s?</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>B√°o c√°o l?i nhu?n</p>
+                                <p>B·o c·o l?i nhu?n</p>
                             </a>
                         </li>
                     </ul>
@@ -256,19 +259,19 @@
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>H√†ng ho√°</p>
+                                <p>H‡ng ho·</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Nh√† cung ?ng</p>
+                                <p>Nh‡ cung ?ng</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Kh√°ch h√†ng</p>
+                                <p>Kh·ch h‡ng</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -283,7 +286,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            C√†i ??t
+                            C‡i ??t
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -302,7 +305,7 @@
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Khai b√°o s? d? ??u k?
+                                    Khai b·o s? d? ??u k?
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -310,25 +313,25 @@
                                 <li class="nav-item">
                                     <a href="data.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>??u k? h√†ng ho√°</p>
+                                        <p>??u k? h‡ng ho·</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="data.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>??u k√¨ n? ph?i thu</p>
+                                        <p>??u kÏ n? ph?i thu</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="data.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>??u k√¨ n? ph?i tr?</p>
+                                        <p>??u kÏ n? ph?i tr?</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="data.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>??u k√¨ ?i?m t√≠ch lu?</p>
+                                        <p>??u kÏ ?i?m tÌch lu?</p>
                                     </a>
                                 </li>
                             </ul>
@@ -337,7 +340,7 @@
                             <a href="data.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    T√†i kho?n s? d?ng ph?n m?m
+                                    T‡i kho?n s? d?ng ph?n m?m
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>

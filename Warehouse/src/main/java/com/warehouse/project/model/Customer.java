@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByPaymentterm", query = "SELECT c FROM Customer c WHERE c.paymentterm = :paymentterm"),
     @NamedQuery(name = "Customer.findByBirthdate", query = "SELECT c FROM Customer c WHERE c.birthdate = :birthdate"),
     @NamedQuery(name = "Customer.findBySex", query = "SELECT c FROM Customer c WHERE c.sex = :sex"),
-    @NamedQuery(name = "Customer.findByCustomerPoint", query = "SELECT c FROM Customer c WHERE c.customerPoint = :customerPoint")})
+    @NamedQuery(name = "Customer.findByCustomerPoint", query = "SELECT c FROM Customer c WHERE c.customerPoint = :customerPoint"),
+    @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,8 +66,10 @@ public class Customer implements Serializable {
     private Boolean sex;
     @Column(name = "customer_point")
     private Integer customerPoint;
-    @OneToMany(mappedBy = "customerId")
-    private Collection<SalesCoupon> salesCouponCollection;
+    @Column(name = "status")
+    private Boolean status;
+    @OneToMany(mappedBy = "client")
+    private Collection<Other> otherCollection;
 
     public Customer() {
     }
@@ -163,13 +166,21 @@ public class Customer implements Serializable {
         this.customerPoint = customerPoint;
     }
 
-    @XmlTransient
-    public Collection<SalesCoupon> getSalesCouponCollection() {
-        return salesCouponCollection;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setSalesCouponCollection(Collection<SalesCoupon> salesCouponCollection) {
-        this.salesCouponCollection = salesCouponCollection;
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    @XmlTransient
+    public Collection<Other> getOtherCollection() {
+        return otherCollection;
+    }
+
+    public void setOtherCollection(Collection<Other> otherCollection) {
+        this.otherCollection = otherCollection;
     }
 
     @Override

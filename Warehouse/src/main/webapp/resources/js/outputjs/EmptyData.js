@@ -20,20 +20,20 @@ function emptyData() {
         document.getElementById("DateLicene").value = date;
         $("#tableInput").empty();
         stt = 0;
-          tangtudong = 1;
+        tangtudong = 1;
         for (var i = 0; i < 1; i++) {
             var rowsds = $('<tr>');
+            rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
             rowsds.append('<td>' + tangtudong + '</td>');
-            rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text' id='search" + stt + "' name='name' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)'  type='text' id='search" + stt + "' name='codeid' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input readonly type='text' id='name" + stt + "' name='name' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input readonly type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input readonly type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input readonly  type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input type='number' id='quantity" + stt + "' min='1' onkeydown='lookup(this);' name='quantity' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input type='number' id='quantity" + stt + "' min='1' oninvalid='Stock not Engght' name='quantity' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='number' id='Exportprice" + stt + "' min='1' name='Exportprice' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input readonly type='text' id='groupid" + stt + "' name='group' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input readonly type='text' id='weightOn1" + stt + "' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input readonly type='text' id='weight" + stt + "' name='weight' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input readonly type='text' id='codeid" + stt + "' name='codeid' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input type='number' min=1 id='weight" + stt + "' name='weight' value=''/>" + '</td>');
             rowsds.append('</tr>');
             $('#tableInput').append(rowsds);
             stt++;

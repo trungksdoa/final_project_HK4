@@ -1,7 +1,7 @@
-<%-- 
-    Document   : index
-    Created on : Jun 16, 2021, 12:44:44 AM
-    Author     : trung
+b<%-- 
+   Document   : index
+   Created on : Jun 16, 2021, 12:44:44 AM
+   Author     : trung
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -51,9 +51,15 @@
             <!-- Main Sidebar Container -->
             <%@ include file="/page/fragment/sidebar.jsp" %>
             <%--<jsp:include page="/fragment/sidebar.jsp" />--%>  
-
-            <!--//Incldue here-->
             <style>
+                .ui-autocomplete {
+                    max-height: 200px;
+                    overflow-y: auto;
+                    /* prevent horizontal scrollbar */
+                    overflow-x: hidden;
+                    /* add padding to account for vertical scrollbar */
+                    padding-right: 20px;
+                } 
                 .my-custom-scrollbar {
                     position: relative;
                     height: 245px;
@@ -124,7 +130,28 @@
                         top: -5px;
                     }
                 }
+                #btnSelect {
+                    padding: 8px 21px;
+                    font-size: 10px;
+                    text-align: center;
+                    cursor: pointer;
+                    outline: none;
+                    color: #fff;
+                    background-color: #04AA6D;
+                    border: none;
+                    border-radius: 15px;
+                    box-shadow: 0 9px #999;
+                }
+
+                #btnSelect:hover {background-color: #3e8e41}
+
+                #btnSelect:active {
+                    background-color: #3e8e41;
+                    box-shadow: 0 5px #666;
+                    transform: translateY(4px);
+                }
             </style>
+
             <!-- Content Wrapper. Contains page content -->
 
             <div class="content-wrapper">
@@ -173,13 +200,13 @@
                                         <div class="tab-content" id="custom-tabs-three-tabContent">
                                             <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
                                                  aria-labelledby="custom-tabs-three-home-tab">
-                                                <form id='maiForm' method="POST" action="/web/warehouse/page" onsubmit="return Validate()">
+                                                <form id='maiForm' method="POST" action="/web/warehouse/page">
                                                     <input type="number" name="index" id="index" value="" hidden="true">
                                                     <button type="submit" id="savaDataAll"
-                                                            onclick="document.getElementById("maiForm").reset();"   class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
-                                                    <button  type="button" data-toggle="modal" id="saveandprint" data-target="#login-modal" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i> Save and
-                                                        Print</button>
-                                                    <button  onclick="emptyData();return false;" type="button"
+                                                            class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
+                                                    <button  type="button" id="saveandprint" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i>Print preview</button>
+                                                    <button  onclick="emptyData();
+                                                            return false;" type="button"
                                                              id="resetbutton"
                                                              class="btn btn-block bg-gradient-danger"><i class="fas fa-delete"></i>Reset</button>
                                                     <div class="card-body">
@@ -191,12 +218,12 @@
                                                                         <div class="input-group mb-3">
                                                                             <input type="text" class="form-control" readonly="" name="id" id="id_liecene"  value="" placeholder="System will generation License">
                                                                             <div class="input-group-prepend">
-                                                                                <button onclick="CreateID();return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
+                                                                                <button onclick="CreateID();
+                                                                                        return false;" type="button" id="generatesid" class="btn btn-secondary" >Generates ID</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="form-group row">
                                                                     <label for="Date" class="col-lg-2 col-form-label">Date</label>
                                                                     <div class="col-lg-10 col-md-12 col-sm-12">
@@ -228,7 +255,11 @@
 
                                                                             </table>
                                                                         </span>
-                                                                        <p>Hint: Click on field at Goods name to start finding your goods easy</p>
+                                                                        <p>
+                                                                            Ps:If you have choose a goods in your field,you can't not delete by using Backspace, or delete on your Keyboard<br>
+                                                                            If you want delete Click button at left<br>
+                                                                            Please field data ,If you leave the box blank when submitting, the system will give an error
+                                                                        </p>
                                                                         <div class="btn-group">
                                                                             <button style="margin-right: 30px;height: 33px" type="button" id="addDataTable" 
                                                                                     class="btn btn-block btn-success btn-sm add-row"><i style="color: white;" class="fa fa-plus" ></i> Add row</button>
@@ -244,28 +275,28 @@
                                                         </div>
 
                                                         <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
-                                                            <table class="table table-bordered table-fixed" style="z-index: 1000">
+                                                            <table id="table" class="table table-bordered table-fixed" style="z-index: 1000">
                                                                 <thead>
                                                                     <tr>
+                                                                        <th>Delete</th>
                                                                         <th style="transform: translateY(-5px);">STT</th>
-                                                                        <th>Goods
-                                                                            <a style="float:right" href="#"><i class="fas fa-plus"></i></a>
+                                                                        <th style="transform: translateY(-5px)">Goods ID</th>
+                                                                        <th>Goods name
                                                                         </th>
                                                                         <th style="transform: translateY(-5px)">Unit</th>
                                                                         <th>Supplier 
-                                                                            <a style="float:right" href="#"><i class="fas fa-plus"></i></a>
+                                                                            <a style="float:right" data-toggle="modal" data-target="#modalSupplier" href="#"><i class="fas fa-plus"></i></a>
                                                                         </th>
                                                                         <th>Warehouse 
-                                                                            <a style="float:right" href="#"><i class="fas fa-plus"></i></a>
+                                                                            <a style="float:right" data-toggle="modal" data-target="#modalkho" href="#"><i class="fas fa-plus"></i></a>
                                                                         </th>
                                                                         <th style="transform: translateY(-5px)">Quantity</th>
                                                                         <th style="transform: translateY(-5px)">Input Price </th>
                                                                         <th>Group 
-                                                                            <a style="float:right" href="#"><i class="fas fa-plus"></i></a>
+                                                                            <a style="float:right" data-toggle="modal" data-target="#modalgoods" href="#"><i class="fas fa-plus"></i></a>
                                                                         </th>
-                                                                        <th style="transform: translateY(-5px)">Weight/1</th>
                                                                         <th style="transform: translateY(-5px)">Weight</th>
-                                                                        <th style="transform: translateY(-5px)">Goods ID</th>
+
 
                                                                     </tr>
                                                                 </thead>
@@ -300,7 +331,7 @@
                                         <h5 class="modal-title">Create warehouse</h5>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="">
+                                        <form action="#" method="POST">
                                             <div class="form-group row">
                                                 <label for="object" class="col-lg-2 col-form-label">ID</label>
                                                 <div class="col-lg-10">
@@ -470,7 +501,8 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer">
-                                        <button onclick="getValue();return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
+                                        <button onclick="getValue();
+                                                return false;"  id="btnServiceModalSave" type="button" class="btn btn-primary">Save changes</button>
                                         <button  id="btnServiceModalClose"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
@@ -531,7 +563,54 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div id="printModa" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-xl " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button id="prisdnthis">Print</button>
+                                        <button style="float:right"   type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container" id="printthis" style="background-color: white;  padding: 26px 110px;">
+                                            <h3 style="padding-top: 10px;">Công Ty TNHH Bánh Xe</h3>
+                                            <h3 style="float: right;color: white;"><a id='statusus' class='btn btn-secondary'></a></h3>
+                                            <span><i style="font-size: 25px;">Adress: 506 California</i></span><br>
+                                            <span>ĐT:<i>0335857134</i></span>
+                                            <h1 style="text-align: center; margin-top: 50px;margin-bottom: 20px;">Input Slip</h1>
+                                            <span style="font-size: 20px;">Code:<b id="codeisdw"></b></span>
+                                            <span style="float: right;font-size: 20px">Date:<b id="datesds"></b></span><br>
+                                            <table style="width: 100%;margin-bottom: 30px;" border="1px">
+                                                <thead>
+                                                    <tr>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Goods name</th>
+                                                        <th>Supplier</th>
+                                                        <th>Unit</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id='bodyTest'>
+
+                                                </tbody>
+
+
+                                            </table>
+
+                                            <span style="font-size: 20px">Total: <b id='taotoal'></b></span><br>
+                                            <span style="float:right;font-size: 20px;margin-right: 65px;"><i>(Sign, full name)</i></span><br><br><br><br>
+                                            <span style="float:right;font-size: 22px;margin-right: 70px;"><b></b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </section>
                 <!-- /.content -->
             </div>
@@ -543,18 +622,42 @@
                     <b>Version</b> 3.1.0
                 </div>
             </footer>
+            <script>
+                function isValidKey(e) {
+                    var evt = e || window.event;
+                    if (evt) {
+                        var keyCode = evt.charCode || evt.keyCode;
+                        if (keyCode === 8 || keyCode === 46) {
+                            if (evt.preventDefault) {
+                                evt.preventDefault();
+                            } else {
+                                evt.returnValue = false;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            </script>
             <script type="text/javascript">
+
+                var arraydatalist = new Array();
+                ;
                 var stt = 0;
                 var tangtudong = 1;
+                var listIp = [];
                 var namelist = [];
                 var tempArray = [];
                 var ncc = [];
                 var warehouse = [];
                 $(document).ready(function () {
-                <c:forEach items="${Namelist}" var="x">
-                    namelist.push('${x}');
+                <c:forEach items="${SupplierList}" var="x">
+                    ncc.push('${x}');
                 </c:forEach>
-                    console.log(namelist);
+                <c:forEach items="${WarehouseList}" var="xsd">
+                    warehouse.push('${xsd}');
+                </c:forEach>
+
+//                    console.log(namelist);
                     $('#message').delay(10000).fadeOut();
                     ////////////
 
@@ -564,28 +667,39 @@
                     addRow();
                     //Insert stock
                     // Document 
+
                 });
                 //Check all checkbox In service
                 $("#checkAll").click(function () {
                     $('input:checkbox').not(this).prop('checked', this.checked);
                 });
 
-                //Remove row button
                 $('#removelastrow').on("click", function () {
+                    var valuedsa = $('#tableInput').find('tr').length;
+                    if (valuedsa == 1) {
+                        //do nothing
+                    } else {
 
-
-                    if (stt == 1)
-                    {
-                        tangtudong = 2;
-                        stt = 1;
-                    } else
-                    {
-                        $('#tableInput tr:last').remove();
-                        stt -= 1;
-                        tangtudong -= 1;
+                        var valuedsa = $('#tableInput').find('tr').length;
+                        if (valuedsa == 1) {
+                            //do nothing
+                        } else {
+                            var productname = $('#tableInput tr:last td:nth-child(3) > input').val();
+                            var search_term = productname;
+                            // console.log(listIp);
+                            for (var i = listIp.length - 1; i >= 0; i--) {
+                                if (listIp[i] === search_term) {
+                                    listIp.splice(i, 1);
+                                }
+                                // console.log(listIp)
+                            }
+                            $('#tableInput tr:last').remove();
+                            stt -= 1;
+                            tangtudong -= 1;
+                        }
                     }
-
                 });
+
                 function CreateID()
                 {
 
@@ -622,52 +736,30 @@
 
 
                 }
-                function Validate()
-                {
-                    for (var i = 0; i <= stt; i++) {
-                        var searchings = document.forms["maiForm"]["search" + i].value;
-                        if (searchings.trim() == null || searchings.trim() == "" || searchings === " ") {
-                            alert("Please enter a value in the first input box");
-//                            document.getElementById("search" + i).focus();
-                            return false;
-                        } else if (namelist.indexOf(searchings) === -1)
+                $("#maiForm").submit(function (e) {
+                    for (var i = 0; i < stt; i++) {
+                        var searchings = $("#codeid" + i).val();
+                        var nameProduct = $("#name" + i).val();
+                        var suppliersName = $('#suplier' + i).val();
+                        var stockCard = $('#warehouse' + i).val();
+                        if (ncc.indexOf(suppliersName) == -1 || warehouse.indexOf(stockCard) == -1)
                         {
-                            alert("There are goods you entered incorrectly , Please check again");
-//                            document.getElementById("search" + i).focus();
+                            alert("Some thing is wrong , please check supplier fields or Warehouse field again");
                             return false;
+                        } else if (searchings.trim().length <= 0 || searchings == "")
+                        {
+                            alert("Some thing is empty , please check again");
+                            return false;
+                        } else if (nameProduct.trim().length <= 0 || nameProduct == "")
+                        {
+                            alert("Some thing is empty , please check again");
+                            return false;
+                        } else
+                        {
+                            alert("Ok");
                         }
-//                        var valueinput = $('#result').val();
                     }
-                }
-                function lookup(arg) {
-                    var id = arg.getAttribute('id');
-
-                    // var value = arg.value;
-                    var res = id.charAt(id.length - 1);
-                    var weighton1 = document.getElementById('weightOn1' + res);
-                    var result = arg.value * weighton1.value;
-
-//                weightOn1
-
-                    document.getElementById('weight' + res).value = result;
-                    console.log('weight' + res)
-                }
-
-
-
-
-                //OnClick To AutoComplete
-                function dasdsadsa(x) {
-                    //                alert("Row index is: " + x.rowIndex);
-//                    var index = 0;
-                    var res = x.charAt(x.length - 1);
-//                    index += x.rowIndex;
-//                    index--;
-//                    console.log(res);
-                    //                console.log(index);
-                    Autocomplete(res);
-                    //                return x.rowIndex;
-                }
+                });
                 var today = new Date();
                 var months = "";
                 var date = "";
@@ -678,7 +770,6 @@
                 } else {
                     months = "0" + (months = today.getMonth() + 1);
                     date = today.getFullYear() + '-' + months + '-' + "0" + today.getDate();
-
                 }
                 document.getElementById("DateLicene").value = date;
                 //            $("#Date").val(date);
@@ -693,19 +784,140 @@
                 //Place vip for code have been tuky
 
                 $("#btnServiceModalSave1").click(function () {
-                    //set default selected
-                    //    $('#service').prop('selectedIndex', 0);
-                    //Hide modal
                     getValue2();
                 });
+                $("#saveandprint").click(function () {
+                    $('#printModa').modal("show");
+                    var DateLicene = $('#DateLicene').val();
+                    $('#datesds').text(DateLicene);
+                    document.getElementById("statusus").innerHTML = "In progress";
+                    $.get("/api/input/getID/", function (data, status) {
+                        if (data == null)
+                        {
+                            let idgener = "NK0000";
+//                            console.log(data.id);
 
+                            idgener = idgener.substring(2);
+                            var id = parseInt(idgener);
+                            id++;
+                            var str = "" + id
+                            var pad = "NK0000"
+                            var ans = pad.substring(0, pad.length - str.length) + str
+                            //                console.log(ans)
+                            $('#codeisdw').text(ans);
+                        } else
+                        {
+                            let idgener = data.id;
+//                            console.log(data.id);
 
+                            idgener = idgener.substring(2);
+                            var id = parseInt(idgener);
+                            id++;
+                            var str = "" + id
+                            var pad = "NK0000"
+                            var ans = pad.substring(0, pad.length - str.length) + str
+                            //                console.log(ans)
+                            $('#codeisdw').text(ans);
+                        }
 
+                    });
+                    $('#bodyTest').empty();
+                    let sumALl = 0;
+                    for (var i = 0; i < stt; i++) {
+                        var getname = $('#name' + i).val();
+                        var getunit = $('#unit' + i).val();
+                        let getquantity = $('#quantity' + i).val();
+                        let getimportprice = $('#importprice' + i).val();
+                        let suppliers = $('#suplier' + i).val();
+                        let resutlvalue = getquantity * getimportprice;
+                        sumALl += resutlvalue;
+                        var tangtudong23 = 1;
+                        var rowsds = $('<tr>');
+                        rowsds.append('<td>' + tangtudong23 + '</td>');
+                        rowsds.append('<td>' + getname + '</td>');
+                        rowsds.append('<td>' + suppliers + '</td>');
+                        rowsds.append('<td>' + getunit + '</td>');
+                        rowsds.append('<td>' + getquantity + '</td>');
+                        rowsds.append('<td>' + getimportprice + '</td>');
+                        rowsds.append('<td>' + resutlvalue + '</td>');
+                        rowsds.append('</tr>');
+                        $('#bodyTest').append(rowsds);
+                        tangtudong23++;
+                    }
+                    document.getElementById("taotoal").innerHTML = sumALl;
+                });
+                $("#prisdnthis").click(function () {
+                    $('#printthis').printThis({
+                        importCSS: false,
+                        loadCSS: "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                    });
+                });
+                function myFunction(is) {
+                    var row_num = $('#tableInput').find('tr').length;
+                    if (row_num == 1) {
+                        stt = 0;
+                        tangtudong = 1;
+                        var result = confirm("Danger !!. Last row will be reset , you want reset?");
+                        if (result) {
+                            var productname = $(is).closest("tr").find("td:nth-child(3) > input").val();
+                            var search_term = productname;
+                            // console.log(listIp);
+                            for (var i = listIp.length - 1; i >= 0; i--) {
+                                if (listIp[i] === search_term) {
+                                    listIp.splice(i, 1);
+                                } else {
+                                    //do nothing
+                                }
+                                // console.log(listIp);
+                                // console.log(listIp)
+                            }
+                            $('#tableInput').empty();
+                            for (var i = 0; i < 1; i++) {
+                                var rowsds = $('<tr>');
+                                rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
+                                rowsds.append('<td>' + tangtudong + '</td>');
+                                rowsds.append('<td>' + "<input type='text' onkeydown='Autocomplete(this.id)' id='codeid" + stt + "' name='codeid' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input required onkeydown='return isValidKey(event)'  type='text' id='name" + stt + "' name='name' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input required onkeydown='return isValidKey(event)' type='text'  id='unit" + stt + "' name='unit' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input required onkeydown='Autocomplete(this.id)' type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input required onkeydown='Autocomplete(this.id)' type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='number' id='quantity" + stt + "' min='1' name='quantity' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input type='number' id='importprice" + stt + "' min='1' name='importprice' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+                                rowsds.append('<td>' + "<input  type='number' id='weight" + stt + "' min=1 name='weight' value=''/>" + '</td>');
+                                rowsds.append('</tr>');
+                                $('#tableInput').append(rowsds);
+                                stt++;
+                                tangtudong++;
+                            }
+                        } else {
+                            tangtudong++;
+                            stt++;
+                        }
+                    } else {
+                        var result = confirm("Danger !!. This row will be delete !, you want delete?");
+                        if (result) {
+                            var search_term = $(is).closest("tr").find("td:nth-child(3) > input").val();
+                            // console.log(listIp);
+                            for (var i = listIp.length - 1; i >= 0; i--) {
+                                if (listIp[i] === search_term) {
+                                    listIp.splice(i, 1);
+                                } else {
+                                    //do nothing
+                                }
+                                // console.log(listIp);
+                                // console.log(listIp)
+                            }
 
-
-
+                            var currentRow = $(is).closest('tr').remove();
+                            tangtudong = tangtudong;
+                            stt = stt;
+                        }
+                    }
+                }
 
             </script>
+            <script src="<c:url value="/resources/js/input/printThis.js" />"></script>  
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
             <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
@@ -723,7 +935,6 @@
                 $.widget.bridge('uibutton', $.ui.button)
             </script>
             <!-- Bootstrap 4 -->
-            <!-- Bootstrap 4 -->
             <script src="<c:url value='/resources/plugins/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
             <!-- daterangepicker -->
             <script src="<c:url value='/resources/plugins/moment/moment.min.js'/>"></script>
@@ -740,6 +951,7 @@
             <script src="<c:url value='/resources/dist/js/pages/dashboard.js'/>"></script>
             <!-- /.control-sidebar -->
         </div>
+
         <!-- ./wrapper -->
 
 </html>

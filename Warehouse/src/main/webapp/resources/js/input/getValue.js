@@ -38,7 +38,7 @@ function getValue() {
                     row.append('<td>' + "<input type='text' id='importprice" + stt + "'  name='importprice[]' value=''/>" + '</td>');
 //                    row.append('<td>' + "<input type='text' id='afterprice" + stt + "' name='afterprice' value='" + data[i].goodsPrice * data[i].quantity + "'/>" + '</td>');
                     row.append('<td>' + "<input type='text' id='group" + stt + "' name='group[]' value=''/>" + '</td>');
-                    row.append('<td>' + "<input type='text' id='weight" + stt + "' name='weight[]' value=''/>" + '</td>');
+                    row.append('<td>' + "<input type='number' id='weight" + stt + "' name='weight[]' value=''/>" + '</td>');
                     row.append('' + "<input type='hidden' id='id" + stt + "' name='id[]' value='" + data[i].id + "'/>" + '');
                     row.append('</tr>');
                     $('#tableInput').append(row);
@@ -100,27 +100,28 @@ function getValue2() {
         success: function (data) {
             $("#tableInput").empty();
             //            alert("SDasdsadas");
-            console.log(data);
+//            console.log(data);
             if (data != null) {
                 for (var i = 0; i < data.length; i++) {
                     var checkid = data[i].id;
+                    console.log(checkid)
                     var rowsds = $('<tr>');
+                    rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
                     rowsds.append('<td>' + tangtudong + '</td>');
-                    rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text' id='search" + stt + "' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
+                    rowsds.append('<td>' + "<input  type='text' onkeydown='Autocomplete(this.id)' id='codeid" + stt + "' name='codeid' value='" + checkid + "'/>" + '</td>');
+                    rowsds.append('<td>' + "<input readonly  type='text' id='name" + stt + "' name='name' value='" + data[i].goodsName + "'/>" + '</td>');
                     rowsds.append('<td>' + "<input readonly type='text'  id='unit" + stt + "' name='unit' value='" + data[i].unit + "'/>" + '</td>');
-                    rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
-                    rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
-                    rowsds.append('<td>' + "<input type='number' id='quantity" + stt + "' min='1' onkeydown='lookup(this);' name='quantity' value='" + data[i].quantity + "'/>" + '</td>');
+                    rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text'  id='suplier" + stt + "' name='suplier' value=''/>" + '</td>');
+                    rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text'  id='warehouse" + stt + "' name='warehouse' value=''/>" + '</td>');
+                    rowsds.append('<td>' + "<input type='number' id='quantity" + stt + "' min='1' name='quantity' value='" + data[i].quantity + "'/>" + '</td>');
                     rowsds.append('<td>' + "<input type='number' id='importprice" + stt + "' min='1' name='importprice' value=''/>" + '</td>');
-                    rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text' id='group" + stt + "' name='group' value='SX'/>" + '</td>');
-                    rowsds.append('<td>' + "<input readonly type='text' id='weightOn1" + stt + "' value='1000'/>" + '</td>');
-                    rowsds.append('<td>' + "<input readonly type='text' id='weight" + stt + "' name='weight' value='1000'/>" + '</td>');
-                    rowsds.append('<td>' + "<input readonly type='text' id='codeid" + stt + "' name='codeid' value='" + data[i].id + "'/>" + '</td>');
+                    rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text' id='group" + stt + "' name='group' value=''/>" + '</td>');
+                    rowsds.append('<td>' + "<input  type='number' id='weight" + stt + "' min=1 name='weight' value=''/>" + '</td>');
                     rowsds.append('</tr>');
                     $('#tableInput').append(rowsds);
 
                     var rowsds2 = $('<tr>');
-                    rowsds2.append('<td>' + "<input style='display:block' type='text' name='refercne' value ='" + data[i].productionorderid + "'/>" + '</td>');
+                    rowsds2.append('<td>' + "<input type='hidden' name='refercne' value ='" + data[i].productionorderid + "'/>" + '</td>');
                     rowsds2.append('</tr>');
                     $('#Reference').append(rowsds2);
                     stt++;

@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "InputContent.findAll", query = "SELECT i FROM InputContent i"),
     @NamedQuery(name = "InputContent.findById", query = "SELECT i FROM InputContent i WHERE i.id = :id"),
+    @NamedQuery(name = "InputContent.findByGoodsId", query = "SELECT i FROM InputContent i WHERE i.goodsId = :goodsId"),
     @NamedQuery(name = "InputContent.findByGoodsName", query = "SELECT i FROM InputContent i WHERE i.goodsName = :goodsName"),
     @NamedQuery(name = "InputContent.findByUnit", query = "SELECT i FROM InputContent i WHERE i.unit = :unit"),
     @NamedQuery(name = "InputContent.findByQuantity", query = "SELECT i FROM InputContent i WHERE i.quantity = :quantity"),
@@ -47,6 +48,8 @@ public class InputContent implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "goods_id")
+    private String goodsId;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "unit")
@@ -65,10 +68,6 @@ public class InputContent implements Serializable {
     private String supplier;
     @Column(name = "reference")
     private String reference;
-    @JoinColumn(name = "goods_id", referencedColumnName = "id")
-    @ManyToOne
-    @JsonIgnore
-    private GoodsCatagory goodsId;
     @JoinColumn(name = "input_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     @JsonIgnore
@@ -87,6 +86,14 @@ public class InputContent implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName() {
@@ -161,14 +168,6 @@ public class InputContent implements Serializable {
         this.reference = reference;
     }
 
-    public GoodsCatagory getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(GoodsCatagory goodsId) {
-        this.goodsId = goodsId;
-    }
-
     public Input getInputId() {
         return inputId;
     }
@@ -199,7 +198,7 @@ public class InputContent implements Serializable {
 
     @Override
     public String toString() {
-        return id.toString();
+        return "com.warehouse.project.model.InputContent[ id=" + id + " ]";
     }
 
 }

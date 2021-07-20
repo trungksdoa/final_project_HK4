@@ -72,91 +72,8 @@
 
             <!--//Incldue here-->
             <style>
-                #chart {
-                    height: 440px;
-                }
-                .card-counter{
-                    box-shadow: 2px 2px 10px #DADADA;
-                    margin: 5px;
-                    padding: 20px 10px;
-                    background-color: #fff;
-                    height: 100px;
-                    border-radius: 5px;
-                    transition: .3s linear all;
-                }
-
-                .card-counter:hover{
-                    box-shadow: 4px 4px 20px #DADADA;
-                    transition: .3s linear all;
-                }
-
-                .card-counter.primary{
-                    background-color: #007bff;
-                    color: #FFF;
-                }
-
-                .card-counter.danger{
-                    background-color: #ef5350;
-                    color: #FFF;
-                }  
-
-                .card-counter.success{
-                    background-color: #66bb6a;
-                    color: #FFF;
-                }  
-
-                .card-counter.info{
-                    background-color: #26c6da;
-                    color: #FFF;
-                }  
-
-                .card-counter i{
-                    font-size: 4em;
-                    opacity: 0.2;
-                }
-
-                .card-counter .count-numbers{
-                    position: absolute;
-                    right: 35px;
-                    top: 20px;
-                    font-size: 32px;
-                    display: block;
-                }
-
-                .card-counter .count-name{
-                    position: absolute;
-                    right: 35px;
-                    top: 65px;
-                    font-style: italic;
-                    text-transform: capitalize;
-                    opacity: 0.5;
-                    display: block;
-                    font-size: 18px;
-                }
-                #exTab2 h3 {
-                    color: white;
-                    background-color: #428bca;
-                    padding: 5px 15px;
-                }
-                /* remove border radius for the tab */
-
-                #exTab1 .nav-pills>li>a {
-                    border-radius: 0;
-                }
-                /* change border radius for the tab , apply corners on top*/
-
-                #exTab3 .nav-pills>li>a {
-                    border-radius: 4px 4px 0 0;
-                }
-
-                #exTab3 .tab-content {
-                    color: white;
-                    background-color: #428bca;
-                    padding: 5px 15px;
-                }
-                #myTable_filter{
-                    float:right;
-                    margin-bottom: 10px;
+                .selected{
+                    background-color: gray;
                 }
                 #savaDataAll{
                     width: 80px; 
@@ -173,7 +90,12 @@
                                     top:-5px;
                                 }*/
 
-
+                #example_length{
+                    transform: translateY(36px) !important;
+                }
+                #example2_filter{
+                    float:right !important;
+                }
                 @media only screen and (max-width: 768px) {
 
                     #resetbutton{
@@ -192,14 +114,6 @@
                         right: 320px;
                         top: 4px;
                     }
-                    /*                    #saveandprint{
-                                            margin-top: 54px;
-                                            width: 150px;
-                                            height: 37px;
-                                            position: absolute;
-                                            right: 160px;
-                                            top: -5px;
-                                        }*/
                 }
 
                 .minus{
@@ -267,11 +181,13 @@
                                                             <input id="result">
                                                             <button style='' type='button' class="btn btn-info" id='addRow'>Search</button>
                                                             <input type='hidden' name='kho' value="${kho}"/>
+                                                            <button type="button" class="btn btn-success" id="sadsadsadsa">Delete row seleted</button>
                                                         </div>
                                                     </div>
 
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
+                                                        <table id="tabletwo"></table>
                                                         <table id="example2" class="table table-bordered table-hover">
                                                             <thead>
                                                                 <tr>
@@ -337,21 +253,21 @@
             <script>
 //            
                 var stt = 1;
-
-                var tempArray = [];
+                let tempnumber = 0;
+                var tempArrays = [];
                 function lookup(arg) {
                     var id = arg;
-                    var res = id.charAt(id.length - 1);
-                    var index = 0;
-
-//                    index += arg.rowIndex;
-//                        index--;
-//                    console.log(res)
-                    // var value = arg.value;
-                    let tet = $('#quantity' + res).val();
-                    let tet2 = $('#realQuantity' + res).val();
-                    let result = tet2 - tet;
-                    document.getElementById('BetweenRealAndStock' + res).value = result;
+                    var mateches = id.trim().match(/(\d+)/);
+                    var index2 = mateches[0];
+//                let tet = $('#quantity' + index).val();
+                    let testnumber = parseInt($("#quantityls" + index2).text());
+                    let tet2 = $('#realQuantity' + index2).val();
+                    let result = tet2 - testnumber;
+                    //
+                    let resulttsest = tet2 - testnumber;
+                    console.log(resulttsest);
+                    document.getElementById('BetweenRealAndStockls' + index2).innerHTML = result;
+                    document.getElementById('BetweenRealAndStock' + index2).value = result;
                 }
 
                 $(function () {
@@ -360,15 +276,14 @@
                     var mahanghoa2 = [];
                     var tempquantity = 0;
                     var idcode = "";
-
                 <c:forEach items="${listItemStock}" var="x">
                     var tempArray = new Array();
                     tempArray["id"] = "<c:out value = "${x.getId()}"/>";
                     tempArray["label"] = "<c:out value = "${x.getId()}"/>";
-                    tempArray["value"] = "<c:out value = "${x.getName()}"/>";
+                    tempArray["value"] = "<c:out value = "${x.getId()}"/>";
                     tempArray["quantity"] =<c:out value = "${x.getQuantity()}"/>;
                     goods.push(tempArray);
-                    mahanghoa2.push("<c:out value = "${x.getName()}"/>");
+                    mahanghoa2.push("<c:out value = "${x.getId()}"/>");
                 </c:forEach>
 //                    $.get("/api/stock/Warehousegoods", function (data, status) {
 //             
@@ -387,46 +302,130 @@
                             idcode = e.id;
                         },
                     });
-                    // console.log(availableTags)
-                    var t = $('#example2').DataTable({
+                    var table = $('#example2').DataTable({
                         "paging": true,
                         "lengthChange": false,
-                        "searching": false,
-                        "ordering": true,
                         "info": true,
-                        "autoWidth": false,
-                        "responsive": true,
+                        "autoWidth": true,
+                        "columnDefs": [{
+                                "searchable": true,
+                                "orderable": true,
+                                "targets": 0,
+                                "responsive": true
+                            }],
+                        "order": [[1, 'asc']]
                     });
+                    $('#example2 tbody').on('click', 'tr', function () {
+                        if ($(this).hasClass('selected')) {
+                            $(this).removeClass('selected');
+                        } else {
+                            table.$('tr.selected').removeClass('selected');
+                            $(this).addClass('selected');
+                        }
+
+                    });
+                    table.on('order.dt search.dt', function () {
+                        table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                            cell.innerHTML = i + 1;
+                            table.cell(cell).invalidate('dom');
+                        });
+                    }).draw();
                     $('#addRow').on('click', function () {
-                        toCheck = 1;
+                        //Mục tiêu là tìm số row lớn nhất trong bảng
+                        // sau khi ấn thì gán stt = 0 cho tempnumer;
+                        //Sau khi gán thì mới gán cho nó row hiện tại của bảng hiện tại là 0 vì vậy bậy giờ stt = 0 với temp = 0
+                        //tiếp theo
+                        if (stt == tempnumber)
+                        {
+                            stt += 1;
+                        }
+                        console.log(stt);
+//                        toCheck = 1;
                         var valueinput = $('#result').val();
                         if (mahanghoa2.indexOf(valueinput) === -1) {
                             alert("element doesn't exist");
                         } else {
-                            if (tempArray.indexOf(valueinput) === -1) {
-                                t.row.add([
-                                    '<td>' + stt + '</td>',
-                                    '<td>' + "<input readonly type='text' id='idcode" + stt + "' name='idcode' value='" + idcode + "'/>" + '</td>',
-                                    '<td>' + "<input readonly type='text' id='quantity" + stt + "' name='quantity' value='" + tempquantity + "'/>" + '</td>',
+                            if (tempArrays.indexOf(valueinput) === -1) {
+                                table.row.add([
+//                                    1/
+                                    '<td></td>',
+//                                    2
+                                    '<td  id="idcodels' + stt + '">' + idcode + '</td>',
+//                                    3
+                                    '<td>' + "<span id='quantityls" + stt + "'> " + tempquantity + " </span>" + '</td>',
+//                                    4
                                     '<td>' + "<input require type='number' min=0 onkeyup='lookup(this.id);' id='realQuantity" + stt + "' name='realQuantity' value='' placeholder=''/>" + '</td>',
-                                    '<td>' + "<input readonly type='number' id='BetweenRealAndStock" + stt + "' name='BetweenRealAndStock' value='' placeholder=''/>" + '</td>',
+//                                    5
+                                    '<td>' + "<span id='BetweenRealAndStockls" + stt + "'></span>" + '</td>',
                                     '<td>' + "<textarea id='explain " + stt + "'  name='explain' rows='2' cols='20'></textarea>" + '</td>'
                                 ]).draw(false);
+                                var rowsds = $('<tr>');
+                                rowsds.append('<td>' + "<input readonly type='hidden' id='idcode" + stt + "' name='nameCode' value='" + idcode + "'/>" + '</td>');
+                                rowsds.append('<td>' + "<input readonly type='hidden' id='quantity" + stt + "' name='quantity' value='" + tempquantity + "'/>" + '</td>');
+                                //line  5
+                                rowsds.append('<td>' + "<input readonly type='hidden' id='BetweenRealAndStock" + stt + "' name='BetweenRealAndStock' value=''/>" + '</td>');
 
-                                stt++;
+                                rowsds.append('</tr>');
+                                $('#tabletwo').append(rowsds);
                                 counter++;
-                                tempArray.push(valueinput);
+                                tempArrays.push(valueinput);
                                 $('#result').val("");
+                                stt++;
                             } else {
                                 alert("Your goods already have");
                                 $('#result').val("");
                             }
                         }
                     });
+                    $('#sadsadsadsa').click(function () {
+
+                        var oData = table.rows('.selected').data();
+
+                        for (var i = 0; i < oData.length; i++) {
+                            var sdsaew = oData[i][1];
+                            var idx = table.cell('.selected', 0).index();
+                            var data = table.row(idx.row).data();
+
+                            var availableTags = [
+                                "SP00006_NCC2",
+                                "SP00002_NCC2",
+                                "SP00003_NCC2",
+                                "SP00001_NCC2"
+                            ];
+                            for (var i = 0; i < mahanghoa2.length; i++) {
+
+                                if (data[1].includes(mahanghoa2[i]) == true)
+                                {
+                                    tempArrays = tempArrays.filter(e => e !== mahanghoa2[i]);
+                                }
+                            }
+                            var availableTags2 = [];
+                            for (var i = 0; i < 100; i++) {
+                                availableTags2.push("idcodels" + i + "")
+                            }
+                            for (var i = 0; i < availableTags.length; i++) {
+                                if (data[1].includes(availableTags2[i]) == true)
+                                {
+                                    var mateches = availableTags2[i].trim().match(/(\d+)/);
+                                    var index = mateches[0];
+                                    $('#idcode' + index).remove();
+                                    $('#quantity' + index).remove();
+                                }
+                            }
+
+                        }
+
+                        $('#idcode').remove();
+                        $('#quantity').remove();
+                        table.row('.selected').remove().draw(false);
+//                        stt = table.rows( ).count();
+                        stt -= 1;
+                        tempnumber = stt;
+                        console.log(stt);
+                    });
 //                    console.log(tempArray);
                 }
                 );
-
             </script>
             <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" crossorigin="anonymous"></script>

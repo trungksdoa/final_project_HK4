@@ -73,4 +73,20 @@ public class WarehouseImpl implements IWarehouse {
         return lab.findByIdDData(id, warehouse);
     }
 
+    @Override
+    public List<Object[]> findAllGroupById() {
+       return lab.findAllGroupById();
+    }
+
+    @Override
+    public List<Warehouse> SearchWhere(String keyword) {
+       return lab.SearchWhere(keyword);
+    }
+
+    @Override
+    public List<Warehouse> SearchByDataList(String SearchByDataList) {
+       return lab.SearchByDataList(SearchByDataList);
+    }
+
+
 }

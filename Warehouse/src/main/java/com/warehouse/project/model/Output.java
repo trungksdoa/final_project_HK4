@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Output.findAll", query = "SELECT o FROM Output o"),
     @NamedQuery(name = "Output.findById", query = "SELECT o FROM Output o WHERE o.id = :id"),
     @NamedQuery(name = "Output.findByDate", query = "SELECT o FROM Output o WHERE o.date = :date"),
+    @NamedQuery(name = "Output.findByDate2", query = "SELECT o FROM Output o WHERE o.date2 = :date2"),
     @NamedQuery(name = "Output.findBySerivce", query = "SELECT o FROM Output o WHERE o.serivce = :serivce"),
     @NamedQuery(name = "Output.findByExplain", query = "SELECT o FROM Output o WHERE o.explain = :explain"),
-    @NamedQuery(name = "Output.findByStatus", query = "SELECT o FROM Output o WHERE o.status = :status"),
-    @NamedQuery(name = "Output.findByDeletestatus", query = "SELECT o FROM Output o WHERE o.deletestatus = :deletestatus")})
+    @NamedQuery(name = "Output.findByStatus", query = "SELECT o FROM Output o WHERE o.status = :status")})
 public class Output implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,9 +49,7 @@ public class Output implements Serializable {
     @Column(name = "explain")
     private String explain;
     @Column(name = "status")
-    private String status;
-    @Column(name = "deletestatus")
-    private Boolean deletestatus;
+    private Integer status;
     @OneToMany(mappedBy = "outputId")
     private Collection<OutputContent> outputContentCollection;
 
@@ -66,14 +64,6 @@ public class Output implements Serializable {
         return id;
     }
 
-    public String getDate2() {
-        return date2;
-    }
-
-    public void setDate2(String date2) {
-        this.date2 = date2;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -84,6 +74,14 @@ public class Output implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     public String getSerivce() {
@@ -102,20 +100,12 @@ public class Output implements Serializable {
         this.explain = explain;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Boolean getDeletestatus() {
-        return deletestatus;
-    }
-
-    public void setDeletestatus(Boolean deletestatus) {
-        this.deletestatus = deletestatus;
     }
 
     @XmlTransient
@@ -151,5 +141,5 @@ public class Output implements Serializable {
     public String toString() {
         return id;
     }
-
+    
 }

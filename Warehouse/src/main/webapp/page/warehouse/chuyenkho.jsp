@@ -62,6 +62,26 @@
 
         <!--//Incldue here-->
         <style>
+            #btnSelect {
+                padding: 8px 21px;
+                font-size: 10px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #04AA6D;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 9px #999;
+            }
+
+            #btnSelect:hover {background-color: #3e8e41}
+
+            #btnSelect:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
             .ui-autocomplete-category {
                 font-weight: bold;
                 padding: .2em .4em;
@@ -145,15 +165,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h3>CK</h3>
+                            <h3>Inventory tranfer</h3>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Warehouse</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Output</a></li>
+                                <li class="breadcrumb-item "><a href="#">Warehouse</a></li>
+                                <li class="breadcrumb-item "><a href="/web/warehouse/ck">Tranfer</a></li>
                             </ol>
-                        </div><!-- /.col -->
+                        </div>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
                 <h3 id="message" style="text-align: center;color: ${color}">
@@ -170,15 +190,16 @@
                             <div class="card card-primary card-outline card-tabs">
                                 <div class="card-header p-0 pt-1 border-bottom-0">
                                     <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill"
-                                               href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
-                                               aria-selected="true"><b>Output</b></a>
+                                        <li class="nav-item " id="custom-tabs-three-home-tab" data-toggle="pill" aria-selected="true"  role="tab" aria-controls="custom-tabs-three-home">
+                                            <a class="nav-link active"
+                                               href="#custom-tabs-three-home"><b>Create tranfer</b></a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link"
-                                               href="xemphieu.html"><b>View Output</b></a>
+                                               href="/web/warehouse/ck/slip"><b>Tranfer slip</b></a>
                                         </li>
+
+
                                     </ul>
                                 </div>
                                 <div class="card-body">
@@ -188,7 +209,7 @@
                                             <form id='maiForm' method="POST" action="/web/warehouse/ck" onsubmit="return Validate()">
                                                 <input type="number" name="index" id="index" value="" hidden="true">
                                                 <button type="submit" id="savaDataAll"
-                                                         class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
+                                                        class="btn btn-block bg-gradient-primary"><i class="fas fa-save"></i> Save</button>
                                                 <button  type="button" data-toggle="modal" id="saveandprint" data-target="#login-modal" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i> Save and
                                                     Print</button>
                                                 <button  onclick="emptyData(); return false;" type="button"
@@ -239,6 +260,7 @@
                                                         <table class="table table-bordered table-fixed" style="z-index: 1000">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>Delete</th>
                                                                     <th style="transform: translateY(-5px);">STT</th>
                                                                     <th style="transform: translateY(-5px)">ID</th>
                                                                     <th style="transform: translateY(-5px)">Unit</th>
@@ -308,25 +330,51 @@
                 <b>Version</b> 3.1.0
             </div>
         </footer>
+        <script>
+            function isValidKey(e) {
+                var evt = e || window.event;
+                if (evt) {
+                    var keyCode = evt.charCode || evt.keyCode;
+                    if (keyCode === 8 || keyCode === 46) {
+                        if (evt.preventDefault) {
+                            evt.preventDefault();
+                        } else {
+                            evt.returnValue = false;
+                        }
+                    }
+                }
+                return false;
+            }
+        </script>
         <script type="text/javascript">
             var stt = 0;
             var tangtudong = 1;
+            var listIp = [];
             //Remove row button
             $('#removelastrow').on("click", function () {
+                var valuedsa = $('#tableInput').find('tr').length;
+                if (valuedsa == 1) {
+                    //do nothing
+                } else {
 
-
-                if (stt == 1)
-                {
-                    stt = 1;
-                    tangtudong = 2;
-                } else
-                {
-                    $('#tableInput tr:last').remove();
-
-                    stt -= 1;
-                    tangtudong -= 1;
+                    var valuedsa = $('#tableInput').find('tr').length;
+                    if (valuedsa == 1) {
+                        //do nothing
+                    } else {
+                        var productname = $('#tableInput tr:last td:nth-child(3) > input').val();
+                        var search_term = productname;
+                        // console.log(listIp);
+                        for (var i = listIp.length - 1; i >= 0; i--) {
+                            if (listIp[i] === search_term) {
+                                listIp.splice(i, 1);
+                            }
+                            // console.log(listIp)
+                        }
+                        $('#tableInput tr:last').remove();
+                        stt -= 1;
+                        tangtudong -= 1;
+                    }
                 }
-
             });
             function CreateID()
             {
@@ -399,10 +447,6 @@
                 //Insert stock
             });
             //Check all checkbox In service
-            function dasdsadsa(x) {
-                var res = x.charAt(x.length - 1);
-                Autocomplete(res);
-            }
             var today = new Date();
             var months = "";
             var date = "";
@@ -416,6 +460,65 @@
             }
             document.getElementById("DateLicene").value = date;
             //            $("#Date").val(date);
+            function myFunction(is) {
+                var row_num = $('#tableInput').find('tr').length;
+                if (row_num == 1) {
+                    stt = 0;
+                    tangtudong = 1;
+                    var result = confirm("Danger !!. Last row will be reset , you want reset?");
+                    if (result) {
+                        var productname = $(is).closest("tr").find("td:nth-child(3) > input").val();
+                        var search_term = productname;
+                        // console.log(listIp);
+                        for (var i = listIp.length - 1; i >= 0; i--) {
+                            if (listIp[i] === search_term) {
+                                listIp.splice(i, 1);
+                            } else {
+                                //do nothing
+                            }
+                            // console.log(listIp);
+                            // console.log(listIp)
+                        }
+                        $('#tableInput').empty();
+                        for (var i = 0; i < 1; i++) {
+                            var rowsds = $('<tr>');
+                            rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
+                            rowsds.append('<td>' + tangtudong + '</td>');
+                            rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text' id='ID" + stt + "' name='ID' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly  require type='text'  id='Unit" + stt + "' name='Unit' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input readonly require type='text' id='From" + stt + "' min='1' name='From' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input type='text' id='To" + stt + "' name='To' value=''/>" + '</td>');
+                            rowsds.append('<td>' + "<input type='number' id='Quantity" + stt + "' min='1' name='Quantity' value=''/>" + '</td>');
+                            rowsds.append('</tr>');
+                            $('#tableInput').append(rowsds);
+                            stt++;
+                            tangtudong++;
+                        }
+                    } else {
+                        tangtudong++;
+                        stt++;
+                    }
+                } else {
+                    var result = confirm("Danger !!. This row will be delete !, you want delete?");
+                    if (result) {
+                        var search_term = $(is).closest("tr").find("td:nth-child(3) > input").val();
+                        // console.log(listIp);
+                        for (var i = listIp.length - 1; i >= 0; i--) {
+                            if (listIp[i] === search_term) {
+                                listIp.splice(i, 1);
+                            } else {
+                                //do nothing
+                            }
+                            // console.log(listIp);
+                            // console.log(listIp)
+                        }
+
+                        var currentRow = $(is).closest('tr').remove();
+                        tangtudong = tangtudong;
+                        stt = stt;
+                    }
+                }
+            }
         </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

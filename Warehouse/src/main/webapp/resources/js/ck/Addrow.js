@@ -9,13 +9,13 @@ function addRow() {
         for (var i = 0; i < lenght; i++) {
 
             var rowsds = $('<tr>');
+            rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
             rowsds.append('<td>' + tangtudong + '</td>');
-            rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text' id='ID" + stt + "' name='ID' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input readonly  type='text'  id='Unit" + stt + "' name='Unit' value=''/>" + '</td>');
-            rowsds.append('<td>' + "<input readonly type='text' id='From" + stt + "' min='1' name='From' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text' id='ID" + stt + "' name='ID' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input readonly  require type='text'  id='Unit" + stt + "' name='Unit' value=''/>" + '</td>');
+            rowsds.append('<td>' + "<input readonly require type='text' id='From" + stt + "' min='1' name='From' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='text' id='To" + stt + "' name='To' value=''/>" + '</td>');
             rowsds.append('<td>' + "<input type='number' id='Quantity" + stt + "' min='1' name='Quantity' value=''/>" + '</td>');
-
             rowsds.append('</tr>');
             $('#tableInput').append(rowsds);
             countsda++;
@@ -30,10 +30,11 @@ function addRow() {
             $("#addDataTable").click(function () {
                 for (var i = 0; i < tablerow; i++) {
                     var rowsds = $('<tr>');
+                    rowsds.append('<td><button type="button" id="btnSelect" onclick="myFunction(this)" class="btnSelect">Delete</button></td>')
                     rowsds.append('<td>' + tangtudong + '</td>');
-                    rowsds.append('<td>' + "<input onkeydown='dasdsadsa(this.id)' type='text' id='ID" + stt + "' name='ID' value=''/>" + '</td>');
-                    rowsds.append('<td>' + "<input readonly  type='text'  id='Unit" + stt + "' name='Unit' value=''/>" + '</td>');
-                    rowsds.append('<td>' + "<input readonly type='text' id='From" + stt + "' min='1' name='From' value=''/>" + '</td>');
+                    rowsds.append('<td>' + "<input onkeydown='Autocomplete(this.id)' type='text' id='ID" + stt + "' name='ID' value=''/>" + '</td>');
+                    rowsds.append('<td>' + "<input readonly  require type='text'  id='Unit" + stt + "' name='Unit' value=''/>" + '</td>');
+                    rowsds.append('<td>' + "<input readonly require type='text' id='From" + stt + "' min='1' name='From' value=''/>" + '</td>');
                     rowsds.append('<td>' + "<input type='text' id='To" + stt + "' name='To' value=''/>" + '</td>');
                     rowsds.append('<td>' + "<input type='number' id='Quantity" + stt + "' min='1' name='Quantity' value=''/>" + '</td>');
                     rowsds.append('</tr>');

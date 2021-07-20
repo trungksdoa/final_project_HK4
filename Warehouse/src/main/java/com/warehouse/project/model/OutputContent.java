@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OutputContent.findByExportsPrices", query = "SELECT o FROM OutputContent o WHERE o.exportsPrices = :exportsPrices"),
     @NamedQuery(name = "OutputContent.findByGroupGoods", query = "SELECT o FROM OutputContent o WHERE o.groupGoods = :groupGoods"),
     @NamedQuery(name = "OutputContent.findByWeight", query = "SELECT o FROM OutputContent o WHERE o.weight = :weight"),
-    @NamedQuery(name = "OutputContent.findBySupplier", query = "SELECT o FROM OutputContent o WHERE o.supplier = :supplier")})
+    @NamedQuery(name = "OutputContent.findBySupplier", query = "SELECT o FROM OutputContent o WHERE o.supplier = :supplier"),
+    @NamedQuery(name = "OutputContent.findByReference", query = "SELECT o FROM OutputContent o WHERE o.reference = :reference")})
 public class OutputContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,24 +67,14 @@ public class OutputContent implements Serializable {
     private Integer weight;
     @Column(name = "supplier")
     private String supplier;
-
     @Column(name = "reference")
     private String reference;
-
     @JoinColumn(name = "output_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
     private Output outputId;
 
     public OutputContent() {
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
     }
 
     public OutputContent(Integer id) {
@@ -173,6 +164,14 @@ public class OutputContent implements Serializable {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public Output getOutputId() {

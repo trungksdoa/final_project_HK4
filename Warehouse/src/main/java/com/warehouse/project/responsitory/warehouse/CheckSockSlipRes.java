@@ -20,7 +20,7 @@ public interface CheckSockSlipRes extends JpaRepository<Checkstockslip, String> 
             value = "SELECT TOP 1 * FROM Checkstockslip ORDER BY ID DESC")
     Checkstockslip findByList();
     
-    @Query("SELECT c FROM Checkstockslip c WHERE c.status = False")
+    @Query("SELECT c FROM Checkstockslip c WHERE c.status = 2 OR c.status = 1")
     List<Checkstockslip>findAll();
     @Query("SELECT c FROM Checkstockslip c WHERE c.id = :id")
     Checkstockslip findOne(@Param("id") String ids);

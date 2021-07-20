@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TranferWarehouse.findAll", query = "SELECT t FROM TranferWarehouse t"),
     @NamedQuery(name = "TranferWarehouse.findById", query = "SELECT t FROM TranferWarehouse t WHERE t.id = :id"),
     @NamedQuery(name = "TranferWarehouse.findByDate", query = "SELECT t FROM TranferWarehouse t WHERE t.date = :date"),
+    @NamedQuery(name = "TranferWarehouse.findByDate2", query = "SELECT t FROM TranferWarehouse t WHERE t.date2 = :date2"),
     @NamedQuery(name = "TranferWarehouse.findByExplain", query = "SELECT t FROM TranferWarehouse t WHERE t.explain = :explain"),
-    @NamedQuery(name = "TranferWarehouse.findByDeletestatus", query = "SELECT t FROM TranferWarehouse t WHERE t.deletestatus = :deletestatus"),
     @NamedQuery(name = "TranferWarehouse.findByStatus", query = "SELECT t FROM TranferWarehouse t WHERE t.status = :status")})
 public class TranferWarehouse implements Serializable {
 
@@ -41,12 +41,12 @@ public class TranferWarehouse implements Serializable {
     private String id;
     @Column(name = "date")
     private String date;
+    @Column(name = "date2")
+    private String date2;
     @Column(name = "explain")
     private String explain;
-    @Column(name = "deletestatus")
-    private Boolean deletestatus;
     @Column(name = "status")
-    private String status;
+    private Integer status;
     @OneToMany(mappedBy = "traferId")
     private Collection<TranferConent> tranferConentCollection;
 
@@ -73,6 +73,14 @@ public class TranferWarehouse implements Serializable {
         this.date = date;
     }
 
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
+    }
+
     public String getExplain() {
         return explain;
     }
@@ -81,19 +89,11 @@ public class TranferWarehouse implements Serializable {
         this.explain = explain;
     }
 
-    public Boolean getDeletestatus() {
-        return deletestatus;
-    }
-
-    public void setDeletestatus(Boolean deletestatus) {
-        this.deletestatus = deletestatus;
-    }
-
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -128,7 +128,7 @@ public class TranferWarehouse implements Serializable {
 
     @Override
     public String toString() {
-        return "com.warehouse.project.model.TranferWarehouse[ id=" + id + " ]";
+        return id;
     }
     
 }

@@ -6,6 +6,7 @@
 package com.warehouse.project.imp.warehouse.IO;
 
 import com.warehouse.project.model.TranferConent;
+import com.warehouse.project.model.TranferWarehouse;
 import com.warehouse.project.responsitory.warehouse.TranferConentRes;
 import com.warehouse.project.service.warehouse.ITranferContent;
 import java.util.List;
@@ -35,9 +36,21 @@ public class TranferConentImpl implements ITranferContent {
 
     @Override
     public TranferConent findOne(int id) {
-        Optional<TranferConent> option = lab.findById(id);
-        TranferConent object = option.get();
-        return object;
+        return lab.findByOne(id);
     }
+
+    @Override
+    public void Delete(TranferConent tranferConent) {
+         lab.delete(tranferConent);
+    }
+
+    @Override
+    public TranferConent findTwo(String id,TranferWarehouse tranferId) {
+        return lab.findByTwo(id,tranferId);
+    }
+
+ 
+
+ 
 
 }

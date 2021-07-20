@@ -263,8 +263,14 @@
                                                                     <td><c:out value = "${x.getId()}"/></td>
                                                                     <td><c:out value = "${x.getDate()}"/></td>
                                                                     <td><c:out value = "${x.getWarehouse()}"/></td>
-
-                                                                    <td><button class="btn ${x.getStatus2()}" disabled=""><c:out value = "${x.getStatus2()}"/></button></td>    
+                                                                    <c:choose>
+                                                                        <c:when test='${x.status == 2}'>
+                                                                            <td><a class="btn btn-success">Completed</a></td>
+                                                                        </c:when>
+                                                                        <c:when test='${x.status == 1}'>
+                                                                            <td><a class="btn btn-secondary">In progress</a></td>
+                                                                        </c:when>
+                                                                    </c:choose>
                                                                     <td><button onClick="reply_click(this.id)" id="<c:out value = "${x.getId()}"/>"><i class="fas fa-edit"></i></button></td>
                                                                 </tr> 
                                                                 <% stt2++; %>
@@ -409,36 +415,6 @@
             $('#warehouses').remove();
             $('#codeCheckSlipId').remove();
             $('#datae').remove();
-            $.get("/api/stock/getEditStocklist/" + id, function (data, status) {
-                $('#idcode').val("" + data.id + "");
-                codeCheckSlipId = data.id;
-
-                $('#Dates').val("" + data.date + "");
-                datae = data.date;
-
-
-                var warehouses = data.warehouse;
-                $('#Warehouses').val("" + warehouses.trim() + "");
-//                        console.log(data);
-                Warehousetext = warehouses.trim();
-                var datarow = '<input type="hidden" id="warehouses" name="warehouses" value=" ' + Warehousetext + ' " />';
-                $('#warehousestitle').append(datarow);
-
-                var datarow2 = '<input type="hidden" id="codeCheckSlipId" name="codeCheckSlipId" value=" ' + codeCheckSlipId + ' " />';
-                $('#TCodeId').append(datarow2);
-
-                var datarow3 = '<input type="hidden" id="datae" name="datae" value=" ' + datae + ' " />';
-                $('#TDate').append(datarow3);
-                if (data.status2 == "Completed")
-                {
-                    $('#deletebtn').text("Completed");
-                    $("#deletebtn").prop("disabled", true);
-                } else
-                {
-                    $('#deletebtn').text("Cancle");
-                }
-            });
-
             var stt23 = 1;
 
             $.get("/api/stock/getItemCheckSlip/" + id, function (data2, status) {
@@ -476,6 +452,36 @@
                 }
 
             });
+            $.get("/api/stock/getEditStocklist/" + id, function (data, status) {
+                $('#idcode').val("" + data.id + "");
+                codeCheckSlipId = data.id;
+
+                $('#Dates').val("" + data.date + "");
+                datae = data.date;
+
+
+                var warehouses = data.warehouse;
+                $('#Warehouses').val("" + warehouses.trim() + "");
+//                        console.log(data);
+                Warehousetext = warehouses.trim();
+                var datarow = '<input type="hidden" id="warehouses" name="warehouses" value=" ' + Warehousetext + ' " />';
+                $('#warehousestitle').append(datarow);
+
+                var datarow2 = '<input type="hidden" id="codeCheckSlipId" name="codeCheckSlipId" value=" ' + codeCheckSlipId + ' " />';
+                $('#TCodeId').append(datarow2);
+
+                var datarow3 = '<input type="hidden" id="datae" name="datae" value=" ' + datae + ' " />';
+                $('#TDate').append(datarow3);
+                if (data.status2 == 2)
+                {
+                    $('#deletebtn').text("Completed");
+                    $("#deletebtn").prop("disabled", true);
+                } else
+                {
+                    $('#deletebtn').text("Cancle");
+                }
+            });
+
             $('#mymodal').modal('show');
         }
     </script>

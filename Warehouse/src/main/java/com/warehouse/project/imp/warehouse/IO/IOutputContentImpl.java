@@ -6,6 +6,8 @@
 package com.warehouse.project.imp.warehouse.IO;
 
 import com.warehouse.project.model.GoodsCatagory;
+import com.warehouse.project.model.Input;
+import com.warehouse.project.model.Output;
 import com.warehouse.project.model.OutputContent;
 import com.warehouse.project.service.warehouse.IO.IOutputConent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,31 @@ public class IOutputContentImpl implements IOutputConent {
         Optional<OutputContent> option = lab.findById(id);
         OutputContent object = option.get();
         return object;
+    }
+
+    @Override
+    public List<OutputContent> findAll() {
+        return lab.findAll();
+    }
+
+    @Override
+    public void Deletes(OutputContent inputContent) {
+        lab.delete(inputContent);
+    }
+
+    @Override
+    public OutputContent findTwo(String id) {
+        return lab.findByTwo(id);
+    }
+
+    @Override
+    public OutputContent findWhereId(String id, String ware, Output input) {
+       return lab.findWhereId(id, ware, input);
+    }
+
+    @Override
+    public List<Object[]> findWhereByCodeId(String id) {
+       return lab.findALlWhereinput(id);
     }
 
 }

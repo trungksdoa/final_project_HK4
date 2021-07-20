@@ -5,7 +5,11 @@
  */
 package com.warehouse.project.service.warehouse.IO;
 
+import com.warehouse.project.model.Input;
+import com.warehouse.project.model.InputContent;
+import com.warehouse.project.model.Output;
 import com.warehouse.project.model.OutputContent;
+import java.util.List;
 
 /**
  *
@@ -17,4 +21,13 @@ public interface IOutputConent {
 
     public abstract OutputContent findOneData(int id);
 
+    public List<OutputContent> findAll();
+
+    public void Deletes(OutputContent inputContent);
+
+    public OutputContent findTwo(String id);
+
+    public OutputContent findWhereId(String id,String ware, Output input);
+
+    public List<Object[]> findWhereByCodeId(String id);
 }

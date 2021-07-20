@@ -72,8 +72,7 @@ public class Outputcontroller {
         dataup.setDate(dataup.getDate());
         dataup.setSerivce(dataup.getSerivce());
         dataup.setExplain(dataup.getExplain());
-        dataup.setStatus("Completed");
-        dataup.setDeletestatus(Boolean.FALSE);
+        dataup.setStatus(2);
         dataup.setDate(dataup.getDate());
         lab.Update(dataup);
         model.addAttribute("InputsipData", lab.findall());
@@ -88,8 +87,7 @@ public class Outputcontroller {
         dataup.setDate(dataup.getDate());
         dataup.setSerivce(dataup.getSerivce());
         dataup.setExplain(dataup.getExplain());
-        dataup.setStatus("NotComplete");
-        dataup.setDeletestatus(Boolean.TRUE);
+        dataup.setStatus(3);
         dataup.setDate(dataup.getDate());
         lab.Update(dataup);
         model.addAttribute("InputsipData", lab.findall());
@@ -204,8 +202,7 @@ public class Outputcontroller {
                 output.setDate2("");
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
-                output.setStatus("NotComplete");
-                output.setDeletestatus(Boolean.FALSE);
+                output.setStatus(1);
                 addss = lab.Save(output);
 
             } else {
@@ -216,8 +213,7 @@ public class Outputcontroller {
                 output.setDate2("");
                 output.setSerivce(getservice);
                 output.setExplain(getexplain);
-                output.setStatus("NotComplete");
-                output.setDeletestatus(Boolean.FALSE);
+                output.setStatus(1);
                 addss = lab.Save(output);
             }
             List<OutputContent> objectList = new ArrayList<>();
@@ -240,7 +236,7 @@ public class Outputcontroller {
                     outputs.setId(addss.getId());
                     outputContent.setOutputId(outputs);
                     if (refreence == null) {
-                        outputContent.setReference("Other export");
+                        outputContent.setReference(addss.getId());
                     } else {
                         outputContent.setReference(refreence[i]);
                     }
@@ -259,20 +255,26 @@ public class Outputcontroller {
     public String UpdateInputWarehouse(Model model, HttpServletRequest request) {
         String[] idse = request.getParameterValues("idenentity");
         String[] reference = request.getParameterValues("reference");
-        String slipId = request.getParameter("slipId");
+        String slipId = request.getParameter("slipI232d");
+        String expalin = request.getParameter("Explain23s");
+
         Output findData2 = lab.findOne(slipId);
         findData2.setId(findData2.getId());
         findData2.setSerivce(findData2.getSerivce());
-        findData2.setExplain(findData2.getExplain());
+        if (expalin == "") {
+            findData2.setExplain(findData2.getExplain());
+        } else {
+            findData2.setExplain(expalin);
+        }
+
         String date = String.valueOf(java.time.LocalDate.now());
         findData2.setDate2(date);
         findData2.setDate(findData2.getDate());
-        findData2.setStatus("Completed");
-        findData2.setDeletestatus(Boolean.FALSE);
+        findData2.setStatus(2);
         lab.Save(findData2);
         for (int i = 0; i < idse.length; i++) {
             OutputContent dataget = lab1.findOneData(Integer.valueOf(idse[i]));
-            Warehouse getWarehouse = lab4.FindDupGoods("" + dataget.getGoodsId().toString() + "", "" + dataget.getWarehouse() + "", "" + dataget.getSupplier() + "");
+            Warehouse getWarehouse = lab4.findOnes(dataget.getGoodsId().toString(), dataget.getWarehouse());
             if (getWarehouse != null) {
                 getWarehouse.setQuantityInStock(getWarehouse.getQuantityInStock() - dataget.getQuantity());
                 getWarehouse.setPriceInStock(getWarehouse.getPriceInStock() - (getWarehouse.getImportPrice() * dataget.getQuantity()));
@@ -282,34 +284,17 @@ public class Outputcontroller {
             } else {
 //                System.out.println("Eo update");
             }
-            if (reference == null) {
-                //Insert history
-                Hisio history = new Hisio();
-                history.setGoodsId(dataget.getGoodsId());
-                history.setGoodsName(dataget.getGoodsName());
-                history.setDate(date);
-                history.setMajor("Output");
-                history.setPrice(dataget.getExportsPrices());
-                history.setQuantity(dataget.getQuantity());
-                history.setUnit(dataget.getUnit());
-                history.setWarehouse(dataget.getWarehouse());
-                history.setLicense("Other export");
-                lab5.save(history);
-            } else {
-                //Insert history
-                Hisio history = new Hisio();
-                history.setGoodsId(dataget.getGoodsId());
-                history.setGoodsName(dataget.getGoodsName());
-                history.setDate(date);
-                history.setMajor("Output");
-                history.setPrice(dataget.getExportsPrices());
-                history.setQuantity(dataget.getQuantity());
-                history.setUnit(dataget.getUnit());
-                history.setWarehouse(dataget.getWarehouse());
-                history.setLicense(reference[i]);
-                lab5.save(history);
-            }
-
+            Hisio history = new Hisio();
+            history.setGoodsId(dataget.getGoodsId());
+            history.setGoodsName(dataget.getGoodsName());
+            history.setDate(date);
+            history.setMajor("Output");
+            history.setPrice(dataget.getExportsPrices());
+            history.setQuantity(dataget.getQuantity());
+            history.setUnit(dataget.getUnit());
+            history.setWarehouse(dataget.getWarehouse());
+            history.setLicense(dataget.getReference());
+            lab5.save(history);
         }
         return "redirect:/web/warehouse/OutputSlip";
 

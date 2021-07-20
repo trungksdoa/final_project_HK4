@@ -27,6 +27,11 @@ public class GodscatagoryImpl implements Igoodscatagory {
         return lag.findAll();
     }
 
+    @Override
+    public CatagoryGroupSupplier Searchwhere(String id, String name) {
+      return lag.SearchWhere(id, name);
+    }
+
  
 
 }

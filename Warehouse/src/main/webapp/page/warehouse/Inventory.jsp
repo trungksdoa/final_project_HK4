@@ -13,13 +13,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Layout</title>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <!-- Fontanswome -->
@@ -33,13 +37,16 @@
         <!-- summernote -->
         <link rel="stylesheet" href="<c:url value='/resources/plugins/summernote/summernote-bs4.min.css' />"/>
 
-        <script>window.jQuery || document.write(decodeURIComponent('%3Cscript src="js/jquery.min.js"%3E%3C/script%3E'))</script>
-        <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.1.4/css/dx.common.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.1.4/css/dx.light.css" />
-        <script src="https://cdn3.devexpress.com/jslib/21.1.4/js/dx.all.js"></script>
         <script src="https://kit.fontawesome.com/cca0c56933.js" crossorigin="anonymous"></script>
         <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <link href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" ref="stylesheet"/>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" crossorigin="anonymous"></script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js" crossorigin="anonymous"></script>
         <!-- Google Font: Source Sans Pro -->
 
         <style>
@@ -66,67 +73,7 @@
 
             <!--//Incldue here-->
             <style>
-                #chart {
-                    height: 440px;
-                }
-                .card-counter{
-                    box-shadow: 2px 2px 10px #DADADA;
-                    margin: 5px;
-                    padding: 20px 10px;
-                    background-color: #fff;
-                    height: 100px;
-                    border-radius: 5px;
-                    transition: .3s linear all;
-                }
 
-                .card-counter:hover{
-                    box-shadow: 4px 4px 20px #DADADA;
-                    transition: .3s linear all;
-                }
-
-                .card-counter.primary{
-                    background-color: #007bff;
-                    color: #FFF;
-                }
-
-                .card-counter.danger{
-                    background-color: #ef5350;
-                    color: #FFF;
-                }  
-
-                .card-counter.success{
-                    background-color: #66bb6a;
-                    color: #FFF;
-                }  
-
-                .card-counter.info{
-                    background-color: #26c6da;
-                    color: #FFF;
-                }  
-
-                .card-counter i{
-                    font-size: 4em;
-                    opacity: 0.2;
-                }
-
-                .card-counter .count-numbers{
-                    position: absolute;
-                    right: 35px;
-                    top: 20px;
-                    font-size: 32px;
-                    display: block;
-                }
-
-                .card-counter .count-name{
-                    position: absolute;
-                    right: 35px;
-                    top: 65px;
-                    font-style: italic;
-                    text-transform: capitalize;
-                    opacity: 0.5;
-                    display: block;
-                    font-size: 18px;
-                }
                 #exTab2 h3 {
                     color: white;
                     background-color: #428bca;
@@ -154,30 +101,21 @@
                 }
             </style>
             <script>
-            $(function () {
-                $('#myTable').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
-                });
-//                $('#myTable').DataTable({
-//                    fixedColumns: true,
-//                    responsive: true,
-//                    dom: 'Bfrtip',
-//                    buttons: [
-//                        'copy', 'excel', 'pdf', 'print'
-//                    ],
-//                    scrollY: 200,
-//                    deferRender: true,
-//                    scroller: true,
-//                    select: true
-//                });
+                $(function () {
+                    $("#inputmyidsearch").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#mybodys tr").filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                    });
+                    $("#searhbox").on("keyup", function () {
+                        var value312512 = $(this).val().toLowerCase();
+                        $("#mysdsa tr").filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value312512) > -1)
+                        });
+                    });
 
-            });
+                });
             </script>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -229,50 +167,93 @@
                                         <div class="tab-content" id="custom-tabs-three-tabContent">
                                             <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
                                                  aria-labelledby="custom-tabs-three-home-tab">
-                                                <table id="myTable"  class="table table-bordered">
-                                                    <thead class="thead-light" id="tableheade">
-                                                        <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">ID</th>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">Quantity</th>
-                                                            <th scope="col">Input price</th>
-                                                            <th scope="col">Price</th>
-                                                            <th scope="col">Sell Price</th>
-                                                            <th scope="col">Group</th>
-                                                            <th scope="col">Weight</th>
-                                                            <th scope="col">Warehouse</th>
-                                                            <!--<th scope="col">Action</th>-->
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th style="text-align: center;" colspan="3">Total</th>
-                                                            <th>${sumquantity}</th>
-                                                            <th>
-                                                                ${SumPrice}
-                                                            </th>
-                                                        </tr>
-                                                        <% int stt = 1; %>
-                                                        <c:forEach items="${datalist}" var="x">
-                                                            <tr>
-                                                                <th scope="row"><%= stt %></th>
-                                                                <td>${x.goodsId}</td>
-                                                                <td>${x.goodsName}</td>
-                                                                <td>${x.quantityInStock}</td>
-                                                                <td>${x.importPrice}</td>
-                                                                <td>
-                                                                    ${x.priceInStock}
-                                                                </td>
-                                                                <td>${x.sellPrice}</td>
-                                                                <td>${x.groupGoods}</td>
-                                                                <td>${x.weight}</td>
-                                                                <td>${x.stockCard}</td>
-                                                            </tr>
-                                                            <% stt++; %>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table>
+                                                <div id="tabs">
+                                                    <ul>
+                                                        <li><a href="#tabs-1">1</a></li>
+                                                        <li><a href="#tabs-2">2</a></li>
+                                                    </ul>
+                                                    <div id="tabs-1">
+                                                        <input id="inputmyidsearch" type="text" placeholder="Search..">
+                                                        <table id="myTable"  class="table table-bordered">
+                                                            <thead class="thead-light" id="tableheade">
+                                                                <tr>
+                                                                    <th scope="col">#</th>
+                                                                    <th scope="col">ID</th>
+                                                                    <th scope="col">Name</th>
+                                                                    <th scope="col">Quantity</th>
+                                                                    <th scope="col">Input price</th>
+                                                                    <th scope="col">Price</th>
+                                                                    <th scope="col">Sell Price</th>
+                                                                    <th scope="col">Group</th>
+                                                                    <th scope="col">Weight</th>
+                                                                    <th scope="col">Warehouse</th>
+                                                                    <!--<th scope="col">Action</th>-->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id='mybodys'>
+                                                                <tr>
+                                                                    <th style="text-align: center;" colspan="3">Total</th>
+                                                                    <th>${sumquantity}</th>
+                                                                    <th></th>
+                                                                    <th>
+                                                                        ${SumPrice}
+                                                                    </th>
+                                                                </tr>
+                                                                <% int stt = 1; %>
+                                                                <c:forEach items="${datalist}" var="x">
+                                                                    <tr>
+                                                                        <th scope="row"><%= stt %></th>
+                                                                        <td>${x.goodsId}</td>
+                                                                        <td>${x.goodsName}</td>
+                                                                        <td>${x.quantityInStock}</td>
+                                                                        <td>${x.importPrice}</td>
+                                                                        <td>
+                                                                            ${x.priceInStock}
+                                                                        </td>
+                                                                        <td>${x.sellPrice}</td>
+                                                                        <td>${x.groupGoods}</td>
+                                                                        <td>${x.weight}</td>
+                                                                        <td>${x.stockCard}</td>
+                                                                    </tr>
+                                                                    <% stt++; %>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>                                              
+                                                    </div>
+                                                    <div id="tabs-2">
+                                                        <input id="searhbox" type="text" placeholder="Search..">
+                                                        <button style='float: right;
+                                                                width: 20%;'  type="button" id="prisdnthis" class="btn btn-block bg-gradient-info "><i class="fas fa-print"></i>Print</button>
+                                                        <table id='printthis'   class="table table-bordered">
+                                                            <thead class="thead-light" id="tableheade">
+                                                                <tr>
+                                                                    <th scope="col">#</th>
+                                                                    <th scope="col">Name</th>
+                                                                    <th scope="col">Unit</th>
+                                                                    <th scope="col">Quantity</th>
+                                                                    <th scope="col">Price</th>
+                                                                    <!--<th scope="col">Action</th>-->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id='mysdsa'>
+                                                                <% int stt421 = 1; %>
+                                                                <c:forEach items="${grdataList}" var="xx">
+                                                                    <tr>
+                                                                        <th scope="row"><%= stt421 %></th>
+                                                                        <td><c:out value = "${xx.getName()}"/></td>
+                                                                        <td><c:out value = "${xx.getUnit()}"/></td>
+                                                                        <td><c:out value = "${xx.getQuantity()}"/></td>
+                                                                        <td>
+                                                                            <c:out value = "${xx.getPrice()}"/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% stt421++; %>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>                                                         
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -325,50 +306,34 @@
         <%--<jsp:include page="/fragment/RootJs.jsp" />--%>  
         <!-- Bootstrap 4 -->
         <script>
-//            $(".GetId").click(function () {
-//                var warehouse = $(this).attr("class");
-//                var id = $(this).attr("id");
-//                var newString = warehouse.replace('GetId', '');
-//                $('#modalkho').modal('show')
-//                var groupList = [];
-//                var stt = 1;
-//                console.log("/api/stock/getId/" + id)
-//                $.get("/api/stock/getId/" + id, function (data, status) {
-//                    var chart = new CanvasJS.Chart("chartContainer", {
-//                        animationEnabled: true,
-//                        theme: "light2",
-//                        title: {
-//                            text: "Simple Line Chart"
-//                        },
-//                        data: [{
-//                                type: "line",
-//                                indexLabelFontSize: 16,
-//                                dataPoints: [
-//                                    {y: 450},
-//                                    {y: 414},
-//                                    {y: 520, indexLabel: "\u2191 highest", markerColor: "red", markerType: "triangle"},
-//                                    {y: 460},
-//                                    {y: 450},
-//                                    {y: 500},
-//                                    {y: 480},
-//                                    {y: 480},
-//                                    {y: 410, indexLabel: "\u2193 lowest", markerColor: "DarkSlateGrey", markerType: "cross"},
-//                                    {y: 500},
-//                                    {y: 480},
-//                                    {y: 510}
-//                                ]
-//                            }]
-//                    });
-//                    chart.render();
-//                });
-//            });
+            $("#tabs").tabs({
+
+            });
+            $("#prisdnthis").click(function () {
+                $('#printModa').modal('show')
+            })
             function preventClicl()
             {
                 $("#historyId").empty();
                 $('#modalkho').modal('hide')
             }
+            $("#prisdnthis").click(function () {
+                var d = new Date();
+
+                var month = d.getMonth() + 1;
+                var day = d.getDate();
+
+                var output = d.getFullYear() + '/' +
+                        (month < 10 ? '0' : '') + month + '/' +
+                        (day < 10 ? '0' : '') + day;
+                $('#printthis').printThis({
+                    importCSS: false,
+                    loadCSS: "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css",
+                    header: "Report date:" + output
+                });
+            });
         </script>
-        <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+        <script src="<c:url value="/resources/js/input/printThis.js" />"></script>  
         <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>

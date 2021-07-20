@@ -13,6 +13,7 @@ import com.warehouse.project.model.Vwtotal;
 import com.warehouse.project.model.Warehouse;
 import com.warehouse.project.model.beanclass.Hisotryio;
 import com.warehouse.project.model.beanclass.WarehouseBean;
+import com.warehouse.project.model.beanclass.WarehouseGrById;
 import com.warehouse.project.model.beanclass.WarehouseStock;
 import com.warehouse.project.service.warehouse.CheckSockSlipI;
 import com.warehouse.project.service.warehouse.ICheckstock;
@@ -78,9 +79,19 @@ public class KiemKeController {
             Sumquantity += warehouse1.getQuantityInStock();
             SumPrice += warehouse1.getPriceInStock();
         }
+        List<WarehouseGrById> grIdList = new ArrayList<>();
+        for (Object[] objects : lab.findAllGroupById()) {
+            String secondData = (String) objects[0];
+            String ThirtData = (String) objects[1];
+            int FourData = (int) objects[2];
+            int FiveData = (int) objects[3];
+            WarehouseGrById griD = new WarehouseGrById(secondData, ThirtData, FourData, FiveData);
+            grIdList.add(griD);
+        }
         model.addAttribute("datalist2", warehouse);
         model.addAttribute("SumPrice", SumPrice);
         model.addAttribute("sumquantity", Sumquantity);
+        model.addAttribute("grdataList", grIdList);
 //        model.addAttribute("historyIo", lab5.findAll());
         return "warehouse/Inventory";
     }
@@ -159,7 +170,7 @@ public class KiemKeController {
 
         String stockcard = request.getParameter("kho");
 
-        String[] idcode = request.getParameterValues("idcode");
+        String[] idcode = request.getParameterValues("nameCode");
         String[] quantity = request.getParameterValues("quantity");
         String[] realQuantity = request.getParameterValues("realQuantity");
         String[] BetweenRealAndStock = request.getParameterValues("BetweenRealAndStock");
@@ -195,8 +206,7 @@ public class KiemKeController {
             }
             sockSlip.setDate(date);
             sockSlip.setWarehouse(stockcard);
-            sockSlip.setStatus(Boolean.FALSE);
-            sockSlip.setStatus2("NotComplete");
+            sockSlip.setStatus(1);
             Checkstockslip newSlip = lab8.Save(sockSlip);
 
             for (int i = 0; i < idcode.length; i++) {
@@ -230,8 +240,7 @@ public class KiemKeController {
         Checkstockslip socklip = lab8.FindOne(codeIds2.trim());
         socklip.setDate(socklip.getDate());
         socklip.setWarehouse(socklip.getWarehouse());
-        socklip.setStatus(Boolean.FALSE);
-        socklip.setStatus2("Completed");
+        socklip.setStatus(2);
         lab8.Save(socklip);
 
         for (int i = 0; i < idcode.length; i++) {
@@ -260,7 +269,7 @@ public class KiemKeController {
                 warehouse2.setQuantityInStock(Integer.valueOf(quantityreal[i].trim()));
                 warehouse2.setImportPrice(warehouse2.getImportPrice());
                 warehouse2.setSupplier(warehouse2.getSupplier());
-                warehouse2.setPriceInStock(warehouse2.getImportPrice() *  Integer.valueOf(quantityreal[i].trim()));
+                warehouse2.setPriceInStock(warehouse2.getImportPrice() * Integer.valueOf(quantityreal[i].trim()));
                 warehouse2.setGroupGoods(warehouse2.getGroupGoods());
                 warehouse2.setWeight(warehouse2.getWeight());
                 warehouse2.setStockCard(warehouse2.getStockCard());
@@ -286,7 +295,7 @@ public class KiemKeController {
                 historyabc.setDate(datesd);
 
                 historyabc.setGoodsName(warehouselaydata.getGoodsName());
-                historyabc.setQuantity(0-different1);
+                historyabc.setQuantity(0 - different1);
                 historyabc.setPrice(warehouselaydata.getImportPrice());
                 historyabc.setUnit(warehouselaydata.getUnit());
                 historyabc.setWarehouse(warehouses.trim());
@@ -326,7 +335,7 @@ public class KiemKeController {
         newdata.setId(idcode);
         newdata.setDate(Dates);
         newdata.setWarehouse(Warehouses);
-        newdata.setStatus(Boolean.TRUE);
+        newdata.setStatus(3);
         lab8.Save(newdata);
 //        model.addAttribute("message", "Delete Success");
         return "redirect:/web/warehouse/page4";

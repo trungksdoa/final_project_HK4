@@ -64,7 +64,7 @@ $("#saerchFrom").on("submit", function (event) {
 //    var serializedData = $('form').serialize();
 // serializedData = 'name=&age=99&blah=';
     data = data.replace(/&?[^=]+=&|&[^=]+=$/g, '');
-    console.log(data)
+//    console.log(data)
     var url = "warehouse/voucher/" + data;
     $.get("/api/output/voucher/" + data)
             .done(function (response) {
@@ -108,7 +108,7 @@ $("#saerchFrom2").on("submit", function (event) {
     $("#myTable2").empty();
     var data = $('#saerchFrom2').serialize();
     var url = "/warehouse/findProduction/" + data;
-    console.log(data)
+//    console.log(data)
     $.get("/api/output/findProduction/" + data)
             .done(function (response) {
                 var table = document.getElementById("myTable2");

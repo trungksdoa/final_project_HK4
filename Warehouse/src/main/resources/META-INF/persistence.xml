@@ -33,7 +33,6 @@
     <class>com.warehouse.project.model.Voucherreportrefere</class>
     <class>com.warehouse.project.model.QrCode</class>
     <class>com.warehouse.project.model.Voucherreport</class>
-    <class>com.warehouse.project.model.TranferConent</class>
     <class>com.warehouse.project.model.IOreport</class>
     <class>com.warehouse.project.model.IOreportrefererence</class>
     <class>com.warehouse.project.model.Productiongoods</class>
@@ -51,9 +50,7 @@
     <class>com.warehouse.project.model.CatagoryGroupSupplier</class>
     <class>com.warehouse.project.model.Input_1</class>
     <class>com.warehouse.project.model.Output_1</class>
-    <class>com.warehouse.project.model.Production</class>
     <class>com.warehouse.project.model.GoodsCatagory</class>
-    <class>com.warehouse.project.model.Findbyid</class>
     <class>com.warehouse.project.model.TranferWarehouse_1</class>
     <class>com.warehouse.project.model.Dynamicinputcontent</class>
     <class>com.warehouse.project.model.Warehouse</class>
@@ -65,6 +62,16 @@
     <class>com.warehouse.project.model.Checkslip</class>
     <class>com.warehouse.project.model.Checkstockslip</class>
     <class>com.warehouse.project.model.Input</class>
+    <class>com.warehouse.project.model.TranferConent</class>
+    <class>com.warehouse.project.model.Beginninggoods</class>
+    <class>com.warehouse.project.model.Vsalescoupon</class>
+    <class>com.warehouse.project.model.Vwwarehousesio</class>
+    <class>com.warehouse.project.model.CheckDupSlip</class>
+    <class>com.warehouse.project.model.VWarehouse</class>
+    <class>com.warehouse.project.model.VQuotes</class>
+    <class>com.warehouse.project.model.VQuotesContent</class>
+    <class>com.warehouse.project.model.Productionordercontent</class>
+    <class>com.warehouse.project.model.Production</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Databases_"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

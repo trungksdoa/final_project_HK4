@@ -1,12 +1,14 @@
-function Autocomplete(index)
+function Autocomplete(values)
 {
+    var mateches = values.trim().match(/(\d+)/);
+    var index = mateches[0];
     var goodsArray = [];
     $.get("/api/input/goodsCatagory/", function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var tempArray = new Array();
-            tempArray["id"] = data[i].id;
+            tempArray["id"] = data[i].goodsName;
             tempArray["label"] = data[i].id;
-            tempArray["value"] = data[i].goodsName;
+            tempArray["value"] = data[i].id;
             tempArray["lastedPurchasePrice"] = data[i].lastedPurchasePrice;
             tempArray["weight"] = data[i].weight;
             tempArray["unit"] = data[i].unit;
@@ -16,26 +18,44 @@ function Autocomplete(index)
         }
     });
     for (var i = 0; i < stt; i++) {
-        $("#search" + i).autocomplete({
+        $("#codeid" + i).autocomplete({
             source: goodsArray,
             select: function (e, ui) {
                 var e = ui.item;
-                $("#codeid" + index).val(e.id);
-                $("#unit" + index).val(e.unit);
-                $('#group' + index).val(e.group);
-                $('#quantity' + index).val(1);
-                $('#importprice' + index).val(1)
-                $('#weightOn1' + index).val(e.weight);
-                $('#weight' + index).val(e.weight * 1)
+//                console.log(e.value);
+                if (listIp.indexOf(e.value) > -1) {
+                    //In the array!
+                    alert("Cant not enter a goods already have !!")
+                    return false;
+                } else {
+                    $('#codeid' + index).val(e.value)
+                    $("#name" + index).val(e.id);
+                    $("#unit" + index).val(e.unit);
+                    $('#group' + index).val(e.group);
+                    $('#quantity' + index).val(1);
+                    $('#importprice' + index).val(1)
+                    $('#weight' + index).val(e.weight)
+                    listIp.push(e.value);
+                    $('#codeid' + index).removeAttr("onkeydown");
+                    //
+                    //
+                    $("#codeid" + index).attr("onkeydown", "return isValidKey(event)");
+                }
+
+
+            }, create: function () {
+                $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                    return $('<li>')
+                            .append("<a>" + item.value + ' | ' + item.id + "</a>")
+                            .appendTo(ul);
+                };
             },
 
             change: function (e, ui) {
+                var e = ui.item;
+
             }
-        }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>")
-                    .append("<div>" + item.value + "<br>" + item.label + "</div>")
-                    .appendTo(ul);
-        };
+        });
     }
 
     var stockcard = [];

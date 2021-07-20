@@ -45,4 +45,6 @@ public class TranferWarehouseImpl implements ITranferWarehouse {
         return lab.findByList();
     }
 
+   
+
 }

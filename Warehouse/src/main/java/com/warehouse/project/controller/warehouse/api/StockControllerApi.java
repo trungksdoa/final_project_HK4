@@ -11,9 +11,11 @@ import com.warehouse.project.model.Production;
 import com.warehouse.project.model.Hisio;
 import com.warehouse.project.model.TranferWarehouse;
 import com.warehouse.project.model.TranferConent;
+import com.warehouse.project.model.Warehouse;
 import com.warehouse.project.model.beanclass.WarehouseBean;
 import com.warehouse.project.service.warehouse.CheckSockSlipI;
 import com.warehouse.project.service.warehouse.ICheckstock;
+import com.warehouse.project.service.warehouse.ITranferContent;
 import com.warehouse.project.service.warehouse.ITranferWarehouse;
 import com.warehouse.project.service.warehouse.IWarehouse;
 import com.warehouse.project.service.warehouse.Ihistory;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -54,11 +57,95 @@ public class StockControllerApi {
     @Autowired
     ITranferWarehouse ewqeqw;
 
+    @Autowired
+    ITranferContent content2;
+
+    @ResponseBody
+    @GetMapping("/findAllWarehouse/")
+    public ResponseEntity<List<Warehouse>> findAllWarehouse() {
+        List<Warehouse> datalistwh = lab2.findAllData();
+        if (!datalistwh.isEmpty()) {
+            return new ResponseEntity<>(datalistwh, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/SearchWhere/{id}")
+    public ResponseEntity<List<Warehouse>> getCategory(@PathVariable("id") String id) {
+        List<Warehouse> datalistwh = lab2.SearchWhere(id);
+        if (!datalistwh.isEmpty()) {
+            return new ResponseEntity<>(datalistwh, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
     @ResponseBody
     @RequestMapping(value = "/TranferWarehouse/{id}")
     public TranferWarehouse findInputData(@PathVariable("id") String idking) {
         TranferWarehouse ssss = ewqeqw.findOne(idking);
         return ssss;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/DeleteBy/")
+    public TranferConent DeleteBy(@RequestParam("id") int idking) {
+        TranferConent dataint = content2.findOne(idking);
+        content2.Delete(dataint);
+        return dataint;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/SaveNewTranContent/")
+    public ResponseEntity<Collection<TranferConent>> SaveNewTranContent(@RequestParam("UpGoodssId") String UpGoodssId,
+            @RequestParam("UpQuantity") String UpQuantity, @RequestParam("UpUnit") String UpUnit,
+            @RequestParam("UpFrom") String UpFrom, @RequestParam("UpTo") String UpTo, @RequestParam("codeis22") String codeis22
+    ) {
+        TranferWarehouse setNewiD = new TranferWarehouse();
+        setNewiD.setId(codeis22);
+        TranferConent daatlis = content2.findTwo(UpGoodssId, setNewiD);
+//        System.out.print(daatlis);
+        if (daatlis != null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            TranferConent updatenewdata = new TranferConent();
+            updatenewdata.setGoodsid(UpGoodssId);
+            updatenewdata.setUnit(UpUnit);
+            updatenewdata.setQuantity(Integer.valueOf(UpQuantity));
+            updatenewdata.setFroms(UpFrom);
+            updatenewdata.setTos(UpTo);
+            TranferWarehouse tranfers = new TranferWarehouse();
+            tranfers.setId(codeis22);
+            updatenewdata.setTraferId(tranfers);
+            TranferConent Respondata = content2.save(updatenewdata);
+            TranferWarehouse Warehousetranfer = ewqeqw.findOne(codeis22);
+            Collection<TranferConent> objectList = Warehousetranfer.getTranferConentCollection();
+            if (!objectList.isEmpty()) {
+                return new ResponseEntity<>(objectList, HttpStatus.OK);
+
+            } else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/UpdatePlusQuantity/")
+    public TranferConent UpdatePlusQuantity(@RequestParam("id") int idking, @RequestParam("qty") int qty) {
+        TranferConent dataint = content2.findOne(idking);
+        dataint.setGoodsid(dataint.getGoodsid());
+        dataint.setUnit(dataint.getUnit());
+        dataint.setFroms(dataint.getFroms());
+        dataint.setTos(dataint.getTos());
+        dataint.setTraferId(dataint.getTraferId());
+        dataint.setQuantity(qty);
+        TranferConent oueah = content2.save(dataint);
+        return oueah;
     }
 
     @ResponseBody
